@@ -19,11 +19,14 @@ end
 Echoe.new(PKG_NAME, PKG_VERSION) do |p|
   p.author        = "Simone Carletti"
   p.email         = "weppos@weppos.net"
-  p.summary       = ""
+  p.summary       = "Domain Name parser based on the Public Suffix List"
   p.url           = "http://code.simonecarletti.com/domain-name"
   p.project       = RUBYFORGE_PROJECT
   p.description   = <<-EOD
-  EOD
+Intelligent Domain Name parser based in the Public Suffic List. \
+Domain Name can parse and decompose a domain name into top level domain, \
+domain and subdomains.
+EOD
 
   p.need_zip      = true
 

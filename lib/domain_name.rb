@@ -1,7 +1,7 @@
 #
 # = DomainName
 #
-# MissingDescription
+# Domain Name parser based on the Public Suffix List
 #
 #
 # Category::    Net
