@@ -78,7 +78,7 @@ class DomainName
           while(ii < one.size && one[ii] == two[ii])
             ii += 1
           end
-          one[ii..one.count]
+          one[ii..one.length]
         end
 
     end
