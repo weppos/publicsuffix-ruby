@@ -15,6 +15,7 @@
 
 
 require 'domain_name/version'
+require 'domain_name/errors'
 require 'domain_name/rule'
 require 'domain_name/rule_list'
 
@@ -26,11 +27,12 @@ class DomainName
   AUTHORS         = ['Simone Carletti <weppos@weppos.net>']
 
 
-  attr_reader :name, :tld, :sld, :trd, :rule
+  attr_reader :name
 
 
-  def initialize(name)
+  def initialize(name, &block)
     @name = name
+    yield(self) if block_given?
   end  
   
   def labels
@@ -51,44 +53,49 @@ class DomainName
   end
 
 
+  def tld
+    parse
+    @tld
+  end
+
+  def sld
+    parse
+    @sld
+  end
+  alias :domain :tld
+
+  def trd
+    parse
+    @trd
+  end
+  alias :subdomain :trd
+
+
   protected
 
     def parse
-      case rule!.type
-
-        # "foo.google.com"
-        when :normal
-          match = /^(.*)\.(#{Regexp.escape(rule.value)})$/.match(name.to_s)
-          ignore, full, tld = match.to_a
-
-        # "photos.verybritish.co.uk"
-        when :wildcard
-          match = /^(.*)\.(.*?\.#{Regexp.escape(rule.value)})$/.match(name.to_s)
-          ignore, full, tld = match.to_a
-
-        # "photos.wishlist.parliament.uk"
-        when :exception
-          match = /^(.*)\.(#{Regexp.escape(rule.value.split('.', 2).last)})$/.match(name.to_s)
-          ignore, full, tld = match.to_a
-
-        else
-          raise Error, "WTF?!?"
-      end
+      return self if @parsed
+      full, tld = rule!.decompose(self)
 
       # If we have 0 parts left, there is just a tld and no domain or subdomain
       # If we have 1 part, it's the domain, and there is no subdomain
       # If we have 2+ parts, the last part is the domain, the other parts (combined) are the subdomain
-      parts = full.split(".")
-      @tld  = tld
-      @sld  = parts.empty? ? nil : parts.pop
-      @trd  = parts.empty? ? nil : parts.join(".")
+      parts   = full.split(".")
+      @tld    = tld
+      @sld    = parts.empty? ? nil : parts.pop
+      @trd    = parts.empty? ? nil : parts.join(".")
 
+      @parsed = true
       self
     end
 
 
   def self.valid?(domain)
-    !Domain.new(domain).rule.nil?
+    !new(domain).rule.nil?
+  end
+
+  def self.parse(domain)
+     new(domain) { |d| d.rule! }
   end
 
 end

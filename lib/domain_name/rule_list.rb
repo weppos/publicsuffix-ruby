@@ -129,7 +129,7 @@ class DomainName
               next
             # append rule
             else
-              list << Rule.new(line)
+              list << Rule.factory(line)
             end
           end
         end

@@ -19,32 +19,32 @@ class RuleListTest < Test::Unit::TestCase
   end
 
   def test_equality_with_internals
-    rule = DomainName::Rule.new("com")
+    rule = DomainName::Rule.factory("com")
     assert_equal DomainName::RuleList.new.add(rule), DomainName::RuleList.new.add(rule)
   end
 
 
   def test_add
-    assert_equal @list, @list.add(DomainName::Rule.new(""))
-    assert_equal @list, @list <<  DomainName::Rule.new("")
+    assert_equal @list, @list.add(DomainName::Rule.factory(""))
+    assert_equal @list, @list <<  DomainName::Rule.factory("")
     assert_equal 2, @list.length
   end
 
   def test_empty?
     assert  @list.empty?
-    @list.add(DomainName::Rule.new(""))
+    @list.add(DomainName::Rule.factory(""))
     assert !@list.empty?
   end
 
   def test_size
     assert_equal 0, @list.length
-    assert_equal @list, @list.add(DomainName::Rule.new(""))
+    assert_equal @list, @list.add(DomainName::Rule.factory(""))
     assert_equal 1, @list.length
   end
 
   def test_clear
     assert_equal 0, @list.length
-    assert_equal @list, @list.add(DomainName::Rule.new(""))
+    assert_equal @list, @list.add(DomainName::Rule.factory(""))
     assert_equal 1, @list.length
     assert_equal @list, @list.clear
     assert_equal 0, @list.length
@@ -62,13 +62,13 @@ com
 !bl.uk
 !british-library.uk
 EOS
-    assert_equal DomainName::Rule.new("com"),  @list.find(domain_name("google.com"))
-    assert_equal DomainName::Rule.new("com"),  @list.find(domain_name("foo.google.com"))
-    assert_equal DomainName::Rule.new("*.uk"), @list.find(domain_name("google.uk"))
-    assert_equal DomainName::Rule.new("*.uk"), @list.find(domain_name("google.co.uk"))
-    assert_equal DomainName::Rule.new("*.uk"), @list.find(domain_name("foo.google.co.uk"))
-    assert_equal DomainName::Rule.new("!british-library.uk"), @list.find(domain_name("british-library.uk"))
-    assert_equal DomainName::Rule.new("!british-library.uk"), @list.find(domain_name("foo.british-library.uk"))
+    assert_equal DomainName::Rule.factory("com"),  @list.find(domain_name("google.com"))
+    assert_equal DomainName::Rule.factory("com"),  @list.find(domain_name("foo.google.com"))
+    assert_equal DomainName::Rule.factory("*.uk"), @list.find(domain_name("google.uk"))
+    assert_equal DomainName::Rule.factory("*.uk"), @list.find(domain_name("google.co.uk"))
+    assert_equal DomainName::Rule.factory("*.uk"), @list.find(domain_name("foo.google.co.uk"))
+    assert_equal DomainName::Rule.factory("!british-library.uk"), @list.find(domain_name("british-library.uk"))
+    assert_equal DomainName::Rule.factory("!british-library.uk"), @list.find(domain_name("foo.british-library.uk"))
   end
 
   def test_select
@@ -172,7 +172,7 @@ EOS
 
     assert_instance_of DomainName::RuleList, list
     assert_equal 5, list.length
-    assert_equal %w(ac com.ac ad *.ar !congresodelalengua3.ar).map { |name| DomainName::Rule.new(name) }, list.to_a
+    assert_equal %w(ac com.ac ad *.ar !congresodelalengua3.ar).map { |name| DomainName::Rule.factory(name) }, list.to_a
   end
 
 end
