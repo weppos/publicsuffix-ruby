@@ -1,0 +1,56 @@
+= Domain Name Parser
+
+DomainName is a Ruby domain name parser based on the Public Suffix List available at http://publicsuffix.org/.
+
+
+== What is the Public Suffix List?
+
+The Public Suffix List is a cross-vendor initiative to provide an accurate list of domain name suffixes.
+
+The Public Suffix List is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
+
+A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
+
+Source http://publicsuffix.org/.
+
+
+== Why the Public Suffix List is better than any available Regular Expression parser?
+
+Since there was and remains no algorithmic method of finding the highest level at which a domain may be registered for a particular top-level domain (the policies differ with each registry), the only method is to create a list. This is the aim of the Public Suffix List.
+
+Not convinced yet? Check out a real world example:
+http://stackoverflow.com/questions/288810/get-the-subdomain-from-a-url
+
+
+== Requirements
+
+* Ruby >= 1.8.6 (not tested with previous versions)
+
+Successfully tested against
+
+* Ruby 1.8.6 / 1.8.7 / 1.9.1
+* MacRuby 0.4
+* Ruby Enterprise Edition
+
+
+== Installation
+
+Via RubyGems/Gemcutter
+
+  $ gem install domain_name --source http://gemcutter.org
+
+You might need administrator privileges on your system to install it.
+
+== Credits
+
+Author:: {Simone Carletti}[http://www.simonecarletti.com/] <weppos@weppos.net>
+
+
+== Changelog
+
+See the CHANGELOG.rdoc file for details.
+
+
+== License
+
+Copyright (c) 2009 Simone Carletti, DomainName is released under the MIT license.
