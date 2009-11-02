@@ -41,6 +41,30 @@ Via RubyGems/Gemcutter
 
 You might need administrator privileges on your system to install it.
 
+
+== Usage
+
+Example domain without subdomains.
+
+  domain = DomainName.parse("google.com")
+  domain.tld
+  # => "com"
+  domain.domain
+  # => "google"
+  domain.subdomain
+  # => nil
+
+Example domain with subdomains.
+
+  domain = DomainName.parse("www.google.com")
+  domain.tld
+  # => "com"
+  domain.domain
+  # => "google"
+  domain.subdomain
+  # => "www"
+
+
 == Credits
 
 Author:: {Simone Carletti}[http://www.simonecarletti.com/] <weppos@weppos.net>
