@@ -1,6 +1,6 @@
 = Domain Name Parser
 
-DomainName is a Ruby domain name parser based on the Public Suffix List available at http://publicsuffix.org/.
+DomainName is a Ruby domain name parser based on the Public Suffix List available at http://publicsuffix.org.
 
 
 == What is the Public Suffix List?
@@ -11,7 +11,7 @@ The Public Suffix List is an initiative of the Mozilla Project, but is maintaine
 
 A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
 
-Source http://publicsuffix.org/.
+Source http://publicsuffix.org.
 
 
 == Why the Public Suffix List is better than any available Regular Expression parser?
