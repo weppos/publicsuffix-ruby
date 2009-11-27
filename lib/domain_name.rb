@@ -90,10 +90,42 @@ class DomainName
     end
 
 
+  # Returns whether <tt>domain</tt> is a valid domain.
+  #
+  #   DomainName.valid?("google.com")
+  #   # => true
+  #   
+  #   DomainName.valid?("www.google.com")
+  #   # => true
+  #   
+  #   DomainName.valid?("http://www.google.com")
+  #   # => false
+  #   
+  #   DomainName.valid?("x.yz")
+  #   # => false
+  #
   def self.valid?(domain)
     !new(domain).rule.nil?
   end
 
+  # Parses <tt>domain</tt> and returns a new <tt>DomainName</tt> instance.
+  #
+  #   DomainName.parse("google.com")
+  #   # => #<DomainName ...>
+  #   
+  #   DomainName.parse("www.google.com")
+  #   # => #<DomainName ...>
+  #   
+  #   DomainName.parse("http://www.google.com")
+  #   # => raises
+  #   
+  #   DomainName.parse("x.yz")
+  #   # => raises
+  #
+  # ==== Raises
+  #
+  # DomainName::Error:: if <tt>domain</tt> is not a valid domain
+  #
   def self.parse(domain)
      new(domain) { |d| d.rule! }
   end

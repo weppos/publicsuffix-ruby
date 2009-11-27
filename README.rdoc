@@ -64,6 +64,17 @@ Example domain with subdomains.
   domain.subdomain
   # => "www"
 
+Simple validation example.
+
+  DomainName.valid?("google.com")
+  # => true
+
+  DomainName.valid?("www.google.com")
+  # => true
+
+  DomainName.valid?("x.yz")
+  # => false
+
 
 == Credits
 
