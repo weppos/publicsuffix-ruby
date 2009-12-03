@@ -18,7 +18,7 @@ class DomainNameTest < Test::Unit::TestCase
   end
 
   def test_rule_missing
-    assert_equal nil, domain_name("google.gzip").rule
+    assert_equal nil, domain_name("google.zip").rule
   end
 
   def test_rule_bang
@@ -26,7 +26,18 @@ class DomainNameTest < Test::Unit::TestCase
   end
 
   def test_rule_bang_missing
-    assert_raise(DomainName::Error) { domain_name("google.gzip").rule! } 
+    assert_raise(DomainName::Error) { domain_name("google.zip").rule! } 
+  end
+
+  def test_valid
+    assert  domain_name("google.com").valid?
+    assert !domain_name("google.zip").valid?
+  end
+
+
+  def test_self_valid
+    assert  DomainName.valid?("google.com")
+    assert !DomainName.valid?("google.zip")
   end
 
 end

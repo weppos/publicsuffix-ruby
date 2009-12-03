@@ -55,6 +55,12 @@ class DomainName
     rule  || raise(Error, "The domain cannot be found in the TLD definition file")
   end
 
+  # Returns whether <tt>domain</tt> is a valid domain
+  # according to default <tt>RuleList</tt>.
+  def valid?
+    !rule.nil?
+  end
+
 
   def tld
     parse
@@ -109,7 +115,7 @@ class DomainName
   #   # => false
   #
   def self.valid?(domain)
-    !new(domain).rule.nil?
+    new(domain).valid?
   end
 
   # Parses <tt>domain</tt> and returns a new <tt>DomainName</tt> instance.

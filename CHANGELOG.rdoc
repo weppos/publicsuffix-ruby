@@ -2,6 +2,8 @@
 
 == next mini
 
+* ADDED: DomainName#valid?
+
 * CHANGED: Make sure RuleList lookup is only performed once.
 
 
