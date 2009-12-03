@@ -29,9 +29,26 @@ class DomainNameTest < Test::Unit::TestCase
     assert_raise(DomainName::Error) { domain_name("google.zip").rule! } 
   end
 
-  def test_valid
+
+  def test_valid_question
     assert  domain_name("google.com").valid?
+    assert  domain_name("www.google.com").valid?
     assert !domain_name("google.zip").valid?
+    assert !domain_name("www.google.zip").valid?
+  end
+
+  def test_valid_domain_question
+    assert  domain_name("google.com").valid_domain?
+    assert  domain_name("www.google.com").valid_domain?
+    assert !domain_name("google.zip").valid_domain?
+    assert !domain_name("www.google.zip").valid_domain?
+  end
+
+  def test_valid_subdomain_question
+    assert !domain_name("google.com").valid_subdomain?
+    assert  domain_name("www.google.com").valid_subdomain?
+    assert !domain_name("google.zip").valid_subdomain?
+    assert !domain_name("www.google.zip").valid_subdomain?
   end
 
 
@@ -73,7 +90,7 @@ class DomainNameTest < Test::Unit::TestCase
   end
 
 
-  def test_self_valid
+  def test_self_valid_question
     assert  DomainName.valid?("google.com")
     assert !DomainName.valid?("google.zip")
   end

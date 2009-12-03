@@ -55,10 +55,47 @@ class DomainName
     rule  || raise(Error, "The domain cannot be found in the TLD definition file")
   end
 
-  # Returns whether <tt>domain</tt> is a valid domain
+
+  # Returns whether <tt>self</tt> is valid
   # according to default <tt>RuleList</tt>.
   def valid?
-    !rule.nil?
+    parse
+    !(@tld.nil?)
+  end
+
+  # Returns whether <tt>self</tt> is a valid domain
+  # according to default <tt>RuleList</tt>.
+  #
+  #   DomainName.new("google.com").valid_domain?
+  #   # => true
+  #   DomainName.new("www.google.com").valid_domain?
+  #   # => true
+  #   DomainName.new("google.zip").valid_domain?
+  #   # => false
+  #   DomainName.new("www.google.zip").valid_domain?
+  #   # => false
+  #
+  def valid_domain?
+    parse
+    !(@tld.nil? || @sld.nil?)
+  end
+
+
+  # Returns whether <tt>self</tt> is a valid subdomain
+  # according to default <tt>RuleList</tt>.
+  #
+  #   DomainName.new("google.com").valid_subdomain?
+  #   # => false
+  #   DomainName.new("www.google.com").valid_subdomain?
+  #   # => true
+  #   DomainName.new("google.zip").valid_subdomain?
+  #   # => false
+  #   DomainName.new("www.google.zip").valid_subdomain?
+  #   # => false
+  #
+  def valid_subdomain?
+    parse
+    !(@tld.nil? || @sld.nil? || @trd.nil?)
   end
 
 

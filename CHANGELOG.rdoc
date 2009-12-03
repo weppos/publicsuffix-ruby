@@ -6,6 +6,8 @@
 
 * ADDED: DomainName#parse and DomainName#parse!
 
+* ADDED: DomainName#valid_domain? and DomainName#valid_subdomain?
+
 * CHANGED: Make sure RuleList lookup is only performed once.
 
 
