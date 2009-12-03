@@ -18,14 +18,13 @@ class DomainName
 
   module Version
     MAJOR = 0
-    MINOR = 1
+    MINOR = 2
     TINY  = 0
+    ALPHA = nil
 
-    STRING = [MAJOR, MINOR, TINY].join('.')
+    STRING = [MAJOR, MINOR, TINY, ALPHA].compact.join('.')
   end
 
-  VERSION         = Version::STRING
-  STATUS          = 'dev'
-  BUILD           = nil
+  VERSION = Version::STRING
 
 end
