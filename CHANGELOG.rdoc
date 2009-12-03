@@ -1,5 +1,10 @@
 = Changelog
 
+== next mini
+
+* CHANGED: Make sure RuleList lookup is only performed once.
+
+
 == Release 0.1.0
 
 * Initial version

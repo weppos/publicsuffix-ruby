@@ -31,7 +31,9 @@ class DomainName
 
 
   def initialize(name, &block)
-    @name = name
+    @name   = name
+    @ruled  = false
+    @parsed = false
     yield(self) if block_given?
   end  
   
@@ -45,6 +47,7 @@ class DomainName
 
 
   def rule
+    return @rule if @ruled
     @rule ||= RuleList.default.find(self)
   end
 
@@ -90,7 +93,8 @@ class DomainName
     end
 
 
-  # Returns whether <tt>domain</tt> is a valid domain.
+  # Returns whether <tt>domain</tt> is a valid domain
+  # according to default <tt>RuleList</tt>.
   #
   #   DomainName.valid?("google.com")
   #   # => true

@@ -13,11 +13,19 @@ class DomainNameTest < Test::Unit::TestCase
   end
 
 
-  def rule_missing
+  def test_rule
+    assert_kind_of DomainName::Rule::Base, domain_name("google.com").rule
+  end
+
+  def test_rule_missing
     assert_equal nil, domain_name("google.gzip").rule
   end
 
-  def rule_bang_missing
+  def test_rule_bang
+    assert_kind_of DomainName::Rule::Base, domain_name("google.com").rule!
+  end
+
+  def test_rule_bang_missing
     assert_raise(DomainName::Error) { domain_name("google.gzip").rule! } 
   end
 
