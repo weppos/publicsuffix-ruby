@@ -4,6 +4,8 @@
 
 * ADDED: DomainName#valid?
 
+* ADDED: DomainName#parse and DomainName#parse!
+
 * CHANGED: Make sure RuleList lookup is only performed once.
 
 

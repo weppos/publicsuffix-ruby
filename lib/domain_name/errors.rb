@@ -19,4 +19,7 @@ class DomainName
   class Error < StandardError
   end
 
+  class InvalidDomain < Error
+  end
+
 end

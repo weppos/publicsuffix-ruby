@@ -35,6 +35,44 @@ class DomainNameTest < Test::Unit::TestCase
   end
 
 
+  def test_tld
+    assert_raise(DomainName::InvalidDomain) { domain_name("google.zip").tld }
+    assert_equal "com", domain_name("google.com").tld
+  end
+
+  def test_sld
+    assert_raise(DomainName::InvalidDomain) { domain_name("google.zip").sld }
+    assert_equal "google", domain_name("google.com").sld
+  end
+
+  def test_tld
+    assert_raise(DomainName::InvalidDomain) { domain_name("google.zip").trd }
+    assert_equal nil, domain_name("google.com").trd
+    assert_equal "www", domain_name("www.google.com").trd
+  end
+
+
+  def test_parse
+    domain = domain_name("google.zip")
+    assert_equal domain, domain.parse
+    assert_equal nil, domain.rule
+
+    domain = domain_name("google.com")
+    assert_equal domain, domain.parse
+    assert_not_equal nil, domain.rule
+  end
+
+  def test_parse_bang
+    domain = domain_name("google.zip")
+    assert_raise(DomainName::InvalidDomain) { domain.parse! }
+    assert_equal nil, domain.rule
+
+    domain = domain_name("google.com")
+    assert_equal domain, domain.parse
+    assert_not_equal nil, domain.rule
+  end
+
+
   def test_self_valid
     assert  DomainName.valid?("google.com")
     assert !DomainName.valid?("google.zip")

@@ -63,40 +63,45 @@ class DomainName
 
 
   def tld
-    parse
+    parse!
     @tld
   end
 
   def sld
-    parse
+    parse!
     @sld
   end
   alias :domain :tld
 
   def trd
-    parse
+    parse!
     @trd
   end
   alias :subdomain :trd
 
 
-  protected
+  def parse
+    return self if @parsed
+    return self if rule.nil?
 
-    def parse
-      return self if @parsed
-      full, tld = rule!.decompose(self)
+    full, tld = rule.decompose(self)
 
-      # If we have 0 parts left, there is just a tld and no domain or subdomain
-      # If we have 1 part, it's the domain, and there is no subdomain
-      # If we have 2+ parts, the last part is the domain, the other parts (combined) are the subdomain
-      parts   = full.split(".")
-      @tld    = tld
-      @sld    = parts.empty? ? nil : parts.pop
-      @trd    = parts.empty? ? nil : parts.join(".")
+    # If we have 0 parts left, there is just a tld and no domain or subdomain
+    # If we have 1 part, it's the domain, and there is no subdomain
+    # If we have 2+ parts, the last part is the domain, the other parts (combined) are the subdomain
+    parts   = full.split(".")
+    @tld    = tld
+    @sld    = parts.empty? ? nil : parts.pop
+    @trd    = parts.empty? ? nil : parts.join(".")
 
-      @parsed = true
-      self
-    end
+    @parsed = true
+    self
+  end
+
+  def parse!
+    (parse && rule) || raise(InvalidDomain, "`#{name}' is not a valid domain")
+    self
+  end
 
 
   # Returns whether <tt>domain</tt> is a valid domain
@@ -137,7 +142,7 @@ class DomainName
   # DomainName::Error:: if <tt>domain</tt> is not a valid domain
   #
   def self.parse(domain)
-     new(domain) { |d| d.rule! }
+     new(domain).parse!
   end
 
 end
