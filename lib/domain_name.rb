@@ -36,10 +36,6 @@ class DomainName
     @parsed = false
     yield(self) if block_given?
   end
-  
-  def labels
-    to_s.split(".").reverse
-  end
 
   def to_s
     name.to_s

@@ -36,7 +36,7 @@ class DomainName
         @name   = name.to_s
         @value  = value || @name
         @type   = self.class.name.split("::").last.downcase.to_sym
-        @labels = @value.split(".").reverse
+        @labels = domain_to_label(@value)
       end
 
 
@@ -52,7 +52,7 @@ class DomainName
       # Returns <tt>true</tt> if this rule matches <tt>domain_name</tt>.
       def match?(domain_name)
         l1 = labels
-        l2 = domain_name.labels
+        l2 = domain_to_label(domain_name)
         odiff(l1, l2).empty?
       end
 
@@ -72,6 +72,10 @@ class DomainName
 
 
       private
+
+        def domain_to_label(domain)
+          domain.to_s.split(".").reverse
+        end
 
         def odiff(one, two)
           ii = 0

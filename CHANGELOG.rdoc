@@ -4,6 +4,8 @@
 
 * CHANGED: DomainName#domain and DomainName#subdomain are no longer alias of Domain#sld and Domain#tld but rather a full-features methods.
 
+* CHANGED: Removed DomainName#labels and decoupled Rule from DomainName.
+
 
 == Release 0.2.0
 
