@@ -1,5 +1,9 @@
 = Changelog
 
+== next mini
+
+* CHANGED: DomainName#domain and DomainName#subdomain are no longer alias of Domain#sld and Domain#tld but rather a full-features methods.
+
 
 == Release 0.2.0
 

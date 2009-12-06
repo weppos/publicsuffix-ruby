@@ -35,7 +35,7 @@ class DomainName
     @ruled  = false
     @parsed = false
     yield(self) if block_given?
-  end  
+  end
   
   def labels
     to_s.split(".").reverse
@@ -80,7 +80,6 @@ class DomainName
     !(@tld.nil? || @sld.nil?)
   end
 
-
   # Returns whether <tt>self</tt> is a valid subdomain
   # according to default <tt>RuleList</tt>.
   #
@@ -99,6 +98,23 @@ class DomainName
   end
 
 
+  # Returns a domain-like representation of this object
+  # if the object is a <tt>valid_domain?</tt>,
+  # <tt>nil</tt> otherwise.
+  def domain
+    return unless valid_domain?
+    [@sld, @tld].join(".")
+  end
+
+  # Returns a subdomain-like representation of this object
+  # if the object is a <tt>subvalid_domain?</tt>,
+  # <tt>nil</tt> otherwise.
+  def subdomain
+    return unless valid_subdomain?
+    [@trd, @sld, @tld].join(".")
+  end
+
+
   def tld
     parse!
     @tld
@@ -108,13 +124,11 @@ class DomainName
     parse!
     @sld
   end
-  alias :domain :tld
 
   def trd
     parse!
     @trd
   end
-  alias :subdomain :trd
 
 
   def parse

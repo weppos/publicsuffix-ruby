@@ -52,6 +52,23 @@ class DomainNameTest < Test::Unit::TestCase
   end
 
 
+  def test_domain
+    assert_equal "google.com", domain_name("google.com").domain
+    assert_equal "google.com", domain_name("www.google.com").domain
+
+    assert_equal nil, domain_name("google.zip").domain
+    assert_equal nil, domain_name("www.google.zip").domain
+  end
+
+  def test_subdomain
+    assert_equal nil, domain_name("google.com").subdomain
+    assert_equal "www.google.com", domain_name("www.google.com").subdomain
+
+    assert_equal nil, domain_name("google.zip").subdomain
+    assert_equal nil, domain_name("www.google.zip").subdomain
+  end
+
+
   def test_tld
     assert_raise(DomainName::InvalidDomain) { domain_name("google.zip").tld }
     assert_equal "com", domain_name("google.com").tld
