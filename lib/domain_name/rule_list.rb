@@ -50,7 +50,7 @@ class DomainName
       self
     end
     alias << add
-    
+
     # Returns the number of elements.
     def size
       @list.size
