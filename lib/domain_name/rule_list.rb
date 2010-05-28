@@ -50,7 +50,7 @@ class DomainName
       self
     end
     alias << add
-    
+
     # Returns the number of elements.
     def size
       @list.size
@@ -69,14 +69,14 @@ class DomainName
     end
 
 
-    def find(domain_name)
-      rules = select(domain_name)
+    def find(domain)
+      rules = select(domain)
       rules.select { |r|   r.type == :exception }.first ||
       rules.inject { |t,r| t.length > r.length ? t : r }
     end
 
-    def select(domain_name)
-      @list.select { |rule| rule.match?(domain_name) }
+    def select(domain)
+      @list.select { |rule| rule.match?(domain) }
     end
 
 
