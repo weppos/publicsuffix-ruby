@@ -2,22 +2,23 @@ require 'test_helper'
 
 class RuleTest < Test::Unit::TestCase
 
-  def test_initialize_rule_normal
+  def test_factory_should_return_rule_normal
     rule = DomainName::Rule.factory("verona.it")
     assert_instance_of DomainName::Rule::Normal, rule
   end
 
-  def test_initialize_rule_exception
+  def test_factory_should_return_rule_exception
     rule = DomainName::Rule.factory("!british-library.uk")
     assert_instance_of DomainName::Rule::Exception, rule
   end
 
-  def test_initialize_rule_wildcard
+  def test_factory_should_return_rule_wildcard
     rule = DomainName::Rule.factory("*.aichi.jp")
     assert_instance_of DomainName::Rule::Wildcard, rule
   end
 
 end
+
 
 class RuleBaseTest < Test::Unit::TestCase
 
@@ -32,7 +33,7 @@ class RuleBaseTest < Test::Unit::TestCase
   def test_initialize
     rule = @klass.new("verona.it")
     assert_instance_of @klass,          rule
-    
+
     assert_equal :base,                 rule.type
     assert_equal "verona.it",           rule.name
     assert_equal "verona.it",           rule.value
@@ -50,7 +51,8 @@ class RuleBaseTest < Test::Unit::TestCase
     assert_not_equal  @klass.new("foo"), DomainName::Rule::Test.new("bar")
     assert_not_equal  @klass.new("foo"), Class.new { def name; foo; end }.new
   end
-  
+
+
   def test_match
     assert  @klass.new("uk").match?(domain_name("google.uk"))
     assert !@klass.new("gk").match?(domain_name("google.uk"))
@@ -94,6 +96,7 @@ class RuleNormalTest < Test::Unit::TestCase
     assert_equal %w(verona it).reverse,     rule.labels
   end
 
+
   def test_match
     assert  @klass.new("uk").match?(domain_name("google.uk"))
     assert !@klass.new("gk").match?(domain_name("google.uk"))
@@ -105,7 +108,7 @@ class RuleNormalTest < Test::Unit::TestCase
     assert !@klass.new("uk.co").match?(domain_name("google.co.uk"))
     assert !@klass.new("go.uk").match?(domain_name("google.co.uk"))
   end
-  
+
   def test_length
     assert_equal 1, @klass.new("com").length
     assert_equal 2, @klass.new("co.com").length
@@ -125,6 +128,7 @@ class RuleNormalTest < Test::Unit::TestCase
 
 end
 
+
 class RuleExceptionTest < Test::Unit::TestCase
 
   def setup
@@ -140,6 +144,7 @@ class RuleExceptionTest < Test::Unit::TestCase
     assert_equal "british-library.uk",            rule.value
     assert_equal %w(british-library uk).reverse,  rule.labels
   end
+
 
   def test_match
     assert  @klass.new("!uk").match?(domain_name("google.co.uk"))
@@ -167,6 +172,7 @@ class RuleExceptionTest < Test::Unit::TestCase
 
 end
 
+
 class RuleWildcardTest < Test::Unit::TestCase
 
   def setup
@@ -182,6 +188,7 @@ class RuleWildcardTest < Test::Unit::TestCase
     assert_equal "aichi.jp",                rule.value
     assert_equal %w(aichi jp).reverse,      rule.labels
   end
+
 
   def test_match
     assert  @klass.new("*.uk").match?(domain_name("google.uk"))
@@ -204,6 +211,5 @@ class RuleWildcardTest < Test::Unit::TestCase
     assert_equal %w(google co.uk), @klass.new("*.uk").decompose(DomainName.new("google.co.uk"))
     assert_equal %w(foo.google co.uk), @klass.new("*.uk").decompose(DomainName.new("foo.google.co.uk"))
   end
-
 
 end

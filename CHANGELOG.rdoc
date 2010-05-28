@@ -2,7 +2,7 @@
 
 == next mini
 
-* CHANGED: DomainName#domain and DomainName#subdomain are no longer alias of Domain#sld and Domain#tld but rather a full-features methods.
+* CHANGED: DomainName#domain and DomainName#subdomain are no longer alias of Domain#sld and Domain#tld.
 
 * CHANGED: Removed DomainName#labels and decoupled Rule from DomainName.
 
