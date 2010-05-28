@@ -8,6 +8,8 @@
 
 * CHANGED: DomainName#valid? no longer instantiates new DomainName objects. This means less overhead.
 
+* CHANGED: Refactoring the entire DomainName API. Removed the internal on-the-fly parsing. Added a bunch of new methods to check and validate the DomainName.
+
 
 == Release 0.2.0
 
