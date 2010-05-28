@@ -104,7 +104,11 @@ class DomainNameTest < Test::Unit::TestCase
 
   def test_self_valid_question
     assert  DomainName.valid?("google.com")
+    assert  DomainName.valid?("www.google.com")
+    assert  DomainName.valid?("google.co.uk")
+    assert  DomainName.valid?("www.google.co.uk")
     assert !DomainName.valid?("google.zip")
+    assert !DomainName.valid?("www.google.zip")
   end
 
 end

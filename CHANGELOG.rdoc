@@ -6,6 +6,8 @@
 
 * CHANGED: Removed DomainName#labels and decoupled Rule from DomainName.
 
+* CHANGED: DomainName#valid? no longer instantiates new DomainName objects. This means less overhead.
+
 
 == Release 0.2.0
 

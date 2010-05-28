@@ -151,8 +151,14 @@ class DomainName
   end
 
 
-  # Returns whether <tt>domain</tt> is a valid domain
-  # according to default <tt>RuleList</tt>.
+  # Checks whether <tt>domain</tt> is a valid domain name.
+  #
+  # This method doesn't care whether domain is a domain or subdomain.
+  # The check is performed using the default <tt>DomainName::RuleList</tt>.
+  #
+  # domain - A String with the domain name to check
+  #
+  # Examples
   #
   #   DomainName.valid?("google.com")
   #   # => true
@@ -166,8 +172,9 @@ class DomainName
   #   DomainName.valid?("x.yz")
   #   # => false
   #
+  # Returns true if <tt>domain</tt> is a valid domain.
   def self.valid?(domain)
-    new(domain).valid?
+    !RuleList.default.find(domain).nil?
   end
 
   # Parses <tt>domain</tt> and returns a new <tt>DomainName</tt> instance.
@@ -189,7 +196,7 @@ class DomainName
   # DomainName::Error:: if <tt>domain</tt> is not a valid domain
   #
   def self.parse(domain)
-     new(domain).parse!
+    new(domain).parse!
   end
 
 end
