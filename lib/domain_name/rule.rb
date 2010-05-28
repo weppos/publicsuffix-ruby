@@ -140,7 +140,7 @@ class DomainName
       #
       # Return an Array with [trd + sld, tld].
       def decompose(domain)
-        domain.name =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -170,7 +170,7 @@ class DomainName
       #
       # Return an Array with [trd + sld, tld].
       def decompose(domain)
-        domain.name =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
+        domain.to_s =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -201,7 +201,7 @@ class DomainName
       #
       # Return an Array with [trd + sld, tld].
       def decompose(domain)
-        domain.name =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 
