@@ -1,5 +1,7 @@
 = Changelog
 
+*IMPORTANT*: DomainName has been renamed to PublicSuffixService. This Gem is no longer maintained.
+
 
 == Release 0.3.0
 

@@ -9,7 +9,7 @@ require 'domain_name'
 # Common package properties
 PKG_NAME    = ENV['PKG_NAME']    || DomainName::GEM
 PKG_VERSION = ENV['PKG_VERSION'] || DomainName::VERSION
-RUBYFORGE_PROJECT = 'domain_name'
+RUBYFORGE_PROJECT = nil
 
 if ENV['SNAPSHOT'].to_i == 1
   PKG_VERSION << "." << Time.now.utc.strftime("%Y%m%d%H%M%S")
@@ -20,7 +20,7 @@ Echoe.new(PKG_NAME, PKG_VERSION) do |p|
   p.author        = "Simone Carletti"
   p.email         = "weppos@weppos.net"
   p.summary       = "Domain Name parser based on the Public Suffix List"
-  p.url           = "http://code.simonecarletti.com/domain-name"
+  p.url           = "http://www.simonecarletti.com/code/public-suffix-service"
   p.project       = RUBYFORGE_PROJECT
   p.description   = <<-EOD
 Intelligent Domain Name parser based in the Public Suffic List. \

@@ -1,5 +1,8 @@
 = Domain Name Parser
 
+*IMPORTANT*: DomainName has been renamed to PublicSuffixService. This Gem is no longer maintained.
+
+
 DomainName is a Ruby domain name parser based on the Public Suffix List available at http://publicsuffix.org.
 
 
@@ -35,7 +38,7 @@ Successfully tested against
 
 == Installation
 
-Via RubyGems/Gemcutter
+Via RubyGems
 
   $ gem install domain_name
 

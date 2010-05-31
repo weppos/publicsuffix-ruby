@@ -6,6 +6,10 @@ class RuleListTest < Test::Unit::TestCase
     @list = DomainName::RuleList.new
   end
 
+  def teardown
+    DomainName::RuleList.clear
+  end
+
 
   def test_initialize
     assert_instance_of DomainName::RuleList, @list
@@ -62,13 +66,13 @@ com
 !bl.uk
 !british-library.uk
 EOS
-    assert_equal DomainName::Rule.factory("com"),  @list.find(domain_name("google.com"))
-    assert_equal DomainName::Rule.factory("com"),  @list.find(domain_name("foo.google.com"))
-    assert_equal DomainName::Rule.factory("*.uk"), @list.find(domain_name("google.uk"))
-    assert_equal DomainName::Rule.factory("*.uk"), @list.find(domain_name("google.co.uk"))
-    assert_equal DomainName::Rule.factory("*.uk"), @list.find(domain_name("foo.google.co.uk"))
-    assert_equal DomainName::Rule.factory("!british-library.uk"), @list.find(domain_name("british-library.uk"))
-    assert_equal DomainName::Rule.factory("!british-library.uk"), @list.find(domain_name("foo.british-library.uk"))
+    assert_equal DomainName::Rule.factory("com"),  @list.find("google.com")
+    assert_equal DomainName::Rule.factory("com"),  @list.find("foo.google.com")
+    assert_equal DomainName::Rule.factory("*.uk"), @list.find("google.uk")
+    assert_equal DomainName::Rule.factory("*.uk"), @list.find("google.co.uk")
+    assert_equal DomainName::Rule.factory("*.uk"), @list.find("foo.google.co.uk")
+    assert_equal DomainName::Rule.factory("!british-library.uk"), @list.find("british-library.uk")
+    assert_equal DomainName::Rule.factory("!british-library.uk"), @list.find("foo.british-library.uk")
   end
 
   def test_select
@@ -82,7 +86,7 @@ com
 !bl.uk
 !british-library.uk
 EOS
-    assert_equal 2, @list.select(domain_name("british-library.uk")).size
+    assert_equal 2, @list.select("british-library.uk").size
   end
 
 

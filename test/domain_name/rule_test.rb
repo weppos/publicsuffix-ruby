@@ -54,15 +54,15 @@ class RuleBaseTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("uk").match?(domain_name("google.uk"))
-    assert !@klass.new("gk").match?(domain_name("google.uk"))
-    assert !@klass.new("google").match?(domain_name("google.uk"))
-    assert  @klass.new("uk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("gk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("co").match?(domain_name("google.co.uk"))
-    assert  @klass.new("co.uk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("uk.co").match?(domain_name("google.co.uk"))
-    assert !@klass.new("go.uk").match?(domain_name("google.co.uk"))
+    assert  @klass.new("uk").match?("google.uk")
+    assert !@klass.new("gk").match?("google.uk")
+    assert !@klass.new("google").match?("google.uk")
+    assert  @klass.new("uk").match?("google.co.uk")
+    assert !@klass.new("gk").match?("google.co.uk")
+    assert !@klass.new("co").match?("google.co.uk")
+    assert  @klass.new("co.uk").match?("google.co.uk")
+    assert !@klass.new("uk.co").match?("google.co.uk")
+    assert !@klass.new("go.uk").match?("google.co.uk")
   end
 
   def test_length
@@ -74,7 +74,7 @@ class RuleBaseTest < Test::Unit::TestCase
   end
 
   def test_decompose
-    assert_raise(NotImplementedError) { @klass.new("com").decompose(DomainName.new("google.com")) }
+    assert_raise(NotImplementedError) { @klass.new("com").decompose("google.com") }
   end
 
 end
@@ -98,15 +98,15 @@ class RuleNormalTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("uk").match?(domain_name("google.uk"))
-    assert !@klass.new("gk").match?(domain_name("google.uk"))
-    assert !@klass.new("google").match?(domain_name("google.uk"))
-    assert  @klass.new("uk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("gk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("co").match?(domain_name("google.co.uk"))
-    assert  @klass.new("co.uk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("uk.co").match?(domain_name("google.co.uk"))
-    assert !@klass.new("go.uk").match?(domain_name("google.co.uk"))
+    assert  @klass.new("uk").match?("google.uk")
+    assert !@klass.new("gk").match?("google.uk")
+    assert !@klass.new("google").match?("google.uk")
+    assert  @klass.new("uk").match?("google.co.uk")
+    assert !@klass.new("gk").match?("google.co.uk")
+    assert !@klass.new("co").match?("google.co.uk")
+    assert  @klass.new("co.uk").match?("google.co.uk")
+    assert !@klass.new("uk.co").match?("google.co.uk")
+    assert !@klass.new("go.uk").match?("google.co.uk")
   end
 
   def test_length
@@ -122,8 +122,8 @@ class RuleNormalTest < Test::Unit::TestCase
   end
 
   def test_decompose
-    assert_equal %w(google com), @klass.new("com").decompose(DomainName.new("google.com"))
-    assert_equal %w(foo.google com), @klass.new("com").decompose(DomainName.new("foo.google.com"))
+    assert_equal %w(google com), @klass.new("com").decompose("google.com")
+    assert_equal %w(foo.google com), @klass.new("com").decompose("foo.google.com")
   end
 
 end
@@ -147,12 +147,12 @@ class RuleExceptionTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("!uk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("!gk").match?(domain_name("google.co.uk"))
-    assert  @klass.new("!co.uk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("!go.uk").match?(domain_name("google.co.uk"))
-    assert  @klass.new("!british-library.uk").match?(domain_name("british-library.uk"))
-    assert !@klass.new("!british-library.uk").match?(domain_name("google.co.uk"))
+    assert  @klass.new("!uk").match?("google.co.uk")
+    assert !@klass.new("!gk").match?("google.co.uk")
+    assert  @klass.new("!co.uk").match?("google.co.uk")
+    assert !@klass.new("!go.uk").match?("google.co.uk")
+    assert  @klass.new("!british-library.uk").match?("british-library.uk")
+    assert !@klass.new("!british-library.uk").match?("google.co.uk")
   end
 
   def test_length
@@ -166,8 +166,8 @@ class RuleExceptionTest < Test::Unit::TestCase
   end
 
   def test_decompose
-    assert_equal %w(british-library uk), @klass.new("!british-library.uk").decompose(DomainName.new("british-library.uk"))
-    assert_equal %w(foo.british-library uk), @klass.new("!british-library.uk").decompose(DomainName.new("foo.british-library.uk"))
+    assert_equal %w(british-library uk), @klass.new("!british-library.uk").decompose("british-library.uk")
+    assert_equal %w(foo.british-library uk), @klass.new("!british-library.uk").decompose("foo.british-library.uk")
   end
 
 end
@@ -191,10 +191,10 @@ class RuleWildcardTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("*.uk").match?(domain_name("google.uk"))
-    assert  @klass.new("*.uk").match?(domain_name("google.co.uk"))
-    assert  @klass.new("*.co.uk").match?(domain_name("google.co.uk"))
-    assert !@klass.new("*.go.uk").match?(domain_name("google.co.uk"))
+    assert  @klass.new("*.uk").match?("google.uk")
+    assert  @klass.new("*.uk").match?("google.co.uk")
+    assert  @klass.new("*.co.uk").match?("google.co.uk")
+    assert !@klass.new("*.go.uk").match?("google.co.uk")
   end
 
   def test_length
@@ -208,8 +208,8 @@ class RuleWildcardTest < Test::Unit::TestCase
   end
 
   def test_decompose
-    assert_equal %w(google co.uk), @klass.new("*.uk").decompose(DomainName.new("google.co.uk"))
-    assert_equal %w(foo.google co.uk), @klass.new("*.uk").decompose(DomainName.new("foo.google.co.uk"))
+    assert_equal %w(google co.uk), @klass.new("*.uk").decompose("google.co.uk")
+    assert_equal %w(foo.google co.uk), @klass.new("*.uk").decompose("foo.google.co.uk")
   end
 
 end
