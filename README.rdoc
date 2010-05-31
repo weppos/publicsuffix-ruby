@@ -37,7 +37,7 @@ Successfully tested against
 
 Via RubyGems/Gemcutter
 
-  $ gem install domain_name --source http://gemcutter.org
+  $ gem install domain_name
 
 You might need administrator privileges on your system to install it.
 
