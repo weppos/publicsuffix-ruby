@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 }
   s.email = %q{weppos@weppos.net}
   s.extra_rdoc_files = ["CHANGELOG.rdoc", "LICENSE.rdoc", "README.rdoc"]
-  s.files = ["Rakefile", "init.rb", "CHANGELOG.rdoc", "LICENSE.rdoc", "README.rdoc", "test/acceptance_test.rb", "test/public_suffix_service", "test/public_suffix_service/domain_test.rb", "test/public_suffix_service/rule_list_test.rb", "test/public_suffix_service/rule_test.rb", "test/public_suffix_service_test.rb", "test/test_helper.rb", "lib/public_suffix_service", "lib/public_suffix_service/definitions.dat", "lib/public_suffix_service/domain.rb", "lib/public_suffix_service/errors.rb", "lib/public_suffix_service/rule.rb", "lib/public_suffix_service/rule_list.rb", "lib/public_suffix_service/version.rb", "lib/public_suffix_service.rb"]
+  s.files = ["Rakefile", "CHANGELOG.rdoc", "LICENSE.rdoc", "README.rdoc", "public_suffix_service.gemspec", "test/acceptance_test.rb", "test/public_suffix_service/domain_test.rb", "test/public_suffix_service/rule_list_test.rb", "test/public_suffix_service/rule_test.rb", "test/public_suffix_service_test.rb", "test/test_helper.rb", "lib/public_suffix_service/definitions.dat", "lib/public_suffix_service/domain.rb", "lib/public_suffix_service/errors.rb", "lib/public_suffix_service/rule.rb", "lib/public_suffix_service/rule_list.rb", "lib/public_suffix_service/version.rb", "lib/public_suffix_service.rb"]
   s.homepage = %q{http://www.simonecarletti.com/code/public-suffix-service}
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]
@@ -23,8 +23,11 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<mocha>, [">= 0"])
     else
+      s.add_dependency(%q<mocha>, [">= 0"])
     end
   else
+    s.add_dependency(%q<mocha>, [">= 0"])
   end
 end
