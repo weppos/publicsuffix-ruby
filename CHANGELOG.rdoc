@@ -6,6 +6,11 @@
 * CHANGED: Rename library from DomainName to PublicSuffixService to reduce the probability of name conflicts.
 
 
+== Release 0.3.1
+
+* Deprecated DomainName library.
+
+
 == Release 0.3.0
 
 * CHANGED: DomainName#domain and DomainName#subdomain are no longer alias of Domain#sld and Domain#tld.
