@@ -11,7 +11,7 @@ lib/domain_name/rule_list.rb
 lib/domain_name/version.rb
 tasks/domain_name.rake
 test/acceptance_test.rb
+test/domain_name/rule_list_test.rb
+test/domain_name/rule_test.rb
 test/domain_name_test.rb
-test/rule_list_test.rb
-test/rule_test.rb
 test/test_helper.rb

@@ -1,7 +1,7 @@
 = Changelog
 
 
-== next mini
+== Release 0.3.0
 
 * CHANGED: DomainName#domain and DomainName#subdomain are no longer alias of Domain#sld and Domain#tld.
 
