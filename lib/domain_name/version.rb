@@ -19,10 +19,10 @@ class DomainName
   module Version
     MAJOR = 0
     MINOR = 2
-    TINY  = 0
-    ALPHA = nil
+    PATCH = 0
+    BUILD = nil
 
-    STRING = [MAJOR, MINOR, TINY, ALPHA].compact.join('.')
+    STRING = [MAJOR, MINOR, PATCH, BUILD].compact.join(".")
   end
 
   VERSION = Version::STRING
