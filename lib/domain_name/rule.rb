@@ -113,8 +113,9 @@ class DomainName
     #   rule.match?("google.com")
     #   # => false
     #
-    # Rule order is significant. A domain can match more than one rule:
-    # first matches, first wins.
+    # Rule order is significant. A domain can match more than one rule.
+    # See the {Public Suffix Documentation}[http://publicsuffix.org/format/]
+    # to learn more about rule priority.
     #
     # When you have the right rule, you can use it to tokenize the domain name.
     # 
