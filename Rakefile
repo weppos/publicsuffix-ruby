@@ -1,8 +1,9 @@
-$:.unshift(File.dirname(__FILE__) + "/lib")
+require "rubygems"
+require "rake/testtask"
+require "rake/rdoctask"
+require "rake/gempackagetask"
 
-require 'rubygems'
-require 'rake'
-require 'echoe'
+$:.unshift(File.dirname(__FILE__) + "/lib")
 require 'public_suffix_service'
 
 
@@ -16,27 +17,99 @@ if ENV['SNAPSHOT'].to_i == 1
 end
 
 
-Echoe.new(PKG_NAME, PKG_VERSION) do |p|
-  p.author        = "Simone Carletti"
-  p.email         = "weppos@weppos.net"
-  p.summary       = "Domain Name parser based on the Public Suffix List"
-  p.url           = "http://www.simonecarletti.com/code/public-suffix-service"
-  p.project       = RUBYFORGE_PROJECT
-  p.description   = <<-EOD
-Intelligent Domain Name parser based in the Public Suffic List. \
-Domain Name can parse and decompose a domain name into top level domain, \
-domain and subdomains.
-EOD
-
-  p.need_zip      = true
-
-  p.development_dependencies += ["rake  ~>0.8",
-                                 "echoe ~>3.2",
-                                 "mocha ~>0.9"]
-
-  p.rcov_options  = ["-Itest -x mocha,rcov,Rakefile"]
+# Run all the tests in the /test folder
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList["test/**/*_test.rb"]
+  t.verbose = true
 end
 
+# Generate documentation
+Rake::RDocTask.new do |rd|
+  rd.main = "README.rdoc"
+  rd.rdoc_files.include("*.rdoc", "lib/**/*.rb")
+  rd.rdoc_dir = "rdoc"
+end
+
+# Run test by default.
+task :default => ["test"]
+
+
+# This builds the actual gem. For details of what all these options
+# mean, and other ones you can add, check the documentation here:
+#
+#   http://rubygems.org/read/chapter/20
+#
+spec = Gem::Specification.new do |s|
+
+  s.name              = PKG_NAME
+  s.version           = PKG_VERSION
+  s.summary           = "Domain Name parser based on the Public Suffix List"
+  s.author            = "Simone Carletti"
+  s.email             = "weppos@weppos.net"
+  s.homepage          = "http://www.simonecarletti.com/code/public-suffix-service"
+  s.description       = <<-EOD
+    Intelligent Domain Name parser based in the Public Suffic List. \
+    Domain Name can parse and decompose a domain name into top level domain, \
+    domain and subdomains.
+  EOD
+
+  s.has_rdoc          = true
+  # You should probably have a README of some kind. Change the filename
+  # as appropriate
+  s.extra_rdoc_files  = Dir.glob("*.rdoc")
+  s.rdoc_options      = %w(--main README.rdoc)
+
+  # Add any extra files to include in the gem (like your README)
+  s.files             = %w(Rakefile init.rb) + Dir.glob("*.{rdoc,gemspec}") + Dir.glob("{test,lib}/**/*")
+  s.require_paths     = ["lib"]
+
+  # If you want to depend on other gems, add them here, along with any
+  # relevant versions
+  # s.add_dependency("some_other_gem", "~> 0.1.0")
+
+  # If your tests use any gems, include them here
+  # s.add_development_dependency("mocha") # for example
+end
+
+# This task actually builds the gem. We also regenerate a static
+# .gemspec file, which is useful if something (i.e. GitHub) will
+# be automatically building a gem for this project. If you're not
+# using GitHub, edit as appropriate.
+Rake::GemPackageTask.new(spec) do |pkg|
+  pkg.gem_spec = spec
+end
+
+desc "Build the gemspec file #{spec.name}.gemspec"
+task :gemspec do
+  file = File.dirname(__FILE__) + "/#{spec.name}.gemspec"
+  File.open(file, "w") {|f| f << spec.to_ruby }
+end
+
+desc "Remove any temporary products, including gemspec."
+task :clean => [:clobber] do
+  rm "#{spec.name}.gemspec"
+end
+
+desc "Remove any generated file"
+task :clobber => [:clobber_rdoc, :clobber_rcov, :clobber_package]
+
+desc "Package the library and generates the gemspec"
+task :package => [:gemspec]
+
+begin
+  require "rcov/rcovtask"
+
+  desc "Create a code coverage report."
+  Rcov::RcovTask.new do |t|
+    t.test_files = FileList["test/**/*_test.rb"]
+    t.ruby_opts << "-Itest -x mocha,rcov,Rakefile"
+    t.verbose = true
+  end
+rescue LoadError
+  task :clobber_rcov
+  puts "RCov is not available"
+end
 
 desc "Open an irb session preloaded with this library"
 task :console do
