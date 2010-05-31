@@ -45,6 +45,87 @@ class DomainName
     end
 
 
+    #
+    # = Abstract rule class
+    #
+    # This represent the base class for a Rule definition
+    # in the {Public Suffix List}[http://publicsuffix.org].
+    # 
+    # This is intended to be an Abstract class
+    # and you sholnd't create a direct instance. The only purpose
+    # of this class is to expose a common interface
+    # for all the available subclasses.
+    #
+    # * DomainName::Rule::Normal
+    # * DomainName::Rule::Exception
+    # * DomainName::Rule::Wildcard
+    #
+    # == Properties
+    #
+    # A rule is composed by 4 properties:
+    #
+    # name    - The name of the rule, corresponding to the rule definition
+    #           in the public suffic list
+    # value   - The value, a normalized version of the rule name.
+    #           The normalization process depends on rule tpe.
+    # type    - The rule type (:normal, :wildcard, :exception)
+    # labels  - The canonicalized rule name
+    #
+    # Here's an example
+    #
+    #   DomainName::Rule.factory("*.google.com")
+    #   #<DomainName::Rule::Wildcard:0x1015c14b0 
+    #       @labels=["com", "google"],
+    #       @name="*.google.com",
+    #       @type=:wildcard,
+    #       @value="google.com"
+    #   >
+    #
+    # == Rule Creation
+    #
+    # The best way to create a new rule is passing the rule name
+    # to the <tt>DomainName::Rule.factory</tt> method.
+    #
+    #   DomainName::Rule.factory("com")
+    #   # => DomainName::Rule::Normal
+    #
+    #   DomainName::Rule.factory("*.com")
+    #   # => DomainName::Rule::Wildcard
+    #
+    # This method will detect the rule type and create an instance
+    # from the proper rule class.
+    #
+    # == Rule Usage
+    #
+    # A rule describes the composition of a domain name
+    # and explains how to tokenize the domain name
+    # into tld, sld and trd.
+    #
+    # To use a rule, you first need to be sure the domain you want to tokenize
+    # can be handled by the current rule.
+    # You can use the <tt>#match?</tt> method.
+    #
+    #   rule = DomainName::Rule.factory("com")
+    #   
+    #   rule.match?("google.com")
+    #   # => true
+    #   
+    #   rule.match?("google.com")
+    #   # => false
+    #
+    # Rule order is significant. A domain can match more than one rule:
+    # first matches, first wins.
+    #
+    # When you have the right rule, you can use it to tokenize the domain name.
+    # 
+    #   rule = DomainName::Rule.factory("com")
+    # 
+    #   rule.decompose("google.com")
+    #   # => ["google", "com"]
+    # 
+    #   rule.decompose("www.google.com")
+    #   # => ["www.google", "com"]
+    #
     class Base
 
       attr_reader :name, :value, :type, :labels
