@@ -3,13 +3,13 @@ $:.unshift(File.dirname(__FILE__) + "/lib")
 require 'rubygems'
 require 'rake'
 require 'echoe'
-require 'domain_name'
+require 'public_suffix_service'
 
 
 # Common package properties
-PKG_NAME    = ENV['PKG_NAME']    || DomainName::GEM
-PKG_VERSION = ENV['PKG_VERSION'] || DomainName::VERSION
-RUBYFORGE_PROJECT = 'domain_name'
+PKG_NAME    = ENV['PKG_NAME']    || PublicSuffixService::GEM
+PKG_VERSION = ENV['PKG_VERSION'] || PublicSuffixService::VERSION
+RUBYFORGE_PROJECT = nil
 
 if ENV['SNAPSHOT'].to_i == 1
   PKG_VERSION << "." << Time.now.utc.strftime("%Y%m%d%H%M%S")
@@ -20,7 +20,7 @@ Echoe.new(PKG_NAME, PKG_VERSION) do |p|
   p.author        = "Simone Carletti"
   p.email         = "weppos@weppos.net"
   p.summary       = "Domain Name parser based on the Public Suffix List"
-  p.url           = "http://code.simonecarletti.com/domain-name"
+  p.url           = "http://www.simonecarletti.com/code/public-suffix-service"
   p.project       = RUBYFORGE_PROJECT
   p.description   = <<-EOD
 Intelligent Domain Name parser based in the Public Suffic List. \
@@ -40,14 +40,14 @@ end
 
 desc "Open an irb session preloaded with this library"
 task :console do
-  sh "irb -rubygems -I lib -r domain_name.rb"
+  sh "irb -rubygems -I lib -r public_suffix_service.rb"
 end
 
 begin
   require 'code_statistics'
   desc "Show library's code statistics"
   task :stats do
-    CodeStatistics.new(["DomainName", "lib"],
+    CodeStatistics.new(["Public Suffix Service", "lib"],
                        ["Tests", "test"]).to_s
   end
 rescue LoadError

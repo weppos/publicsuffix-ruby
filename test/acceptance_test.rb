@@ -15,7 +15,7 @@ class AcceptanceTest < Test::Unit::TestCase
 
   def test_all
     CASES.each do |name, results|
-      domain = DomainName.parse(name)
+      domain = PublicSuffixService.parse(name)
       trd, sld, tld = results
       assert_equal tld, domain.tld, "Invalid tld for '#{name}'"
       assert_equal sld, domain.sld, "Invalid sld for '#{name}'"
