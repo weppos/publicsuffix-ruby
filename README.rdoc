@@ -1,6 +1,6 @@
-= Domain Name Parser
+= Public Suffix Service
 
-DomainName is a Ruby domain name parser based on the Public Suffix List available at http://publicsuffix.org.
+Public Suffix Service is a Ruby domain name parser based on the Public Suffix List available at http://publicsuffix.org.
 
 
 == What is the Public Suffix List?
@@ -11,12 +11,20 @@ The Public Suffix List is an initiative of the Mozilla Project, but is maintaine
 
 A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
 
-Source http://publicsuffix.org.
+Source: http://publicsuffix.org
 
 
 == Why the Public Suffix List is better than any available Regular Expression parser?
 
-Since there was and remains no algorithmic method of finding the highest level at which a domain may be registered for a particular top-level domain (the policies differ with each registry), the only method is to create a list. This is the aim of the Public Suffix List.
+Previously, browsers used an algorithm which basically only denied setting wide-ranging cookies for top-level domains with no dots (e.g. com or org). However, this did not work for top-level domains where only third-level registrations are allowed (e.g. co.uk). In these cases, websites could set a cookie for co.uk which will be passed onto every website registered under co.uk.
+
+Clearly, this was a security risk as it allowed websites other than the one setting the cookie to read it, and therefore potentially extract sensitive information.
+
+Since there is no algorithmic method of finding the highest level at which a domain may be registered for a particular top-level domain (the policies differ with each registry), the only method is to create a list of all top-level domains and the level at which domains can be registered. This is the aim of the effective TLD list.
+
+As well as being used to prevent cookies from being set where they shouldn't be, the list can also potentially be used for other applications where the registry controlled and privately controlled parts of a domain name need to be known, for example when grouping by top-level domains.
+
+Source: https://wiki.mozilla.org/Public_Suffix_List
 
 Not convinced yet? Check out a real world example:
 http://stackoverflow.com/questions/288810/get-the-subdomain-from-a-url
@@ -35,9 +43,9 @@ Successfully tested against
 
 == Installation
 
-Via RubyGems/Gemcutter
+Via RubyGems
 
-  $ gem install domain_name
+  $ gem install public_suffix_service
 
 You might need administrator privileges on your system to install it.
 
@@ -46,7 +54,7 @@ You might need administrator privileges on your system to install it.
 
 Example domain without subdomains.
 
-  domain = DomainName.parse("google.com")
+  domain = PublicSuffixService.parse("google.com")
   domain.tld
   # => "com"
   domain.domain
@@ -56,7 +64,7 @@ Example domain without subdomains.
 
 Example domain with subdomains.
 
-  domain = DomainName.parse("www.google.com")
+  domain = PublicSuffixService.parse("www.google.com")
   domain.tld
   # => "com"
   domain.domain
@@ -66,13 +74,13 @@ Example domain with subdomains.
 
 Simple validation example.
 
-  DomainName.valid?("google.com")
+  PublicSuffixService.valid?("google.com")
   # => true
 
-  DomainName.valid?("www.google.com")
+  PublicSuffixService.valid?("www.google.com")
   # => true
 
-  DomainName.valid?("x.yz")
+  PublicSuffixService.valid?("x.yz")
   # => false
 
 

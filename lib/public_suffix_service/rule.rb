@@ -1,11 +1,11 @@
 #
-# = DomainName
+# = Public Suffix Service
 #
 # Domain Name parser based on the Public Suffix List
 #
 #
 # Category::    Net
-# Package::     DomainName
+# Package::     PublicSuffixService
 # Author::      Simone Carletti <weppos@weppos.net>
 # License::     MIT License
 #
@@ -14,7 +14,7 @@
 #++
 
 
-class DomainName
+module PublicSuffixService
 
   class Rule
 
@@ -26,14 +26,14 @@ class DomainName
     #
     # Examples
     #
-    #   DomainName::Rule.factory("ar")
-    #   # => #<DomainName::Rule::Normal>
+    #   PublicSuffixService::Rule.factory("ar")
+    #   # => #<PublicSuffixService::Rule::Normal>
     #
-    #   DomainName::Rule.factory("*.ar")
-    #   # => #<DomainName::Rule::Wildcard>
+    #   PublicSuffixService::Rule.factory("*.ar")
+    #   # => #<PublicSuffixService::Rule::Wildcard>
     #
-    #   DomainName::Rule.factory("!congresodelalengua3.ar")
-    #   # => #<DomainName::Rule::Exception>
+    #   PublicSuffixService::Rule.factory("!congresodelalengua3.ar")
+    #   # => #<PublicSuffixService::Rule::Exception>
     #
     def self.factory(name)
       klass = case name.to_s[0..0]
@@ -56,9 +56,9 @@ class DomainName
     # of this class is to expose a common interface
     # for all the available subclasses.
     #
-    # * DomainName::Rule::Normal
-    # * DomainName::Rule::Exception
-    # * DomainName::Rule::Wildcard
+    # * PublicSuffixService::Rule::Normal
+    # * PublicSuffixService::Rule::Exception
+    # * PublicSuffixService::Rule::Wildcard
     #
     # == Properties
     #
@@ -73,8 +73,8 @@ class DomainName
     #
     # Here's an example
     #
-    #   DomainName::Rule.factory("*.google.com")
-    #   #<DomainName::Rule::Wildcard:0x1015c14b0 
+    #   PublicSuffixService::Rule.factory("*.google.com")
+    #   #<PublicSuffixService::Rule::Wildcard:0x1015c14b0 
     #       @labels=["com", "google"],
     #       @name="*.google.com",
     #       @type=:wildcard,
@@ -84,13 +84,13 @@ class DomainName
     # == Rule Creation
     #
     # The best way to create a new rule is passing the rule name
-    # to the <tt>DomainName::Rule.factory</tt> method.
+    # to the <tt>PublicSuffixService::Rule.factory</tt> method.
     #
-    #   DomainName::Rule.factory("com")
-    #   # => DomainName::Rule::Normal
+    #   PublicSuffixService::Rule.factory("com")
+    #   # => PublicSuffixService::Rule::Normal
     #
-    #   DomainName::Rule.factory("*.com")
-    #   # => DomainName::Rule::Wildcard
+    #   PublicSuffixService::Rule.factory("*.com")
+    #   # => PublicSuffixService::Rule::Wildcard
     #
     # This method will detect the rule type and create an instance
     # from the proper rule class.
@@ -105,7 +105,7 @@ class DomainName
     # can be handled by the current rule.
     # You can use the <tt>#match?</tt> method.
     #
-    #   rule = DomainName::Rule.factory("com")
+    #   rule = PublicSuffixService::Rule.factory("com")
     #   
     #   rule.match?("google.com")
     #   # => true
@@ -119,7 +119,7 @@ class DomainName
     #
     # When you have the right rule, you can use it to tokenize the domain name.
     # 
-    #   rule = DomainName::Rule.factory("com")
+    #   rule = PublicSuffixService::Rule.factory("com")
     # 
     #   rule.decompose("google.com")
     #   # => ["google", "com"]
@@ -142,7 +142,7 @@ class DomainName
 
       # Checks whether this rule is equal to <tt>other</tt>.
       #
-      # other - An other DomainName::Rule::Base to compare.
+      # other - An other PublicSuffixService::Rule::Base to compare.
       #
       # Returns true if this rule and other are instances of the same class
       # and has the same value, false otherwise.

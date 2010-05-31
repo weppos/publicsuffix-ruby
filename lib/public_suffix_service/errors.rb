@@ -1,11 +1,11 @@
 #
-# = DomainName
+# = Public Suffix Service
 #
 # Domain Name parser based on the Public Suffix List
 #
 #
 # Category::    Net
-# Package::     DomainName
+# Package::     PublicSuffixService
 # Author::      Simone Carletti <weppos@weppos.net>
 # License::     MIT License
 #
@@ -14,7 +14,7 @@
 #++
 
 
-class DomainName
+module PublicSuffixService
 
   class Error < StandardError
   end

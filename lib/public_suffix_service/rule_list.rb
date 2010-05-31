@@ -1,11 +1,11 @@
 #
-# = DomainName
+# = Public Suffix Service
 #
 # Domain Name parser based on the Public Suffix List
 #
 #
 # Category::    Net
-# Package::     DomainName
+# Package::     PublicSuffixService
 # Author::      Simone Carletti <weppos@weppos.net>
 # License::     MIT License
 #
@@ -14,22 +14,22 @@
 #++
 
 
-class DomainName
+module PublicSuffixService
 
   # = Rule List
   #
-  # A DomainName::RuleList is a collection of one or more DomainName::Rule.
+  # A PublicSuffixService::RuleList is a collection of one or more PublicSuffixService::Rule.
   #
-  # Given a RuleList, you can add or remove DomainName::Rule,
+  # Given a RuleList, you can add or remove PublicSuffixService::Rule,
   # iterate all items in the list or search for the first rule
   # which matches a specific domain name.
   #
   #   # Create a new list
-  #   list =  DomainName::RuleList.new
+  #   list =  PublicSuffixService::RuleList.new
   #
   #   # Push two rules to the list
-  #   list << DomainName::Rule.factory("it")
-  #   list << DomainName::Rule.factory("com")
+  #   list << PublicSuffixService::Rule.factory("it")
+  #   list << PublicSuffixService::Rule.factory("com")
   #
   #   # Get the size of the list
   #   list.size
@@ -37,27 +37,27 @@ class DomainName
   #
   #   # Search for the rule matching given domain
   #   list.find("example.com")
-  #   # => #<DomainName::Rule::Normal>
+  #   # => #<PublicSuffixService::Rule::Normal>
   #   list.find("example.org")
   #   # => nil
   #
-  # You can create as many DomainName::RuleList you want.
-  # The DomainName::RuleList.default rule list is used by DomainName
+  # You can create as many PublicSuffixService::RuleList you want.
+  # The PublicSuffixService::RuleList.default rule list is used by DomainName
   # to tokenize and validate a domain.
   #
-  # DomainName::RuleList implements Enumerable module.
+  # PublicSuffixService::RuleList implements Enumerable module.
   #
   class RuleList
     include Enumerable
 
     # Gets the list of rules.
-    # Each rule is expected to be a subclass of DomainName::Rule::Base.
+    # Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
     #
     # Returns an Array of rules.
     attr_reader :list
 
 
-    # Initializes an empty DomainName::RuleList.
+    # Initializes an empty PublicSuffixService::RuleList.
     # If block is given, yields on self.
     def initialize(&block) # :yields: self
       @list = []
@@ -66,11 +66,11 @@ class DomainName
 
     # Checks whether two lists are equal.
     # RuleList <tt>one</tt> is equal to <tt>two</tt>, if <tt>two</tt> is an instance of 
-    # <tt>DomainName::RuleList</tt> and each <tt>DomainName::Rule::Base</tt>
+    # <tt>PublicSuffixService::RuleList</tt> and each <tt>PublicSuffixService::Rule::Base</tt>
     # in list <tt>one</tt> is available in list <tt>two</tt>,
     # in the same order.
     #
-    # other - The DomainName::RuleList to compare.
+    # other - The PublicSuffixService::RuleList to compare.
     #
     # Returns true if self is equal to other.
     def ==(other)
@@ -97,7 +97,7 @@ class DomainName
     # Adds the given object to the list.
     #
     # rule - The rule to add to the list. 
-    #        Expected to be a subclass of DomainName::Rule::Base.
+    #        Expected to be a subclass of PublicSuffixService::Rule::Base.
     #
     # Returns self.
     def add(rule)
@@ -152,7 +152,7 @@ class DomainName
     #
     # Note: This might not be the most efficient algorithm.
     #
-    # Returns a DomainName::Rule::Base instance or nil.
+    # Returns a PublicSuffixService::Rule::Base instance or nil.
     def find(domain)
       rules = select(domain)
       rules.select { |r|   r.type == :exception }.first ||
@@ -162,7 +162,7 @@ class DomainName
     # Selects all the rules matching given domain.
     #
     # Returns an Array of rules.
-    #   Each rule is expected to be a subclass of DomainName::Rule::Base.
+    #   Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
     def select(domain)
       @list.select { |rule| rule.match?(domain) }
     end
@@ -172,25 +172,25 @@ class DomainName
 
     class << self
 
-      # Gets the default <tt>DomainName::RuleList</tt>.
-      # Initializes a new <tt>DomainName::RuleList</tt> 
-      # parsing the content of <tt>DomainName::RuleList.default_definition</tt> if necessary.
+      # Gets the default <tt>PublicSuffixService::RuleList</tt>.
+      # Initializes a new <tt>PublicSuffixService::RuleList</tt> 
+      # parsing the content of <tt>PublicSuffixService::RuleList.default_definition</tt> if necessary.
       #
-      # Returns an instance of DomainName::RuleList.
+      # Returns an instance of PublicSuffixService::RuleList.
       def default
         @@default ||= parse(default_definition)
       end
 
-      # Sets the default <tt>DomainName::RuleList</tt> to <tt>value</tt>.
+      # Sets the default <tt>PublicSuffixService::RuleList</tt> to <tt>value</tt>.
       #
-      # value - The new DomainName::RuleList.
+      # value - The new PublicSuffixService::RuleList.
       #
-      # Returns the new DomainName::RuleList.
+      # Returns the new PublicSuffixService::RuleList.
       def default=(value)
         @@default = value
       end
 
-      # Sets the default <tt>DomainName::RuleList</tt> to <tt>nil</tt>.
+      # Sets the default <tt>PublicSuffixService::RuleList</tt> to <tt>nil</tt>.
       #
       # Returns self.
       def clear
@@ -198,10 +198,10 @@ class DomainName
         self
       end
 
-      # Resets the default <tt>DomainName::RuleList</tt> and reinitialize it
-      # parsing the content of <tt>DomainName::RuleList.default_definition</tt>.
+      # Resets the default <tt>PublicSuffixService::RuleList</tt> and reinitialize it
+      # parsing the content of <tt>PublicSuffixService::RuleList.default_definition</tt>.
       #
-      # Returns an instance of DomainName::RuleList.
+      # Returns an instance of PublicSuffixService::RuleList.
       def reload
         self.clear.default
       end
@@ -219,7 +219,7 @@ class DomainName
       # Parse given <tt>input</tt> treating the content as Public Suffic List.
       # See http://publicsuffix.org/format/ for more details about input format.
       #
-      # Returns an Array of DomainName::Rule::Base.
+      # Returns an Array of PublicSuffixService::Rule::Base.
       def parse(input)
         new do |list|
           input.each_line do |line|
