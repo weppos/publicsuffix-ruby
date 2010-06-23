@@ -57,8 +57,12 @@ Example domain without subdomains.
   domain = PublicSuffixService.parse("google.com")
   domain.tld
   # => "com"
-  domain.domain
+  domain.sld
   # => "google"
+  domain.trd
+  # => nil
+  domain.domain
+  # => "google.com"
   domain.subdomain
   # => nil
 
@@ -67,10 +71,14 @@ Example domain with subdomains.
   domain = PublicSuffixService.parse("www.google.com")
   domain.tld
   # => "com"
-  domain.domain
+  domain.sld
   # => "google"
-  domain.subdomain
+  domain.trd
   # => "www"
+  domain.domain
+  # => "google.com"
+  domain.subdomain
+  # => "google.com"
 
 Simple validation example.
 
