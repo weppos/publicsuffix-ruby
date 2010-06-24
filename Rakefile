@@ -88,7 +88,7 @@ end
 
 desc "Remove any temporary products, including gemspec."
 task :clean => [:clobber] do
-  rm "#{spec.name}.gemspec"
+  rm "#{spec.name}.gemspec" if File.file?("#{spec.name}.gemspec")
 end
 
 desc "Remove any generated file"
@@ -126,6 +126,13 @@ begin
 rescue LoadError
   puts "CodeStatistics (Rails) is not available"
 end
+
+desc "Publish documentation to the site"
+task :publish_rdoc => [:clean, :rdoc] do
+  ENV["username"] || raise(ArgumentError, "Missing ssh username")
+  sh "rsync -avz --delete doc/ #{ENV["username"]}@code:/var/www/apps/code/public_suffix_service/api"
+end
+
 
 Dir["tasks/**/*.rake"].each do |file|
   load(file)
