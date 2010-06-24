@@ -128,7 +128,7 @@ rescue LoadError
 end
 
 desc "Publish documentation to the site"
-task :publish_rdoc => [:clean, :rdoc] do
+task :publish_rdoc => [:clobber_rdoc, :rdoc] do
   ENV["username"] || raise(ArgumentError, "Missing ssh username")
   sh "rsync -avz --delete doc/ #{ENV["username"]}@code:/var/www/apps/code/public_suffix_service/api"
 end
