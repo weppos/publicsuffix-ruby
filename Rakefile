@@ -1,7 +1,13 @@
 require "rubygems"
 require "rake/testtask"
-require "rake/rdoctask"
 require "rake/gempackagetask"
+begin
+  require "hanna/rdoctask"
+  hanna = false
+rescue LoadError
+  require "rake/rdoctask"
+  hanna = true
+end
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
 require 'public_suffix_service'
@@ -27,6 +33,7 @@ end
 # Generate documentation
 Rake::RDocTask.new do |rd|
   rd.main = "README.rdoc"
+  p.rdoc_options << "-T hanna" if hanna
   rd.rdoc_files.include("*.rdoc", "lib/**/*.rb")
   rd.rdoc_dir = "rdoc"
 end
