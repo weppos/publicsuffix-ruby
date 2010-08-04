@@ -61,10 +61,10 @@ module PublicSuffixService
     #
     # Examples
     #
-    #   DomainName.new("com", "google").name
+    #   PublicSuffixService::Domain.new("com", "google").name
     #   # => "google.com"
     #
-    #   DomainName.new("com", "google", "www").name
+    #   PublicSuffixService::Domain.new("com", "google", "www").name
     #   # => "www.google.com"
     #
     # Returns a String with the domain name.
@@ -75,14 +75,68 @@ module PublicSuffixService
     # Returns a domain-like representation of this object
     # if the object is a <tt>domain?</tt>,
     # <tt>nil</tt> otherwise.
+    #
+    #   PublicSuffixService::Domain.new("com").domain
+    #   # => nil
+    #
+    #   PublicSuffixService::Domain.new("com", "google").domain
+    #   # => "google.com"
+    #
+    #   PublicSuffixService::Domain.new("com", "google", "www").domain
+    #   # => "www.google.com"
+    #
+    # This method doesn't validate the input. It handles the domain
+    # as a valid domain name and simply applies the necessary transformations.
+    #
+    #   # This is an invalid domain
+    #   PublicSuffixService::Domain.new("zip", "google").domain
+    #   # => "google.zip"
+    #
+    # This method returns a FQD, not just the domain part.
+    # To get the domain part, use <tt>#sld</tt> (aka second level domain).
+    #
+    #   PublicSuffixService::Domain.new("com", "google", "www").domain
+    #   # => "google.com"
+    #
+    #   PublicSuffixService::Domain.new("com", "google", "www").sld
+    #   # => "google"
+    #
+    # Returns a String or nil.
     def domain
       return unless domain?
       [sld, tld].join(".")
     end
 
-    # Returns a subdomain-like representation of this object
+    # Returns a domain-like representation of this object
     # if the object is a <tt>subdomain?</tt>,
     # <tt>nil</tt> otherwise.
+    #
+    #   PublicSuffixService::Domain.new("com").subdomain
+    #   # => nil
+    #
+    #   PublicSuffixService::Domain.new("com", "google").subdomain
+    #   # => nil
+    #
+    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain
+    #   # => "www.google.com"
+    #
+    # This method doesn't validate the input. It handles the domain
+    # as a valid domain name and simply applies the necessary transformations.
+    #
+    #   # This is an invalid domain
+    #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain
+    #   # => "www.google.zip"
+    #
+    # This method returns a FQD, not just the domain part.
+    # To get the domain part, use <tt>#tld</tt> (aka third level domain).
+    #
+    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain
+    #   # => "www.google.com"
+    #
+    #   PublicSuffixService::Domain.new("com", "google", "www").trd
+    #   # => "www"
+    #
+    # Returns a String or nil.
     def subdomain
       return unless subdomain?
       [trd, sld, tld].join(".")
@@ -106,18 +160,18 @@ module PublicSuffixService
     #
     # Examples
     #
-    #   DomainName.new("com").domain?
+    #   PublicSuffixService::Domain.new("com").domain?
     #   # => false
     #
-    #   DomainName.new("com", "google").domain?
+    #   PublicSuffixService::Domain.new("com", "google").domain?
     #   # => true
     #
-    #   DomainName.new("com", "google", "www").domain?
+    #   PublicSuffixService::Domain.new("com", "google", "www").domain?
     #   # => true
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   DomainName.new("zip", "google").domain?
+    #   PublicSuffixService::Domain.new("zip", "google").domain?
     #   # => true
     #
     # Returns true if this instance looks like a domain.
@@ -134,18 +188,18 @@ module PublicSuffixService
     #
     # Examples
     #
-    #   DomainName.new("com").subdomain?
+    #   PublicSuffixService::Domain.new("com").subdomain?
     #   # => false
     #
-    #   DomainName.new("com", "google").subdomain?
+    #   PublicSuffixService::Domain.new("com", "google").subdomain?
     #   # => false
     #
-    #   DomainName.new("com", "google", "www").subdomain?
+    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain?
     #   # => true
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   DomainName.new("zip", "google", "www").subdomain?
+    #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain?
     #   # => true
     #
     # Returns true if this instance looks like a subdomain.
@@ -178,21 +232,21 @@ module PublicSuffixService
     # Checks whether <tt>self</tt> looks like a domain and validates
     # according to default <tt>RuleList</tt>.
     #
-    # See also <tt>DomainName#domain?</tt> and <tt>DomainName#valid?</tt>.
+    # See also <tt>#domain?</tt> and <tt>#valid?</tt>.
     #
     # Examples
     #
-    #   DomainName.new("com").domain?
+    #   PublicSuffixService::Domain.new("com").domain?
     #   # => false
     #
-    #   DomainName.new("com", "google").domain?
+    #   PublicSuffixService::Domain.new("com", "google").domain?
     #   # => true
     #
-    #   DomainName.new("com", "google", "www").domain?
+    #   PublicSuffixService::Domain.new("com", "google", "www").domain?
     #   # => true
     #
     #   # This is an invalid domain
-    #   DomainName.new("zip", "google").false?
+    #   PublicSuffixService::Domain.new("zip", "google").false?
     #   # => true
     #
     # Returns true if this instance looks like a domain and is valid.
@@ -203,21 +257,21 @@ module PublicSuffixService
     # Checks whether <tt>self</tt> looks like a subdomain and validates
     # according to default <tt>RuleList</tt>.
     #
-    # See also <tt>DomainName#subdomain?</tt> and <tt>DomainName#valid?</tt>.
+    # See also <tt>#subdomain?</tt> and <tt>#valid?</tt>.
     #
     # Examples
     #
-    #   DomainName.new("com").subdomain?
+    #   PublicSuffixService::Domain.new("com").subdomain?
     #   # => false
     #
-    #   DomainName.new("com", "google").subdomain?
+    #   PublicSuffixService::Domain.new("com", "google").subdomain?
     #   # => false
     #
-    #   DomainName.new("com", "google", "www").subdomain?
+    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain?
     #   # => true
     #
     #   # This is an invalid domain
-    #   DomainName.new("zip", "google", "www").subdomain?
+    #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain?
     #   # => false
     #
     # Returns true if this instance looks like a domain and is valid.

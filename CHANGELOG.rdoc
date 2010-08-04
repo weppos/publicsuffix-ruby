@@ -1,6 +1,11 @@
 = Changelog
 
 
+== master
+
+* CHANGED: Improve documentation for Domain#domain and Domain#subdomain (closes #1)
+
+
 == Release 0.4.0
 
 * CHANGED: Rename library from DomainName to PublicSuffixService to reduce the probability of name conflicts.
