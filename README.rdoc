@@ -97,6 +97,21 @@ Simple validation example.
 Author:: {Simone Carletti}[http://www.simonecarletti.com/] <weppos@weppos.net>
 
 
+== FeedBack and Bug reports
+
+If you use this library and find yourself missing any functionality I have missed, please {let me know}[mailto:weppos@weppos.net].
+
+Bug reports and Feature suggestions {are welcomed}[http://github.com/weppos/public_suffix_service/issues].
+
+
+== More
+
+* {Homepage}[http://www.simonecarletti.com/code/public_suffix_service]
+* {GitHub Repository}[http://github.com/weppos/public_suffix_service]
+* {API Documentation}[http://www.simonecarletti.com/code/public_suffix_service/api/]
+* {Introducing the Public Suffix List library for Ruby}[http://www.simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/]
+
+
 == Changelog
 
 See the CHANGELOG.rdoc file for details.
