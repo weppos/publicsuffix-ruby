@@ -3,10 +3,10 @@ require "rake/testtask"
 require "rake/gempackagetask"
 begin
   require "hanna/rdoctask"
-  hanna = false
+  hanna = true
 rescue LoadError
   require "rake/rdoctask"
-  hanna = true
+  hanna = false
 end
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
@@ -33,7 +33,6 @@ end
 # Generate documentation
 Rake::RDocTask.new do |rd|
   rd.main = "README.rdoc"
-  p.rdoc_options << "-T hanna" if hanna
   rd.rdoc_files.include("*.rdoc", "lib/**/*.rb")
   rd.rdoc_dir = "rdoc"
 end
@@ -93,7 +92,7 @@ task :gemspec do
   File.open(file, "w") {|f| f << spec.to_ruby }
 end
 
-desc "Remove any temporary products, including gemspec."
+desc "Remove any temporary products, including gemspec"
 task :clean => [:clobber] do
   rm "#{spec.name}.gemspec" if File.file?("#{spec.name}.gemspec")
 end
@@ -107,7 +106,7 @@ task :package => [:gemspec]
 begin
   require "rcov/rcovtask"
 
-  desc "Create a code coverage report."
+  desc "Create a code coverage report"
   Rcov::RcovTask.new do |t|
     t.test_files = FileList["test/**/*_test.rb"]
     t.ruby_opts << "-Itest -x mocha,rcov,Rakefile"
@@ -124,7 +123,7 @@ task :console do
 end
 
 begin
-  require 'code_statistics'
+  require "code_statistics"
   desc "Show library's code statistics"
   task :stats do
     CodeStatistics.new(["Public Suffix Service", "lib"],
@@ -137,7 +136,7 @@ end
 desc "Publish documentation to the site"
 task :publish_rdoc => [:clobber_rdoc, :rdoc] do
   ENV["username"] || raise(ArgumentError, "Missing ssh username")
-  sh "rsync -avz --delete rdoc/ #{ENV["username"]}@code:/var/www/apps/code/public_suffix_service/api"
+  sh "rsync -avz --delete rdoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/api"
 end
 
 
