@@ -3,10 +3,8 @@ require "rake/testtask"
 require "rake/gempackagetask"
 begin
   require "hanna/rdoctask"
-  hanna = true
 rescue LoadError
   require "rake/rdoctask"
-  hanna = false
 end
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
