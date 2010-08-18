@@ -1,13 +1,13 @@
 = Public Suffix Service
 
-Public Suffix Service is a Ruby domain name parser based on the Public Suffix List available at http://publicsuffix.org.
+*Public Suffix Service* is a Ruby domain name parser based on the {Public Suffix List}[http://publicsuffix.org].
 
 
 == What is the Public Suffix List?
 
-The Public Suffix List is a cross-vendor initiative to provide an accurate list of domain name suffixes.
+The *Public Suffix List* is a cross-vendor initiative to provide an accurate list of domain name suffixes.
 
-The Public Suffix List is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
+The *Public Suffix List* is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
 
 A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
 
@@ -32,22 +32,22 @@ http://stackoverflow.com/questions/288810/get-the-subdomain-from-a-url
 
 == Requirements
 
-* Ruby >= 1.8.6 (not tested with previous versions)
+* Ruby >= 1.8.6 or Ruby 1.9.x
 
-Successfully tested against
+Successfully tested with the following interpreters
 
 * Ruby 1.8.6 / 1.8.7 / 1.9.1
-* MacRuby 0.4
+* MacRuby
 * Ruby Enterprise Edition
 
 
 == Installation
 
-Via RubyGems
+The best way to install *Public Suffix Service* is via {RubyGems}[http://www.rubygems.org].
 
   $ gem install public_suffix_service
 
-You might need administrator privileges on your system to install it.
+You might need administrator privileges on your system to install the Gem.
 
 
 == Usage
@@ -55,6 +55,7 @@ You might need administrator privileges on your system to install it.
 Example domain without subdomains.
 
   domain = PublicSuffixService.parse("google.com")
+  # => #<PublicSuffixService::Domain>
   domain.tld
   # => "com"
   domain.sld
@@ -69,6 +70,7 @@ Example domain without subdomains.
 Example domain with subdomains.
 
   domain = PublicSuffixService.parse("www.google.com")
+  # => #<PublicSuffixService::Domain>
   domain.tld
   # => "com"
   domain.sld
@@ -107,8 +109,8 @@ Bug reports and Feature suggestions {are welcomed}[http://github.com/weppos/publ
 == More
 
 * {Homepage}[http://www.simonecarletti.com/code/public_suffix_service]
-* {GitHub Repository}[http://github.com/weppos/public_suffix_service]
-* {API Documentation}[http://www.simonecarletti.com/code/public_suffix_service/api/]
+* {Repository}[http://github.com/weppos/public_suffix_service]
+* {API Documentation}[http://www.simonecarletti.com/code/public_suffix_service/api/] (RDoc)
 * {Introducing the Public Suffix List library for Ruby}[http://www.simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/]
 
 
@@ -119,4 +121,5 @@ See the CHANGELOG.rdoc file for details.
 
 == License
 
-Copyright (c) 2009-2010 Simone Carletti, DomainName is released under the MIT license.
+Copyright (c) 2009-2010 Simone Carletti,
+*Public Suffix Service* is released under the MIT license.

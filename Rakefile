@@ -8,7 +8,7 @@ rescue LoadError
 end
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
-require 'public_suffix_service'
+require "public_suffix_service"
 
 
 # Common package properties
