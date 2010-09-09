@@ -18,6 +18,10 @@ module PublicSuffixService
 
   class Domain
 
+    def self.domain_to_labels(domain)
+      domain.to_s.split(".").reverse
+    end
+
     def initialize(*args, &block)
       @tld, @sld, @trd = args
       yield(self) if block_given?

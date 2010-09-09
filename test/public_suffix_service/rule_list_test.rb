@@ -17,7 +17,7 @@ class PublicSuffixService::RuleListTest < Test::Unit::TestCase
   end
 
   def test_initialize_create_index_when_empty
-    assert_equal({}, @list.buckets)
+    assert_equal({}, @list.indexes)
   end
 
   def test_find__with_index
@@ -32,10 +32,10 @@ com
 !british-library.uk
 EOS
 
-    assert !@list.buckets.empty?
-    assert_equal [1,2,3,4], @list.buckets.delete('uk')
-    assert_equal [0], @list.buckets.delete('com')
-    assert @list.buckets.empty?
+    assert !@list.indexes.empty?
+    assert_equal [1,2,3,4], @list.indexes.delete('uk')
+    assert_equal [0], @list.indexes.delete('com')
+    assert @list.indexes.empty?
   end
 
 

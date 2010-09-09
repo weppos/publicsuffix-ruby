@@ -54,14 +54,19 @@ module PublicSuffixService
     # Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
     #
     # Returns an Array of rules.
-    attr_reader :list, :buckets
+    attr_reader :list
+
+    ##
+    # Naive index, a hash that with the keys being the first label of
+    # every rule pointing to an array of integers (indexes of the rules in @list)
+    attr_reader  :indexes
 
 
     # Initializes an empty PublicSuffixService::RuleList.
     # If block is given, yields on self.
     def initialize(&block) # :yields: self
       @list    = []
-      @buckets = {}
+      @indexes = {}
       yield(self) if block_given?
       create_index!
     end
@@ -71,16 +76,16 @@ module PublicSuffixService
     # Rule#labels element. 
     # 
     # For instance if @list[5] and @list[4] are the only elements of the list
-    # where Rule#labels.first is 'us'  @buckets['us'] #=> [5,4], that way in 
+    # where Rule#labels.first is 'us'  @indexes['us'] #=> [5,4], that way in 
     # select we can avoid mapping every single rule against the candidate domain. 
     def create_index!
       @list.map{|l| l.labels.first }.each_with_index do |elm, inx|
 
-        if !@buckets.has_key?(elm)
-          @buckets[elm] = [inx]
+        if !@indexes.has_key?(elm)
+          @indexes[elm] = [inx]
 
         else
-          @buckets[elm] << inx
+          @indexes[elm] << inx
         end
       end
     end
@@ -180,17 +185,15 @@ module PublicSuffixService
       rules.inject { |t,r| t.length > r.length ? t : r }
     end
 
-    # Selects all the rules matching given domain. Will use @buckets 
+    # Selects all the rules matching given domain. Will use @indexes 
     # to try only the rules that share the same first label, that will
     # speed up things when using RuleList.find('foo') a lot.
     #
     # Returns an Array of rules.
     #   Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
     def select(domain)
-      # TODO use domain_to_labels here instead of reusing the logic, maybe 
-      # put it in a helper module?
-      indices = ( @buckets[ domain.to_s.split('.').reverse.first ] || [0] ).sort
-      @list[indices.first .. indices.last].select{ |rule| rule.match?(domain) }
+      indices = ( @indexes[ Domain.domain_to_labels(domain).first ] || [] )
+      @list.values_at(*indices).select{ |rule| rule.match?(domain) }
     end
 
 
