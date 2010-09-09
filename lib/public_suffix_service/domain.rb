@@ -142,10 +142,11 @@ module PublicSuffixService
       [trd, sld, tld].join(".")
     end
 
-    # Gets the rule matching this domain in the default PublicSuffixService::RuleList.
+    # Gets the rule matching this domain
+    # in the default PublicSuffixService::RuleList.
     #
-    # Returns an instance of PublicSuffixService::Rule::Base if a rule matches current domain,
-    # nil if no rule is found.
+    # Returns the PublicSuffixService::Rule::Base instance
+    # if a rule matches current domain, nil if no rule is found.
     def rule
       RuleList.default.find(name)
     end
@@ -156,7 +157,8 @@ module PublicSuffixService
     # This method doesn't actually validate the domain.
     # It only checks whether the instance contains
     # a value for the <tt>tld</tt> and <tt>sld</tt> attributes.
-    # If you also want to validate the domain, use <tt>#valid_domain?</tt> instead.
+    # If you also want to validate the domain,
+    # use <tt>#valid_domain?</tt> instead.
     #
     # Examples
     #
@@ -174,7 +176,7 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("zip", "google").domain?
     #   # => true
     #
-    # Returns true if this instance looks like a domain.
+    # Returns Boolean.
     def domain?
       !(tld.nil? || sld.nil?)
     end
@@ -184,7 +186,8 @@ module PublicSuffixService
     # This method doesn't actually validate the subdomain.
     # It only checks whether the instance contains
     # a value for the <tt>tld</tt>, <tt>sld</tt> and <tt>trd</tt> attributes.
-    # If you also want to validate the domain, use <tt>#valid_subdomain?</tt> instead.
+    # If you also want to validate the domain,
+    # use <tt>#valid_subdomain?</tt> instead.
     #
     # Examples
     #
@@ -202,18 +205,22 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain?
     #   # => true
     #
-    # Returns true if this instance looks like a subdomain.
+    # Returns Boolean.
     def subdomain?
       !(tld.nil? || sld.nil? || trd.nil?)
     end
 
     # Checks whether <tt>self</tt> is exclusively a domain,
     # and not a subdomain.
+    #
+    # Returns Boolean.
     def is_a_domain?
       domain? && !subdomain?
     end
 
     # Checks whether <tt>self</tt> is exclusively a subdomain.
+    #
+    # Returns Boolean.
     def is_a_subdomain?
       subdomain?
     end
@@ -224,7 +231,7 @@ module PublicSuffixService
     # Note: this method triggers a new rule lookup in the default RuleList,
     # which is a quite intensive task.
     #
-    # Returns true if this instance is valid.
+    # Returns Boolean.
     def valid?
       !rule.nil?
     end

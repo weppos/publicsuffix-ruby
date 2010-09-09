@@ -22,7 +22,7 @@ module PublicSuffixService
     # and creates a new instance of that class.
     # The <tt>name</tt> becomes the rule value.
     #
-    # name - The rule String definition
+    # name - The String rule definition.
     #
     # Examples
     #
@@ -35,6 +35,7 @@ module PublicSuffixService
     #   PublicSuffixService::Rule.factory("!congresodelalengua3.ar")
     #   # => #<PublicSuffixService::Rule::Exception>
     #
+    # Returns a rule instance, a kind of PublicSuffixService::Rule::Base.
     def self.factory(name)
       klass = case name.to_s[0..0]
         when "*"  then  "wildcard"
@@ -142,7 +143,7 @@ module PublicSuffixService
 
       # Checks whether this rule is equal to <tt>other</tt>.
       #
-      # other - An other PublicSuffixService::Rule::Base to compare.
+      # other - The PublicSuffixService::Rule::Base to compare.
       #
       # Returns true if this rule and other are instances of the same class
       # and has the same value, false otherwise.
@@ -156,10 +157,9 @@ module PublicSuffixService
 
       # Checks whether this rule matches <tt>domain</tt>.
       #
-      # domain - A string with the domain name to check.
+      # domain - The String domain name to check.
       #
-      # Returns a true if this rule matches domain,
-      # false otherwise.
+      # Returns Boolean.
       def match?(domain)
         l1 = labels
         l2 = domain_to_labels(domain)
@@ -218,7 +218,7 @@ module PublicSuffixService
 
       # Decomposes the domain according to rule properties.
       #
-      # domain - A String with the domain name to parse
+      # domain - The String domain name to parse.
       #
       # Return an Array with [trd + sld, tld].
       def decompose(domain)
@@ -248,7 +248,7 @@ module PublicSuffixService
 
       # Decomposes the domain according to rule properties.
       #
-      # domain - A String with the domain name to parse
+      # domain - The String domain name to parse.
       #
       # Return an Array with [trd + sld, tld].
       def decompose(domain)
@@ -279,7 +279,7 @@ module PublicSuffixService
 
       # Decomposes the domain according to rule properties.
       #
-      # domain - A String with the domain name to parse
+      # domain - The String domain name to parse.
       #
       # Return an Array with [trd + sld, tld].
       def decompose(domain)

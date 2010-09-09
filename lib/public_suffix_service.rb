@@ -28,9 +28,12 @@ module PublicSuffixService
   AUTHORS         = ["Simone Carletti <weppos@weppos.net>"]
 
 
-  # Parses <tt>domain</tt> and returns a new <tt>PubliSuffixService::Domain</tt> instance.
+  # Parses <tt>domain</tt> and returns the
+  # PubliSuffixService::Domain instance.
   #
-  # domain - A String with the domain name to parse.
+  # domain - The String domain name to parse.
+  #
+  # Examples
   #
   #   PublicSuffixService.parse("google.com")
   #   # => #<PubliSuffixService::Domain ...>
@@ -45,6 +48,8 @@ module PublicSuffixService
   #   # => PublicSuffixService::InvalidDomain
   #
   # Raises PublicSuffixService::Error if domain is not a valid domain
+  #
+  # Returns the PubliSuffixService::Domain domain.
   def self.parse(domain)
     rule = RuleList.default.find(domain) || raise(InvalidDomain, "`#{domain}' is not a valid domain")
 
@@ -64,9 +69,9 @@ module PublicSuffixService
   # Checks whether <tt>domain</tt> is a valid domain name.
   #
   # This method doesn't care whether domain is a domain or subdomain.
-  # The check is performed using the default <tt>PublicSuffixService::RuleList</tt>.
+  # The check is performed using the default PublicSuffixService::RuleList.
   #
-  # domain - A String with the domain name to check.
+  # domain - The String domain name to parse.
   #
   # Examples
   #
@@ -82,7 +87,7 @@ module PublicSuffixService
   #   PublicSuffixService.valid?("x.yz")
   #   # => false
   #
-  # Returns true if <tt>domain</tt> is a valid domain.
+  # Returns Boolean.
   def self.valid?(domain)
     !RuleList.default.find(domain).nil?
   end

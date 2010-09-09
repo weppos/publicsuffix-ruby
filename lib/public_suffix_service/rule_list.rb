@@ -51,9 +51,10 @@ module PublicSuffixService
     include Enumerable
 
     # Gets the list of rules.
-    # Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
     #
-    # Returns an Array of rules.
+    # Returns the Array of rule instances.
+    # Each rule is an instance of the proper corresponding of
+    # PublicSuffixService::Rule::Base.
     attr_reader :list
 
 
@@ -161,8 +162,9 @@ module PublicSuffixService
 
     # Selects all the rules matching given domain.
     #
-    # Returns an Array of rules.
-    #   Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
+    # Returns an Array of rule instances.
+    # Each rule is an instance of the corresponding subclass of
+    # PublicSuffixService::Rule::Base.
     def select(domain)
       @list.select { |rule| rule.match?(domain) }
     end
@@ -172,11 +174,11 @@ module PublicSuffixService
 
     class << self
 
-      # Gets the default <tt>PublicSuffixService::RuleList</tt>.
-      # Initializes a new <tt>PublicSuffixService::RuleList</tt> 
-      # parsing the content of <tt>PublicSuffixService::RuleList.default_definition</tt> if necessary.
+      # Gets the default PublicSuffixService::RuleList.
+      # Initializes a new PublicSuffixService::RuleList parsing the content
+      # of PublicSuffixService::RuleList.default_definition, if required.
       #
-      # Returns an instance of PublicSuffixService::RuleList.
+      # Returns a PublicSuffixService::RuleList.
       def default
         @@default ||= parse(default_definition)
       end
@@ -185,12 +187,12 @@ module PublicSuffixService
       #
       # value - The new PublicSuffixService::RuleList.
       #
-      # Returns the new PublicSuffixService::RuleList.
+      # Returns the PublicSuffixService::RuleList.
       def default=(value)
         @@default = value
       end
 
-      # Sets the default <tt>PublicSuffixService::RuleList</tt> to <tt>nil</tt>.
+      # Sets the default PublicSuffixService::RuleList to nil.
       #
       # Returns self.
       def clear
@@ -201,16 +203,17 @@ module PublicSuffixService
       # Resets the default <tt>PublicSuffixService::RuleList</tt> and reinitialize it
       # parsing the content of <tt>PublicSuffixService::RuleList.default_definition</tt>.
       #
-      # Returns an instance of PublicSuffixService::RuleList.
+      # Returns a PublicSuffixService::RuleList.
       def reload
         self.clear.default
       end
 
       # Gets the default definition list.
-      # Can be any <tt>IOStream</tt> including a <tt>File</tt> or a simple <tt>String</tt>.
+      # Can be any <tt>IOStream</tt> including a <tt>File</tt>
+      # or a simple <tt>String</tt>.
       # The object must respond to <tt>#each_line</tt>.
       #
-      # Returns an object which responds to <tt>#each_line</tt>.
+      # Returns a File.
       def default_definition
         File.new(File.join(File.dirname(__FILE__), "definitions.dat"))
       end
@@ -219,7 +222,9 @@ module PublicSuffixService
       # Parse given <tt>input</tt> treating the content as Public Suffic List.
       # See http://publicsuffix.org/format/ for more details about input format.
       #
-      # Returns an Array of PublicSuffixService::Rule::Base.
+      # Returns an Array of rule instances.
+      # Each rule is an instance of the corresponding subclass of
+      # PublicSuffixService::Rule::Base.
       def parse(input)
         new do |list|
           input.each_line do |line|
