@@ -54,14 +54,35 @@ module PublicSuffixService
     # Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
     #
     # Returns an Array of rules.
-    attr_reader :list
+    attr_reader :list, :buckets
 
 
     # Initializes an empty PublicSuffixService::RuleList.
     # If block is given, yields on self.
     def initialize(&block) # :yields: self
-      @list = []
+      @list    = []
+      @buckets = {}
       yield(self) if block_given?
+      create_index!
+    end
+
+    # Creates a naive index for @list. Just a hash that will tell 
+    # us where the elements of @list are relative to its first 
+    # Rule#labels element. 
+    # 
+    # For instance if @list[5] and @list[4] are the only elements of the list
+    # where Rule#labels.first is 'us'  @buckets['us'] #=> [5,4], that way in 
+    # select we can avoid mapping every single rule against the candidate domain. 
+    def create_index!
+      @list.map{|l| l.labels.first }.each_with_index do |elm, inx|
+
+        if !@buckets.has_key?(elm)
+          @buckets[elm] = [inx]
+
+        else
+          @buckets[elm] << inx
+        end
+      end
     end
 
     # Checks whether two lists are equal.
@@ -159,12 +180,17 @@ module PublicSuffixService
       rules.inject { |t,r| t.length > r.length ? t : r }
     end
 
-    # Selects all the rules matching given domain.
+    # Selects all the rules matching given domain. Will use @buckets 
+    # to try only the rules that share the same first label, that will
+    # speed up things when using RuleList.find('foo') a lot.
     #
     # Returns an Array of rules.
     #   Each rule is expected to be a subclass of PublicSuffixService::Rule::Base.
     def select(domain)
-      @list.select { |rule| rule.match?(domain) }
+      # TODO use domain_to_labels here instead of reusing the logic, maybe 
+      # put it in a helper module?
+      indices = ( @buckets[ domain.to_s.split('.').reverse.first ] || [0] ).sort
+      @list[indices.first .. indices.last].select{ |rule| rule.match?(domain) }
     end
 
 

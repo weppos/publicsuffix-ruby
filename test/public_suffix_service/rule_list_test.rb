@@ -16,6 +16,28 @@ class PublicSuffixService::RuleListTest < Test::Unit::TestCase
     assert_equal 0, @list.length
   end
 
+  def test_initialize_create_index_when_empty
+    assert_equal({}, @list.buckets)
+  end
+
+  def test_find__with_index
+    @list = PublicSuffixService::RuleList.parse(<<EOS)
+// com : http://en.wikipedia.org/wiki/.com
+com
+
+// uk : http://en.wikipedia.org/wiki/.uk
+*.uk
+*.sch.uk
+!bl.uk
+!british-library.uk
+EOS
+
+    assert !@list.buckets.empty?
+    assert_equal [1,2,3,4], @list.buckets.delete('uk')
+    assert_equal [0], @list.buckets.delete('com')
+    assert @list.buckets.empty?
+  end
+
 
   def test_equality_with_self
     list = PublicSuffixService::RuleList.new
