@@ -163,7 +163,6 @@ module PublicSuffixService
       def match?(domain)
         l1 = labels
         l2 = Domain.domain_to_labels(domain)
-        #l1 == l2[ 0 .. (l1.size-1) ]
         odiff(l1, l2).empty?
       end
 

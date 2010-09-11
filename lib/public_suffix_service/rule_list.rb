@@ -56,8 +56,7 @@ module PublicSuffixService
     # Returns an Array of rules.
     attr_reader :list
 
-    ##
-    # Naive index, a hash that with the keys being the first label of
+    # Gets the naive index, a hash that with the keys being the first label of
     # every rule pointing to an array of integers (indexes of the rules in @list)
     attr_reader  :indexes
 
