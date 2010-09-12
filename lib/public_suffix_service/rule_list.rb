@@ -71,19 +71,19 @@ module PublicSuffixService
       create_index!
     end
 
-    # Creates a naive index for @list. Just a hash that will tell 
-    # us where the elements of @list are relative to its first 
-    # Rule#labels element. 
-    # 
+    # Creates a naive index for @list. Just a hash that will tell
+    # us where the elements of @list are relative to its first
+    # Rule#labels element.
+    #
     # For instance if @list[5] and @list[4] are the only elements of the list
-    # where Rule#labels.first is 'us'  @indexes['us'] #=> [5,4], that way in 
-    # select we can avoid mapping every single rule against the candidate domain. 
+    # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
+    # select we can avoid mapping every single rule against the candidate domain.
+    #
+    # Returns nothing.
     def create_index!
       @list.map{|l| l.labels.first }.each_with_index do |elm, inx|
-
         if !@indexes.has_key?(elm)
           @indexes[elm] = [inx]
-
         else
           @indexes[elm] << inx
         end
@@ -185,16 +185,17 @@ module PublicSuffixService
       rules.inject { |t,r| t.length > r.length ? t : r }
     end
 
-    # Selects all the rules matching given domain. Will use @indexes 
-    # to try only the rules that share the same first label, that will
-    # speed up things when using RuleList.find('foo') a lot.
+    # Selects all the rules matching given domain.
+    #
+    # Will use @indexes to try only the rules that share the same first label,
+    # that will speed up things when using RuleList.find('foo') a lot.
     #
     # Returns an Array of rule instances.
     # Each rule is an instance of the corresponding subclass of
     # PublicSuffixService::Rule::Base.
     def select(domain)
-      indices = ( @indexes[ Domain.domain_to_labels(domain).first ] || [] )
-      @list.values_at(*indices).select{ |rule| rule.match?(domain) }
+      indices = (@indexes[ Domain.domain_to_labels(domain).first ] || [])
+      @list.values_at(*indices).select { |rule| rule.match?(domain) }
     end
 
 

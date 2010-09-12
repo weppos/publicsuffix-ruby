@@ -3,7 +3,9 @@
 
 == master
 
-* CHANGED: Improve documentation for Domain#domain and Domain#subdomain (closes #1)
+* CHANGED: Improve documentation for Domain#domain and Domain#subdomain (#1).
+
+* CHANGED: Performance improvements (#2).
 
 
 == Release 0.4.0
