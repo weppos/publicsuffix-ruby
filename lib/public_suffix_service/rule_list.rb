@@ -57,12 +57,37 @@ module PublicSuffixService
     # PublicSuffixService::Rule::Base.
     attr_reader :list
 
+    # Gets the naive index, a hash that with the keys being the first label of
+    # every rule pointing to an array of integers (indexes of the rules in @list)
+    attr_reader  :indexes
+
 
     # Initializes an empty PublicSuffixService::RuleList.
     # If block is given, yields on self.
     def initialize(&block) # :yields: self
-      @list = []
+      @list    = []
+      @indexes = {}
       yield(self) if block_given?
+      create_index!
+    end
+
+    # Creates a naive index for @list. Just a hash that will tell 
+    # us where the elements of @list are relative to its first 
+    # Rule#labels element. 
+    # 
+    # For instance if @list[5] and @list[4] are the only elements of the list
+    # where Rule#labels.first is 'us'  @indexes['us'] #=> [5,4], that way in 
+    # select we can avoid mapping every single rule against the candidate domain. 
+    def create_index!
+      @list.map{|l| l.labels.first }.each_with_index do |elm, inx|
+
+        if !@indexes.has_key?(elm)
+          @indexes[elm] = [inx]
+
+        else
+          @indexes[elm] << inx
+        end
+      end
     end
 
     # Checks whether two lists are equal.
@@ -160,13 +185,16 @@ module PublicSuffixService
       rules.inject { |t,r| t.length > r.length ? t : r }
     end
 
-    # Selects all the rules matching given domain.
+    # Selects all the rules matching given domain. Will use @indexes 
+    # to try only the rules that share the same first label, that will
+    # speed up things when using RuleList.find('foo') a lot.
     #
     # Returns an Array of rule instances.
     # Each rule is an instance of the corresponding subclass of
     # PublicSuffixService::Rule::Base.
     def select(domain)
-      @list.select { |rule| rule.match?(domain) }
+      indices = ( @indexes[ Domain.domain_to_labels(domain).first ] || [] )
+      @list.values_at(*indices).select{ |rule| rule.match?(domain) }
     end
 
 

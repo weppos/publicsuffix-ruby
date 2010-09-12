@@ -17,6 +17,22 @@
 module PublicSuffixService
 
   class Domain
+    
+    # Splits a string into its possible labels as a domain in reverse order 
+    # from the input string
+    #
+    # domain - the string to be split
+    #
+    # Examples
+    #
+    #   domain_to_labels('google.com.uk')
+    #   # => ['uk', 'com', 'google']
+    #
+    # Returns an array of strings representing the possible labels if the input
+    # string is found to be a valid domain
+    def self.domain_to_labels(domain)
+      domain.to_s.split(".").reverse
+    end
 
     def initialize(*args, &block)
       @tld, @sld, @trd = args

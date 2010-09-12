@@ -138,7 +138,7 @@ module PublicSuffixService
         @name   = name.to_s
         @value  = value || @name
         @type   = self.class.name.split("::").last.downcase.to_sym
-        @labels = domain_to_labels(@value)
+        @labels = Domain.domain_to_labels(@value)
       end
 
       # Checks whether this rule is equal to <tt>other</tt>.
@@ -162,7 +162,7 @@ module PublicSuffixService
       # Returns Boolean.
       def match?(domain)
         l1 = labels
-        l2 = domain_to_labels(domain)
+        l2 = Domain.domain_to_labels(domain)
         odiff(l1, l2).empty?
       end
 
@@ -188,9 +188,6 @@ module PublicSuffixService
 
       private
 
-        def domain_to_labels(domain)
-          domain.to_s.split(".").reverse
-        end
 
         def odiff(one, two)
           ii = 0
