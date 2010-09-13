@@ -1,7 +1,7 @@
 = Changelog
 
 
-== master
+== Release 0.5.0
 
 * CHANGED: Improve documentation for Domain#domain and Domain#subdomain (#1).
 
