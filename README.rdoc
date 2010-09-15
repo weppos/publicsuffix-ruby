@@ -1,13 +1,13 @@
 = Public Suffix Service
 
-*Public Suffix Service* is a Ruby domain name parser based on the {Public Suffix List}[http://publicsuffix.org].
+<b>Public Suffix Service</b> is a Ruby domain name parser based on the {Public Suffix List}[http://publicsuffix.org].
 
 
 == What is the Public Suffix List?
 
-The *Public Suffix List* is a cross-vendor initiative to provide an accurate list of domain name suffixes.
+The <b>Public Suffix Service</b> is a cross-vendor initiative to provide an accurate list of domain name suffixes.
 
-The *Public Suffix List* is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
+The Public Suffix Service is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
 
 A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
 
@@ -43,7 +43,7 @@ Successfully tested with the following interpreters
 
 == Installation
 
-The best way to install *Public Suffix Service* is via {RubyGems}[http://www.rubygems.org].
+The best way to install Public Suffix Service< is via {RubyGems}[http://www.rubygems.org].
 
   $ gem install public_suffix_service
 
@@ -122,4 +122,4 @@ See the CHANGELOG.rdoc file for details.
 == License
 
 Copyright (c) 2009-2010 Simone Carletti,
-*Public Suffix Service* is released under the MIT license.
+Public Suffix Service is released under the MIT license.
