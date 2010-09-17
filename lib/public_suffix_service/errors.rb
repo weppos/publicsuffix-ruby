@@ -20,6 +20,11 @@ module PublicSuffixService
   end
 
   class InvalidDomain < Error
+  class DomainInvalid < Error
   end
+
+
+  # Backward Compatibility
+  InvalidDomain = DomainInvalid
 
 end

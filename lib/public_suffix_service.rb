@@ -42,16 +42,16 @@ module PublicSuffixService
   #   # => #<PubliSuffixService::Domain ...>
   #   
   #   PublicSuffixService.parse("http://www.google.com")
-  #   # => PublicSuffixService::InvalidDomain
+  #   # => PublicSuffixService::DomainInvalid
   #   
   #   PublicSuffixService.parse("x.yz")
-  #   # => PublicSuffixService::InvalidDomain
+  #   # => PublicSuffixService::DomainInvalid
   #
   # Raises PublicSuffixService::Error if domain is not a valid domain
   #
   # Returns the PubliSuffixService::Domain domain.
   def self.parse(domain)
-    rule = RuleList.default.find(domain) || raise(InvalidDomain, "`#{domain}' is not a valid domain")
+    rule = RuleList.default.find(domain) || raise(DomainInvalid, "`#{domain}' is not a valid domain")
 
     left, right = rule.decompose(domain)
     parts       = left.split(".")

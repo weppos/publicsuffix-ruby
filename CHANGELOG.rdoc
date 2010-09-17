@@ -1,5 +1,9 @@
 = Changelog
 
+== master
+
+* CHANGED: Renamed PublicSuffixService::InvalidDomain to PublicSuffixService::DomainInvalid
+
 
 == Release 0.5.2
 

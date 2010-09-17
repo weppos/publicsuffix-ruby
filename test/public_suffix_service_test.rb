@@ -45,7 +45,7 @@ class PublicSuffixServiceTest < Test::Unit::TestCase
   end
 
   def test_self_parse_should_raise_with_invalid_domain
-    error = assert_raise(PublicSuffixService::InvalidDomain) { PublicSuffixService.parse("google.zip") }
+    error = assert_raise(PublicSuffixService::DomainInvalid) { PublicSuffixService.parse("google.zip") }
     assert_match %r{google\.zip}, error.message
   end
 
