@@ -2,6 +2,12 @@
 
 == master
 
+* ADDED: PublicSuffixService.parse raises DomainNotAllowed when trying to parse a domain name
+         which exists, but is not allowed by the current definition list (#3)
+
+         PublicSuffixService.parse("nic.do")
+         # => PublicSuffixService::DomainNotAllowed
+
 * CHANGED: Renamed PublicSuffixService::InvalidDomain to PublicSuffixService::DomainInvalid
 
 

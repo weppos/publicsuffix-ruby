@@ -19,8 +19,10 @@ module PublicSuffixService
   class Error < StandardError
   end
 
-  class InvalidDomain < Error
   class DomainInvalid < Error
+  end
+
+  class DomainNotAllowed < DomainInvalid
   end
 
 
