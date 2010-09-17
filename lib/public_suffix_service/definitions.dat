@@ -1095,15 +1095,15 @@ video.hu
 
 // id : http://en.wikipedia.org/wiki/.id
 // see also: https://register.pandi.or.id/
-.id
-.ac.id
-.co.id
-.go.id
-.mil.id
-.net.id
-.or.id
-.sch.id
-.web.id
+id
+ac.id
+co.id
+go.id
+mil.id
+net.id
+or.id
+sch.id
+web.id
 
 // ie : http://en.wikipedia.org/wiki/.ie
 ie
