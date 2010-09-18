@@ -42,20 +42,23 @@ module PublicSuffixService
   #   # => #<PubliSuffixService::Domain ...>
   #   
   #   PublicSuffixService.parse("http://www.google.com")
-  #   # => PublicSuffixService::InvalidDomain
+  #   # => PublicSuffixService::DomainInvalid
   #   
   #   PublicSuffixService.parse("x.yz")
-  #   # => PublicSuffixService::InvalidDomain
+  #   # => PublicSuffixService::DomainInvalid
   #
   # Raises PublicSuffixService::Error if domain is not a valid domain
   #
   # Returns the PubliSuffixService::Domain domain.
   def self.parse(domain)
-    rule = RuleList.default.find(domain) || raise(InvalidDomain, "`#{domain}' is not a valid domain")
+    rule = RuleList.default.find(domain) || raise(DomainInvalid, "`#{domain}' is not a valid domain")
 
     left, right = rule.decompose(domain)
-    parts       = left.split(".")
+    if right.nil?
+      raise DomainNotAllowed, "Rule `#{rule.name}' doesn't allow `#{domain}'"
+    end
 
+    parts = left.split(".")
     # If we have 0 parts left, there is just a tld and no domain or subdomain
     # If we have 1 part  left, there is just a tld, domain and not subdomain
     # If we have 2 parts left, the last part is the domain, the other parts (combined) are the subdomain

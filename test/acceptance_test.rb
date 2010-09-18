@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AcceptanceTest < Test::Unit::TestCase
 
-  CASES = {
+  ValidCases = {
     "google.com" => [nil, "google", "com"],
     "foo.google.com" => ["foo", "google", "com"],
 
@@ -13,13 +13,23 @@ class AcceptanceTest < Test::Unit::TestCase
     "foo.parliament.uk" => ["foo", "parliament", "uk"],
   }
 
-  def test_all
-    CASES.each do |name, results|
+  def test_valid
+    ValidCases.each do |name, results|
       domain = PublicSuffixService.parse(name)
       trd, sld, tld = results
       assert_equal tld, domain.tld, "Invalid tld for '#{name}'"
       assert_equal sld, domain.sld, "Invalid sld for '#{name}'"
       assert_equal trd, domain.trd, "Invalid trd for '#{name}'"
+    end
+  end
+
+  InvalidCases = {
+    "nic.do" => PublicSuffixService::DomainNotAllowed,
+  }
+
+  def test_invalid
+    InvalidCases.each do |name, error|
+      assert_raise(error) { PublicSuffixService.parse(name) }
     end
   end
 

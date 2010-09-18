@@ -3,6 +3,9 @@ require 'test_helper'
 class PublicSuffixService::RuleTest < Test::Unit::TestCase
 
   def test_factory_should_return_rule_normal
+    rule = PublicSuffixService::Rule.factory("com")
+    assert_instance_of PublicSuffixService::Rule::Normal, rule
+
     rule = PublicSuffixService::Rule.factory("verona.it")
     assert_instance_of PublicSuffixService::Rule::Normal, rule
   end
@@ -13,7 +16,10 @@ class PublicSuffixService::RuleTest < Test::Unit::TestCase
   end
 
   def test_factory_should_return_rule_wildcard
-    rule = PublicSuffixService::Rule.factory("*.aichi.jp")
+    rule = PublicSuffixService::Rule.factory("*.do")
+    assert_instance_of PublicSuffixService::Rule::Wildcard, rule
+
+    rule = PublicSuffixService::Rule.factory("*.sch.uk")
     assert_instance_of PublicSuffixService::Rule::Wildcard, rule
   end
 
@@ -208,6 +214,7 @@ class PublicSuffixService::RuleWildcardTest < Test::Unit::TestCase
   end
 
   def test_decompose
+    assert_equal [nil, nil], @klass.new("*.do").decompose("nic.do")
     assert_equal %w(google co.uk), @klass.new("*.uk").decompose("google.co.uk")
     assert_equal %w(foo.google co.uk), @klass.new("*.uk").decompose("foo.google.co.uk")
   end
