@@ -1,6 +1,6 @@
 = Changelog
 
-== master
+== Release 0.6.0
 
 * ADDED: PublicSuffixService.parse raises DomainNotAllowed when trying to parse a domain name
          which exists, but is not allowed by the current definition list (#3)
