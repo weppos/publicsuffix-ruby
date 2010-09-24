@@ -18,24 +18,26 @@ module PublicSuffixService
 
   class Rule
 
-    # Takes the <tt>name</tt> of the rule, detects the specific rule class
+    # Takes the +name+ of the rule, detects the specific rule class
     # and creates a new instance of that class.
-    # The <tt>name</tt> becomes the rule value.
+    # The +name+ becomes the rule +value+.
     #
-    # name - The String rule definition.
+    # @param  [String] name The rule definition.
     #
-    # Examples
+    # @return [PublicSuffixService::Rule::*] A rule instance.
     #
+    # @example Creates a Normal rule
     #   PublicSuffixService::Rule.factory("ar")
     #   # => #<PublicSuffixService::Rule::Normal>
     #
+    # @example Creates a Wildcard rule
     #   PublicSuffixService::Rule.factory("*.ar")
     #   # => #<PublicSuffixService::Rule::Wildcard>
     #
+    # @example Creates an Exception rule
     #   PublicSuffixService::Rule.factory("!congresodelalengua3.ar")
     #   # => #<PublicSuffixService::Rule::Exception>
     #
-    # Returns a rule instance, a kind of PublicSuffixService::Rule::Base.
     def self.factory(name)
       klass = case name.to_s[0..0]
         when "*"  then  "wildcard"
@@ -53,20 +55,20 @@ module PublicSuffixService
     # in the {Public Suffix List}[http://publicsuffix.org].
     # 
     # This is intended to be an Abstract class
-    # and you sholnd't create a direct instance. The only purpose
+    # and you shouldn't create a direct instance. The only purpose
     # of this class is to expose a common interface
     # for all the available subclasses.
     #
-    # * PublicSuffixService::Rule::Normal
-    # * PublicSuffixService::Rule::Exception
-    # * PublicSuffixService::Rule::Wildcard
+    # * {PublicSuffixService::Rule::Normal}
+    # * {PublicSuffixService::Rule::Exception}
+    # * {PublicSuffixService::Rule::Wildcard}
     #
     # == Properties
     #
     # A rule is composed by 4 properties:
     #
     # name    - The name of the rule, corresponding to the rule definition
-    #           in the public suffic list
+    #           in the public suffix list
     # value   - The value, a normalized version of the rule name.
     #           The normalization process depends on rule tpe.
     # type    - The rule type (:normal, :wildcard, :exception)
@@ -128,12 +130,18 @@ module PublicSuffixService
     #   rule.decompose("www.google.com")
     #   # => ["www.google", "com"]
     #
+    # @abstract
+    #
     class Base
 
       attr_reader :name, :value, :type, :labels
 
       # Initializes a new rule with name and value.
-      # If value is nil, name also becomes the value for this rule.
+      # If value is +nil+, name also becomes the value for this rule.
+      #
+      # @param  [String] name   The name of the rule
+      # @param  [String] value  The value of the rule. If nil, defaults to +name+.
+      #
       def initialize(name, value = nil)
         @name   = name.to_s
         @value  = value || @name
@@ -143,10 +151,10 @@ module PublicSuffixService
 
       # Checks whether this rule is equal to <tt>other</tt>.
       #
-      # other - The PublicSuffixService::Rule::Base to compare.
+      # @param  [PublicSuffixService::Rule::*] other The rule to compare.
       #
-      # Returns true if this rule and other are instances of the same class
-      # and has the same value, false otherwise.
+      # @return [Boolean] Returns true if this rule and other are instances of the same class
+      #                   and has the same value, false otherwise.
       def ==(other)
         return false unless other.is_a?(self.class)
         self.equal?(other) ||
@@ -155,11 +163,11 @@ module PublicSuffixService
       alias :eql? :==
 
 
-      # Checks whether this rule matches <tt>domain</tt>.
+      # Checks whether this rule matches +domain+.
       #
-      # domain - The String domain name to check.
+      # @param  [String, #to_s] domain The domain name to check.
       #
-      # Returns Boolean.
+      # @return [Boolean]
       def match?(domain)
         l1 = labels
         l2 = Domain.domain_to_labels(domain)
@@ -167,27 +175,31 @@ module PublicSuffixService
       end
 
       # Gets the length of this rule for comparison.
-      # The length usually matches the number of rule <tt>parts</tt>.
+      # The length usually matches the number of rule +parts+.
+      #
       # Subclasses might actually override this method.
       #
-      # Returns an Integer with the number of parts.
+      # @return [Integer] The number of parts.
       def length
         parts.length
       end
 
-      # Raises NotImplementedError.
+      # @raise  [NotImplementedError]
+      # @abstract
       def parts
         raise NotImplementedError
       end
 
-      # Raises NotImplementedError.
+      # @return [Array<String, nil>]
+      #
+      # @raise  [NotImplementedError]
+      # @abstract
       def decompose(domain)
         raise NotImplementedError
       end
 
 
       private
-
 
         def odiff(one, two)
           ii = 0
@@ -201,6 +213,10 @@ module PublicSuffixService
 
     class Normal < Base
 
+      # Initializes a new rule with +name+.
+      #
+      # @param  [String] name   The name of this rule.
+      #
       def initialize(name)
         super(name, name)
       end
@@ -208,16 +224,16 @@ module PublicSuffixService
       # dot-split rule value and returns all rule parts
       # in the order they appear in the value.
       #
-      # Returns an Array with the domain parts.
+      # @return [Array<String>]
       def parts
         @parts ||= @value.split(".")
       end
 
       # Decomposes the domain according to rule properties.
       #
-      # domain - The String domain name to parse.
+      # @param  [String, #to_s] domain The domain name to decompose.
       #
-      # Return an Array with [trd + sld, tld].
+      # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
@@ -227,6 +243,10 @@ module PublicSuffixService
 
     class Wildcard < Base
 
+      # Initializes a new rule with +name+.
+      #
+      # @param  [String] name   The name of this rule.
+      #
       def initialize(name)
         super(name, name.to_s[2..-1])
       end
@@ -234,20 +254,24 @@ module PublicSuffixService
       # dot-split rule value and returns all rule parts
       # in the order they appear in the value.
       #
-      # Returns an Array with the domain parts.
+      # @return [Array<String>]
       def parts
         @parts ||= @value.split(".")
       end
 
+      # Overwrites the default implementation to cope with
+      # the +*+ char.
+      #
+      # @return [Integer] The number of parts.
       def length
         parts.length + 1 # * counts as 1
       end
 
       # Decomposes the domain according to rule properties.
       #
-      # domain - The String domain name to parse.
+      # @param  [String, #to_s] domain The domain name to decompose.
       #
-      # Return an Array with [trd + sld, tld].
+      # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         domain.to_s =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
         [$1, $2]
@@ -257,6 +281,10 @@ module PublicSuffixService
 
     class Exception < Base
 
+      # Initializes a new rule with +name+.
+      #
+      # @param  [String] name   The name of this rule.
+      #
       def initialize(name)
         super(name, name.to_s[1..-1])
       end
@@ -269,16 +297,16 @@ module PublicSuffixService
       # If the prevailing rule is a exception rule,
       # modify it by removing the leftmost label. 
       #
-      # Returns an Array with the domain parts.
+      # @return [Array<String>]
       def parts
         @parts ||= @value.split(".")[1..-1]
       end
 
       # Decomposes the domain according to rule properties.
       #
-      # domain - The String domain name to parse.
+      # @param  [String, #to_s] domain The domain name to decompose.
       #
-      # Return an Array with [trd + sld, tld].
+      # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
