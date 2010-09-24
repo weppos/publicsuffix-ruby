@@ -16,11 +16,11 @@
 
 module PublicSuffixService
 
-  # = Rule List
+  # A {PublicSuffixService::RuleList} is a collection of one
+  # or more {PublicSuffixService::Rule}.
   #
-  # A PublicSuffixService::RuleList is a collection of one or more PublicSuffixService::Rule.
-  #
-  # Given a RuleList, you can add or remove PublicSuffixService::Rule,
+  # Given a {PublicSuffixService::RuleList},
+  # you can add or remove {PublicSuffixService::Rule},
   # iterate all items in the list or search for the first rule
   # which matches a specific domain name.
   #
@@ -41,45 +41,46 @@ module PublicSuffixService
   #   list.find("example.org")
   #   # => nil
   #
-  # You can create as many PublicSuffixService::RuleList you want.
-  # The PublicSuffixService::RuleList.default rule list is used by DomainName
+  # You can create as many {PublicSuffixService::RuleList} you want.
+  # The {PublicSuffixService::RuleList.default} rule list is used
   # to tokenize and validate a domain.
   #
-  # PublicSuffixService::RuleList implements Enumerable module.
+  # {PublicSuffixService::RuleList} implements +Enumerable+ module.
   #
   class RuleList
     include Enumerable
 
     # Gets the list of rules.
     #
-    # Returns the Array of rule instances.
-    # Each rule is an instance of the proper corresponding of
-    # PublicSuffixService::Rule::Base.
+    # @return [Array<PublicSuffixService::Rule::*>]
     attr_reader :list
 
     # Gets the naive index, a hash that with the keys being the first label of
     # every rule pointing to an array of integers (indexes of the rules in @list)
-    attr_reader  :indexes
+    #
+    # @return [Array]
+    attr_reader :indexes
 
 
-    # Initializes an empty PublicSuffixService::RuleList.
-    # If block is given, yields on self.
-    def initialize(&block) # :yields: self
+    # Initializes an empty {PublicSuffixService::RuleList}.
+    #
+    # @yield [self] Yields on self.
+    # @yieldparam [PublicSuffixService::RuleList] self The newly creates instance
+    #
+    def initialize(&block)
       @list    = []
       @indexes = {}
       yield(self) if block_given?
       create_index!
     end
 
-    # Creates a naive index for @list. Just a hash that will tell
-    # us where the elements of @list are relative to its first
-    # Rule#labels element.
+    # Creates a naive index for +@list+. Just a hash that will tell
+    # us where the elements of +@list+ are relative to its first
+    # {PublicSuffixService::Rule#labels} element.
     #
     # For instance if @list[5] and @list[4] are the only elements of the list
     # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
     # select we can avoid mapping every single rule against the candidate domain.
-    #
-    # Returns nothing.
     def create_index!
       @list.map{|l| l.labels.first }.each_with_index do |elm, inx|
         if !@indexes.has_key?(elm)
@@ -91,14 +92,15 @@ module PublicSuffixService
     end
 
     # Checks whether two lists are equal.
+    #
     # RuleList <tt>one</tt> is equal to <tt>two</tt>, if <tt>two</tt> is an instance of 
-    # <tt>PublicSuffixService::RuleList</tt> and each <tt>PublicSuffixService::Rule::Base</tt>
+    # {PublicSuffixService::RuleList} and each {PublicSuffixService::Rule::*}
     # in list <tt>one</tt> is available in list <tt>two</tt>,
     # in the same order.
     #
-    # other - The PublicSuffixService::RuleList to compare.
+    # @param  [PublicSuffixService::RuleList] other The rule list to compare.
     #
-    # Returns true if self is equal to other.
+    # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(RuleList)
       self.equal?(other) ||
@@ -107,25 +109,22 @@ module PublicSuffixService
     alias :eql? :==
 
     # Iterates each rule in the list.
-    #
-    # Returns nothing.
     def each(*args, &block)
       @list.each(*args, &block)
     end
 
-    # Gets the list as Array.
+    # Gets the list as array.
     #
-    # Return an Array.
+    # @return [Array<PublicSuffixService::Rule::*>]
     def to_a
       @list
     end
 
     # Adds the given object to the list.
     #
-    # rule - The rule to add to the list. 
-    #        Expected to be a subclass of PublicSuffixService::Rule::Base.
+    # @param  [PublicSuffixService::Rule::*] rule The rule to add to the list.
     #
-    # Returns self.
+    # @return [self]
     def add(rule)
       @list << rule
       self
@@ -142,14 +141,14 @@ module PublicSuffixService
 
     # Checks whether the list is empty.
     #
-    # Returns true if the list contains no elements.
+    # @return [Boolean]
     def empty?
       @list.empty?
     end
 
     # Removes all elements.
     #
-    # Returns self.
+    # @return [self]
     def clear
       @list.clear
       self
@@ -176,9 +175,7 @@ module PublicSuffixService
     #   which directly match the labels of the prevailing rule (joined by dots).
     # * The registered domain is the public suffix plus one additional label.
     #
-    # Note: This might not be the most efficient algorithm.
-    #
-    # Returns a PublicSuffixService::Rule::Base instance or nil.
+    # @return [PublicSuffixService::Rule::*, nil]
     def find(domain)
       rules = select(domain)
       rules.select { |r|   r.type == :exception }.first ||
@@ -187,14 +184,14 @@ module PublicSuffixService
 
     # Selects all the rules matching given domain.
     #
-    # Will use @indexes to try only the rules that share the same first label,
-    # that will speed up things when using RuleList.find('foo') a lot.
+    # Will use +@indexes+ to try only the rules that share the same first label,
+    # that will speed up things when using +RuleList.find('foo')+ a lot.
     #
-    # Returns an Array of rule instances.
-    # Each rule is an instance of the corresponding subclass of
-    # PublicSuffixService::Rule::Base.
+    # @param  [String, #to_s] domain The domain name.
+    #
+    # @return [Array<PublicSuffixService::Rule::*>]
     def select(domain)
-      indices = (@indexes[ Domain.domain_to_labels(domain).first ] || [])
+      indices = (@indexes[Domain.domain_to_labels(domain).first] || [])
       @list.values_at(*indices).select { |rule| rule.match?(domain) }
     end
 
@@ -203,36 +200,36 @@ module PublicSuffixService
 
     class << self
 
-      # Gets the default PublicSuffixService::RuleList.
-      # Initializes a new PublicSuffixService::RuleList parsing the content
-      # of PublicSuffixService::RuleList.default_definition, if required.
+      # Gets the default rule list.
+      # Initializes a new {PublicSuffixService::RuleList} parsing the content
+      # of {PublicSuffixService::RuleList.default_definition}, if required.
       #
-      # Returns a PublicSuffixService::RuleList.
+      # @return [PublicSuffixService::RuleList]
       def default
         @@default ||= parse(default_definition)
       end
 
-      # Sets the default <tt>PublicSuffixService::RuleList</tt> to <tt>value</tt>.
+      # Sets the default rule list to +value+.
       #
-      # value - The new PublicSuffixService::RuleList.
+      # @param  [PublicSuffixService::RuleList] value The new rule list.
       #
-      # Returns the PublicSuffixService::RuleList.
+      # @return [PublicSuffixService::RuleList]
       def default=(value)
         @@default = value
       end
 
-      # Sets the default PublicSuffixService::RuleList to nil.
+      # Sets the default rule list to +nil+.
       #
-      # Returns self.
+      # @return [self]
       def clear
         self.default = nil
         self
       end
 
-      # Resets the default <tt>PublicSuffixService::RuleList</tt> and reinitialize it
-      # parsing the content of <tt>PublicSuffixService::RuleList.default_definition</tt>.
+      # Resets the default rule list and reinitialize it
+      # parsing the content of {PublicSuffixService::RuleList.default_definition}.
       #
-      # Returns a PublicSuffixService::RuleList.
+      # @return [PublicSuffixService::RuleList]
       def reload
         self.clear.default
       end
@@ -242,18 +239,19 @@ module PublicSuffixService
       # or a simple <tt>String</tt>.
       # The object must respond to <tt>#each_line</tt>.
       #
-      # Returns a File.
+      # @return [File]
       def default_definition
         File.new(File.join(File.dirname(__FILE__), "definitions.dat"))
       end
 
 
-      # Parse given <tt>input</tt> treating the content as Public Suffic List.
+      # Parse given +input+ treating the content as Public Suffic List.
+      #
       # See http://publicsuffix.org/format/ for more details about input format.
       #
-      # Returns an Array of rule instances.
-      # Each rule is an instance of the corresponding subclass of
-      # PublicSuffixService::Rule::Base.
+      # @param  [String] input The rule list to parse.
+      #
+      # @return [Array<PublicSuffixService::Rule::*>]
       def parse(input)
         new do |list|
           input.each_line do |line|
