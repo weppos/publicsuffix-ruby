@@ -80,7 +80,7 @@ module PublicSuffixService
   # This method doesn't care whether domain is a domain or subdomain.
   # The check is performed using the default {PublicSuffixService::RuleList}.
   #
-  # @param  [String, #to_s] domain The domain name to parse.
+  # @param  [String, #to_s] domain The domain name to check.
   #
   # @return [Boolean]
   #

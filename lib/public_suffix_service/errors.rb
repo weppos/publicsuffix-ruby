@@ -56,6 +56,9 @@ module PublicSuffixService
 
 
   # Backward Compatibility
+  #
+  # @deprecated Use {PublicSuffixService::DomainInvalid}.
+  #
   InvalidDomain = DomainInvalid
 
 end

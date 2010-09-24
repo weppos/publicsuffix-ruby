@@ -18,79 +18,125 @@ module PublicSuffixService
 
   class Domain
 
-    # Splits a string into its possible labels as a domain in reverse order
-    # from the input string.
+    # Splits a string into its possible labels
+    # as a domain in reverse order from the input string.
+    #
     # The input is not validated, but it is assumed to be a valid domain.
     #
-    # domain - The String domain to be split.
+    # @param  [String, #to_s] domain The domain name to split.
+    # @return [Array<String>]
     #
-    # Examples
+    # @example
     #
-    #   domain_to_labels('google.com.uk')
-    #   # => ['uk', 'com', 'google']
+    #   domain_to_labels('google.com')
+    #   # => ['com', 'google']
     #
-    # Returns an Array of String representing the possible labels.
+    #   domain_to_labels('google.co.uk')
+    #   # => ['uk', 'co', 'google']
+    #
     def self.domain_to_labels(domain)
       domain.to_s.split(".").reverse
     end
 
+    # Creates and returns a new {PublicSuffixService::Domain} instance.
+    #
+    # @overload initialize(tld)
+    #   Initializes with a +tld+.
+    #   @param [String] tld The TLD (extension)
+    # @overload initialize(tld, sld)
+    #   Initializes with a +tld+ and +sld+.
+    #   @param [String] tld The TLD (extension)
+    #   @param [String] sld The TRD (domain)
+    # @overload initialize(tld, sld, trd)
+    #   Initializes with a +tld+, +sld+ and +trd+.
+    #   @param [String] tld The TLD (extension)
+    #   @param [String] sld The SLD (domain)
+    #   @param [String] tld The TRD (subdomain)
+    #
+    # @yield [self] Yields on self.
+    # @yieldparam [PublicSuffixService::Domain] self The newly creates instance
+    #
+    # @example Initialize with a TLD
+    #   PublicSuffixService::Domain.new("com")
+    #   # => #<PublicSuffixService::Domain @tld="com">
+    #
+    # @example Initialize with a TLD and SLD
+    #   PublicSuffixService::Domain.new("com", "example")
+    #   # => #<PublicSuffixService::Domain @tld="com", @trd=nil>
+    #
+    # @example Initialize with a TLD, SLD and TRD
+    #   PublicSuffixService::Domain.new("com", "example", "wwww")
+    #   # => #<PublicSuffixService::Domain @tld="com", @trd=nil, @sld="example">
+    #
     def initialize(*args, &block)
       @tld, @sld, @trd = args
       yield(self) if block_given?
     end
 
-    # Gets a String representation of this object.
+    # Returns a string representation of this object.
     #
-    # Returns a String with the domain name.
+    # @return [String]
     def to_s
       name
     end
 
+    # Returns an array containing the domain parts.
+    #
+    # @return [Array<String, nil>]
+    #
+    # @example
+    #
+    #   PublicSuffixService::Domain.new("google.com").to_a
+    #   # => [nil, "google", "com"]
+    #
+    #   PublicSuffixService::Domain.new("www.google.com").to_a
+    #   # => [nil, "google", "com"]
+    #
     def to_a
       [trd, sld, tld]
     end
 
 
-    # Gets the Top Level Domain part, aka the extension.
+    # Returns the Top Level Domain part, aka the extension.
     #
-    # Returns a String if tld is set, nil otherwise.
+    # @return [String, nil]
     def tld
       @tld
     end
 
-    # Gets the Second Level Domain part, aka the domain part.
+    # Returns the Second Level Domain part, aka the domain part.
     #
-    # Returns a String if sld is set, nil otherwise.
+    # @return [String, nil]
     def sld
       @sld
     end
 
-    # Gets the Third Level Domain part, aka the subdomain part.
+    # Returns the Third Level Domain part, aka the subdomain part.
     #
-    # Returns a String if trd is set, nil otherwise.
+    # @return [String, nil]
     def trd
       @trd
     end
 
 
-    # Gets the domain name.
+    # Returns the full domain name.
     #
-    # Examples
+    # @return [String]
     #
+    # @example Gets the domain name of a domain
     #   PublicSuffixService::Domain.new("com", "google").name
     #   # => "google.com"
     #
+    # @example Gets the domain name of a subdomain
     #   PublicSuffixService::Domain.new("com", "google", "www").name
     #   # => "www.google.com"
     #
-    # Returns a String with the domain name.
     def name
       [trd, sld, tld].reject { |part| part.nil? }.join(".")
     end
 
     # Returns a domain-like representation of this object
-    # if the object is a <tt>domain?</tt>,
-    # <tt>nil</tt> otherwise.
+    # if the object is a {#domain?}, <tt>nil</tt> otherwise.
     #
     #   PublicSuffixService::Domain.new("com").domain
     #   # => nil
@@ -117,15 +163,18 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("com", "google", "www").sld
     #   # => "google"
     #
-    # Returns a String or nil.
+    # @return [String]
+    #
+    # @see #domain?
+    # @see #subdomain
+    #
     def domain
       return unless domain?
       [sld, tld].join(".")
     end
 
     # Returns a domain-like representation of this object
-    # if the object is a <tt>subdomain?</tt>,
-    # <tt>nil</tt> otherwise.
+    # if the object is a {#subdomain?}, <tt>nil</tt> otherwise.
     #
     #   PublicSuffixService::Domain.new("com").subdomain
     #   # => nil
@@ -152,17 +201,22 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("com", "google", "www").trd
     #   # => "www"
     #
-    # Returns a String or nil.
+    # @return [String]
+    #
+    # @see #subdomain?
+    # @see #domain
+    #
     def subdomain
       return unless subdomain?
       [trd, sld, tld].join(".")
     end
 
-    # Gets the rule matching this domain
-    # in the default PublicSuffixService::RuleList.
+    # Returns the rule matching this domain
+    # in the default {PublicSuffixService::RuleList}.
     #
-    # Returns the PublicSuffixService::Rule::Base instance
-    # if a rule matches current domain, nil if no rule is found.
+    # @return [PublicSuffixService::Rule::Base, nil]
+    #   The rule instance a rule matches current domain,
+    #   nil if no rule is found.
     def rule
       RuleList.default.find(name)
     end
@@ -172,11 +226,13 @@ module PublicSuffixService
     #
     # This method doesn't actually validate the domain.
     # It only checks whether the instance contains
-    # a value for the <tt>tld</tt> and <tt>sld</tt> attributes.
+    # a value for the {#tld} and {#sld} attributes.
     # If you also want to validate the domain,
-    # use <tt>#valid_domain?</tt> instead.
+    # use {#valid_domain?} instead.
     #
-    # Examples
+    # @return [Boolean]
+    #
+    # @example
     #
     #   PublicSuffixService::Domain.new("com").domain?
     #   # => false
@@ -192,7 +248,8 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("zip", "google").domain?
     #   # => true
     #
-    # Returns Boolean.
+    # @see #subdomain?
+    #
     def domain?
       !(tld.nil? || sld.nil?)
     end
@@ -201,11 +258,13 @@ module PublicSuffixService
     #
     # This method doesn't actually validate the subdomain.
     # It only checks whether the instance contains
-    # a value for the <tt>tld</tt>, <tt>sld</tt> and <tt>trd</tt> attributes.
+    # a value for the {#tld}, {#sld} and {#trd} attributes.
     # If you also want to validate the domain,
-    # use <tt>#valid_subdomain?</tt> instead.
+    # use {#valid_subdomain?} instead.
     #
-    # Examples
+    # @return [Boolean]
+    #
+    # @example
     #
     #   PublicSuffixService::Domain.new("com").subdomain?
     #   # => false
@@ -221,7 +280,8 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain?
     #   # => true
     #
-    # Returns Boolean.
+    # @see #domain?
+    #
     def subdomain?
       !(tld.nil? || sld.nil? || trd.nil?)
     end
@@ -229,35 +289,35 @@ module PublicSuffixService
     # Checks whether <tt>self</tt> is exclusively a domain,
     # and not a subdomain.
     #
-    # Returns Boolean.
+    # @return [Boolean]
     def is_a_domain?
       domain? && !subdomain?
     end
 
     # Checks whether <tt>self</tt> is exclusively a subdomain.
     #
-    # Returns Boolean.
+    # @return [Boolean]
     def is_a_subdomain?
       subdomain?
     end
 
     # Checks whether <tt>self</tt> is valid
-    # according to default <tt>RuleList</tt>.
+    # according to default {RuleList}.
     #
-    # Note: this method triggers a new rule lookup in the default RuleList,
+    # This method triggers a new rule lookup in the default {RuleList},
     # which is a quite intensive task.
     #
-    # Returns Boolean.
+    # @return [Boolean]
     def valid?
       !rule.nil?
     end
 
     # Checks whether <tt>self</tt> looks like a domain and validates
-    # according to default <tt>RuleList</tt>.
+    # according to default {RuleList}.
     #
-    # See also <tt>#domain?</tt> and <tt>#valid?</tt>.
+    # @return [Boolean]
     #
-    # Examples
+    # @example
     #
     #   PublicSuffixService::Domain.new("com").domain?
     #   # => false
@@ -272,17 +332,19 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("zip", "google").false?
     #   # => true
     #
-    # Returns true if this instance looks like a domain and is valid.
+    # @see #domain?
+    # @see #valid?
+    #
     def valid_domain?
       domain? && valid?
     end
 
     # Checks whether <tt>self</tt> looks like a subdomain and validates
-    # according to default <tt>RuleList</tt>.
+    # according to default {RuleList}.
     #
-    # See also <tt>#subdomain?</tt> and <tt>#valid?</tt>.
+    # @return [Boolean]
     #
-    # Examples
+    # @example
     #
     #   PublicSuffixService::Domain.new("com").subdomain?
     #   # => false
@@ -297,7 +359,9 @@ module PublicSuffixService
     #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain?
     #   # => false
     #
-    # Returns true if this instance looks like a domain and is valid.
+    # @see #subdomain?
+    # @see #valid?
+    #
     def valid_subdomain?
       subdomain? && valid?
     end
