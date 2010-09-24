@@ -23,7 +23,16 @@ module PublicSuffixService
   # A domain is considered invalid when no rule is found
   # in the definition list.
   #
-  # Since 0.6.0
+  # @example
+  #
+  #   PublicSuffixService.parse("nic.test")
+  #   # => PublicSuffixService::DomainInvalid
+  #
+  #   PublicSuffixService.parse("http://www.nic.it")
+  #   # => PublicSuffixService::DomainInvalid
+  #
+  # @since 0.6.0
+  #
   class DomainInvalid < Error
   end
 
@@ -32,15 +41,15 @@ module PublicSuffixService
   # but the rules set a requirement which is not satisfied
   # by the input you are trying to parse.
   #
-  # Since 0.6.0
-  #
-  # Examples
+  # @example
   #
   #   PublicSuffixService.parse("nic.do")
   #   # => PublicSuffixService::DomainNotAllowed
   #
   #   PublicSuffixService.parse("www.nic.do")
   #   # => PublicSuffixService::Domain
+  #
+  # @since 0.6.0
   #
   class DomainNotAllowed < DomainInvalid
   end
