@@ -76,13 +76,13 @@ module PublicSuffixService
 
     # Creates a naive index for +@list+. Just a hash that will tell
     # us where the elements of +@list+ are relative to its first
-    # {PublicSuffixService::Rule#labels} element.
+    # {PublicSuffixService::Rule::Base#labels} element.
     #
     # For instance if @list[5] and @list[4] are the only elements of the list
     # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
     # select we can avoid mapping every single rule against the candidate domain.
     def create_index!
-      @list.map{|l| l.labels.first }.each_with_index do |elm, inx|
+      @list.map { |l| l.labels.first }.each_with_index do |elm, inx|
         if !@indexes.has_key?(elm)
           @indexes[elm] = [inx]
         else
@@ -94,7 +94,7 @@ module PublicSuffixService
     # Checks whether two lists are equal.
     #
     # RuleList <tt>one</tt> is equal to <tt>two</tt>, if <tt>two</tt> is an instance of 
-    # {PublicSuffixService::RuleList} and each {PublicSuffixService::Rule::*}
+    # {PublicSuffixService::RuleList} and each +PublicSuffixService::Rule::*+
     # in list <tt>one</tt> is available in list <tt>two</tt>,
     # in the same order.
     #
