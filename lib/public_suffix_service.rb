@@ -28,28 +28,33 @@ module PublicSuffixService
   AUTHORS         = ["Simone Carletti <weppos@weppos.net>"]
 
 
-  # Parses <tt>domain</tt> and returns the
-  # PubliSuffixService::Domain instance.
+  # Parses +domain+ and returns the
+  # {PublicSuffixService::Domain} instance.
   #
-  # domain - The String domain name to parse.
+  # Parsing uses the default {PublicSuffixService::RuleList}.
   #
-  # Examples
+  # @param  [String, #to_s] domain The domain name to parse.
   #
+  # @return [PublicSuffixService::Domain]
+  #
+  # @example Parse a valid domain
   #   PublicSuffixService.parse("google.com")
   #   # => #<PubliSuffixService::Domain ...>
   #   
+  # @example Parse a valid subdomain
   #   PublicSuffixService.parse("www.google.com")
   #   # => #<PubliSuffixService::Domain ...>
-  #   
-  #   PublicSuffixService.parse("http://www.google.com")
-  #   # => PublicSuffixService::DomainInvalid
-  #   
+  #
+  # @example Parse an invalid domain
   #   PublicSuffixService.parse("x.yz")
   #   # => PublicSuffixService::DomainInvalid
   #
-  # Raises PublicSuffixService::Error if domain is not a valid domain
+  # @example Parse an URL (not supported, only domains)
+  #   PublicSuffixService.parse("http://www.google.com")
+  #   # => PublicSuffixService::DomainInvalid
   #
-  # Returns the PubliSuffixService::Domain domain.
+  # @raise [PublicSuffixService::Error] if domain is not a valid domain.
+  #
   def self.parse(domain)
     rule = RuleList.default.find(domain) || raise(DomainInvalid, "`#{domain}' is not a valid domain")
 
@@ -69,28 +74,32 @@ module PublicSuffixService
     Domain.new(tld, sld, trd)
   end
 
-  # Checks whether <tt>domain</tt> is a valid domain name.
+  # Checks whether +domain+ is a valid domain name,
+  # without actually parsing it.
   #
   # This method doesn't care whether domain is a domain or subdomain.
-  # The check is performed using the default PublicSuffixService::RuleList.
+  # The check is performed using the default {PublicSuffixService::RuleList}.
   #
-  # domain - The String domain name to parse.
+  # @param  [String, #to_s] domain The domain name to check.
   #
-  # Examples
+  # @return [Boolean]
   #
+  # @example Check a valid domain
   #   PublicSuffixService.valid?("google.com")
   #   # => true
-  #   
+  #
+  # @example Check a valid subdomain
   #   PublicSuffixService.valid?("www.google.com")
   #   # => true
-  #   
-  #   PublicSuffixService.valid?("http://www.google.com")
-  #   # => false
-  #   
+  #
+  # @example Check an invalid domain
   #   PublicSuffixService.valid?("x.yz")
   #   # => false
   #
-  # Returns Boolean.
+  # @example Check an URL (which is not a valid domain)
+  #   PublicSuffixService.valid?("http://www.google.com")
+  #   # => false
+  #
   def self.valid?(domain)
     !RuleList.default.find(domain).nil?
   end
