@@ -28,13 +28,6 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-# Generate documentation
-Rake::RDocTask.new do |rd|
-  rd.main = "README.rdoc"
-  rd.rdoc_files.include("*.rdoc", "lib/**/*.rb")
-  rd.rdoc_dir = "rdoc"
-end
-
 # Run test by default.
 task :default => ["test"]
 
@@ -96,10 +89,52 @@ task :clean => [:clobber] do
 end
 
 desc "Remove any generated file"
-task :clobber => [:clobber_rdoc, :clobber_rcov, :clobber_package]
+task :clobber => [:clobber_rdoc, :clobber_package]
 
 desc "Package the library and generates the gemspec"
 task :package => [:gemspec]
+
+
+desc "Generate RDoc documentation"
+Rake::RDocTask.new do |r|
+  r.main = "README.rdoc"
+  r.rdoc_files.include("*.rdoc", "lib/**/*.rb")
+  r.rdoc_dir = "rdoc"
+end
+
+namespace :rdoc do
+  desc "Publish RDoc documentation to the site"
+  task :publish => [:clobber_rdoc, :rdoc] do
+    ENV["username"] || raise(ArgumentError, "Missing ssh username")
+    sh "rsync -avz --delete rdoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/rdoc"
+  end
+end
+
+
+begin
+  require "yard"
+  require "yard/rake/yardoc_task"
+
+  YARD::Rake::YardocTask.new(:yardoc)
+
+  namespace :yardoc do
+    desc "Publish YARD documentation to the site"
+    task :publish => ["yardoc:clobber", "yardoc"] do
+      ENV["username"] || raise(ArgumentError, "Missing ssh username")
+      sh "rsync -avz --delete yardoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/yardoc"
+    end
+
+    desc "Remove YARD products"
+    task :clobber do
+      rm_r "yardoc" rescue nil
+    end
+  end
+
+  task :clobber => "yardoc:clobber"
+rescue LoadError
+  puts "YARD is not available"
+end
+
 
 begin
   require "rcov/rcovtask"
@@ -111,9 +146,9 @@ begin
     t.verbose = true
   end
 rescue LoadError
-  task :clobber_rcov
   puts "RCov is not available"
 end
+
 
 desc "Open an irb session preloaded with this library"
 task :console do
@@ -131,11 +166,6 @@ rescue LoadError
   puts "CodeStatistics (Rails) is not available"
 end
 
-desc "Publish documentation to the site"
-task :publish_rdoc => [:clobber_rdoc, :rdoc] do
-  ENV["username"] || raise(ArgumentError, "Missing ssh username")
-  sh "rsync -avz --delete rdoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/api"
-end
 
 desc <<-DESC
   Downloads the Public Suffix List file from the repository \
