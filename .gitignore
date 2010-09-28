@@ -3,4 +3,5 @@ nbproject
 .idea
 pkg
 rdoc
+yardoc
 coverage
