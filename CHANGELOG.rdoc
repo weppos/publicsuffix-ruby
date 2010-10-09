@@ -2,6 +2,8 @@
 
 == master
 
+* CHANGED: Using YARD to document the code instead of RDoc.
+
 * FIXED: RuleList cache is not recreated when a new rule is appended to the list (#6)
 
 
