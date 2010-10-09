@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{public_suffix_service}
-  s.version = "0.6.0"
+  s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Simone Carletti"]
-  s.date = %q{2010-09-18}
+  s.date = %q{2010-10-09}
   s.description = %q{    Intelligent domain name parser based in the Public Suffic List.     PublicSuffixService can parse and decompose a domain name into top level domain,     domain and subdomains.
 }
   s.email = %q{weppos@weppos.net}
@@ -23,11 +23,11 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<mocha>, [">= 0"])
+      s.add_development_dependency(%q<rr>, [">= 0"])
     else
-      s.add_dependency(%q<mocha>, [">= 0"])
+      s.add_dependency(%q<rr>, [">= 0"])
     end
   else
-    s.add_dependency(%q<mocha>, [">= 0"])
+    s.add_dependency(%q<rr>, [">= 0"])
   end
 end

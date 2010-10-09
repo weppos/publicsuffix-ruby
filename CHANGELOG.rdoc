@@ -1,6 +1,6 @@
 = Changelog
 
-== master
+== Release 0.7.0
 
 * CHANGED: Using YARD to document the code instead of RDoc.
 
