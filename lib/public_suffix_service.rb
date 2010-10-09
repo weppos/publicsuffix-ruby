@@ -33,7 +33,8 @@ module PublicSuffixService
   #
   # Parsing uses the default {PublicSuffixService::RuleList}.
   #
-  # @param  [String, #to_s] domain The domain name to parse.
+  # @param  [String, #to_s] domain
+  #   The domain name to parse.
   #
   # @return [PublicSuffixService::Domain]
   #
@@ -53,7 +54,8 @@ module PublicSuffixService
   #   PublicSuffixService.parse("http://www.google.com")
   #   # => PublicSuffixService::DomainInvalid
   #
-  # @raise [PublicSuffixService::Error] if domain is not a valid domain.
+  # @raise [PublicSuffixService::Error]
+  #   If domain is not a valid domain.
   #
   def self.parse(domain)
     rule = RuleList.default.find(domain) || raise(DomainInvalid, "`#{domain}' is not a valid domain")
@@ -80,7 +82,8 @@ module PublicSuffixService
   # This method doesn't care whether domain is a domain or subdomain.
   # The check is performed using the default {PublicSuffixService::RuleList}.
   #
-  # @param  [String, #to_s] domain The domain name to check.
+  # @param  [String, #to_s] domain
+  #   The domain name to check.
   #
   # @return [Boolean]
   #

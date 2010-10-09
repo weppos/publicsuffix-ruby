@@ -23,7 +23,9 @@ module PublicSuffixService
     #
     # The input is not validated, but it is assumed to be a valid domain.
     #
-    # @param  [String, #to_s] domain The domain name to split.
+    # @param  [String, #to_s] domain
+    #   The domain name to split.
+    #
     # @return [Array<String>]
     #
     # @example

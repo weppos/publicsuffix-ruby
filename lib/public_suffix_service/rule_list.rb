@@ -98,7 +98,8 @@ module PublicSuffixService
     # in list <tt>one</tt> is available in list <tt>two</tt>,
     # in the same order.
     #
-    # @param  [PublicSuffixService::RuleList] other The rule list to compare.
+    # @param [PublicSuffixService::RuleList] other
+    #   The rule list to compare.
     #
     # @return [Boolean]
     def ==(other)
@@ -122,7 +123,8 @@ module PublicSuffixService
 
     # Adds the given object to the list.
     #
-    # @param  [PublicSuffixService::Rule::*] rule The rule to add to the list.
+    # @param [PublicSuffixService::Rule::*] rule
+    #   The rule to add to the list.
     #
     # @return [self]
     def add(rule)
@@ -133,7 +135,7 @@ module PublicSuffixService
 
     # Gets the number of elements in the list.
     #
-    # Returns an Integer.
+    # @return [Integer]
     def size
       @list.size
     end
@@ -211,7 +213,8 @@ module PublicSuffixService
 
       # Sets the default rule list to +value+.
       #
-      # @param  [PublicSuffixService::RuleList] value The new rule list.
+      # @param [PublicSuffixService::RuleList] value
+      #   The new rule list.
       #
       # @return [PublicSuffixService::RuleList]
       def default=(value)
@@ -245,11 +248,11 @@ module PublicSuffixService
       end
 
 
-      # Parse given +input+ treating the content as Public Suffic List.
+      # Parse given +input+ treating the content as Public Suffix List.
       #
       # See http://publicsuffix.org/format/ for more details about input format.
       #
-      # @param  [String] input The rule list to parse.
+      # @param [String] input The rule list to parse.
       #
       # @return [Array<PublicSuffixService::Rule::*>]
       def parse(input)

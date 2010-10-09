@@ -139,8 +139,10 @@ module PublicSuffixService
       # Initializes a new rule with name and value.
       # If value is +nil+, name also becomes the value for this rule.
       #
-      # @param  [String] name   The name of the rule
-      # @param  [String] value  The value of the rule. If nil, defaults to +name+.
+      # @param [String] name
+      #   The name of the rule
+      # @param [String] value
+      #   The value of the rule. If nil, defaults to +name+.
       #
       def initialize(name, value = nil)
         @name   = name.to_s
@@ -151,10 +153,12 @@ module PublicSuffixService
 
       # Checks whether this rule is equal to <tt>other</tt>.
       #
-      # @param  [PublicSuffixService::Rule::*] other The rule to compare.
+      # @param [PublicSuffixService::Rule::*] other
+      #   The rule to compare.
       #
-      # @return [Boolean] Returns true if this rule and other are instances of the same class
-      #                   and has the same value, false otherwise.
+      # @return [Boolean]
+      #   Returns true if this rule and other are instances of the same class
+      #   and has the same value, false otherwise.
       def ==(other)
         return false unless other.is_a?(self.class)
         self.equal?(other) ||
@@ -165,7 +169,8 @@ module PublicSuffixService
 
       # Checks whether this rule matches +domain+.
       #
-      # @param  [String, #to_s] domain The domain name to check.
+      # @param [String, #to_s] domain
+      #   The domain name to check.
       #
       # @return [Boolean]
       def match?(domain)
@@ -215,7 +220,8 @@ module PublicSuffixService
 
       # Initializes a new rule with +name+.
       #
-      # @param  [String] name   The name of this rule.
+      # @param [String] name
+      #   The name of this rule.
       #
       def initialize(name)
         super(name, name)
@@ -231,9 +237,12 @@ module PublicSuffixService
 
       # Decomposes the domain according to rule properties.
       #
-      # @param  [String, #to_s] domain The domain name to decompose.
+      # @param [String, #to_s] domain
+      #   The domain name to decompose.
       #
-      # @return [Array<String>] The array with [trd + sld, tld].
+      # @return [Array<String>]
+      #   The array with [trd + sld, tld].
+      #
       def decompose(domain)
         domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
@@ -245,7 +254,8 @@ module PublicSuffixService
 
       # Initializes a new rule with +name+.
       #
-      # @param  [String] name   The name of this rule.
+      # @param [String] name
+      #   The name of this rule.
       #
       def initialize(name)
         super(name, name.to_s[2..-1])
@@ -269,9 +279,12 @@ module PublicSuffixService
 
       # Decomposes the domain according to rule properties.
       #
-      # @param  [String, #to_s] domain The domain name to decompose.
+      # @param [String, #to_s] domain
+      #   The domain name to decompose.
       #
-      # @return [Array<String>] The array with [trd + sld, tld].
+      # @return [Array<String>]
+      #   The array with [trd + sld, tld].
+      #
       def decompose(domain)
         domain.to_s =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
         [$1, $2]
@@ -304,9 +317,12 @@ module PublicSuffixService
 
       # Decomposes the domain according to rule properties.
       #
-      # @param  [String, #to_s] domain The domain name to decompose.
+      # @param [String, #to_s] domain
+      #   The domain name to decompose.
       #
-      # @return [Array<String>] The array with [trd + sld, tld].
+      # @return [Array<String>]
+      #   The array with [trd + sld, tld].
+      #
       def decompose(domain)
         domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
