@@ -60,15 +60,15 @@ class PublicSuffixService::RuleBaseTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("uk").match?("google.uk")
-    assert !@klass.new("gk").match?("google.uk")
-    assert !@klass.new("google").match?("google.uk")
-    assert  @klass.new("uk").match?("google.co.uk")
-    assert !@klass.new("gk").match?("google.co.uk")
-    assert !@klass.new("co").match?("google.co.uk")
-    assert  @klass.new("co.uk").match?("google.co.uk")
-    assert !@klass.new("uk.co").match?("google.co.uk")
-    assert !@klass.new("go.uk").match?("google.co.uk")
+    assert  @klass.new("uk").match?("example.uk")
+    assert !@klass.new("gk").match?("example.uk")
+    assert !@klass.new("example").match?("example.uk")
+    assert  @klass.new("uk").match?("example.co.uk")
+    assert !@klass.new("gk").match?("example.co.uk")
+    assert !@klass.new("co").match?("example.co.uk")
+    assert  @klass.new("co.uk").match?("example.co.uk")
+    assert !@klass.new("uk.co").match?("example.co.uk")
+    assert !@klass.new("go.uk").match?("example.co.uk")
   end
 
   def test_length
@@ -104,16 +104,23 @@ class PublicSuffixService::RuleNormalTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("uk").match?("google.uk")
-    assert !@klass.new("gk").match?("google.uk")
-    assert !@klass.new("google").match?("google.uk")
-    assert  @klass.new("uk").match?("google.co.uk")
-    assert !@klass.new("gk").match?("google.co.uk")
-    assert !@klass.new("co").match?("google.co.uk")
-    assert  @klass.new("co.uk").match?("google.co.uk")
-    assert !@klass.new("uk.co").match?("google.co.uk")
-    assert !@klass.new("go.uk").match?("google.co.uk")
+    assert  @klass.new("uk").match?("example.uk")
+    assert !@klass.new("gk").match?("example.uk")
+    assert !@klass.new("example").match?("example.uk")
+    assert  @klass.new("uk").match?("example.co.uk")
+    assert !@klass.new("gk").match?("example.co.uk")
+    assert !@klass.new("co").match?("example.co.uk")
+    assert  @klass.new("co.uk").match?("example.co.uk")
+    assert !@klass.new("uk.co").match?("example.co.uk")
+    assert !@klass.new("go.uk").match?("example.co.uk")
   end
+
+  def test_allow
+    assert !@klass.new("com").allow?("com")
+    assert  @klass.new("com").allow?("example.com")
+    assert  @klass.new("com").allow?("www.example.com")
+  end
+
 
   def test_length
     assert_equal 1, @klass.new("com").length
@@ -128,8 +135,8 @@ class PublicSuffixService::RuleNormalTest < Test::Unit::TestCase
   end
 
   def test_decompose
-    assert_equal %w(google com), @klass.new("com").decompose("google.com")
-    assert_equal %w(foo.google com), @klass.new("com").decompose("foo.google.com")
+    assert_equal %w(example com), @klass.new("com").decompose("example.com")
+    assert_equal %w(foo.example com), @klass.new("com").decompose("foo.example.com")
   end
 
 end
@@ -153,13 +160,14 @@ class PublicSuffixService::RuleExceptionTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("!uk").match?("google.co.uk")
-    assert !@klass.new("!gk").match?("google.co.uk")
-    assert  @klass.new("!co.uk").match?("google.co.uk")
-    assert !@klass.new("!go.uk").match?("google.co.uk")
+    assert  @klass.new("!uk").match?("example.co.uk")
+    assert !@klass.new("!gk").match?("example.co.uk")
+    assert  @klass.new("!co.uk").match?("example.co.uk")
+    assert !@klass.new("!go.uk").match?("example.co.uk")
     assert  @klass.new("!british-library.uk").match?("british-library.uk")
-    assert !@klass.new("!british-library.uk").match?("google.co.uk")
+    assert !@klass.new("!british-library.uk").match?("example.co.uk")
   end
+
 
   def test_length
     assert_equal 1, @klass.new("!british-library.uk").length
@@ -197,11 +205,18 @@ class PublicSuffixService::RuleWildcardTest < Test::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("*.uk").match?("google.uk")
-    assert  @klass.new("*.uk").match?("google.co.uk")
-    assert  @klass.new("*.co.uk").match?("google.co.uk")
-    assert !@klass.new("*.go.uk").match?("google.co.uk")
+    assert  @klass.new("*.uk").match?("example.uk")
+    assert  @klass.new("*.uk").match?("example.co.uk")
+    assert  @klass.new("*.co.uk").match?("example.co.uk")
+    assert !@klass.new("*.go.uk").match?("example.co.uk")
   end
+
+  def test_allow
+    assert !@klass.new("*.com").allow?("com")
+    assert !@klass.new("*.com").allow?("example.com")
+    assert  @klass.new("*.com").allow?("www.example.com")
+  end
+
 
   def test_length
     assert_equal 2, @klass.new("*.uk").length

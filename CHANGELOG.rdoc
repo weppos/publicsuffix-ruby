@@ -6,6 +6,8 @@
 
 * FIXED: RuleList cache is not recreated when a new rule is appended to the list (#6)
 
+* FIXED: PublicSuffixService.valid? should return false if the domain is not defined or not allowed (#4, #5)
+
 
 == Release 0.6.0
 

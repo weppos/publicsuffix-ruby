@@ -167,17 +167,46 @@ module PublicSuffixService
       alias :eql? :==
 
 
-      # Checks whether this rule matches +domain+.
+      # Checks if this rule matches +domain+.
       #
       # @param [String, #to_s] domain
       #   The domain name to check.
       #
       # @return [Boolean]
+      #
+      # @example
+      #   rule = Rule.factory("com")
+      #   # #<PublicSuffixService::Rule::Normal>
+      #   rule.match?("example.com")
+      #   # => true
+      #   rule.match?("example.net")
+      #   # => false
+      #
       def match?(domain)
         l1 = labels
         l2 = Domain.domain_to_labels(domain)
         odiff(l1, l2).empty?
       end
+
+      # Checks if this rule allows +domain+.
+      #
+      # @param [String, #to_s] domain
+      #   The domain name to check.
+      #
+      # @return [Boolean]
+      #
+      # @example
+      #   rule = Rule.factory("*.do")
+      #   # #<PublicSuffixService::Rule::Wildcard>
+      #   rule.allow?("example.do")
+      #   # => false
+      #   rule.allow?("www.example.do")
+      #   # => true
+      #
+      def allow?(domain)
+        !decompose(domain).last.nil?
+      end
+
 
       # Gets the length of this rule for comparison.
       # The length usually matches the number of rule +parts+.
@@ -189,12 +218,17 @@ module PublicSuffixService
         parts.length
       end
 
+      #
       # @raise  [NotImplementedError]
       # @abstract
       def parts
         raise NotImplementedError
       end
 
+      #
+      # @param [String, #to_s] domain
+      #   The domain name to decompose.
+      #
       # @return [Array<String, nil>]
       #
       # @raise  [NotImplementedError]

@@ -121,7 +121,7 @@ begin
     desc "Publish YARD documentation to the site"
     task :publish => ["yardoc:clobber", "yardoc"] do
       ENV["username"] || raise(ArgumentError, "Missing ssh username")
-      sh "rsync -avz --delete yardoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/yardoc"
+      sh "rsync -avz --delete yardoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/api"
     end
 
     desc "Remove YARD products"

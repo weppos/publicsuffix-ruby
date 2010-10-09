@@ -121,12 +121,19 @@ class PublicSuffixService::DomainTest < Test::Unit::TestCase
   end
 
   def test_valid_question
-    assert  @klass.new("com").valid?
-    assert  @klass.new("com", "google").valid?
-    assert  @klass.new("com", "google", "www").valid?
+    assert !@klass.new("com").valid?
+    assert  @klass.new("com", "example").valid?
+    assert  @klass.new("com", "example", "www").valid?
+
+    # not-assigned
     assert !@klass.new("zip").valid?
-    assert !@klass.new("zip", "google").valid?
-    assert !@klass.new("zip", "google", "www").valid?
+    assert !@klass.new("zip", "example").valid?
+    assert !@klass.new("zip", "example", "www").valid?
+
+    # not-allowed
+    assert !@klass.new("do").valid?
+    assert !@klass.new("do", "example").valid?
+    assert  @klass.new("do", "example", "www").valid?
   end
 
   def test_valid_domain_question

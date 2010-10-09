@@ -56,14 +56,20 @@ module PublicSuffixService
   #
   # @raise [PublicSuffixService::Error]
   #   If domain is not a valid domain.
+  # @raise [PublicSuffixService::DomainNotAllowed]
+  #   If a rule for +domain+ is found, but the rule
+  #   doesn't allow +domain+.
   #
   def self.parse(domain)
-    rule = RuleList.default.find(domain) || raise(DomainInvalid, "`#{domain}' is not a valid domain")
+    rule = RuleList.default.find(domain)
+    if rule.nil?
+      raise(DomainInvalid, "`#{domain}' is not a valid domain")
+    end
+    if !rule.allow?(domain)
+      raise DomainNotAllowed, "`#{domain}' is not allowed according to Registry policy"
+    end
 
     left, right = rule.decompose(domain)
-    if right.nil?
-      raise DomainNotAllowed, "Rule `#{rule.name}' doesn't allow `#{domain}'"
-    end
 
     parts = left.split(".")
     # If we have 0 parts left, there is just a tld and no domain or subdomain
@@ -76,7 +82,7 @@ module PublicSuffixService
     Domain.new(tld, sld, trd)
   end
 
-  # Checks whether +domain+ is a valid domain name,
+  # Checks whether +domain+ is assigned and allowed,
   # without actually parsing it.
   #
   # This method doesn't care whether domain is a domain or subdomain.
@@ -88,23 +94,30 @@ module PublicSuffixService
   # @return [Boolean]
   #
   # @example Check a valid domain
-  #   PublicSuffixService.valid?("google.com")
+  #   PublicSuffixService.valid?("example.com")
   #   # => true
   #
   # @example Check a valid subdomain
-  #   PublicSuffixService.valid?("www.google.com")
+  #   PublicSuffixService.valid?("www.example.com")
   #   # => true
   #
-  # @example Check an invalid domain
-  #   PublicSuffixService.valid?("x.yz")
+  # @example Check a not-assigned domain
+  #   PublicSuffixService.valid?("example.zip")
   #   # => false
   #
+  # @example Check a not-allowed domain
+  #   PublicSuffixService.valid?("example.do")
+  #   # => false
+  #   PublicSuffixService.valid?("www.example.do")
+  #   # => true
+  #
   # @example Check an URL (which is not a valid domain)
-  #   PublicSuffixService.valid?("http://www.google.com")
+  #   PublicSuffixService.valid?("http://www.example.com")
   #   # => false
   #
   def self.valid?(domain)
-    !RuleList.default.find(domain).nil?
+    rule = RuleList.default.find(domain)
+    !rule.nil? && rule.allow?(domain)
   end
 
 end

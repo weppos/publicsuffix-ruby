@@ -303,16 +303,37 @@ module PublicSuffixService
       subdomain?
     end
 
-    # Checks whether <tt>self</tt> is valid
+    # Checks whether <tt>self</tt> is assigned and allowed
     # according to default {RuleList}.
     #
     # This method triggers a new rule lookup in the default {RuleList},
     # which is a quite intensive task.
     #
     # @return [Boolean]
+    #
+    # @example Check a valid domain
+    #   Domain.new("com", "example").valid?
+    #   # => true
+    #
+    # @example Check a valid subdomain
+    #   Domain.new("com", "example", "www").valid?
+    #   # => true
+    #
+    # @example Check a not-assigned domain
+    #   Domain.new("zip", "example").valid?
+    #   # => false
+    #
+    # @example Check a not-allowed domain
+    #   Domain.new("do", "example").valid?
+    #   # => false
+    #   Domain.new("do", "example", "www").valid?
+    #   # => true
+    #
     def valid?
-      !rule.nil?
+      r = rule
+      !r.nil? && r.allow?(name)
     end
+
 
     # Checks whether <tt>self</tt> looks like a domain and validates
     # according to default {RuleList}.

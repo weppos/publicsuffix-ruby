@@ -3,50 +3,55 @@ require 'test_helper'
 class PublicSuffixServiceTest < Test::Unit::TestCase
 
   def test_self_parse_a_domain_with_tld_and_sld
-    domain = PublicSuffixService.parse("google.com")
+    domain = PublicSuffixService.parse("example.com")
     assert_instance_of PublicSuffixService::Domain, domain
     assert_equal "com",     domain.tld
-    assert_equal "google",  domain.sld
+    assert_equal "example", domain.sld
     assert_equal nil,       domain.trd
 
-    domain = PublicSuffixService.parse("google.co.uk")
+    domain = PublicSuffixService.parse("example.co.uk")
     assert_instance_of PublicSuffixService::Domain, domain
     assert_equal "co.uk",   domain.tld
-    assert_equal "google",  domain.sld
+    assert_equal "example", domain.sld
     assert_equal nil,       domain.trd
   end
 
   def test_self_parse_a_domain_with_tld_and_sld_and_trd
-    domain = PublicSuffixService.parse("alpha.google.com")
+    domain = PublicSuffixService.parse("alpha.example.com")
     assert_instance_of PublicSuffixService::Domain, domain
     assert_equal "com",     domain.tld
-    assert_equal "google",  domain.sld
+    assert_equal "example", domain.sld
     assert_equal "alpha",   domain.trd
 
-    domain = PublicSuffixService.parse("alpha.google.co.uk")
+    domain = PublicSuffixService.parse("alpha.example.co.uk")
     assert_instance_of PublicSuffixService::Domain, domain
     assert_equal "co.uk",   domain.tld
-    assert_equal "google",  domain.sld
+    assert_equal "example", domain.sld
     assert_equal "alpha",   domain.trd
   end
 
   def test_self_parse_a_domain_with_tld_and_sld_and_4rd
-    domain = PublicSuffixService.parse("one.two.google.com")
+    domain = PublicSuffixService.parse("one.two.example.com")
     assert_instance_of PublicSuffixService::Domain, domain
     assert_equal "com",     domain.tld
-    assert_equal "google",  domain.sld
+    assert_equal "example", domain.sld
     assert_equal "one.two", domain.trd
 
-    domain = PublicSuffixService.parse("one.two.google.co.uk")
+    domain = PublicSuffixService.parse("one.two.example.co.uk")
     assert_instance_of PublicSuffixService::Domain, domain
     assert_equal "co.uk",   domain.tld
-    assert_equal "google",  domain.sld
+    assert_equal "example", domain.sld
     assert_equal "one.two", domain.trd
   end
 
   def test_self_parse_should_raise_with_invalid_domain
-    error = assert_raise(PublicSuffixService::DomainInvalid) { PublicSuffixService.parse("google.zip") }
-    assert_match %r{google\.zip}, error.message
+    error = assert_raise(PublicSuffixService::DomainInvalid) { PublicSuffixService.parse("example.zip") }
+    assert_match %r{example\.zip}, error.message
+  end
+
+  def test_self_parse_should_raise_with_unallowed_domain
+    error = assert_raise(PublicSuffixService::DomainNotAllowed) { PublicSuffixService.parse("example.do") }
+    assert_match %r{example\.do}, error.message
   end
 
 
