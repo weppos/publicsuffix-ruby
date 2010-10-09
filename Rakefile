@@ -66,7 +66,7 @@ spec = Gem::Specification.new do |s|
   # s.add_dependency("some_other_gem", "~> 0.1.0")
 
   # If your tests use any gems, include them here
-  s.add_development_dependency("mocha")
+  s.add_development_dependency("rr")
 end
 
 # This task actually builds the gem. We also regenerate a static
@@ -142,7 +142,7 @@ begin
   desc "Create a code coverage report"
   Rcov::RcovTask.new do |t|
     t.test_files = FileList["test/**/*_test.rb"]
-    t.ruby_opts << "-Itest -x mocha,rcov,Rakefile"
+    t.ruby_opts << "-Itest -x rr,rcov,Rakefile"
     t.verbose = true
   end
 rescue LoadError

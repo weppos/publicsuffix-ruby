@@ -121,14 +121,22 @@ module PublicSuffixService
       @list
     end
 
-    # Adds the given object to the list.
+    # Adds the given object to the list
+    # and optionally refreshes the rule index.
     #
     # @param [PublicSuffixService::Rule::*] rule
     #   The rule to add to the list.
+    # @param [Boolean] index
+    #   Set to true to recreate the rule index
+    #   after the rule has been added to the list.
     #
     # @return [self]
-    def add(rule)
+    #
+    # @see #create_index!
+    #
+    def add(rule, index = true)
       @list << rule
+      create_index! if index == true
       self
     end
     alias << add
@@ -268,7 +276,7 @@ module PublicSuffixService
               next
             # append rule
             else
-              list << Rule.factory(line)
+              list.add(Rule.factory(line), false)
             end
           end
         end

@@ -20,7 +20,7 @@ class PublicSuffixService::RuleListTest < Test::Unit::TestCase
     assert_equal({}, @list.indexes)
   end
 
-  def test_find__with_index
+  def test_indexes
     @list = PublicSuffixService::RuleList.parse(<<EOS)
 // com : http://en.wikipedia.org/wiki/.com
 com
@@ -54,6 +54,16 @@ EOS
     assert_equal @list, @list.add(PublicSuffixService::Rule.factory(""))
     assert_equal @list, @list <<  PublicSuffixService::Rule.factory("")
     assert_equal 2, @list.length
+  end
+
+  def test_add_should_recreate_index
+    @list = PublicSuffixService::RuleList.parse("com")
+    assert_equal PublicSuffixService::Rule.factory("com"), @list.find("google.com")
+    assert_equal nil, @list.find("google.net")
+
+    @list << PublicSuffixService::Rule.factory("net")
+    assert_equal PublicSuffixService::Rule.factory("com"), @list.find("google.com")
+    assert_equal PublicSuffixService::Rule.factory("net"), @list.find("google.net")
   end
 
   def test_empty?
@@ -134,51 +144,17 @@ EOS
 
   def test_self_reload
     PublicSuffixService::RuleList.default
-    PublicSuffixService::RuleList.expects(:default_definition).returns("")
+    mock(PublicSuffixService::RuleList).default_definition { "" }
+
     PublicSuffixService::RuleList.reload
     assert_equal PublicSuffixService::RuleList.new, PublicSuffixService::RuleList.default
   end
 
+
   def test_self_parse
-    input = <<EOS
+    list = PublicSuffixService::RuleList.parse(<<EOS)
 // ***** BEGIN LICENSE BLOCK *****
 // Version: MPL 1.1/GPL 2.0/LGPL 2.1
-//
-// The contents of this file are subject to the Mozilla Public License Version
-// 1.1 (the "License"); you may not use this file except in compliance with
-// the License. You may obtain a copy of the License at
-// http://www.mozilla.org/MPL/
-//
-// Software distributed under the License is distributed on an "AS IS" basis,
-// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-// for the specific language governing rights and limitations under the
-// License.
-//
-// The Original Code is the Public Suffix List.
-//
-// The Initial Developer of the Original Code is
-// Jo Hermans <jo.hermans@gmail.com>.
-// Portions created by the Initial Developer are Copyright (C) 2007
-// the Initial Developer. All Rights Reserved.
-//
-// Contributor(s):
-//   Ruben Arakelyan <ruben@wackomenace.co.uk>
-//   Gervase Markham <gerv@gerv.net>
-//   Pamela Greene <pamg.bugs@gmail.com>
-//   David Triendl <david@triendl.name>
-//   The kind representatives of many TLD registries
-//
-// Alternatively, the contents of this file may be used under the terms of
-// either the GNU General Public License Version 2 or later (the "GPL"), or
-// the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
-// in which case the provisions of the GPL or the LGPL are applicable instead
-// of those above. If you wish to allow use of your version of this file only
-// under the terms of either the GPL or the LGPL, and not to allow others to
-// use your version of this file under the terms of the MPL, indicate your
-// decision by deleting the provisions above and replace them with the notice
-// and other provisions required by the GPL or the LGPL. If you do not delete
-// the provisions above, a recipient may use your version of this file under
-// the terms of any one of the MPL, the GPL or the LGPL.
 //
 // ***** END LICENSE BLOCK *****
 
@@ -193,12 +169,25 @@ ad
 *.ar
 !congresodelalengua3.ar
 EOS
-    expected = []
-    list = PublicSuffixService::RuleList.parse(input)
 
     assert_instance_of PublicSuffixService::RuleList, list
     assert_equal 5, list.length
     assert_equal %w(ac com.ac ad *.ar !congresodelalengua3.ar).map { |name| PublicSuffixService::Rule.factory(name) }, list.to_a
+  end
+
+  def test_self_parse_should_create_cache
+    list = PublicSuffixService::RuleList.parse(<<EOS)
+// com : http://en.wikipedia.org/wiki/.com
+com
+
+// uk : http://en.wikipedia.org/wiki/.uk
+*.uk
+*.sch.uk
+!bl.uk
+!british-library.uk
+EOS
+
+    assert_equal PublicSuffixService::Rule.factory("com"), list.find("google.com")
   end
 
 end

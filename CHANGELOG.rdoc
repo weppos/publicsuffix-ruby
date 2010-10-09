@@ -1,12 +1,17 @@
 = Changelog
 
+== master
+
+* FIXED: RuleList cache is not recreated when a new rule is appended to the list (#6)
+
+
 == Release 0.6.0
 
-* ADDED: PublicSuffixService.parse raises DomainNotAllowed when trying to parse a domain name
-         which exists, but is not allowed by the current definition list (#3)
+* NEW:  PublicSuffixService.parse raises DomainNotAllowed when trying to parse a domain name
+        which exists, but is not allowed by the current definition list (#3)
 
-         PublicSuffixService.parse("nic.do")
-         # => PublicSuffixService::DomainNotAllowed
+          PublicSuffixService.parse("nic.do")
+          # => PublicSuffixService::DomainNotAllowed
 
 * CHANGED: Renamed PublicSuffixService::InvalidDomain to PublicSuffixService::DomainInvalid
 
@@ -51,11 +56,11 @@
 
 == Release 0.2.0
 
-* ADDED: DomainName#valid?
+* NEW: DomainName#valid?
 
-* ADDED: DomainName#parse and DomainName#parse!
+* NEW: DomainName#parse and DomainName#parse!
 
-* ADDED: DomainName#valid_domain? and DomainName#valid_subdomain?
+* NEW: DomainName#valid_domain? and DomainName#valid_subdomain?
 
 * CHANGED: Make sure RuleList lookup is only performed once.
 
