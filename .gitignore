@@ -1,6 +1,6 @@
 .DS_Store
-nbproject
 .idea
+.yardoc
 pkg
 rdoc
 yardoc
