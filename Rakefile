@@ -95,22 +95,6 @@ desc "Package the library and generates the gemspec"
 task :package => [:gemspec]
 
 
-desc "Generate RDoc documentation"
-Rake::RDocTask.new do |r|
-  r.main = "README.rdoc"
-  r.rdoc_files.include("*.rdoc", "lib/**/*.rb")
-  r.rdoc_dir = "rdoc"
-end
-
-namespace :rdoc do
-  desc "Publish RDoc documentation to the site"
-  task :publish => [:clobber_rdoc, :rdoc] do
-    ENV["username"] || raise(ArgumentError, "Missing ssh username")
-    sh "rsync -avz --delete rdoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/rdoc"
-  end
-end
-
-
 begin
   require "yard"
   require "yard/rake/yardoc_task"
