@@ -157,17 +157,6 @@ task :console do
   sh "irb -rubygems -I lib -r public_suffix_service.rb"
 end
 
-begin
-  require "code_statistics"
-  desc "Show library's code statistics"
-  task :stats do
-    CodeStatistics.new(["Public Suffix Service", "lib"],
-                       ["Tests", "test"]).to_s
-  end
-rescue LoadError
-  puts "CodeStatistics (Rails) is not available"
-end
-
 
 desc <<-DESC
   Downloads the Public Suffix List file from the repository \
