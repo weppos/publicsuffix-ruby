@@ -63,9 +63,11 @@ class PublicSuffixService::RuleBaseTest < Test::Unit::TestCase
     assert  @klass.new("uk").match?("example.uk")
     assert !@klass.new("gk").match?("example.uk")
     assert !@klass.new("example").match?("example.uk")
+
     assert  @klass.new("uk").match?("example.co.uk")
     assert !@klass.new("gk").match?("example.co.uk")
     assert !@klass.new("co").match?("example.co.uk")
+
     assert  @klass.new("co.uk").match?("example.co.uk")
     assert !@klass.new("uk.co").match?("example.co.uk")
     assert !@klass.new("go.uk").match?("example.co.uk")
@@ -107,18 +109,32 @@ class PublicSuffixService::RuleNormalTest < Test::Unit::TestCase
     assert  @klass.new("uk").match?("example.uk")
     assert !@klass.new("gk").match?("example.uk")
     assert !@klass.new("example").match?("example.uk")
+
     assert  @klass.new("uk").match?("example.co.uk")
     assert !@klass.new("gk").match?("example.co.uk")
     assert !@klass.new("co").match?("example.co.uk")
+
     assert  @klass.new("co.uk").match?("example.co.uk")
     assert !@klass.new("uk.co").match?("example.co.uk")
     assert !@klass.new("go.uk").match?("example.co.uk")
+  end
+
+  def test_match_with_fully_qualified_domain_name
+    assert  @klass.new("com").match?("com.")
+    assert  @klass.new("com").match?("example.com.")
+    assert  @klass.new("com").match?("www.example.com.")
   end
 
   def test_allow
     assert !@klass.new("com").allow?("com")
     assert  @klass.new("com").allow?("example.com")
     assert  @klass.new("com").allow?("www.example.com")
+  end
+
+  def test_allow_with_fully_qualified_domain_name
+    assert !@klass.new("com").allow?("com.")
+    assert  @klass.new("com").allow?("example.com.")
+    assert  @klass.new("com").allow?("www.example.com.")
   end
 
 
@@ -135,8 +151,15 @@ class PublicSuffixService::RuleNormalTest < Test::Unit::TestCase
   end
 
   def test_decompose
-    assert_equal %w(example com), @klass.new("com").decompose("example.com")
-    assert_equal %w(foo.example com), @klass.new("com").decompose("foo.example.com")
+    assert_equal [nil, nil], @klass.new("com").decompose("com")
+    assert_equal %w( example com ), @klass.new("com").decompose("example.com")
+    assert_equal %w( foo.example com ), @klass.new("com").decompose("foo.example.com")
+  end
+
+  def test_decompose_with_fully_qualified_domain_name
+    assert_equal [nil, nil], @klass.new("com").decompose("com.")
+    assert_equal %w( example com ), @klass.new("com").decompose("example.com.")
+    assert_equal %w( foo.example com ), @klass.new("com").decompose("foo.example.com.")
   end
 
 end
@@ -168,6 +191,25 @@ class PublicSuffixService::RuleExceptionTest < Test::Unit::TestCase
     assert !@klass.new("!british-library.uk").match?("example.co.uk")
   end
 
+  def test_match_with_fully_qualified_domain_name
+    assert  @klass.new("!uk").match?("uk.")
+    assert  @klass.new("!uk").match?("co.uk.")
+    assert  @klass.new("!uk").match?("example.co.uk.")
+    assert  @klass.new("!uk").match?("www.example.co.uk.")
+  end
+
+  def test_allow
+    assert !@klass.new("!british-library.uk").allow?("uk")
+    assert  @klass.new("!british-library.uk").allow?("british-library.uk")
+    assert  @klass.new("!british-library.uk").allow?("www.british-library.uk")
+  end
+
+  def test_allow_with_fully_qualified_domain_name
+    assert !@klass.new("!british-library.uk").allow?("uk.")
+    assert  @klass.new("!british-library.uk").allow?("british-library.uk.")
+    assert  @klass.new("!british-library.uk").allow?("www.british-library.uk.")
+  end
+
 
   def test_length
     assert_equal 1, @klass.new("!british-library.uk").length
@@ -175,13 +217,20 @@ class PublicSuffixService::RuleExceptionTest < Test::Unit::TestCase
   end
 
   def test_parts
-    assert_equal %w(uk), @klass.new("!british-library.uk").parts
-    assert_equal %w(tokyo jp), @klass.new("!metro.tokyo.jp").parts
+    assert_equal %w( uk ), @klass.new("!british-library.uk").parts
+    assert_equal %w( tokyo jp ), @klass.new("!metro.tokyo.jp").parts
   end
 
   def test_decompose
-    assert_equal %w(british-library uk), @klass.new("!british-library.uk").decompose("british-library.uk")
-    assert_equal %w(foo.british-library uk), @klass.new("!british-library.uk").decompose("foo.british-library.uk")
+    assert_equal [nil, nil], @klass.new("!british-library.uk").decompose("uk")
+    assert_equal %w( british-library uk ), @klass.new("!british-library.uk").decompose("british-library.uk")
+    assert_equal %w( foo.british-library uk ), @klass.new("!british-library.uk").decompose("foo.british-library.uk")
+  end
+
+  def test_decompose_with_fully_qualified_domain_name
+    assert_equal [nil, nil], @klass.new("!british-library.uk").decompose("uk.")
+    assert_equal %w( british-library uk ), @klass.new("!british-library.uk").decompose("british-library.uk.")
+    assert_equal %w( foo.british-library uk ), @klass.new("!british-library.uk").decompose("foo.british-library.uk.")
   end
 
 end
@@ -211,10 +260,25 @@ class PublicSuffixService::RuleWildcardTest < Test::Unit::TestCase
     assert !@klass.new("*.go.uk").match?("example.co.uk")
   end
 
+  def test_match_with_fully_qualified_domain_name
+    assert  @klass.new("*.uk").match?("uk.")
+    assert  @klass.new("*.uk").match?("co.uk.")
+    assert  @klass.new("*.uk").match?("example.co.uk.")
+    assert  @klass.new("*.uk").match?("www.example.co.uk.")
+  end
+
   def test_allow
-    assert !@klass.new("*.com").allow?("com")
-    assert !@klass.new("*.com").allow?("example.com")
-    assert  @klass.new("*.com").allow?("www.example.com")
+    assert !@klass.new("*.uk").allow?("uk")
+    assert !@klass.new("*.uk").allow?("co.uk")
+    assert  @klass.new("*.uk").allow?("example.co.uk")
+    assert  @klass.new("*.uk").allow?("www.example.co.uk")
+  end
+
+  def test_allow_with_fully_qualified_domain_name
+    assert !@klass.new("*.uk").allow?("uk.")
+    assert !@klass.new("*.uk").allow?("co.uk.")
+    assert  @klass.new("*.uk").allow?("example.co.uk.")
+    assert  @klass.new("*.uk").allow?("www.example.co.uk.")
   end
 
 
@@ -224,14 +288,20 @@ class PublicSuffixService::RuleWildcardTest < Test::Unit::TestCase
   end
 
   def test_parts
-    assert_equal %w(uk), @klass.new("*.uk").parts
-    assert_equal %w(co uk), @klass.new("*.co.uk").parts
+    assert_equal %w( uk ), @klass.new("*.uk").parts
+    assert_equal %w( co uk ), @klass.new("*.co.uk").parts
   end
 
   def test_decompose
     assert_equal [nil, nil], @klass.new("*.do").decompose("nic.do")
-    assert_equal %w(google co.uk), @klass.new("*.uk").decompose("google.co.uk")
-    assert_equal %w(foo.google co.uk), @klass.new("*.uk").decompose("foo.google.co.uk")
+    assert_equal %w( google co.uk ), @klass.new("*.uk").decompose("google.co.uk")
+    assert_equal %w( foo.google co.uk ), @klass.new("*.uk").decompose("foo.google.co.uk")
+  end
+
+  def test_decompose_with_fully_qualified_domain_name
+    assert_equal [nil, nil], @klass.new("*.do").decompose("nic.do.")
+    assert_equal %w( google co.uk ), @klass.new("*.uk").decompose("google.co.uk.")
+    assert_equal %w( foo.google co.uk ), @klass.new("*.uk").decompose("foo.google.co.uk.")
   end
 
 end

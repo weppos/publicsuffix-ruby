@@ -44,6 +44,14 @@ class PublicSuffixServiceTest < Test::Unit::TestCase
     assert_equal "one.two", domain.trd
   end
 
+  def test_self_parse_a_fully_qualified_domain_name
+    domain = PublicSuffixService.parse("www.example.com.")
+    assert_instance_of PublicSuffixService::Domain, domain
+    assert_equal "com",     domain.tld
+    assert_equal "example", domain.sld
+    assert_equal "www",     domain.trd
+  end
+
   def test_self_parse_should_raise_with_invalid_domain
     error = assert_raise(PublicSuffixService::DomainInvalid) { PublicSuffixService.parse("example.zip") }
     assert_match %r{example\.zip}, error.message
@@ -55,13 +63,23 @@ class PublicSuffixServiceTest < Test::Unit::TestCase
   end
 
 
-  def test_self_valid_question
+  def test_self_valid
     assert  PublicSuffixService.valid?("google.com")
     assert  PublicSuffixService.valid?("www.google.com")
     assert  PublicSuffixService.valid?("google.co.uk")
     assert  PublicSuffixService.valid?("www.google.co.uk")
+  end
+
+  # Returns false when domain has an invalid TLD
+  def test_self_valid_with_invalid_tld
     assert !PublicSuffixService.valid?("google.zip")
     assert !PublicSuffixService.valid?("www.google.zip")
+  end
+
+  def test_self_valid_with_fully_qualified_domain_name
+    assert  PublicSuffixService.valid?("google.com.")
+    assert  PublicSuffixService.valid?("google.co.uk.")
+    assert !PublicSuffixService.valid?("google.zip.")
   end
 
 end

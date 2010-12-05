@@ -278,7 +278,7 @@ module PublicSuffixService
       #   The array with [trd + sld, tld].
       #
       def decompose(domain)
-        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s.chomp(".") =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -320,7 +320,7 @@ module PublicSuffixService
       #   The array with [trd + sld, tld].
       #
       def decompose(domain)
-        domain.to_s =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
+        domain.to_s.chomp(".") =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -358,7 +358,7 @@ module PublicSuffixService
       #   The array with [trd + sld, tld].
       #
       def decompose(domain)
-        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s.chomp(".") =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 

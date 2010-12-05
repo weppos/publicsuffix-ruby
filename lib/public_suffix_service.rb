@@ -34,16 +34,24 @@ module PublicSuffixService
   # Parsing uses the default {PublicSuffixService::RuleList}.
   #
   # @param  [String, #to_s] domain
-  #   The domain name to parse.
+  #   The domain name or fully qualified domain name to parse.
   #
   # @return [PublicSuffixService::Domain]
   #
   # @example Parse a valid domain
   #   PublicSuffixService.parse("google.com")
   #   # => #<PubliSuffixService::Domain ...>
-  #   
+  # 
   # @example Parse a valid subdomain
   #   PublicSuffixService.parse("www.google.com")
+  #   # => #<PubliSuffixService::Domain ...>
+  # 
+  # @example Parse a fully qualified domain
+  #   PublicSuffixService.parse("google.com.")
+  #   # => #<PubliSuffixService::Domain ...>
+  # 
+  # @example Parse a fully qualified domain (subdomain)
+  #   PublicSuffixService.parse("www.google.com.")
   #   # => #<PubliSuffixService::Domain ...>
   #
   # @example Parse an invalid domain
@@ -86,29 +94,35 @@ module PublicSuffixService
   # without actually parsing it.
   #
   # This method doesn't care whether domain is a domain or subdomain.
-  # The check is performed using the default {PublicSuffixService::RuleList}.
+  # The validation is performed using the default {PublicSuffixService::RuleList}.
   #
   # @param  [String, #to_s] domain
-  #   The domain name to check.
+  #   The domain name or fully qualified domain name to validate.
   #
   # @return [Boolean]
   #
-  # @example Check a valid domain
+  # @example Validate a valid domain
   #   PublicSuffixService.valid?("example.com")
   #   # => true
   #
-  # @example Check a valid subdomain
+  # @example Validate a valid subdomain
   #   PublicSuffixService.valid?("www.example.com")
   #   # => true
   #
-  # @example Check a not-assigned domain
+  # @example Validate a not-assigned domain
   #   PublicSuffixService.valid?("example.zip")
   #   # => false
   #
-  # @example Check a not-allowed domain
+  # @example Validate a not-allowed domain
   #   PublicSuffixService.valid?("example.do")
   #   # => false
   #   PublicSuffixService.valid?("www.example.do")
+  #   # => true
+  # 
+  # @example Validate a fully qualified domain
+  #   PublicSuffixService.valid?("google.com.")
+  #   # => true
+  #   PublicSuffixService.valid?("www.google.com.")
   #   # => true
   #
   # @example Check an URL (which is not a valid domain)

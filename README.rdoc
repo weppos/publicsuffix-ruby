@@ -50,7 +50,7 @@ The best way to install Public Suffix Service< is via {RubyGems}[http://www.ruby
 You might need administrator privileges on your system to install the Gem.
 
 
-== Usage
+== Basic Usage
 
 Example domain without subdomains.
 
@@ -92,6 +92,22 @@ Simple validation example.
 
   PublicSuffixService.valid?("x.yz")
   # => false
+
+== Fully Qualified Domain Names
+
+This library automatically recognizes Fully Qualified Domain Names. A FQDN is a domain name that end with a trailing dot.
+
+  # Parse a standard domain name
+  domain = PublicSuffixService.parse("www.google.com")
+  # => #<PublicSuffixService::Domain>
+  domain.tld
+  # => "com"
+
+  # Parse a fully qualified domain name
+  domain = PublicSuffixService.parse("www.google.com.")
+  # => #<PublicSuffixService::Domain>
+  domain.tld
+  # => "com"
 
 
 == Credits
