@@ -1,5 +1,10 @@
 = Changelog
 
+== master
+
+* CHANGED: Update public suffix list to d1a5599b49fa 2010-10-25 15:10 +0100 (#9)
+
+
 == Release 0.7.0
 
 * CHANGED: Using YARD to document the code instead of RDoc.
