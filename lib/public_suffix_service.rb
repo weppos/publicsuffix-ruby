@@ -63,7 +63,7 @@ module PublicSuffixService
   def self.parse(domain)
     rule = RuleList.default.find(domain)
     if rule.nil?
-      raise(DomainInvalid, "`#{domain}' is not a valid domain")
+      raise DomainInvalid, "`#{domain}' is not a valid domain"
     end
     if !rule.allow?(domain)
       raise DomainNotAllowed, "`#{domain}' is not allowed according to Registry policy"

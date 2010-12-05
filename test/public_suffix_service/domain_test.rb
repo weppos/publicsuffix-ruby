@@ -6,9 +6,11 @@ class PublicSuffixService::DomainTest < Test::Unit::TestCase
     @klass = PublicSuffixService::Domain
   end
 
-  def test_domain_to_lables
-    assert_equal %w{com live spaces someone},       PublicSuffixService::Domain.domain_to_labels('someone.spaces.live.com')
-    assert_equal %w{com zoho wiki leontina23samiko}, PublicSuffixService::Domain.domain_to_labels('leontina23samiko.wiki.zoho.com')
+  def test_domain_to_labels
+    assert_equal  %w{com live spaces someone},
+                  PublicSuffixService::Domain.domain_to_labels('someone.spaces.live.com')
+    assert_equal  %w{com zoho wiki leontina23samiko},
+                  PublicSuffixService::Domain.domain_to_labels('leontina23samiko.wiki.zoho.com')
   end
 
 
