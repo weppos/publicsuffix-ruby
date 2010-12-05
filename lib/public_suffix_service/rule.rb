@@ -16,6 +16,17 @@
 
 module PublicSuffixService
 
+  # A Rule is a special object which holds a single definition
+  # of the Public Suffix List.
+  #
+  # There are 3 types of ruleas, each one represented by a specific
+  # subclass within the +PublicSuffixService::Rule+ namespace.
+  #
+  # To create a new Rule, use the {PublicSuffixService::Rule#factory} method.
+  #
+  #   PublicSuffixService::Rule.factory("ar")
+  #   # => #<PublicSuffixService::Rule::Normal>
+  #
   class Rule
 
     # Takes the +name+ of the rule, detects the specific rule class
