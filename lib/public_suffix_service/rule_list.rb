@@ -185,6 +185,8 @@ module PublicSuffixService
     #   which directly match the labels of the prevailing rule (joined by dots).
     # * The registered domain is the public suffix plus one additional label.
     #
+    # @param  [String, #to_s] domain The domain name.
+    #
     # @return [PublicSuffixService::Rule::*, nil]
     def find(domain)
       rules = select(domain)

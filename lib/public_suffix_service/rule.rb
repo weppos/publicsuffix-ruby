@@ -197,7 +197,7 @@ module PublicSuffixService
       #
       # @example
       #   rule = Rule.factory("*.do")
-      #   # #<PublicSuffixService::Rule::Wildcard>
+      #   # => #<PublicSuffixService::Rule::Wildcard>
       #   rule.allow?("example.do")
       #   # => false
       #   rule.allow?("www.example.do")
