@@ -2,16 +2,16 @@
 
 Gem::Specification.new do |s|
   s.name = %q{public_suffix_service}
-  s.version = "0.7.0"
+  s.version = "0.8.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Simone Carletti"]
-  s.date = %q{2010-10-09}
+  s.date = %q{2010-12-05}
   s.description = %q{    Intelligent domain name parser based in the Public Suffic List.     PublicSuffixService can parse and decompose a domain name into top level domain,     domain and subdomains.
 }
   s.email = %q{weppos@weppos.net}
   s.extra_rdoc_files = ["CHANGELOG.rdoc", "LICENSE.rdoc", "README.rdoc"]
-  s.files = ["Rakefile", "CHANGELOG.rdoc", "LICENSE.rdoc", "README.rdoc", "public_suffix_service.gemspec", "test/acceptance_test.rb", "test/public_suffix_service/domain_test.rb", "test/public_suffix_service/rule_list_test.rb", "test/public_suffix_service/rule_test.rb", "test/public_suffix_service_test.rb", "test/test_helper.rb", "lib/public_suffix_service/definitions.dat", "lib/public_suffix_service/domain.rb", "lib/public_suffix_service/errors.rb", "lib/public_suffix_service/rule.rb", "lib/public_suffix_service/rule_list.rb", "lib/public_suffix_service/version.rb", "lib/public_suffix_service.rb"]
+  s.files = ["Rakefile", "CHANGELOG.rdoc", "LICENSE.rdoc", "README.rdoc", "public_suffix_service.gemspec", "test/acceptance_test.rb", "test/public_suffix_service/domain_test.rb", "test/public_suffix_service/errors_test.rb", "test/public_suffix_service/rule_list_test.rb", "test/public_suffix_service/rule_test.rb", "test/public_suffix_service_test.rb", "test/test_helper.rb", "lib/public_suffix_service/definitions.dat", "lib/public_suffix_service/domain.rb", "lib/public_suffix_service/errors.rb", "lib/public_suffix_service/rule.rb", "lib/public_suffix_service/rule_list.rb", "lib/public_suffix_service/version.rb", "lib/public_suffix_service.rb"]
   s.homepage = %q{http://www.simonecarletti.com/code/public_suffix_service}
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]

@@ -1,6 +1,7 @@
 = Changelog
 
-== master
+
+== Release 0.8.0
 
 * CHANGED: Update public suffix list to d1a5599b49fa 2010-10-25 15:10 +0100 (#9)
 
