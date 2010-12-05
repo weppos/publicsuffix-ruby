@@ -15,12 +15,6 @@ class ErrorsTest < Test::Unit::TestCase
   end
 
   # Inherits from PublicSuffixService::DomainInvalid
-  def test_fqdn_error_inheritance
-    assert_kind_of  PublicSuffixService::DomainInvalid,
-                    PublicSuffixService::FullyQualifiedDomainError.new
-  end
-
-  # Inherits from PublicSuffixService::DomainInvalid
   def test_domain_not_allowed_inheritance
     assert_kind_of  PublicSuffixService::DomainInvalid,
                     PublicSuffixService::DomainNotAllowed.new
