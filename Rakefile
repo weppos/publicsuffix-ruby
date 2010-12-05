@@ -115,7 +115,9 @@ begin
   require "yard"
   require "yard/rake/yardoc_task"
 
-  YARD::Rake::YardocTask.new(:yardoc)
+  YARD::Rake::YardocTask.new(:yardoc) do |y|
+    y.options = ["--output-dir", "yardoc"]
+  end
 
   namespace :yardoc do
     desc "Publish YARD documentation to the site"
