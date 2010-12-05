@@ -55,11 +55,11 @@ spec = Gem::Specification.new do |s|
   # You should probably have a README of some kind. Change the filename
   # as appropriate
   s.extra_rdoc_files  = Dir.glob("*.rdoc")
-  s.rdoc_options      = %w(--main README.rdoc)
+  s.rdoc_options      = %w( --main README.rdoc )
 
   # Add any extra files to include in the gem (like your README)
-  s.files             = %w(Rakefile) + Dir.glob("*.{rdoc,gemspec}") + Dir.glob("{test,lib}/**/*")
-  s.require_paths     = ["lib"]
+  s.files             = %w( Rakefile ) + Dir.glob("*.{rdoc,gemspec}") + Dir.glob("{test,lib}/**/*")
+  s.require_paths     = %w( lib )
 
   # If you want to depend on other gems, add them here, along with any
   # relevant versions
