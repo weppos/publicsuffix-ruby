@@ -1,6 +1,11 @@
 = Changelog
 
 
+== Release 0.8.1
+
+* FIXED: The files in the release 0.8.0 have wrong permission 600 and can't be loaded (#10).
+
+
 == Release 0.8.0
 
 * CHANGED: Update public suffix list to d1a5599b49fa 2010-10-25 15:10 +0100 (#9)
