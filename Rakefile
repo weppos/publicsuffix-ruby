@@ -1,11 +1,6 @@
 require "rubygems"
 require "rake/testtask"
 require "rake/gempackagetask"
-begin
-  require "hanna/rdoctask"
-rescue LoadError
-  require "rake/rdoctask"
-end
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
 require "public_suffix_service"
@@ -89,7 +84,7 @@ task :clean => [:clobber] do
 end
 
 desc "Remove any generated file"
-task :clobber => [:clobber_rdoc, :clobber_package]
+task :clobber => [:clobber_package]
 
 desc "Package the library and generates the gemspec"
 task :package => [:gemspec]
