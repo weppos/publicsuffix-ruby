@@ -1,7 +1,5 @@
-.DS_Store
+.bundle
 .idea
 .yardoc
-pkg
-rdoc
+pkg/*
 yardoc
-coverage
