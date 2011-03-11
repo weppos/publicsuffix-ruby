@@ -117,9 +117,9 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
 
 ## FeedBack and Bug reports
 
-If you use this library and find yourself missing any functionality I have missed, please {let me know}[mailto:weppos@weppos.net].
+If you use this library and find yourself missing any functionality I have missed, please [let me know](mailto:weppos@weppos.net).
 
-Bug reports and Feature suggestions {are welcomed}[http://github.com/weppos/public_suffix_service/issues].
+Bug reports and Feature suggestions [are welcomed](http://github.com/weppos/public_suffix_service/issues).
 
 
 ## More
