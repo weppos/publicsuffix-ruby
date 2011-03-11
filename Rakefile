@@ -49,7 +49,7 @@ spec = Gem::Specification.new do |s|
   EOD
 
   # Add any extra files to include in the gem (like your README)
-  s.files             = %w( Rakefile ) + Dir.glob("*.{rdoc,gemspec}") + Dir.glob("{test,lib}/**/*")
+  s.files             = %w( Rakefile LICENSE ) + Dir.glob("*.{rdoc,gemspec}") + Dir.glob("{test,lib}/**/*")
   s.require_paths     = %w( lib )
 
   # If you want to depend on other gems, add them here, along with any
