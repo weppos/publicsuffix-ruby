@@ -1,16 +1,9 @@
-#
-# = Public Suffix Service
-#
-# Domain Name parser based on the Public Suffix List
-#
-#
-# Category::    Net
-# Package::     PublicSuffixService
-# Author::      Simone Carletti <weppos@weppos.net>
-# License::     MIT License
-#
 #--
+# Public Suffix Service
 #
+# Domain Name parser based on the Public Suffix List.
+#
+# Copyright (c) 2009-2011 Simone Carletti <weppos@weppos.net>
 #++
 
 
