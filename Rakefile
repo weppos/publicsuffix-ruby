@@ -1,9 +1,12 @@
-require "rubygems"
-require "rake/testtask"
-require "rake/gempackagetask"
+require 'rubygems'
+require 'bundler'
+require 'rake/testtask'
+require 'rake/gempackagetask'
+require 'yard/rake/yardoc_task'
+
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
-require "public_suffix_service"
+require 'public_suffix_service'
 
 
 # Common package properties
@@ -33,7 +36,6 @@ task :default => ["test"]
 #   http://rubygems.org/read/chapter/20
 #
 spec = Gem::Specification.new do |s|
-
   s.name              = PKG_NAME
   s.version           = PKG_VERSION
   s.summary           = "Domain Name parser based on the Public Suffix List"
@@ -85,45 +87,24 @@ desc "Package the library and generates the gemspec"
 task :package => [:gemspec]
 
 
-begin
-  require "yard"
-  require "yard/rake/yardoc_task"
-
-  YARD::Rake::YardocTask.new(:yardoc) do |y|
-    y.options = ["--output-dir", "yardoc"]
-  end
-
-  namespace :yardoc do
-    desc "Publish YARD documentation to the site"
-    task :publish => ["yardoc:clobber", "yardoc"] do
-      ENV["username"] || raise(ArgumentError, "Missing ssh username")
-      sh "rsync -avz --delete yardoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/api"
-    end
-
-    desc "Remove YARD products"
-    task :clobber do
-      rm_r "yardoc" rescue nil
-    end
-  end
-
-  task :clobber => "yardoc:clobber"
-rescue LoadError
-  puts "YARD is not available"
+YARD::Rake::YardocTask.new(:yardoc) do |y|
+  y.options = ["--output-dir", "yardoc"]
 end
 
-
-begin
-  require "rcov/rcovtask"
-
-  desc "Create a code coverage report"
-  Rcov::RcovTask.new do |t|
-    t.test_files = FileList["test/**/*_test.rb"]
-    t.ruby_opts << "-Itest -x rr,rcov,Rakefile"
-    t.verbose = true
+namespace :yardoc do
+  desc "Publish YARD documentation to the site"
+  task :publish => ["yardoc:clobber", "yardoc"] do
+    ENV["username"] || raise(ArgumentError, "Missing ssh username")
+    sh "rsync -avz --delete yardoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/api"
   end
-rescue LoadError
-  puts "RCov is not available"
+
+  desc "Remove YARD products"
+  task :clobber do
+    rm_r "yardoc" rescue nil
+  end
 end
+
+task :clobber => "yardoc:clobber"
 
 
 desc "Open an irb session preloaded with this library"

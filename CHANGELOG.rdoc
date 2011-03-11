@@ -1,5 +1,9 @@
 = Changelog
 
+== master
+
+* CHANGED: Integrated Bundler.
+
 
 == Release 0.8.1
 

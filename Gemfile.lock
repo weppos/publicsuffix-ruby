@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    public_suffix_service (0.8.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rr (1.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  public_suffix_service!
+  rr
