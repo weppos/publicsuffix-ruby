@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler'
 require 'rake/testtask'
 require 'rake/gempackagetask'
+require 'yard'
 require 'yard/rake/yardoc_task'
 
 
