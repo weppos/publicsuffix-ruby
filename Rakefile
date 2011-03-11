@@ -39,15 +39,12 @@ task :default => ["test"]
 spec = Gem::Specification.new do |s|
   s.name              = PKG_NAME
   s.version           = PKG_VERSION
-  s.summary           = "Domain Name parser based on the Public Suffix List"
+  s.summary           = "Domain name parser based in the Public Suffix List."
+  s.description       = "PublicSuffixService can parse and decompose a domain name into top level domain, domain and subdomains."
+
   s.author            = "Simone Carletti"
   s.email             = "weppos@weppos.net"
   s.homepage          = "http://www.simonecarletti.com/code/public_suffix_service"
-  s.description       = <<-EOD
-    Intelligent domain name parser based in the Public Suffix List. \
-    PublicSuffixService can parse and decompose a domain name into top level domain, \
-    domain and subdomains.
-  EOD
 
   # Add any extra files to include in the gem (like your README)
   s.files             = `git ls-files`.split("\n")
