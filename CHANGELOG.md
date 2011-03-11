@@ -6,6 +6,8 @@
 
 * CHANGED: Integrated Bundler.
 
+* CHANGED: Updated definitions.
+
 
 ## Release 0.8.1
 
