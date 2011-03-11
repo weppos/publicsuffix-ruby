@@ -1,6 +1,7 @@
 # Changelog
 
-## master
+
+## Release 0.8.2
 
 * NEW: Added support for rubygems-test.
 
