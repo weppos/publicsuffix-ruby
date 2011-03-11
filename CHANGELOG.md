@@ -2,6 +2,8 @@
 
 ## master
 
+* NEW: Added support for rubygems-test.
+
 * CHANGED: Integrated Bundler.
 
 
