@@ -46,12 +46,6 @@ spec = Gem::Specification.new do |s|
     domain and subdomains.
   EOD
 
-  s.has_rdoc          = true
-  # You should probably have a README of some kind. Change the filename
-  # as appropriate
-  s.extra_rdoc_files  = Dir.glob("*.rdoc")
-  s.rdoc_options      = %w( --main README.rdoc )
-
   # Add any extra files to include in the gem (like your README)
   s.files             = %w( Rakefile ) + Dir.glob("*.{rdoc,gemspec}") + Dir.glob("{test,lib}/**/*")
   s.require_paths     = %w( lib )
