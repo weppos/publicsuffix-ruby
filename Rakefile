@@ -44,7 +44,7 @@ spec = Gem::Specification.new do |s|
   s.email             = "weppos@weppos.net"
   s.homepage          = "http://www.simonecarletti.com/code/public_suffix_service"
   s.description       = <<-EOD
-    Intelligent domain name parser based in the Public Suffic List. \
+    Intelligent domain name parser based in the Public Suffix List. \
     PublicSuffixService can parse and decompose a domain name into top level domain, \
     domain and subdomains.
   EOD
