@@ -1,23 +1,23 @@
-= Changelog
+# Changelog
 
-== master
+## master
 
 * CHANGED: Integrated Bundler.
 
 
-== Release 0.8.1
+## Release 0.8.1
 
 * FIXED: The files in the release 0.8.0 have wrong permission 600 and can't be loaded (#10).
 
 
-== Release 0.8.0
+## Release 0.8.0
 
 * CHANGED: Update public suffix list to d1a5599b49fa 2010-10-25 15:10 +0100 (#9)
 
 * NEW: Add support for Fully Qualified Domain Names (#7)
 
 
-== Release 0.7.0
+## Release 0.7.0
 
 * CHANGED: Using YARD to document the code instead of RDoc.
 
@@ -26,45 +26,45 @@
 * FIXED: PublicSuffixService.valid? should return false if the domain is not defined or not allowed (#4, #5)
 
 
-== Release 0.6.0
+## Release 0.6.0
 
 * NEW:  PublicSuffixService.parse raises DomainNotAllowed when trying to parse a domain name
-        which exists, but is not allowed by the current definition list (#3)
+  which exists, but is not allowed by the current definition list (#3)
 
-          PublicSuffixService.parse("nic.do")
-          # => PublicSuffixService::DomainNotAllowed
+        PublicSuffixService.parse("nic.do")
+        # => PublicSuffixService::DomainNotAllowed
 
 * CHANGED: Renamed PublicSuffixService::InvalidDomain to PublicSuffixService::DomainInvalid
 
 
-== Release 0.5.2
+## Release 0.5.2
 
 * CHANGED: Update public suffix list to 248ea690d671 2010-09-16 18:02 +0100
 
 
-== Release 0.5.1
+## Release 0.5.1
 
 * CHANGED: Update public suffix list to 14dc66dd53c1 2010-09-15 17:09 +0100
 
 
-== Release 0.5.0
+## Release 0.5.0
 
 * CHANGED: Improve documentation for Domain#domain and Domain#subdomain (#1).
 
 * CHANGED: Performance improvements (#2).
 
 
-== Release 0.4.0
+## Release 0.4.0
 
 * CHANGED: Rename library from DomainName to PublicSuffixService to reduce the probability of name conflicts.
 
 
-== Release 0.3.1
+## Release 0.3.1
 
 * Deprecated DomainName library.
 
 
-== Release 0.3.0
+## Release 0.3.0
 
 * CHANGED: DomainName#domain and DomainName#subdomain are no longer alias of Domain#sld and Domain#tld.
 
@@ -75,7 +75,7 @@
 * CHANGED: Refactoring the entire DomainName API. Removed the internal on-the-fly parsing. Added a bunch of new methods to check and validate the DomainName.
 
 
-== Release 0.2.0
+## Release 0.2.0
 
 * NEW: DomainName#valid?
 
@@ -86,6 +86,6 @@
 * CHANGED: Make sure RuleList lookup is only performed once.
 
 
-== Release 0.1.0
+## Release 0.1.0
 
 * Initial version
