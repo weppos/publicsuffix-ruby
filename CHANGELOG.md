@@ -5,6 +5,8 @@
 
 * CHANGED: Updated definitions (#11).
 
+* CHANGED: Renamed definitions.txt to definitions.dat.
+
 
 ## Release 0.8.2
 
