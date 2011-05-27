@@ -58,8 +58,8 @@ class PublicSuffixServiceTest < Test::Unit::TestCase
   end
 
   def test_self_parse_should_raise_with_unallowed_domain
-    error = assert_raise(PublicSuffixService::DomainNotAllowed) { PublicSuffixService.parse("example.do") }
-    assert_match %r{example\.do}, error.message
+    error = assert_raise(PublicSuffixService::DomainNotAllowed) { PublicSuffixService.parse("example.ke") }
+    assert_match %r{example\.ke}, error.message
   end
 
 

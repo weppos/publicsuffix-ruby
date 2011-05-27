@@ -148,9 +148,9 @@ class PublicSuffixService::DomainTest < Test::Unit::TestCase
     assert !@klass.new("zip", "example", "www").valid?
 
     # not-allowed
-    assert !@klass.new("do").valid?
-    assert !@klass.new("do", "example").valid?
-    assert  @klass.new("do", "example", "www").valid?
+    assert !@klass.new("ke").valid?
+    assert !@klass.new("ke", "example").valid?
+    assert  @klass.new("ke", "example", "www").valid?
   end
 
   def test_valid_domain_question

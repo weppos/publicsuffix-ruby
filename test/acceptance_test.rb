@@ -24,7 +24,7 @@ class AcceptanceTest < Test::Unit::TestCase
   end
 
   InvalidCases = {
-    "nic.do" => PublicSuffixService::DomainNotAllowed,
+    "nic.ke" => PublicSuffixService::DomainNotAllowed,
   }
 
   def test_invalid
