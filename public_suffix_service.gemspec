@@ -2,19 +2,19 @@
 
 Gem::Specification.new do |s|
   s.name = %q{public_suffix_service}
-  s.version = "0.8.2"
+  s.version = "0.8.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Simone Carletti"]
-  s.date = %q{2011-03-11}
+  s.authors = [%q{Simone Carletti}]
+  s.date = %q{2011-05-27}
   s.description = %q{PublicSuffixService can parse and decompose a domain name into top level domain, domain and subdomains.}
   s.email = %q{weppos@weppos.net}
-  s.files = [".gemtest", ".gitignore", ".yardopts", "CHANGELOG.md", "Gemfile", "Gemfile.lock", "LICENSE", "README.md", "Rakefile", "lib/public_suffix_service.rb", "lib/public_suffix_service/definitions.dat", "lib/public_suffix_service/domain.rb", "lib/public_suffix_service/errors.rb", "lib/public_suffix_service/rule.rb", "lib/public_suffix_service/rule_list.rb", "lib/public_suffix_service/version.rb", "public_suffix_service.gemspec", "test/acceptance_test.rb", "test/public_suffix_service/domain_test.rb", "test/public_suffix_service/errors_test.rb", "test/public_suffix_service/rule_list_test.rb", "test/public_suffix_service/rule_test.rb", "test/public_suffix_service_test.rb", "test/test_helper.rb"]
+  s.files = [%q{.gemtest}, %q{.gitignore}, %q{.yardopts}, %q{CHANGELOG.md}, %q{Gemfile}, %q{Gemfile.lock}, %q{LICENSE}, %q{README.md}, %q{Rakefile}, %q{lib/public_suffix_service.rb}, %q{lib/public_suffix_service/definitions.txt}, %q{lib/public_suffix_service/domain.rb}, %q{lib/public_suffix_service/errors.rb}, %q{lib/public_suffix_service/rule.rb}, %q{lib/public_suffix_service/rule_list.rb}, %q{lib/public_suffix_service/version.rb}, %q{public_suffix_service.gemspec}, %q{test/acceptance_test.rb}, %q{test/public_suffix_service/domain_test.rb}, %q{test/public_suffix_service/errors_test.rb}, %q{test/public_suffix_service/rule_list_test.rb}, %q{test/public_suffix_service/rule_test.rb}, %q{test/public_suffix_service_test.rb}, %q{test/test_helper.rb}]
   s.homepage = %q{http://www.simonecarletti.com/code/public_suffix_service}
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.1}
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.4}
   s.summary = %q{Domain name parser based in the Public Suffix List.}
-  s.test_files = ["test/acceptance_test.rb", "test/public_suffix_service/domain_test.rb", "test/public_suffix_service/errors_test.rb", "test/public_suffix_service/rule_list_test.rb", "test/public_suffix_service/rule_test.rb", "test/public_suffix_service_test.rb", "test/test_helper.rb"]
+  s.test_files = [%q{test/acceptance_test.rb}, %q{test/public_suffix_service/domain_test.rb}, %q{test/public_suffix_service/errors_test.rb}, %q{test/public_suffix_service/rule_list_test.rb}, %q{test/public_suffix_service/rule_test.rb}, %q{test/public_suffix_service_test.rb}, %q{test/test_helper.rb}]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

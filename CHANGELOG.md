@@ -1,7 +1,7 @@
 # Changelog
 
 
-## master
+## Release 0.8.3
 
 * FIXED: Fixed ArgumentError: invalid byte sequence in US-ASCII with Ruby 1.9.2 (#12).
 
