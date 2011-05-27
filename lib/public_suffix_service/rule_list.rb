@@ -247,7 +247,7 @@ module PublicSuffixService
       #
       # @return [File]
       def default_definition
-        File.new(File.join(File.dirname(__FILE__), "definitions.txt"))
+        File.new(File.join(File.dirname(__FILE__), "definitions.txt"), "r:utf-8")
       end
 
 

@@ -3,6 +3,8 @@
 
 ## master
 
+* FIXED: Fixed ArgumentError: invalid byte sequence in US-ASCII with Ruby 1.9.2 (#12).
+
 * CHANGED: Updated definitions (#11).
 
 * CHANGED: Renamed definitions.txt to definitions.dat.
