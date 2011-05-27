@@ -1,12 +1,13 @@
 PATH
   remote: .
   specs:
-    public_suffix_service (0.8.1)
+    public_suffix_service (0.8.2)
 
 GEM
   remote: http://rubygems.org/
   specs:
     rr (1.0.2)
+    yard (0.7.1)
 
 PLATFORMS
   ruby
@@ -14,3 +15,4 @@ PLATFORMS
 DEPENDENCIES
   public_suffix_service!
   rr
+  yard
