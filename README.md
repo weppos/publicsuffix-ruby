@@ -43,7 +43,7 @@ Successfully tested with the following interpreters
 
 ## Installation
 
-The best way to install Public Suffix Service is via {RubyGems}[http://www.rubygems.org].
+The best way to install Public Suffix Service is via [RubyGems](http://www.rubygems.org).
 
     $ gem install public_suffix_service
 
