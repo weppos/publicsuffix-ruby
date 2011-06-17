@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+* CHANGED: Minimum Ruby version increased to Ruby 1.8.7.
+
 
 ## Release 0.8.3
 
