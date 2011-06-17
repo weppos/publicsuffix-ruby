@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler'
 require 'rake/testtask'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'yard'
 require 'yard/rake/yardoc_task'
 
@@ -66,7 +66,7 @@ end
 # .gemspec file, which is useful if something (i.e. GitHub) will
 # be automatically building a gem for this project. If you're not
 # using GitHub, edit as appropriate.
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
 

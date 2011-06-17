@@ -4,6 +4,8 @@
 
 * CHANGED: Minimum Ruby version increased to Ruby 1.8.7.
 
+* CHANGED: rake/gempackagetask is deprecated.  Use rubygems/package_task instead.
+
 
 ## Release 0.8.3
 
