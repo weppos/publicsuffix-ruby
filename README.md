@@ -35,7 +35,7 @@ http://stackoverflow.com/questions/288810/get-the-subdomain-from-a-url
 * Ruby >= 1.8.7
 
 Public Suffix Service >= 0.9.0 requires Ruby 1.8.7 or newer.
-For older versions of Ruby, see the CHANGELOG.rdoc file.
+For older versions of Ruby, see the CHANGELOG.md file.
 
 Successfully tested with the following interpreters
 
