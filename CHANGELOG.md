@@ -1,6 +1,12 @@
 # Changelog
 
 
+## Release 0.8.4
+
+* FIXED: Reverted bugfix for issue #12 for Ruby 1.8.6.
+  This is the latest version compatible with Ruby 1.8.6.
+
+
 ## Release 0.8.3
 
 * FIXED: Fixed ArgumentError: invalid byte sequence in US-ASCII with Ruby 1.9.2 (#12).
