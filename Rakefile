@@ -1,7 +1,7 @@
 require 'rubygems'
+require 'rubygems/package_task'
 require 'bundler'
 require 'rake/testtask'
-require 'rubygems/package_task'
 require 'yard'
 require 'yard/rake/yardoc_task'
 
@@ -20,15 +20,8 @@ if ENV['SNAPSHOT'].to_i == 1
 end
 
 
-# Run all the tests in the /test folder
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList["test/**/*_test.rb"]
-  t.verbose = true
-end
-
 # Run test by default.
-task :default => ["test"]
+task :default => :test
 
 
 # This builds the actual gem. For details of what all these options
@@ -86,6 +79,14 @@ task :clobber => [:clobber_package]
 
 desc "Package the library and generates the gemspec"
 task :package => [:gemspec]
+
+
+# Run all the tests in the /test folder
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList["test/**/*_test.rb"]
+  t.verbose = true
+end
 
 
 YARD::Rake::YardocTask.new(:yardoc) do |y|
