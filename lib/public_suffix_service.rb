@@ -37,19 +37,19 @@ module PublicSuffixService
   #
   # @example Parse a valid domain
   #   PublicSuffixService.parse("google.com")
-  #   # => #<PubliSuffixService::Domain ...>
+  #   # => #<PublicSuffixService::Domain ...>
   # 
   # @example Parse a valid subdomain
   #   PublicSuffixService.parse("www.google.com")
-  #   # => #<PubliSuffixService::Domain ...>
+  #   # => #<PublicSuffixService::Domain ...>
   # 
   # @example Parse a fully qualified domain
   #   PublicSuffixService.parse("google.com.")
-  #   # => #<PubliSuffixService::Domain ...>
+  #   # => #<PublicSuffixService::Domain ...>
   # 
   # @example Parse a fully qualified domain (subdomain)
   #   PublicSuffixService.parse("www.google.com.")
-  #   # => #<PubliSuffixService::Domain ...>
+  #   # => #<PublicSuffixService::Domain ...>
   #
   # @example Parse an invalid domain
   #   PublicSuffixService.parse("x.yz")
