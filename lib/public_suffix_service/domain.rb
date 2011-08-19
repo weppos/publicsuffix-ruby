@@ -207,13 +207,13 @@ module PublicSuffixService
     end
 
     # Returns the rule matching this domain
-    # in the default {PublicSuffixService::RuleList}.
+    # in the default {PublicSuffixService::List}.
     #
     # @return [PublicSuffixService::Rule::Base, nil]
     #   The rule instance a rule matches current domain,
     #   nil if no rule is found.
     def rule
-      RuleList.default.find(name)
+      List.default.find(name)
     end
 
 
@@ -297,9 +297,9 @@ module PublicSuffixService
     end
 
     # Checks whether <tt>self</tt> is assigned and allowed
-    # according to default {RuleList}.
+    # according to default {List}.
     #
-    # This method triggers a new rule lookup in the default {RuleList},
+    # This method triggers a new rule lookup in the default {List},
     # which is a quite intensive task.
     #
     # @return [Boolean]
@@ -329,7 +329,7 @@ module PublicSuffixService
 
 
     # Checks whether <tt>self</tt> looks like a domain and validates
-    # according to default {RuleList}.
+    # according to default {List}.
     #
     # @return [Boolean]
     #
@@ -356,7 +356,7 @@ module PublicSuffixService
     end
 
     # Checks whether <tt>self</tt> looks like a subdomain and validates
-    # according to default {RuleList}.
+    # according to default {List}.
     #
     # @return [Boolean]
     #

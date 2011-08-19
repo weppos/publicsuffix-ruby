@@ -1,18 +1,18 @@
 require 'test_helper'
 
-class PublicSuffixService::RuleListTest < Test::Unit::TestCase
+class PublicSuffixService::ListTest < Test::Unit::TestCase
 
   def setup
-    @list = PublicSuffixService::RuleList.new
+    @list = PublicSuffixService::List.new
   end
 
   def teardown
-    PublicSuffixService::RuleList.clear
+    PublicSuffixService::List.clear
   end
 
 
   def test_initialize
-    assert_instance_of PublicSuffixService::RuleList, @list
+    assert_instance_of PublicSuffixService::List, @list
     assert_equal 0, @list.length
   end
 
@@ -21,7 +21,7 @@ class PublicSuffixService::RuleListTest < Test::Unit::TestCase
   end
 
   def test_indexes
-    @list = PublicSuffixService::RuleList.parse(<<EOS)
+    @list = PublicSuffixService::List.parse(<<EOS)
 // com : http://en.wikipedia.org/wiki/.com
 com
 
@@ -40,13 +40,13 @@ EOS
 
 
   def test_equality_with_self
-    list = PublicSuffixService::RuleList.new
+    list = PublicSuffixService::List.new
     assert_equal list, list
   end
 
   def test_equality_with_internals
     rule = PublicSuffixService::Rule.factory("com")
-    assert_equal PublicSuffixService::RuleList.new.add(rule), PublicSuffixService::RuleList.new.add(rule)
+    assert_equal PublicSuffixService::List.new.add(rule), PublicSuffixService::List.new.add(rule)
   end
 
 
@@ -57,7 +57,7 @@ EOS
   end
 
   def test_add_should_recreate_index
-    @list = PublicSuffixService::RuleList.parse("com")
+    @list = PublicSuffixService::List.parse("com")
     assert_equal PublicSuffixService::Rule.factory("com"), @list.find("google.com")
     assert_equal nil, @list.find("google.net")
 
@@ -88,7 +88,7 @@ EOS
 
 
   def test_find
-    @list = PublicSuffixService::RuleList.parse(<<EOS)
+    @list = PublicSuffixService::List.parse(<<EOS)
 // com : http://en.wikipedia.org/wiki/.com
 com
 
@@ -108,7 +108,7 @@ EOS
   end
 
   def test_select
-    @list = PublicSuffixService::RuleList.parse(<<EOS)
+    @list = PublicSuffixService::List.parse(<<EOS)
 // com : http://en.wikipedia.org/wiki/.com
 com
 
@@ -123,36 +123,36 @@ EOS
 
 
   def test_self_default_getter
-    assert_equal     nil, PublicSuffixService::RuleList.send(:class_variable_get, :"@@default")
-    PublicSuffixService::RuleList.default
-    assert_not_equal nil, PublicSuffixService::RuleList.send(:class_variable_get, :"@@default")
+    assert_equal     nil, PublicSuffixService::List.send(:class_variable_get, :"@@default")
+    PublicSuffixService::List.default
+    assert_not_equal nil, PublicSuffixService::List.send(:class_variable_get, :"@@default")
   end
 
   def test_self_default_setter
-    PublicSuffixService::RuleList.default
-    assert_not_equal nil, PublicSuffixService::RuleList.send(:class_variable_get, :"@@default")
-    PublicSuffixService::RuleList.default = nil
-    assert_equal     nil, PublicSuffixService::RuleList.send(:class_variable_get, :"@@default")
+    PublicSuffixService::List.default
+    assert_not_equal nil, PublicSuffixService::List.send(:class_variable_get, :"@@default")
+    PublicSuffixService::List.default = nil
+    assert_equal     nil, PublicSuffixService::List.send(:class_variable_get, :"@@default")
   end
 
   def test_self_clear
-    PublicSuffixService::RuleList.default
-    assert_not_equal nil, PublicSuffixService::RuleList.send(:class_variable_get, :"@@default")
-    PublicSuffixService::RuleList.clear
-    assert_equal     nil, PublicSuffixService::RuleList.send(:class_variable_get, :"@@default")
+    PublicSuffixService::List.default
+    assert_not_equal nil, PublicSuffixService::List.send(:class_variable_get, :"@@default")
+    PublicSuffixService::List.clear
+    assert_equal     nil, PublicSuffixService::List.send(:class_variable_get, :"@@default")
   end
 
   def test_self_reload
-    PublicSuffixService::RuleList.default
-    mock(PublicSuffixService::RuleList).default_definition { "" }
+    PublicSuffixService::List.default
+    mock(PublicSuffixService::List).default_definition { "" }
 
-    PublicSuffixService::RuleList.reload
-    assert_equal PublicSuffixService::RuleList.new, PublicSuffixService::RuleList.default
+    PublicSuffixService::List.reload
+    assert_equal PublicSuffixService::List.new, PublicSuffixService::List.default
   end
 
 
   def test_self_parse
-    list = PublicSuffixService::RuleList.parse(<<EOS)
+    list = PublicSuffixService::List.parse(<<EOS)
 // ***** BEGIN LICENSE BLOCK *****
 // Version: MPL 1.1/GPL 2.0/LGPL 2.1
 //
@@ -170,13 +170,13 @@ ad
 !congresodelalengua3.ar
 EOS
 
-    assert_instance_of PublicSuffixService::RuleList, list
+    assert_instance_of PublicSuffixService::List, list
     assert_equal 5, list.length
     assert_equal %w(ac com.ac ad *.ar !congresodelalengua3.ar).map { |name| PublicSuffixService::Rule.factory(name) }, list.to_a
   end
 
   def test_self_parse_should_create_cache
-    list = PublicSuffixService::RuleList.parse(<<EOS)
+    list = PublicSuffixService::List.parse(<<EOS)
 // com : http://en.wikipedia.org/wiki/.com
 com
 
