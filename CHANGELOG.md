@@ -6,6 +6,8 @@
 
 * CHANGED: Renamed PublicSuffixService::List#list to PublicSuffixService::List#rules.
 
+* CHANGED: Updated definitions.
+
 
 ## Release 0.9.0
 
