@@ -1,5 +1,4 @@
 .bundle
-.idea
 .yardoc
 pkg/*
 yardoc
