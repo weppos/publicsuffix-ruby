@@ -43,13 +43,13 @@ module PublicSuffixService
   class List
     include Enumerable
 
-    # Gets the list of rules.
+    # Gets the array of rules.
     #
     # @return [Array<PublicSuffixService::Rule::*>]
-    attr_reader :list
+    attr_reader :rules
 
     # Gets the naive index, a hash that with the keys being the first label of
-    # every rule pointing to an array of integers (indexes of the rules in @list)
+    # every rule pointing to an array of integers (indexes of the rules in @rules).
     #
     # @return [Array]
     attr_reader :indexes
@@ -58,24 +58,24 @@ module PublicSuffixService
     # Initializes an empty {PublicSuffixService::List}.
     #
     # @yield [self] Yields on self.
-    # @yieldparam [PublicSuffixService::List] self The newly creates instance
+    # @yieldparam [PublicSuffixService::List] self The newly created instance.
     #
     def initialize(&block)
-      @list    = []
+      @rules   = []
       @indexes = {}
       yield(self) if block_given?
       create_index!
     end
 
-    # Creates a naive index for +@list+. Just a hash that will tell
-    # us where the elements of +@list+ are relative to its first
+    # Creates a naive index for +@rules+. Just a hash that will tell
+    # us where the elements of +@rules+ are relative to its first
     # {PublicSuffixService::Rule::Base#labels} element.
     #
-    # For instance if @list[5] and @list[4] are the only elements of the list
+    # For instance if @rules[5] and @rules[4] are the only elements of the list
     # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
     # select we can avoid mapping every single rule against the candidate domain.
     def create_index!
-      @list.map { |l| l.labels.first }.each_with_index do |elm, inx|
+      @rules.map { |l| l.labels.first }.each_with_index do |elm, inx|
         if !@indexes.has_key?(elm)
           @indexes[elm] = [inx]
         else
@@ -88,30 +88,29 @@ module PublicSuffixService
     #
     # List <tt>one</tt> is equal to <tt>two</tt>, if <tt>two</tt> is an instance of
     # {PublicSuffixService::List} and each +PublicSuffixService::Rule::*+
-    # in list <tt>one</tt> is available in list <tt>two</tt>,
-    # in the same order.
+    # in list <tt>one</tt> is available in list <tt>two</tt>, in the same order.
     #
     # @param [PublicSuffixService::List] other
-    #   The rule list to compare.
+    #   The List to compare.
     #
     # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(List)
       self.equal?(other) ||
-      self.list == other.list
+      self.rules == other.rules
     end
     alias :eql? :==
 
     # Iterates each rule in the list.
     def each(*args, &block)
-      @list.each(*args, &block)
+      @rules.each(*args, &block)
     end
 
     # Gets the list as array.
     #
     # @return [Array<PublicSuffixService::Rule::*>]
     def to_a
-      @list
+      @rules
     end
 
     # Adds the given object to the list
@@ -128,7 +127,7 @@ module PublicSuffixService
     # @see #create_index!
     #
     def add(rule, index = true)
-      @list << rule
+      @rules << rule
       create_index! if index == true
       self
     end
@@ -138,7 +137,7 @@ module PublicSuffixService
     #
     # @return [Integer]
     def size
-      @list.size
+      @rules.size
     end
     alias length size
 
@@ -146,14 +145,14 @@ module PublicSuffixService
     #
     # @return [Boolean]
     def empty?
-      @list.empty?
+      @rules.empty?
     end
 
     # Removes all elements.
     #
     # @return [self]
     def clear
-      @list.clear
+      @rules.clear
       self
     end
 
@@ -197,7 +196,7 @@ module PublicSuffixService
     # @return [Array<PublicSuffixService::Rule::*>]
     def select(domain)
       indices = (@indexes[Domain.domain_to_labels(domain).first] || [])
-      @list.values_at(*indices).select { |rule| rule.match?(domain) }
+      @rules.values_at(*indices).select { |rule| rule.match?(domain) }
     end
 
 
