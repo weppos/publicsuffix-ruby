@@ -11,7 +11,7 @@ require 'public_suffix_service/domain'
 require 'public_suffix_service/version'
 require 'public_suffix_service/errors'
 require 'public_suffix_service/rule'
-require 'public_suffix_service/rule_list'
+require 'public_suffix_service/list'
 
 
 module PublicSuffixService
@@ -21,10 +21,14 @@ module PublicSuffixService
   AUTHORS         = ["Simone Carletti <weppos@weppos.net>"]
 
 
+  # Backwards compatibility
+  autoload :RuleList, 'public_suffix_service/rule_list'
+
+
   # Parses +domain+ and returns the
   # {PublicSuffixService::Domain} instance.
   #
-  # Parsing uses the default {PublicSuffixService::RuleList}.
+  # Parsing uses the default {PublicSuffixService::List}.
   #
   # @param  [String, #to_s] domain
   #   The domain name or fully qualified domain name to parse.
@@ -62,7 +66,7 @@ module PublicSuffixService
   #   doesn't allow +domain+.
   #
   def self.parse(domain)
-    rule = RuleList.default.find(domain)
+    rule = List.default.find(domain)
     if rule.nil?
       raise DomainInvalid, "`#{domain}' is not a valid domain"
     end
@@ -87,7 +91,7 @@ module PublicSuffixService
   # without actually parsing it.
   #
   # This method doesn't care whether domain is a domain or subdomain.
-  # The validation is performed using the default {PublicSuffixService::RuleList}.
+  # The validation is performed using the default {PublicSuffixService::List}.
   #
   # @param  [String, #to_s] domain
   #   The domain name or fully qualified domain name to validate.
@@ -123,7 +127,7 @@ module PublicSuffixService
   #   # => false
   #
   def self.valid?(domain)
-    rule = RuleList.default.find(domain)
+    rule = List.default.find(domain)
     !rule.nil? && rule.allow?(domain)
   end
 

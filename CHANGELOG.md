@@ -1,5 +1,11 @@
 # Changelog
 
+## master
+
+* CHANGED: Renamed PublicSuffixService::RuleList to PublicSuffixService::List.
+
+* CHANGED: Renamed PublicSuffixService::List#list to PublicSuffixService::List#rules.
+
 
 ## Release 0.9.0
 
