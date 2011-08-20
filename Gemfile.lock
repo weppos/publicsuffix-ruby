@@ -6,15 +6,15 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    mocha (0.9.12)
     rake (0.9.2)
-    rr (1.0.2)
     yard (0.7.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  mocha
   public_suffix_service!
   rake
-  rr
   yard

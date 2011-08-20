@@ -144,7 +144,7 @@ EOS
 
   def test_self_reload
     PublicSuffixService::List.default
-    mock(PublicSuffixService::List).default_definition { "" }
+    PublicSuffixService::List.expects(:default_definition).returns("")
 
     PublicSuffixService::List.reload
     assert_equal PublicSuffixService::List.new, PublicSuffixService::List.default

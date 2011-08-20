@@ -52,7 +52,7 @@ spec = Gem::Specification.new do |s|
 
   # If your tests use any gems, include them here
   s.add_development_dependency("rake")
-  s.add_development_dependency("rr")
+  s.add_development_dependency("mocha")
   s.add_development_dependency("yard")
 end
 
