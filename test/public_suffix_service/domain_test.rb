@@ -72,7 +72,7 @@ class PublicSuffixService::DomainTest < Test::Unit::TestCase
     assert_equal "google", @klass.new("com", "google", "www").sld
   end
 
-  def test_tld
+  def test_trd
     assert_equal "www", @klass.new("com", "google", "www").trd
   end
 
