@@ -5,7 +5,6 @@ require 'rake/testtask'
 require 'yard'
 require 'yard/rake/yardoc_task'
 
-
 $:.unshift(File.dirname(__FILE__) + "/lib")
 require 'public_suffix_service'
 
@@ -56,10 +55,6 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency("yard")
 end
 
-# This task actually builds the gem. We also regenerate a static
-# .gemspec file, which is useful if something (i.e. GitHub) will
-# be automatically building a gem for this project. If you're not
-# using GitHub, edit as appropriate.
 Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end

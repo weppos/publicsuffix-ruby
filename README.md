@@ -1,11 +1,11 @@
 # Public Suffix Service
 
-*Public Suffix Service* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org).
+_Public Suffix Service_ is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org).
 
 
 ## What is the Public Suffix List?
 
-The *Public Suffix Service* is a cross-vendor initiative to provide an accurate list of domain name suffixes.
+The _Public Suffix Service_ is a cross-vendor initiative to provide an accurate list of domain name suffixes.
 
 The Public Suffix Service is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
 
@@ -129,7 +129,7 @@ Bug reports and Feature suggestions [are welcomed](http://github.com/weppos/publ
 
 * [Homepage](http://www.simonecarletti.com/code/public_suffix_service)
 * [Repository](http://github.com/weppos/public_suffix_service)
-* [API Documentation](http://www.simonecarletti.com/code/public_suffix_service/api/) (RDoc)
+* [API Documentation](http://rubydoc.info/gems/public_suffix_service)
 * [Introducing the Public Suffix List library for Ruby](http://www.simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
 
 
@@ -140,5 +140,5 @@ See the CHANGELOG.md file for details.
 
 ## License
 
-Copyright (c) 2009-2011 Simone Carletti,
-*Public Suffix Service* is released under the MIT license.
+_Public Suffix Service_ is copyright (c) 2009-2011 Simone Carletti.
+This is Free Software distributed under the MIT license.
