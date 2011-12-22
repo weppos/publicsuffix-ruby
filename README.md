@@ -1,11 +1,13 @@
 # Public Suffix Service
 
-_Public Suffix Service_ is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org).
+*Public Suffix Service* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org).
+
+[![Build Status](https://secure.travis-ci.org/weppos/public_suffix_service.png)](http://travis-ci.org/weppos/public_suffix_service)
 
 
 ## What is the Public Suffix List?
 
-The _Public Suffix Service_ is a cross-vendor initiative to provide an accurate list of domain name suffixes.
+The *Public Suffix Service* is a cross-vendor initiative to provide an accurate list of domain name suffixes.
 
 The Public Suffix Service is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
 
@@ -34,7 +36,7 @@ http://stackoverflow.com/questions/288810/get-the-subdomain-from-a-url
 
 * Ruby >= 1.8.7
 
-Public Suffix Service >= 0.9.0 requires Ruby 1.8.7 or newer.
+*Public Suffix Service* >= 0.9.0 requires Ruby 1.8.7 or newer.
 For older versions of Ruby, see the CHANGELOG.md file.
 
 Successfully tested with the following interpreters
@@ -46,7 +48,7 @@ Successfully tested with the following interpreters
 
 ## Installation
 
-The best way to install Public Suffix Service is via [RubyGems](http://www.rubygems.org).
+The best way to install *Public Suffix Service* is via [RubyGems](http://www.rubygems.org).
 
     $ gem install public_suffix_service
 
@@ -120,15 +122,17 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
 
 ## FeedBack and Bug reports
 
-If you use this library and find yourself missing any functionality I have missed, please [let me know](mailto:weppos@weppos.net).
+If you use this library and find yourself missing any functionality, please [let me know](mailto:weppos@weppos.net).
 
-Bug reports and Feature suggestions [are welcomed](http://github.com/weppos/public_suffix_service/issues).
+Pull requests are very welcome! Please include spec and/or feature coverage for every patch, and create a topic branch for every separate change you make.
+
+Report issues or feature requests to [GitHub Issues](https://github.com/weppos/public_suffix_service/issues).
 
 
 ## More
 
 * [Homepage](http://www.simonecarletti.com/code/public_suffix_service)
-* [Repository](http://github.com/weppos/public_suffix_service)
+* [Repository](https://github.com/weppos/public_suffix_service)
 * [API Documentation](http://rubydoc.info/gems/public_suffix_service)
 * [Introducing the Public Suffix List library for Ruby](http://www.simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
 
@@ -140,5 +144,5 @@ See the CHANGELOG.md file for details.
 
 ## License
 
-_Public Suffix Service_ is copyright (c) 2009-2011 Simone Carletti.
+*Public Suffix Service* is copyright (c) 2009-2011 Simone Carletti.
 This is Free Software distributed under the MIT license.
