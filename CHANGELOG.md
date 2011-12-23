@@ -1,6 +1,12 @@
 # Changelog
 
-## master
+
+## Release 1.0.0.rc1
+
+The library is now known as PublicSuffix.
+
+
+## Release 0.9.1
 
 * CHANGED: Renamed PublicSuffixService::RuleList to PublicSuffixService::List.
 
