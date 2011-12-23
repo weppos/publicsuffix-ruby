@@ -6,6 +6,8 @@
 
 * CHANGED: Renamed PublicSuffixService::List#list to PublicSuffixService::List#rules.
 
+* CHANGED: Renamed PublicSuffixService to PublicSuffix.
+
 * CHANGED: Updated definitions.
 
 

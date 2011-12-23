@@ -3,4 +3,4 @@ require 'test/unit'
 require 'mocha'
 
 $:.unshift File.expand_path('../../lib', __FILE__)
-require 'public_suffix_service'
+require 'public_suffix'
