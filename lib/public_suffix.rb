@@ -17,7 +17,7 @@ require 'public_suffix/list'
 module PublicSuffix
 
   NAME            = "Public Suffix"
-  GEM             = "public_suffix_service"
+  GEM             = "public_suffix"
   AUTHORS         = ["Simone Carletti <weppos@weppos.net>"]
 
 
