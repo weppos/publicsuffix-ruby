@@ -1,38 +1,38 @@
 require 'test_helper'
 
-class PublicSuffixService::RuleTest < Test::Unit::TestCase
+class PublicSuffix::RuleTest < Test::Unit::TestCase
 
   def test_factory_should_return_rule_normal
-    rule = PublicSuffixService::Rule.factory("com")
-    assert_instance_of PublicSuffixService::Rule::Normal, rule
+    rule = PublicSuffix::Rule.factory("com")
+    assert_instance_of PublicSuffix::Rule::Normal, rule
 
-    rule = PublicSuffixService::Rule.factory("verona.it")
-    assert_instance_of PublicSuffixService::Rule::Normal, rule
+    rule = PublicSuffix::Rule.factory("verona.it")
+    assert_instance_of PublicSuffix::Rule::Normal, rule
   end
 
   def test_factory_should_return_rule_exception
-    rule = PublicSuffixService::Rule.factory("!british-library.uk")
-    assert_instance_of PublicSuffixService::Rule::Exception, rule
+    rule = PublicSuffix::Rule.factory("!british-library.uk")
+    assert_instance_of PublicSuffix::Rule::Exception, rule
   end
 
   def test_factory_should_return_rule_wildcard
-    rule = PublicSuffixService::Rule.factory("*.do")
-    assert_instance_of PublicSuffixService::Rule::Wildcard, rule
+    rule = PublicSuffix::Rule.factory("*.do")
+    assert_instance_of PublicSuffix::Rule::Wildcard, rule
 
-    rule = PublicSuffixService::Rule.factory("*.sch.uk")
-    assert_instance_of PublicSuffixService::Rule::Wildcard, rule
+    rule = PublicSuffix::Rule.factory("*.sch.uk")
+    assert_instance_of PublicSuffix::Rule::Wildcard, rule
   end
 
 end
 
 
-class PublicSuffixService::RuleBaseTest < Test::Unit::TestCase
+class PublicSuffix::RuleBaseTest < Test::Unit::TestCase
 
-  class ::PublicSuffixService::Rule::Test < ::PublicSuffixService::Rule::Base
+  class ::PublicSuffix::Rule::Test < ::PublicSuffix::Rule::Base
   end
 
   def setup
-    @klass = PublicSuffixService::Rule::Base
+    @klass = PublicSuffix::Rule::Base
   end
 
 
@@ -47,14 +47,14 @@ class PublicSuffixService::RuleBaseTest < Test::Unit::TestCase
   end
 
   def test_equality_with_self
-    rule = PublicSuffixService::Rule::Base.new("foo")
+    rule = PublicSuffix::Rule::Base.new("foo")
     assert_equal rule, rule
   end
 
   def test_equality_with_internals
     assert_equal      @klass.new("foo"), @klass.new("foo")
     assert_not_equal  @klass.new("foo"), @klass.new("bar")
-    assert_not_equal  @klass.new("foo"), PublicSuffixService::Rule::Test.new("bar")
+    assert_not_equal  @klass.new("foo"), PublicSuffix::Rule::Test.new("bar")
     assert_not_equal  @klass.new("foo"), Class.new { def name; foo; end }.new
   end
 
@@ -88,10 +88,10 @@ class PublicSuffixService::RuleBaseTest < Test::Unit::TestCase
 end
 
 
-class PublicSuffixService::RuleNormalTest < Test::Unit::TestCase
+class PublicSuffix::RuleNormalTest < Test::Unit::TestCase
 
   def setup
-    @klass = PublicSuffixService::Rule::Normal
+    @klass = PublicSuffix::Rule::Normal
   end
 
 
@@ -165,10 +165,10 @@ class PublicSuffixService::RuleNormalTest < Test::Unit::TestCase
 end
 
 
-class PublicSuffixService::RuleExceptionTest < Test::Unit::TestCase
+class PublicSuffix::RuleExceptionTest < Test::Unit::TestCase
 
   def setup
-    @klass = PublicSuffixService::Rule::Exception
+    @klass = PublicSuffix::Rule::Exception
   end
 
 
@@ -236,10 +236,10 @@ class PublicSuffixService::RuleExceptionTest < Test::Unit::TestCase
 end
 
 
-class PublicSuffixService::RuleWildcardTest < Test::Unit::TestCase
+class PublicSuffix::RuleWildcardTest < Test::Unit::TestCase
 
   def setup
-    @klass = PublicSuffixService::Rule::Wildcard
+    @klass = PublicSuffix::Rule::Wildcard
   end
 
 

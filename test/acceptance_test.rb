@@ -15,7 +15,7 @@ class AcceptanceTest < Test::Unit::TestCase
 
   def test_valid
     ValidCases.each do |name, results|
-      domain = PublicSuffixService.parse(name)
+      domain = PublicSuffix.parse(name)
       trd, sld, tld = results
       assert_equal tld, domain.tld, "Invalid tld for '#{name}'"
       assert_equal sld, domain.sld, "Invalid sld for '#{name}'"
@@ -24,12 +24,12 @@ class AcceptanceTest < Test::Unit::TestCase
   end
 
   InvalidCases = {
-    "nic.ke" => PublicSuffixService::DomainNotAllowed,
+    "nic.ke" => PublicSuffix::DomainNotAllowed,
   }
 
   def test_invalid
     InvalidCases.each do |name, error|
-      assert_raise(error) { PublicSuffixService.parse(name) }
+      assert_raise(error) { PublicSuffix.parse(name) }
     end
   end
 

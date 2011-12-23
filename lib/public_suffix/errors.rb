@@ -1,13 +1,13 @@
 #--
-# Public Suffix Service
+# Public Suffix
 #
-# Domain Name parser based on the Public Suffix List.
+# Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2011 Simone Carletti <weppos@weppos.net>
 #++
 
 
-module PublicSuffixService
+module PublicSuffix
 
   class Error < StandardError
   end
@@ -18,11 +18,11 @@ module PublicSuffixService
   #
   # @example
   #
-  #   PublicSuffixService.parse("nic.test")
-  #   # => PublicSuffixService::DomainInvalid
+  #   PublicSuffix.parse("nic.test")
+  #   # => PublicSuffix::DomainInvalid
   #
-  #   PublicSuffixService.parse("http://www.nic.it")
-  #   # => PublicSuffixService::DomainInvalid
+  #   PublicSuffix.parse("http://www.nic.it")
+  #   # => PublicSuffix::DomainInvalid
   #
   # @since 0.6.0
   #
@@ -36,11 +36,11 @@ module PublicSuffixService
   #
   # @example
   #
-  #   PublicSuffixService.parse("nic.do")
-  #   # => PublicSuffixService::DomainNotAllowed
+  #   PublicSuffix.parse("nic.do")
+  #   # => PublicSuffix::DomainNotAllowed
   #
-  #   PublicSuffixService.parse("www.nic.do")
-  #   # => PublicSuffixService::Domain
+  #   PublicSuffix.parse("www.nic.do")
+  #   # => PublicSuffix::Domain
   #
   # @since 0.6.0
   #
@@ -50,7 +50,7 @@ module PublicSuffixService
 
   # Backward Compatibility
   #
-  # @deprecated Use {PublicSuffixService::DomainInvalid}.
+  # @deprecated Use {PublicSuffix::DomainInvalid}.
   #
   InvalidDomain = DomainInvalid
 

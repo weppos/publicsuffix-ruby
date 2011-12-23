@@ -1,13 +1,13 @@
 #--
-# Public Suffix Service
+# Public Suffix
 #
-# Domain Name parser based on the Public Suffix List.
+# Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2011 Simone Carletti <weppos@weppos.net>
 #++
 
 
-module PublicSuffixService
+module PublicSuffix
 
   class Domain
 
@@ -33,7 +33,7 @@ module PublicSuffixService
       domain.to_s.split(".").reverse
     end
 
-    # Creates and returns a new {PublicSuffixService::Domain} instance.
+    # Creates and returns a new {PublicSuffix::Domain} instance.
     #
     # @overload initialize(tld)
     #   Initializes with a +tld+.
@@ -49,19 +49,19 @@ module PublicSuffixService
     #   @param [String] tld The TRD (subdomain)
     #
     # @yield [self] Yields on self.
-    # @yieldparam [PublicSuffixService::Domain] self The newly creates instance
+    # @yieldparam [PublicSuffix::Domain] self The newly creates instance
     #
     # @example Initialize with a TLD
-    #   PublicSuffixService::Domain.new("com")
-    #   # => #<PublicSuffixService::Domain @tld="com">
+    #   PublicSuffix::Domain.new("com")
+    #   # => #<PublicSuffix::Domain @tld="com">
     #
     # @example Initialize with a TLD and SLD
-    #   PublicSuffixService::Domain.new("com", "example")
-    #   # => #<PublicSuffixService::Domain @tld="com", @trd=nil>
+    #   PublicSuffix::Domain.new("com", "example")
+    #   # => #<PublicSuffix::Domain @tld="com", @trd=nil>
     #
     # @example Initialize with a TLD, SLD and TRD
-    #   PublicSuffixService::Domain.new("com", "example", "wwww")
-    #   # => #<PublicSuffixService::Domain @tld="com", @trd=nil, @sld="example">
+    #   PublicSuffix::Domain.new("com", "example", "wwww")
+    #   # => #<PublicSuffix::Domain @tld="com", @trd=nil, @sld="example">
     #
     def initialize(*args, &block)
       @tld, @sld, @trd = args
@@ -81,10 +81,10 @@ module PublicSuffixService
     #
     # @example
     #
-    #   PublicSuffixService::Domain.new("google.com").to_a
+    #   PublicSuffix::Domain.new("google.com").to_a
     #   # => [nil, "google", "com"]
     #
-    #   PublicSuffixService::Domain.new("www.google.com").to_a
+    #   PublicSuffix::Domain.new("www.google.com").to_a
     #   # => [nil, "google", "com"]
     #
     def to_a
@@ -119,11 +119,11 @@ module PublicSuffixService
     # @return [String]
     #
     # @example Gets the domain name of a domain
-    #   PublicSuffixService::Domain.new("com", "google").name
+    #   PublicSuffix::Domain.new("com", "google").name
     #   # => "google.com"
     #
     # @example Gets the domain name of a subdomain
-    #   PublicSuffixService::Domain.new("com", "google", "www").name
+    #   PublicSuffix::Domain.new("com", "google", "www").name
     #   # => "www.google.com"
     #
     def name
@@ -133,29 +133,29 @@ module PublicSuffixService
     # Returns a domain-like representation of this object
     # if the object is a {#domain?}, <tt>nil</tt> otherwise.
     #
-    #   PublicSuffixService::Domain.new("com").domain
+    #   PublicSuffix::Domain.new("com").domain
     #   # => nil
     #
-    #   PublicSuffixService::Domain.new("com", "google").domain
+    #   PublicSuffix::Domain.new("com", "google").domain
     #   # => "google.com"
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").domain
+    #   PublicSuffix::Domain.new("com", "google", "www").domain
     #   # => "www.google.com"
     #
     # This method doesn't validate the input. It handles the domain
     # as a valid domain name and simply applies the necessary transformations.
     #
     #   # This is an invalid domain
-    #   PublicSuffixService::Domain.new("zip", "google").domain
+    #   PublicSuffix::Domain.new("zip", "google").domain
     #   # => "google.zip"
     #
     # This method returns a FQD, not just the domain part.
     # To get the domain part, use <tt>#sld</tt> (aka second level domain).
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").domain
+    #   PublicSuffix::Domain.new("com", "google", "www").domain
     #   # => "google.com"
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").sld
+    #   PublicSuffix::Domain.new("com", "google", "www").sld
     #   # => "google"
     #
     # @return [String]
@@ -171,29 +171,29 @@ module PublicSuffixService
     # Returns a domain-like representation of this object
     # if the object is a {#subdomain?}, <tt>nil</tt> otherwise.
     #
-    #   PublicSuffixService::Domain.new("com").subdomain
+    #   PublicSuffix::Domain.new("com").subdomain
     #   # => nil
     #
-    #   PublicSuffixService::Domain.new("com", "google").subdomain
+    #   PublicSuffix::Domain.new("com", "google").subdomain
     #   # => nil
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain
+    #   PublicSuffix::Domain.new("com", "google", "www").subdomain
     #   # => "www.google.com"
     #
     # This method doesn't validate the input. It handles the domain
     # as a valid domain name and simply applies the necessary transformations.
     #
     #   # This is an invalid domain
-    #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain
+    #   PublicSuffix::Domain.new("zip", "google", "www").subdomain
     #   # => "www.google.zip"
     #
     # This method returns a FQD, not just the domain part.
     # To get the domain part, use <tt>#tld</tt> (aka third level domain).
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain
+    #   PublicSuffix::Domain.new("com", "google", "www").subdomain
     #   # => "www.google.com"
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").trd
+    #   PublicSuffix::Domain.new("com", "google", "www").trd
     #   # => "www"
     #
     # @return [String]
@@ -207,9 +207,9 @@ module PublicSuffixService
     end
 
     # Returns the rule matching this domain
-    # in the default {PublicSuffixService::List}.
+    # in the default {PublicSuffix::List}.
     #
-    # @return [PublicSuffixService::Rule::Base, nil]
+    # @return [PublicSuffix::Rule::Base, nil]
     #   The rule instance a rule matches current domain,
     #   nil if no rule is found.
     def rule
@@ -229,18 +229,18 @@ module PublicSuffixService
     #
     # @example
     #
-    #   PublicSuffixService::Domain.new("com").domain?
+    #   PublicSuffix::Domain.new("com").domain?
     #   # => false
     #
-    #   PublicSuffixService::Domain.new("com", "google").domain?
+    #   PublicSuffix::Domain.new("com", "google").domain?
     #   # => true
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").domain?
+    #   PublicSuffix::Domain.new("com", "google", "www").domain?
     #   # => true
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   PublicSuffixService::Domain.new("zip", "google").domain?
+    #   PublicSuffix::Domain.new("zip", "google").domain?
     #   # => true
     #
     # @see #subdomain?
@@ -261,18 +261,18 @@ module PublicSuffixService
     #
     # @example
     #
-    #   PublicSuffixService::Domain.new("com").subdomain?
+    #   PublicSuffix::Domain.new("com").subdomain?
     #   # => false
     #
-    #   PublicSuffixService::Domain.new("com", "google").subdomain?
+    #   PublicSuffix::Domain.new("com", "google").subdomain?
     #   # => false
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("com", "google", "www").subdomain?
     #   # => true
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("zip", "google", "www").subdomain?
     #   # => true
     #
     # @see #domain?
@@ -335,17 +335,17 @@ module PublicSuffixService
     #
     # @example
     #
-    #   PublicSuffixService::Domain.new("com").domain?
+    #   PublicSuffix::Domain.new("com").domain?
     #   # => false
     #
-    #   PublicSuffixService::Domain.new("com", "google").domain?
+    #   PublicSuffix::Domain.new("com", "google").domain?
     #   # => true
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").domain?
+    #   PublicSuffix::Domain.new("com", "google", "www").domain?
     #   # => true
     #
     #   # This is an invalid domain
-    #   PublicSuffixService::Domain.new("zip", "google").false?
+    #   PublicSuffix::Domain.new("zip", "google").false?
     #   # => true
     #
     # @see #domain?
@@ -362,17 +362,17 @@ module PublicSuffixService
     #
     # @example
     #
-    #   PublicSuffixService::Domain.new("com").subdomain?
+    #   PublicSuffix::Domain.new("com").subdomain?
     #   # => false
     #
-    #   PublicSuffixService::Domain.new("com", "google").subdomain?
+    #   PublicSuffix::Domain.new("com", "google").subdomain?
     #   # => false
     #
-    #   PublicSuffixService::Domain.new("com", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("com", "google", "www").subdomain?
     #   # => true
     #
     #   # This is an invalid domain
-    #   PublicSuffixService::Domain.new("zip", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("zip", "google", "www").subdomain?
     #   # => false
     #
     # @see #subdomain?

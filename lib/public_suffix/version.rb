@@ -1,13 +1,13 @@
 #--
-# Public Suffix Service
+# Public Suffix
 #
-# Domain Name parser based on the Public Suffix List.
+# Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2011 Simone Carletti <weppos@weppos.net>
 #++
 
 
-module PublicSuffixService
+module PublicSuffix
 
   module Version
     MAJOR = 0

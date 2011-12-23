@@ -2,16 +2,14 @@ require 'rubygems'
 require 'rubygems/package_task'
 require 'bundler'
 require 'rake/testtask'
-require 'yard'
-require 'yard/rake/yardoc_task'
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
-require 'public_suffix_service'
+require 'public_suffix'
 
 
 # Common package properties
-PKG_NAME    = ENV['PKG_NAME']    || PublicSuffixService::GEM
-PKG_VERSION = ENV['PKG_VERSION'] || PublicSuffixService::VERSION
+PKG_NAME    = ENV['PKG_NAME']    || PublicSuffix::GEM
+PKG_VERSION = ENV['PKG_VERSION'] || PublicSuffix::VERSION
 RUBYFORGE_PROJECT = nil
 
 if ENV['SNAPSHOT'].to_i == 1
@@ -32,7 +30,7 @@ spec = Gem::Specification.new do |s|
   s.name              = PKG_NAME
   s.version           = PKG_VERSION
   s.summary           = "Domain name parser based in the Public Suffix List."
-  s.description       = "PublicSuffixService can parse and decompose a domain name into top level domain, domain and subdomains."
+  s.description       = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
 
   s.required_ruby_version = ">= 1.8.7"
 
@@ -86,18 +84,14 @@ Rake::TestTask.new do |t|
 end
 
 
+require 'yard'
+require 'yard/rake/yardoc_task'
+
 YARD::Rake::YardocTask.new(:yardoc) do |y|
   y.options = ["--output-dir", "yardoc"]
 end
 
 namespace :yardoc do
-  desc "Publish YARD documentation to the site"
-  task :publish => ["yardoc:clobber", "yardoc"] do
-    ENV["username"] || raise(ArgumentError, "Missing ssh username")
-    sh "rsync -avz --delete yardoc/ #{ENV["username"]}@code:/var/www/apps/code/#{PKG_NAME}/api"
-  end
-
-  desc "Remove YARD products"
   task :clobber do
     rm_r "yardoc" rescue nil
   end
@@ -108,7 +102,7 @@ task :clobber => "yardoc:clobber"
 
 desc "Open an irb session preloaded with this library"
 task :console do
-  sh "irb -rubygems -I lib -r public_suffix_service.rb"
+  sh "irb -rubygems -I lib -r public_suffix.rb"
 end
 
 
@@ -121,7 +115,7 @@ task :download_definitions do
 
   DEFINITION_URL = "http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.dat?raw=1"
 
-  File.open("lib/public_suffix_service/definitions.txt", "w+") do |f|
+  File.open("lib/public_suffix/definitions.txt", "w+") do |f|
     response = Net::HTTP.get_response(URI.parse(DEFINITION_URL))
     f.write(response.body)
   end

@@ -1,31 +1,31 @@
 require 'test_helper'
 
-class PublicSuffixService::DomainTest < Test::Unit::TestCase
+class PublicSuffix::DomainTest < Test::Unit::TestCase
 
   def setup
-    @klass = PublicSuffixService::Domain
+    @klass = PublicSuffix::Domain
   end
 
   # Tokenizes given input into labels.
   def test_self_domain_to_labels
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffixService::Domain.domain_to_labels("someone.spaces.live.com")
+                  PublicSuffix::Domain.domain_to_labels("someone.spaces.live.com")
     assert_equal  %w( com zoho wiki leontina23samiko ),
-                  PublicSuffixService::Domain.domain_to_labels("leontina23samiko.wiki.zoho.com")
+                  PublicSuffix::Domain.domain_to_labels("leontina23samiko.wiki.zoho.com")
   end
 
   # Converts input into String.
   def test_self_domain_to_labels_converts_input_to_string
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffixService::Domain.domain_to_labels(:"someone.spaces.live.com")
+                  PublicSuffix::Domain.domain_to_labels(:"someone.spaces.live.com")
   end
 
   # Ignores trailing .
   def test_self_domain_to_labels_ignores_trailing_dot
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffixService::Domain.domain_to_labels("someone.spaces.live.com")
+                  PublicSuffix::Domain.domain_to_labels("someone.spaces.live.com")
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffixService::Domain.domain_to_labels(:"someone.spaces.live.com")
+                  PublicSuffix::Domain.domain_to_labels(:"someone.spaces.live.com")
   end
 
 
@@ -103,9 +103,9 @@ class PublicSuffixService::DomainTest < Test::Unit::TestCase
 
   def test_rule
     assert_equal nil,                                      @klass.new("zip").rule
-    assert_equal PublicSuffixService::Rule.factory("com"), @klass.new("com").rule
-    assert_equal PublicSuffixService::Rule.factory("com"), @klass.new("com", "google").rule
-    assert_equal PublicSuffixService::Rule.factory("com"), @klass.new("com", "google", "www").rule
+    assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com").rule
+    assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com", "google").rule
+    assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com", "google", "www").rule
   end
 
 

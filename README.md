@@ -1,15 +1,15 @@
-# Public Suffix Service
+# Public Suffix List - Ruby implementation
 
-*Public Suffix Service* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org).
+*Public Suffix* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org).
 
 [![Build Status](https://secure.travis-ci.org/weppos/public_suffix_service.png)](http://travis-ci.org/weppos/public_suffix_service)
 
 
 ## What is the Public Suffix List?
 
-The *Public Suffix Service* is a cross-vendor initiative to provide an accurate list of domain name suffixes.
+The Public Suffix List is a cross-vendor initiative to provide an accurate list of domain name suffixes.
 
-The Public Suffix Service is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
+The Public Suffix List is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
 
 A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
 
@@ -36,31 +36,34 @@ http://stackoverflow.com/questions/288810/get-the-subdomain-from-a-url
 
 * Ruby >= 1.8.7
 
-*Public Suffix Service* >= 0.9.0 requires Ruby 1.8.7 or newer.
+*Public Suffix* >= 0.9.0 requires Ruby 1.8.7 or newer.
 For older versions of Ruby, see the CHANGELOG.md file.
 
-Successfully tested with the following interpreters
+Successfully tested against the following interpreters:
 
-* Ruby 1.8.7 / 1.9.2
-* MacRuby
-* Ruby Enterprise Edition
+* "Ruby":http://www.ruby-lang.org/ 1.8.x MRI
+* "Ruby":http://www.ruby-lang.org/ 1.9.x MRI
+* "Ruby Enterprise Edition":http://www.rubyenterpriseedition.com/
+* "JRuby":http://jruby.org/
+* "Rubinius":http://rubini.us/
+* "MacRuby":http://www.macruby.org/
 
 
 ## Installation
 
-The best way to install *Public Suffix Service* is via [RubyGems](http://www.rubygems.org).
+The best way to install *Public Suffix* is via [RubyGems](http://www.rubygems.org).
 
     $ gem install public_suffix_service
 
-You might need administrator privileges on your system to install the Gem.
+You might need administrator privileges on your system to install the gem.
 
 
 ## Basic Usage
 
 Example domain without subdomains.
 
-    domain = PublicSuffixService.parse("google.com")
-    # => #<PublicSuffixService::Domain>
+    domain = PublicSuffix.parse("google.com")
+    # => #<PublicSuffix::Domain>
     domain.tld
     # => "com"
     domain.sld
@@ -74,8 +77,8 @@ Example domain without subdomains.
 
 Example domain with subdomains.
 
-    domain = PublicSuffixService.parse("www.google.com")
-    # => #<PublicSuffixService::Domain>
+    domain = PublicSuffix.parse("www.google.com")
+    # => #<PublicSuffix::Domain>
     domain.tld
     # => "com"
     domain.sld
@@ -89,13 +92,13 @@ Example domain with subdomains.
 
 Simple validation example.
 
-    PublicSuffixService.valid?("google.com")
+    PublicSuffix.valid?("google.com")
     # => true
 
-    PublicSuffixService.valid?("www.google.com")
+    PublicSuffix.valid?("www.google.com")
     # => true
 
-    PublicSuffixService.valid?("x.yz")
+    PublicSuffix.valid?("x.yz")
     # => false
 
 ## Fully Qualified Domain Names
@@ -103,14 +106,14 @@ Simple validation example.
 This library automatically recognizes Fully Qualified Domain Names. A FQDN is a domain name that end with a trailing dot.
 
     # Parse a standard domain name
-    domain = PublicSuffixService.parse("www.google.com")
-    # => #<PublicSuffixService::Domain>
+    domain = PublicSuffix.parse("www.google.com")
+    # => #<PublicSuffix::Domain>
     domain.tld
     # => "com"
 
     # Parse a fully qualified domain name
-    domain = PublicSuffixService.parse("www.google.com.")
-    # => #<PublicSuffixService::Domain>
+    domain = PublicSuffix.parse("www.google.com.")
+    # => #<PublicSuffix::Domain>
     domain.tld
     # => "com"
 
@@ -144,5 +147,5 @@ See the CHANGELOG.md file for details.
 
 ## License
 
-*Public Suffix Service* is copyright (c) 2009-2011 Simone Carletti.
+*Public Suffix* is copyright (c) 2009-2011 Simone Carletti.
 This is Free Software distributed under the MIT license.

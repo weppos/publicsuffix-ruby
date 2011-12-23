@@ -1,24 +1,24 @@
 #--
-# Public Suffix Service
+# Public Suffix
 #
-# Domain Name parser based on the Public Suffix List.
+# Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2011 Simone Carletti <weppos@weppos.net>
 #++
 
 
-module PublicSuffixService
+module PublicSuffix
 
   # A Rule is a special object which holds a single definition
   # of the Public Suffix List.
   #
   # There are 3 types of ruleas, each one represented by a specific
-  # subclass within the +PublicSuffixService::Rule+ namespace.
+  # subclass within the +PublicSuffix::Rule+ namespace.
   #
-  # To create a new Rule, use the {PublicSuffixService::Rule#factory} method.
+  # To create a new Rule, use the {PublicSuffix::Rule#factory} method.
   #
-  #   PublicSuffixService::Rule.factory("ar")
-  #   # => #<PublicSuffixService::Rule::Normal>
+  #   PublicSuffix::Rule.factory("ar")
+  #   # => #<PublicSuffix::Rule::Normal>
   #
   class Rule
 
@@ -28,19 +28,19 @@ module PublicSuffixService
     #
     # @param  [String] name The rule definition.
     #
-    # @return [PublicSuffixService::Rule::*] A rule instance.
+    # @return [PublicSuffix::Rule::*] A rule instance.
     #
     # @example Creates a Normal rule
-    #   PublicSuffixService::Rule.factory("ar")
-    #   # => #<PublicSuffixService::Rule::Normal>
+    #   PublicSuffix::Rule.factory("ar")
+    #   # => #<PublicSuffix::Rule::Normal>
     #
     # @example Creates a Wildcard rule
-    #   PublicSuffixService::Rule.factory("*.ar")
-    #   # => #<PublicSuffixService::Rule::Wildcard>
+    #   PublicSuffix::Rule.factory("*.ar")
+    #   # => #<PublicSuffix::Rule::Wildcard>
     #
     # @example Creates an Exception rule
-    #   PublicSuffixService::Rule.factory("!congresodelalengua3.ar")
-    #   # => #<PublicSuffixService::Rule::Exception>
+    #   PublicSuffix::Rule.factory("!congresodelalengua3.ar")
+    #   # => #<PublicSuffix::Rule::Exception>
     #
     def self.factory(name)
       klass = case name.to_s[0..0]
@@ -63,9 +63,9 @@ module PublicSuffixService
     # of this class is to expose a common interface
     # for all the available subclasses.
     #
-    # * {PublicSuffixService::Rule::Normal}
-    # * {PublicSuffixService::Rule::Exception}
-    # * {PublicSuffixService::Rule::Wildcard}
+    # * {PublicSuffix::Rule::Normal}
+    # * {PublicSuffix::Rule::Exception}
+    # * {PublicSuffix::Rule::Wildcard}
     #
     # == Properties
     #
@@ -80,8 +80,8 @@ module PublicSuffixService
     #
     # Here's an example
     #
-    #   PublicSuffixService::Rule.factory("*.google.com")
-    #   #<PublicSuffixService::Rule::Wildcard:0x1015c14b0 
+    #   PublicSuffix::Rule.factory("*.google.com")
+    #   #<PublicSuffix::Rule::Wildcard:0x1015c14b0
     #       @labels=["com", "google"],
     #       @name="*.google.com",
     #       @type=:wildcard,
@@ -91,13 +91,13 @@ module PublicSuffixService
     # == Rule Creation
     #
     # The best way to create a new rule is passing the rule name
-    # to the <tt>PublicSuffixService::Rule.factory</tt> method.
+    # to the <tt>PublicSuffix::Rule.factory</tt> method.
     #
-    #   PublicSuffixService::Rule.factory("com")
-    #   # => PublicSuffixService::Rule::Normal
+    #   PublicSuffix::Rule.factory("com")
+    #   # => PublicSuffix::Rule::Normal
     #
-    #   PublicSuffixService::Rule.factory("*.com")
-    #   # => PublicSuffixService::Rule::Wildcard
+    #   PublicSuffix::Rule.factory("*.com")
+    #   # => PublicSuffix::Rule::Wildcard
     #
     # This method will detect the rule type and create an instance
     # from the proper rule class.
@@ -112,7 +112,7 @@ module PublicSuffixService
     # can be handled by the current rule.
     # You can use the <tt>#match?</tt> method.
     #
-    #   rule = PublicSuffixService::Rule.factory("com")
+    #   rule = PublicSuffix::Rule.factory("com")
     #   
     #   rule.match?("google.com")
     #   # => true
@@ -126,7 +126,7 @@ module PublicSuffixService
     #
     # When you have the right rule, you can use it to tokenize the domain name.
     # 
-    #   rule = PublicSuffixService::Rule.factory("com")
+    #   rule = PublicSuffix::Rule.factory("com")
     # 
     #   rule.decompose("google.com")
     #   # => ["google", "com"]
@@ -157,7 +157,7 @@ module PublicSuffixService
 
       # Checks whether this rule is equal to <tt>other</tt>.
       #
-      # @param [PublicSuffixService::Rule::*] other
+      # @param [PublicSuffix::Rule::*] other
       #   The rule to compare.
       #
       # @return [Boolean]
@@ -180,7 +180,7 @@ module PublicSuffixService
       #
       # @example
       #   rule = Rule.factory("com")
-      #   # #<PublicSuffixService::Rule::Normal>
+      #   # #<PublicSuffix::Rule::Normal>
       #   rule.match?("example.com")
       #   # => true
       #   rule.match?("example.net")
@@ -201,7 +201,7 @@ module PublicSuffixService
       #
       # @example
       #   rule = Rule.factory("*.do")
-      #   # => #<PublicSuffixService::Rule::Wildcard>
+      #   # => #<PublicSuffix::Rule::Wildcard>
       #   rule.allow?("example.do")
       #   # => false
       #   rule.allow?("www.example.do")
