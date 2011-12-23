@@ -12,20 +12,11 @@ PKG_NAME    = ENV['PKG_NAME']    || PublicSuffix::GEM
 PKG_VERSION = ENV['PKG_VERSION'] || PublicSuffix::VERSION
 RUBYFORGE_PROJECT = nil
 
-if ENV['SNAPSHOT'].to_i == 1
-  PKG_VERSION << "." << Time.now.utc.strftime("%Y%m%d%H%M%S")
-end
-
 
 # Run test by default.
 task :default => :test
 
 
-# This builds the actual gem. For details of what all these options
-# mean, and other ones you can add, check the documentation here:
-#
-#   http://rubygems.org/read/chapter/20
-#
 spec = Gem::Specification.new do |s|
   s.name              = PKG_NAME
   s.version           = PKG_VERSION
@@ -42,10 +33,6 @@ spec = Gem::Specification.new do |s|
   s.files             = `git ls-files`.split("\n")
   s.test_files        = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths     = %w( lib )
-
-  # If you want to depend on other gems, add them here, along with any
-  # relevant versions
-  # s.add_dependency("some_other_gem", "~> 0.1.0")
 
   # If your tests use any gems, include them here
   s.add_development_dependency("rake")
