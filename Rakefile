@@ -27,7 +27,7 @@ spec = Gem::Specification.new do |s|
 
   s.author            = "Simone Carletti"
   s.email             = "weppos@weppos.net"
-  s.homepage          = "http://www.simonecarletti.com/code/public_suffix_service"
+  s.homepage          = "http://www.simonecarletti.com/code/public_suffix"
 
   # Add any extra files to include in the gem (like your README)
   s.files             = `git ls-files`.split("\n")
