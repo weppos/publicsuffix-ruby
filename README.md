@@ -51,9 +51,9 @@ Successfully tested against the following interpreters:
 
 ## Installation
 
-The best way to install *Public Suffix* is via [RubyGems](http://www.rubygems.org).
+The best way to install *Public Suffix* is via [RubyGems](https://rubygems.org/).
 
-    $ gem install public_suffix_service
+    $ gem install public_suffix
 
 You might need administrator privileges on your system to install the gem.
 
@@ -127,16 +127,16 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
 
 If you use this library and find yourself missing any functionality, please [let me know](mailto:weppos@weppos.net).
 
-Pull requests are very welcome! Please include spec and/or feature coverage for every patch, and create a topic branch for every separate change you make.
+Pull requests are very welcome! Please include tests and/or feature coverage for every patch, and create a topic branch for every separate change you make.
 
 Report issues or feature requests to [GitHub Issues](https://github.com/weppos/public_suffix_service/issues).
 
 
 ## More
 
-* [Homepage](http://www.simonecarletti.com/code/public_suffix_service)
+* [Homepage](http://www.simonecarletti.com/code/public_suffix)
 * [Repository](https://github.com/weppos/public_suffix_service)
-* [API Documentation](http://rubydoc.info/gems/public_suffix_service)
+* [API Documentation](http://rubydoc.info/gems/public_suffix)
 * [Introducing the Public Suffix List library for Ruby](http://www.simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
 
 
