@@ -1,6 +1,11 @@
 # Changelog
 
 
+## master
+
+* CHANGED: Updated definitions.
+
+
 ## Release 1.0.0.rc1
 
 The library is now known as PublicSuffix.
