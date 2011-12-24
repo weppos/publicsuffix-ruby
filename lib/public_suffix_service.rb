@@ -7,7 +7,7 @@
 #++
 
 
-warn("The PublicSuffixService object has been deprecated. Please use PublicSuffix instead.")
+warn("DEPRECATION WARNING: The PublicSuffixService gem is now known as PublicSuffix. Please install `public_suffix` instead of `public_suffix_service`.")
 
 require 'public_suffix'
 

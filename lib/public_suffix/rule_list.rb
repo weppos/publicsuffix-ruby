@@ -7,7 +7,7 @@
 #++
 
 
-warn("The PublicSuffix::RuleList object has been deprecated and will be removed in PublicSuffix 1.0. Please use PublicSuffix::List instead.")
+warn("DEPRECATION WARNING: The PublicSuffix::RuleList object has been deprecated and will be removed in PublicSuffix 1.0. Please use PublicSuffix::List instead.")
 
 module PublicSuffix
   RuleList = List
