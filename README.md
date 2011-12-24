@@ -41,12 +41,12 @@ For older versions of Ruby, see the CHANGELOG.md file.
 
 Successfully tested against the following interpreters:
 
-* "Ruby":http://www.ruby-lang.org/ 1.8.x MRI
-* "Ruby":http://www.ruby-lang.org/ 1.9.x MRI
-* "Ruby Enterprise Edition":http://www.rubyenterpriseedition.com/
-* "JRuby":http://jruby.org/
-* "Rubinius":http://rubini.us/
-* "MacRuby":http://www.macruby.org/
+* [Ruby](http://www.ruby-lang.org/) 1.8.x MRI
+* [Ruby](http://www.ruby-lang.org/) 1.9.x MRI
+* [Ruby Enterprise Edition](http://www.rubyenterpriseedition.com/)
+* [JRuby](http://jruby.org/)
+* [Rubinius](http://rubini.us/)
+* [MacRuby](http://www.macruby.org/)
 
 
 ## Installation
