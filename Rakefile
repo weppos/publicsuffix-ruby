@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'rubygems/package_task'
 require 'bundler'
-require 'rake/testtask'
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
 require 'public_suffix'
@@ -10,7 +9,6 @@ require 'public_suffix'
 # Common package properties
 PKG_NAME    = ENV['PKG_NAME']    || PublicSuffix::GEM
 PKG_VERSION = ENV['PKG_VERSION'] || PublicSuffix::VERSION
-RUBYFORGE_PROJECT = nil
 
 
 # Run test by default.
@@ -62,7 +60,8 @@ desc "Package the library and generates the gemspec"
 task :package => [:gemspec]
 
 
-# Run all the tests in the /test folder
+require 'rake/testtask'
+
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList["test/**/*_test.rb"]
