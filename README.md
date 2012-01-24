@@ -88,7 +88,7 @@ Example domain with subdomains.
     domain.domain
     # => "google.com"
     domain.subdomain
-    # => "google.com"
+    # => "www.google.com"
 
 Simple validation example.
 
