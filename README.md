@@ -120,10 +120,10 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
 
 ## Credits
 
-* **Author:** [Simone Carletti](http://www.simonecarletti.com/)
+* [Simone Carletti](http://www.simonecarletti.com/) <weppos@weppos.net> - The Author
 
 
-## FeedBack and Bug reports
+## Feedback and bug reports
 
 If you use this library and find yourself missing any functionality, please [let me know](mailto:weppos@weppos.net).
 
@@ -147,5 +147,4 @@ See the CHANGELOG.md file for details.
 
 ## License
 
-*Public Suffix* is copyright (c) 2009-2011 Simone Carletti.
-This is Free Software distributed under the MIT license.
+*Public Suffix* is copyright (c) 2009-2012 Simone Carletti. This is Free Software distributed under the MIT license.
