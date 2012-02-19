@@ -147,4 +147,6 @@ See the CHANGELOG.md file for details.
 
 ## License
 
-*Public Suffix* is copyright (c) 2009-2012 Simone Carletti. This is Free Software distributed under the MIT license.
+Copyright (c) 2009-2012 Simone Carletti.
+
+This is Free Software distributed under the MIT license.

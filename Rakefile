@@ -38,6 +38,9 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency("yard")
 end
 
+
+require 'rubygems/package_task'
+
 Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
