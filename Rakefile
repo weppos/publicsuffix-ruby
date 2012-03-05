@@ -27,12 +27,10 @@ spec = Gem::Specification.new do |s|
   s.email             = "weppos@weppos.net"
   s.homepage          = "http://www.simonecarletti.com/code/public_suffix"
 
-  # Add any extra files to include in the gem (like your README)
   s.files             = `git ls-files`.split("\n")
   s.test_files        = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths     = %w( lib )
 
-  # If your tests use any gems, include them here
   s.add_development_dependency("rake")
   s.add_development_dependency("mocha")
   s.add_development_dependency("yard")
