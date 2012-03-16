@@ -52,14 +52,19 @@ class PublicSuffixTest < Test::Unit::TestCase
     assert_equal "www",     domain.trd
   end
 
-  def test_self_parse_should_raise_with_invalid_domain
+  def test_self_parse_raises_with_invalid_domain
     error = assert_raise(PublicSuffix::DomainInvalid) { PublicSuffix.parse("example.zip") }
     assert_match %r{example\.zip}, error.message
   end
 
-  def test_self_parse_should_raise_with_unallowed_domain
+  def test_self_parse_raises_with_unallowed_domain
     error = assert_raise(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.ke") }
     assert_match %r{example\.ke}, error.message
+  end
+
+  def test_self_raises_with_uri
+    error = assert_raise(PublicSuffix::DomainInvalid) { PublicSuffix.parse("http://google.com") }
+    assert_match %r{http://google\.com}, error.message
   end
 
 

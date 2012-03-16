@@ -63,6 +63,7 @@ module PublicSuffix
   #
   def self.parse(domain)
     rule = List.default.find(domain)
+
     if rule.nil?
       raise DomainInvalid, "`#{domain}' is not a valid domain"
     end

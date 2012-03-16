@@ -3,6 +3,8 @@
 
 ## Master
 
+- FIXED: #valid? and #parse consider URIs as valid domains (GH-15)
+
 - CHANGED: Updated definitions.
 
 - CHANGED: Removed deprecatd PublicSuffixService::RuleList.

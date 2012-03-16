@@ -21,21 +21,10 @@ class PublicSuffix::ListTest < Test::Unit::TestCase
   end
 
   def test_indexes
-    @list = PublicSuffix::List.parse(<<EOS)
-// com : http://en.wikipedia.org/wiki/.com
-com
-
-// uk : http://en.wikipedia.org/wiki/.uk
-*.uk
-*.sch.uk
-!bl.uk
-!british-library.uk
-EOS
-
-    assert !@list.indexes.empty?
-    assert_equal [1,2,3,4], @list.indexes.delete('uk')
-    assert_equal [0], @list.indexes.delete('com')
-    assert @list.indexes.empty?
+    assert !list.indexes.empty?
+    assert_equal [1,2,3,4], list.indexes.delete('uk')
+    assert_equal [0], list.indexes.delete('com')
+    assert list.indexes.empty?
   end
 
 
@@ -88,37 +77,22 @@ EOS
 
 
   def test_find
-    @list = PublicSuffix::List.parse(<<EOS)
-// com : http://en.wikipedia.org/wiki/.com
-com
-
-// uk : http://en.wikipedia.org/wiki/.uk
-*.uk
-*.sch.uk
-!bl.uk
-!british-library.uk
-EOS
-    assert_equal PublicSuffix::Rule.factory("com"),  @list.find("google.com")
-    assert_equal PublicSuffix::Rule.factory("com"),  @list.find("foo.google.com")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), @list.find("google.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), @list.find("google.co.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), @list.find("foo.google.co.uk")
-    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), @list.find("british-library.uk")
-    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), @list.find("foo.british-library.uk")
+    assert_equal PublicSuffix::Rule.factory("com"),  list.find("google.com")
+    assert_equal PublicSuffix::Rule.factory("com"),  list.find("foo.google.com")
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("google.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("google.co.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("foo.google.co.uk")
+    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("british-library.uk")
+    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("foo.british-library.uk")
   end
 
   def test_select
-    @list = PublicSuffix::List.parse(<<EOS)
-// com : http://en.wikipedia.org/wiki/.com
-com
+    assert_equal 2, list.select("british-library.uk").size
+  end
 
-// uk : http://en.wikipedia.org/wiki/.uk
-*.uk
-*.sch.uk
-!bl.uk
-!british-library.uk
-EOS
-    assert_equal 2, @list.select("british-library.uk").size
+  def test_select_returns_empty_when_domain_has_scheme
+    assert_equal [], list.select("http://google.com")
+    assert_not_equal [], list.select("google.com")
   end
 
 
@@ -176,7 +150,14 @@ EOS
   end
 
   def test_self_parse_should_create_cache
-    list = PublicSuffix::List.parse(<<EOS)
+    assert_equal PublicSuffix::Rule.factory("com"), list.find("google.com")
+  end
+
+
+private
+
+  def list
+    @_list ||= PublicSuffix::List.parse(<<EOS)
 // com : http://en.wikipedia.org/wiki/.com
 com
 
@@ -186,8 +167,6 @@ com
 !bl.uk
 !british-library.uk
 EOS
-
-    assert_equal PublicSuffix::Rule.factory("com"), list.find("google.com")
   end
 
 end
