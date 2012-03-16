@@ -11,7 +11,7 @@ module PublicSuffix
 
   module Version
     MAJOR = 1
-    MINOR = 0
+    MINOR = 1
     PATCH = 0
     BUILD = nil
 

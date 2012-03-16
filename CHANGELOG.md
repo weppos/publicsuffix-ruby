@@ -1,14 +1,13 @@
 # Changelog
 
 
-## Master
+## Release 1.1.0
 
 - FIXED: #valid? and #parse consider URIs as valid domains (GH-15)
 
 - CHANGED: Updated definitions.
 
 - CHANGED: Removed deprecatd PublicSuffixService::RuleList.
-
 
 
 ## Release 1.0.0
