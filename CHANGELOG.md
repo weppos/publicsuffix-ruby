@@ -5,6 +5,8 @@
 
 - CHANGED: Updated definitions.
 
+- CHANGED: Removed deprecatd PublicSuffixService::RuleList.
+
 
 
 ## Release 1.0.0

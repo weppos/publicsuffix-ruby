@@ -21,10 +21,6 @@ module PublicSuffix
   AUTHORS         = ["Simone Carletti <weppos@weppos.net>"]
 
 
-  # Backwards compatibility
-  autoload :RuleList, 'public_suffix/rule_list'
-
-
   # Parses +domain+ and returns the
   # {PublicSuffix::Domain} instance.
   #
