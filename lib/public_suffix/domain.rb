@@ -113,6 +113,12 @@ module PublicSuffix
       @trd
     end
 
+    # Returns a boolean value to verify if trd exist or not
+    #
+    # @return [Boolean, nil]
+    def trd?
+      !@trd.nil?
+    end
 
     # Returns the full domain name.
     #
