@@ -188,7 +188,7 @@ module PublicSuffix
     #   # => "www.google.zip"
     #
     # This method returns a FQD, not just the domain part.
-    # To get the domain part, use <tt>#tld</tt> (aka third level domain).
+    # To get the subdomain part, use <tt>#trd</tt> (aka third level domain).
     #
     #   PublicSuffix::Domain.new("com", "google", "www").subdomain
     #   # => "www.google.com"
