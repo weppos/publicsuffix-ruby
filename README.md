@@ -142,7 +142,7 @@ Report issues or feature requests to [GitHub Issues](https://github.com/weppos/p
 
 ## Changelog
 
-See the CHANGELOG.md file for details.
+See the [CHANGELOG.md](CHANGELOG.md) file for details.
 
 
 ## License
