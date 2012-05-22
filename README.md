@@ -118,11 +118,6 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
     # => "com"
 
 
-## Credits
-
-* [Simone Carletti](http://www.simonecarletti.com/) <weppos@weppos.net> - The Author
-
-
 ## Feedback and bug reports
 
 If you use this library and find yourself missing any functionality, please [let me know](mailto:weppos@weppos.net).
