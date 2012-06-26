@@ -1,44 +1,6 @@
-// ***** BEGIN LICENSE BLOCK *****
-// Version: MPL 1.1/GPL 2.0/LGPL 2.1
-// 
-// The contents of this file are subject to the Mozilla Public License Version 
-// 1.1 (the "License"); you may not use this file except in compliance with 
-// the License. You may obtain a copy of the License at 
-// http://www.mozilla.org/MPL/
-// 
-// Software distributed under the License is distributed on an "AS IS" basis,
-// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-// for the specific language governing rights and limitations under the
-// License.
-// 
-// The Original Code is the Public Suffix List.
-// 
-// The Initial Developer of the Original Code is
-// Jo Hermans <jo.hermans@gmail.com>.
-// Portions created by the Initial Developer are Copyright (C) 2007
-// the Initial Developer. All Rights Reserved.
-// 
-// Contributor(s):
-//   Ruben Arakelyan <ruben@rubenarakelyan.com>
-//   Gervase Markham <gerv@gerv.net>
-//   Pamela Greene <pamg.bugs@gmail.com>
-//   David Triendl <david@triendl.name>
-//   Jothan Frakes <jothan@gmail.com>
-//   The kind representatives of many TLD registries
-// 
-// Alternatively, the contents of this file may be used under the terms of
-// either the GNU General Public License Version 2 or later (the "GPL"), or
-// the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
-// in which case the provisions of the GPL or the LGPL are applicable instead
-// of those above. If you wish to allow use of your version of this file only
-// under the terms of either the GPL or the LGPL, and not to allow others to
-// use your version of this file under the terms of the MPL, indicate your
-// decision by deleting the provisions above and replace them with the notice
-// and other provisions required by the GPL or the LGPL. If you do not delete
-// the provisions above, a recipient may use your version of this file under
-// the terms of any one of the MPL, the GPL or the LGPL.
-// 
-// ***** END LICENSE BLOCK *****
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 // ===BEGIN ICANN DOMAINS===
 
@@ -3703,6 +3665,9 @@ poznan.pl
 wroc.pl
 zakopane.pl
 
+// pm : http://www.afnic.fr/medias/documents/AFNIC-naming-policy2012.pdf
+pm
+
 // pn : http://www.government.pn/PnRegistry/policies.htm
 pn
 gov.pn
@@ -4001,6 +3966,7 @@ net.sd
 org.sd
 edu.sd
 med.sd
+tv.sd
 gov.sd
 info.sd
 
@@ -4048,7 +4014,7 @@ x.se
 y.se
 z.se
 
-// sg : http://www.nic.net.sg/sub_policies_agreement/2ld.html
+// sg : http://www.nic.net.sg/page/registration-policies-procedures-and-guidelines
 sg
 com.sg
 net.sg
@@ -4057,9 +4023,13 @@ gov.sg
 edu.sg
 per.sg
 
-// sh : http://www.nic.sh/rules.html
-// list of 2nd level domains ?
+// sh : http://www.nic.sh/registrar.html
 sh
+com.sh
+net.sh
+gov.sh
+org.sh
+mil.sh
 
 // si : http://en.wikipedia.org/wiki/.si
 si
@@ -4123,6 +4093,11 @@ su
 // sv : http://www.svnet.org.sv/svpolicy.html
 *.sv
 
+// sx : http://en.wikipedia.org/wiki/.sx
+// Confirmed by registry <jcvignes@openregistry.com> 2012-05-31
+sx
+gov.sx
+
 // sy : http://en.wikipedia.org/wiki/.sy
 // see also: http://www.gobin.info/domainname/sy.doc
 sy
@@ -4154,8 +4129,7 @@ tel
 tf
 
 // tg : http://en.wikipedia.org/wiki/.tg
-// http://www.nic.tg/nictg/index.php implies no reserved 2nd-level domains,
-// although this contradicts wikipedia.
+// http://www.nic.tg/
 tg
 
 // th : http://en.wikipedia.org/wiki/.th
@@ -4169,7 +4143,7 @@ mi.th
 net.th
 or.th
 
-// tj : http://www.nic.tj/policy.htm
+// tj : http://www.nic.tj/policy.html
 tj
 ac.tj
 biz.tj
@@ -4194,9 +4168,16 @@ tk
 tl
 gov.tl
 
-// tm : http://www.nic.tm/rules.html
-// list of 2nd level tlds ?
+// tm : http://www.nic.tm/local.html
 tm
+com.tm
+co.tm
+org.tm
+net.tm
+nom.tm
+gov.tm
+mil.tm
+edu.tm
 
 // tn : http://en.wikipedia.org/wiki/.tn
 // http://whois.ati.tn/
@@ -4354,14 +4335,16 @@ zt.ua
 co.ua
 pp.ua
 
-// ug : http://www.registry.co.ug/
+// ug : https://www.registry.co.ug/
 ug
 co.ug
+or.ug
 ac.ug
 sc.ug
 go.ug
 ne.ug
-or.ug
+com.ug
+org.ug
 
 // uk : http://en.wikipedia.org/wiki/.uk
 *.uk
@@ -4627,11 +4610,12 @@ paroch.k12.ma.us
 // uy : http://www.antel.com.uy/
 *.uy
 
-// uz : http://www.reg.uz/registerr.html
-// are there other 2nd level tlds ?
+// uz : http://www.reg.uz/
 uz
-com.uz
 co.uz
+com.uz
+net.uz
+org.uz
 
 // va : http://en.wikipedia.org/wiki/.va
 va
@@ -4682,6 +4666,9 @@ health.vn
 // list of 2nd level tlds ?
 vu
 
+// wf : http://www.afnic.fr/medias/documents/AFNIC-naming-policy2012.pdf
+wf
+
 // ws : http://en.wikipedia.org/wiki/.ws
 // http://samoanic.ws/index.dhtml
 ws
@@ -4691,6 +4678,9 @@ org.ws
 gov.ws
 edu.ws
 
+// yt : http://www.afnic.fr/medias/documents/AFNIC-naming-policy2012.pdf
+yt
+
 // IDN ccTLDs
 // Please sort by ISO 3166 ccTLD, then punicode string
 // when submitting patches and follow this format:
@@ -4699,7 +4689,7 @@ edu.ws
 // <URL>
 
 // xn--mgbaam7a8h ("Emerat" Arabic) : AE
-//http://nic.ae/english/arabicdomain/rules.jsp
+// http://nic.ae/english/arabicdomain/rules.jsp
 امارات
 
 // xn--54b7fta0cc ("Bangla" Bangla) : BD  
@@ -4763,9 +4753,9 @@ edu.ws
 // xn--mgba3a4fra ("Iran" Arabic) : IR  
 ايران
 
-//xn--mgbayh7gpa ("al-Ordon" Arabic) JO
-//National Information Technology Center (NITC) 
-//Royal Scientific Society, Al-Jubeiha
+// xn--mgbayh7gpa ("al-Ordon" Arabic) : JO
+// National Information Technology Center (NITC) 
+// Royal Scientific Society, Al-Jubeiha
 الاردن
 
 // xn--3e0b707e ("Republic of Korea" Hangul) : KR  
