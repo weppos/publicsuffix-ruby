@@ -1,6 +1,11 @@
 # Changelog
 
 
+## Release 1.1.1
+
+- CHANGED: Updated definitions.
+
+
 ## Release 1.1.0
 
 - FIXED: #valid? and #parse consider URIs as valid domains (GH-15)
