@@ -1,6 +1,6 @@
 # Public Suffix List - Ruby implementation
 
-*Public Suffix* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org).
+*PublicSuffix* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org/).
 
 [![Build Status](https://secure.travis-ci.org/weppos/public_suffix_service.png)](http://travis-ci.org/weppos/public_suffix_service)
 
@@ -28,30 +28,19 @@ As well as being used to prevent cookies from being set where they shouldn't be,
 
 Source: https://wiki.mozilla.org/Public_Suffix_List
 
-Not convinced yet? Check out a real world example:
-http://stackoverflow.com/questions/288810/get-the-subdomain-from-a-url
+Not convinced yet? Check out [this real world example](http://stackoverflow.com/q/288810/123527).
 
 
 ## Requirements
 
-* Ruby >= 1.8.7
+- Ruby >= 1.8.7
 
-*Public Suffix* (as of 0.9.0) requires Ruby 1.8.7 or greater.
-For older versions of Ruby, see the CHANGELOG.md file.
-
-Successfully tested against the following interpreters:
-
-* [Ruby](http://www.ruby-lang.org/) 1.8.x MRI
-* [Ruby](http://www.ruby-lang.org/) 1.9.x MRI
-* [Ruby Enterprise Edition](http://www.rubyenterpriseedition.com/)
-* [JRuby](http://jruby.org/)
-* [Rubinius](http://rubini.us/)
-* [MacRuby](http://www.macruby.org/)
+*PublicSuffix* requires Ruby 1.8.7 or greater. For older versions of Ruby, see the CHANGELOG.md file. We also support several [Ruby implementations](http://www.simonecarletti.com/code/public_suffix/#implementations).
 
 
 ## Installation
 
-The best way to install *Public Suffix* is via [RubyGems](https://rubygems.org/).
+The best way to install *PublicSuffix* is via [RubyGems](https://rubygems.org/).
 
     $ gem install public_suffix
 
