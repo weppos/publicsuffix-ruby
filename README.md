@@ -35,7 +35,9 @@ Not convinced yet? Check out [this real world example](http://stackoverflow.com/
 
 - Ruby >= 1.8.7
 
-*PublicSuffix* requires Ruby 1.8.7 or greater. For older versions of Ruby, see the CHANGELOG.md file. We also support several [Ruby implementations](http://www.simonecarletti.com/code/public_suffix/#implementations).
+*PublicSuffix* requires Ruby 1.8.7 or greater. For older versions of Ruby, see the CHANGELOG.md file.
+
+We also support several [Ruby implementations](http://www.simonecarletti.com/code/public_suffix/#implementations).
 
 
 ## Installation
@@ -131,6 +133,4 @@ See the [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## License
 
-Copyright (c) 2009-2012 Simone Carletti.
-
-This is Free Software distributed under the MIT license.
+Copyright (c) 2009-2012 Simone Carletti. This is Free Software distributed under the MIT license.
