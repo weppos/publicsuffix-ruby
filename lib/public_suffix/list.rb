@@ -43,6 +43,83 @@ module PublicSuffix
   class List
     include Enumerable
 
+    class << self
+      attr_accessor :default
+      attr_accessor :default_definition
+    end
+
+    # Gets the default rule list.
+    # Initializes a new {PublicSuffix::List} parsing the content
+    # of {PublicSuffix::List.default_definition}, if required.
+    #
+    # @return [PublicSuffix::List]
+    def self.default
+      @default ||= parse(default_definition)
+    end
+
+    # Sets the default rule list to +value+.
+    #
+    # @param [PublicSuffix::List] value
+    #   The new rule list.
+    #
+    # @return [PublicSuffix::List]
+    def self.default=(value)
+      @default = value
+    end
+
+    # Sets the default rule list to +nil+.
+    #
+    # @return [self]
+    def self.clear
+      self.default = nil
+      self
+    end
+
+    # Resets the default rule list and reinitialize it
+    # parsing the content of {PublicSuffix::List.default_definition}.
+    #
+    # @return [PublicSuffix::List]
+    def self.reload
+      self.clear.default
+    end
+
+    # Gets the default definition list.
+    # Can be any <tt>IOStream</tt> including a <tt>File</tt>
+    # or a simple <tt>String</tt>.
+    # The object must respond to <tt>#each_line</tt>.
+    #
+    # @return [File]
+    def self.default_definition
+      @default_definition || File.new(File.join(File.dirname(__FILE__), "definitions.txt"), "r:utf-8")
+    end
+
+    # Parse given +input+ treating the content as Public Suffix List.
+    #
+    # See http://publicsuffix.org/format/ for more details about input format.
+    #
+    # @param [String] input The rule list to parse.
+    #
+    # @return [Array<PublicSuffix::Rule::*>]
+    def self.parse(input)
+      new do |list|
+        input.each_line do |line|
+          line.strip!
+
+          # strip blank lines
+          if line.empty?
+            next
+          # strip comments
+          elsif line =~ %r{^//}
+            next
+          # append rule
+          else
+            list.add(Rule.factory(line), false)
+          end
+        end
+      end
+    end
+
+
     # Gets the array of rules.
     #
     # @return [Array<PublicSuffix::Rule::*>]
@@ -202,85 +279,5 @@ module PublicSuffix
       @rules.values_at(*indices).select { |rule| rule.match?(domain) }
     end
 
-
-    @@default = nil
-
-    class << self
-
-      # Gets the default rule list.
-      # Initializes a new {PublicSuffix::List} parsing the content
-      # of {PublicSuffix::List.default_definition}, if required.
-      #
-      # @return [PublicSuffix::List]
-      def default
-        @@default ||= parse(default_definition)
-      end
-
-      # Sets the default rule list to +value+.
-      #
-      # @param [PublicSuffix::List] value
-      #   The new rule list.
-      #
-      # @return [PublicSuffix::List]
-      def default=(value)
-        @@default = value
-      end
-
-      # Sets the default rule list to +nil+.
-      #
-      # @return [self]
-      def clear
-        self.default = nil
-        self
-      end
-
-      # Resets the default rule list and reinitialize it
-      # parsing the content of {PublicSuffix::List.default_definition}.
-      #
-      # @return [PublicSuffix::List]
-      def reload
-        self.clear.default
-      end
-
-      # Gets the default definition list.
-      # Can be any <tt>IOStream</tt> including a <tt>File</tt>
-      # or a simple <tt>String</tt>.
-      # The object must respond to <tt>#each_line</tt>.
-      #
-      # @return [File]
-      def default_definition
-        File.new(File.join(File.dirname(__FILE__), "definitions.txt"), "r:utf-8")
-      end
-
-
-      # Parse given +input+ treating the content as Public Suffix List.
-      #
-      # See http://publicsuffix.org/format/ for more details about input format.
-      #
-      # @param [String] input The rule list to parse.
-      #
-      # @return [Array<PublicSuffix::Rule::*>]
-      def parse(input)
-        new do |list|
-          input.each_line do |line|
-            line.strip!
-
-            # strip blank lines
-            if line.empty?
-              next
-            # strip comments
-            elsif line =~ %r{^//}
-              next
-            # append rule
-            else
-              list.add(Rule.factory(line), false)
-            end
-          end
-        end
-      end
-
-    end
-
   end
-
 end

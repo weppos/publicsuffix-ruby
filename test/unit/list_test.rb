@@ -97,23 +97,23 @@ class PublicSuffix::ListTest < Test::Unit::TestCase
 
 
   def test_self_default_getter
-    assert_equal     nil, PublicSuffix::List.send(:class_variable_get, :"@@default")
+    assert_equal     nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default
-    assert_not_equal nil, PublicSuffix::List.send(:class_variable_get, :"@@default")
+    assert_not_equal nil, PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_default_setter
     PublicSuffix::List.default
-    assert_not_equal nil, PublicSuffix::List.send(:class_variable_get, :"@@default")
+    assert_not_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default = nil
-    assert_equal     nil, PublicSuffix::List.send(:class_variable_get, :"@@default")
+    assert_equal     nil, PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_clear
     PublicSuffix::List.default
-    assert_not_equal nil, PublicSuffix::List.send(:class_variable_get, :"@@default")
+    assert_not_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.clear
-    assert_equal     nil, PublicSuffix::List.send(:class_variable_get, :"@@default")
+    assert_equal     nil, PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_reload
