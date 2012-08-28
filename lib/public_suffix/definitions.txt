@@ -422,6 +422,7 @@ cnt.br
 com.br
 coop.br
 ecn.br
+eco.br
 edu.br
 emp.br
 eng.br
