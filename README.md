@@ -2,7 +2,7 @@
 
 *PublicSuffix* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org/).
 
-[![Build Status](https://secure.travis-ci.org/weppos/public_suffix_service.png)](http://travis-ci.org/weppos/public_suffix_service)
+[![Build Status](https://secure.travis-ci.org/weppos/publicsuffix-ruby.png)](http://travis-ci.org/weppos/publicsuffix-ruby)
 
 
 ## What is the Public Suffix List?
@@ -121,7 +121,7 @@ Report issues or feature requests to [GitHub Issues](https://github.com/weppos/p
 ## More
 
 * [Homepage](http://www.simonecarletti.com/code/public_suffix)
-* [Repository](https://github.com/weppos/public_suffix_service)
+* [Repository](https://github.com/weppos/publicsuffix-ruby)
 * [API Documentation](http://rubydoc.info/gems/public_suffix)
 * [Introducing the Public Suffix List library for Ruby](http://www.simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
 
