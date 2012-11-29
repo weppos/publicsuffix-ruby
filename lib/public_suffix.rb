@@ -24,10 +24,10 @@ module PublicSuffix
   # Parses +domain+ and returns the
   # {PublicSuffix::Domain} instance.
   #
-  # Parsing uses the default {PublicSuffix::List}.
-  #
   # @param  [String, #to_s] domain
   #   The domain name or fully qualified domain name to parse.
+  # @param  [PublicSuffix::List] list
+  #   The rule list to search, defaults to the default {PublicSuffix::List}
   #
   # @return [PublicSuffix::Domain]
   #
@@ -61,8 +61,8 @@ module PublicSuffix
   #   If a rule for +domain+ is found, but the rule
   #   doesn't allow +domain+.
   #
-  def self.parse(domain)
-    rule = List.default.find(domain)
+  def self.parse(domain, list = List.default)
+    rule = list.find(domain)
 
     if rule.nil?
       raise DomainInvalid, "`#{domain}' is not a valid domain"
