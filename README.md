@@ -35,7 +35,7 @@ Not convinced yet? Check out [this real world example](http://stackoverflow.com/
 
 - Ruby >= 1.8.7
 
-*PublicSuffix* requires Ruby 1.8.7 or greater. For older versions of Ruby, see the CHANGELOG.md file.
+*PublicSuffix* requires Ruby 1.8.7 or greater. For older versions of Ruby, see the [CHANGELOG.md](CHANGELOG.md) file.
 
 We also support several [Ruby implementations](http://www.simonecarletti.com/code/public_suffix/#implementations).
 
@@ -115,7 +115,7 @@ If you use this library and find yourself missing any functionality, please [let
 
 Pull requests are very welcome! Please include tests and/or feature coverage for every patch, and create a topic branch for every separate change you make.
 
-Report issues or feature requests to [GitHub Issues](https://github.com/weppos/public_suffix_service/issues).
+Report issues or feature requests to [GitHub Issues](https://github.com/weppos/publicsuffix-ruby/issues).
 
 
 ## More
