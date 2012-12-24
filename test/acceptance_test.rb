@@ -24,13 +24,16 @@ class AcceptanceTest < Test::Unit::TestCase
     end
   end
 
-  InvalidCases = {
-    "nic.ke" => PublicSuffix::DomainNotAllowed,
-    "http://www.google.com" => PublicSuffix::DomainInvalid,
-  }
+  InvalidCases = [
+    ["nic.ke",                  PublicSuffix::DomainNotAllowed],
+    ["http://www.google.com",   PublicSuffix::DomainInvalid],
+    [nil,                       PublicSuffix::DomainInvalid],
+    ["",                        PublicSuffix::DomainInvalid],
+    ["  ",                      PublicSuffix::DomainInvalid],
+  ]
 
   def test_invalid
-    InvalidCases.each do |name, error|
+    InvalidCases.each do |(name, error)|
       assert_raise(error) { PublicSuffix.parse(name) }
       assert !PublicSuffix.valid?(name)
     end

@@ -95,6 +95,15 @@ class PublicSuffix::ListTest < Test::Unit::TestCase
     assert_not_equal [], list.select("google.com")
   end
 
+  def test_select_returns_empty_when_domain_is_nil
+    assert_equal [], list.select(nil)
+  end
+
+  def test_select_returns_empty_when_domain_is_blank
+    assert_equal [], list.select("")
+    assert_equal [], list.select("  ")
+  end
+
 
   def test_self_default_getter
     assert_equal     nil, PublicSuffix::List.class_eval { @default }

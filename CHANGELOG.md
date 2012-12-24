@@ -5,6 +5,8 @@
 
 - NEW: Allow a custom List on `PublicSuffix.parse` (GH-26). [Thanks @itspriddle]
 
+- FIXED: PublicSuffix.parse and PublicSuffix.valid? crashes when input is nil (GH-20).
+
 - CHANGED: Updated definitions.
 
 
