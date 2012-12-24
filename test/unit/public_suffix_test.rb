@@ -52,6 +52,16 @@ class PublicSuffixTest < Test::Unit::TestCase
     assert_equal "www",     domain.trd
   end
 
+  def test_self_parse_a_domain_with_custom_list
+    list = PublicSuffix::List.new
+    list << PublicSuffix::Rule.factory("test")
+
+    domain = PublicSuffix.parse("www.example.test", list)
+    assert_equal "test",    domain.tld
+    assert_equal "example", domain.sld
+    assert_equal "www",     domain.trd
+  end
+
   def test_self_parse_raises_with_invalid_domain
     error = assert_raise(PublicSuffix::DomainInvalid) { PublicSuffix.parse("example.zip") }
     assert_match %r{example\.zip}, error.message
