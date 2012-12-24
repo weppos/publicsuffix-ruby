@@ -1,7 +1,7 @@
 # Changelog
 
 
-## master
+## Release 1.2.0
 
 - NEW: Allow a custom List on `PublicSuffix.parse` (GH-26). [Thanks @itspriddle]
 
