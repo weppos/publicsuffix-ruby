@@ -3,6 +3,8 @@
 
 ## master
 
+- NEW: Allow a custom List on `PublicSuffix.parse` (GH-26). [Thanks @itspriddle]
+
 - CHANGED: Updated definitions.
 
 
