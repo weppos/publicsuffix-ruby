@@ -51,6 +51,21 @@ class PublicSuffixTest < Test::Unit::TestCase
     assert_equal "example", domain.sld
     assert_equal "www",     domain.trd
   end
+  
+  def test_private_domains_are_enabled_by_default
+    domain = PublicSuffix.parse("www.example.blogspot.com")
+    assert_equal "blogspot.com",    domain.tld
+  end
+  
+  def test_disable_support_for_private_domains
+    begin
+      PublicSuffix::List.private_domains = false
+      domain = PublicSuffix.parse("www.example.blogspot.com")
+      assert_equal "com",    domain.tld
+    ensure
+      PublicSuffix::List.private_domains = true
+    end
+  end
 
   def test_self_parse_a_domain_with_custom_list
     list = PublicSuffix::List.new
