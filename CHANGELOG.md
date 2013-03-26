@@ -1,6 +1,11 @@
 # Changelog
 
 
+## Release 1.2.1
+
+- CHANGED: Updated definitions.
+
+
 ## Release 1.2.0
 
 - NEW: Allow a custom List on `PublicSuffix.parse` (GH-26). [Thanks @itspriddle]
