@@ -25,7 +25,7 @@ spec = Gem::Specification.new do |s|
 
   s.author            = "Simone Carletti"
   s.email             = "weppos@weppos.net"
-  s.homepage          = "http://www.simonecarletti.com/code/public_suffix"
+  s.homepage          = "http://www.simonecarletti.com/code/publicsuffix"
 
   s.files             = `git ls-files`.split("\n")
   s.test_files        = `git ls-files -- {test,spec,features}/*`.split("\n")
