@@ -38,7 +38,6 @@ class PublicSuffix::ListTest < Test::Unit::TestCase
     assert_equal PublicSuffix::List.new.add(rule), PublicSuffix::List.new.add(rule)
   end
 
-
   def test_add
     assert_equal @list, @list.add(PublicSuffix::Rule.factory(""))
     assert_equal @list, @list <<  PublicSuffix::Rule.factory("")
@@ -132,7 +131,6 @@ class PublicSuffix::ListTest < Test::Unit::TestCase
     PublicSuffix::List.reload
     assert_equal PublicSuffix::List.new, PublicSuffix::List.default
   end
-
 
   def test_self_parse
     list = PublicSuffix::List.parse(<<EOS)

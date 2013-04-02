@@ -67,6 +67,23 @@ module PublicSuffix
       @default = value
     end
 
+    # Shows if support for private (non-ICANN) domains is enabled or not
+    #
+    # @return [Boolean]
+    def self.private_domains?
+      @private_domains != false
+    end
+
+    # Enables/disables support for private (non-ICANN) domains
+    # Implicitly reloads the list
+    # @param [Boolean] enable/disable support
+    #
+    # @return [PublicSuffix::List]
+    def self.private_domains=(value)
+      @private_domains = !!value
+      self.clear
+    end
+
     # Sets the default rule list to +nil+.
     #
     # @return [self]
@@ -104,7 +121,7 @@ module PublicSuffix
       new do |list|
         input.each_line do |line|
           line.strip!
-
+          break if !private_domains? && line.include?('===BEGIN PRIVATE DOMAINS===')
           # strip blank lines
           if line.empty?
             next
