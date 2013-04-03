@@ -117,6 +117,7 @@ This library has support for switching off support for private (non-ICANN) domai
     # => #<PublicSuffix::Domain>
     domain.tld
     # => "blogspot.com"
+
     # Disable support for private TLDs
     PublicSuffix::List.private_domains = false
     # => #<PublicSuffix::List>
