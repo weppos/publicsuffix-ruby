@@ -108,6 +108,22 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
     domain.tld
     # => "com"
 
+## Private domains
+
+This library has support for switching off support for private (non-ICANN) domains
+
+    # Parse a domain on a private TLD
+    domain = PublicSuffix.parse("something.blogspot.com")
+    # => #<PublicSuffix::Domain>
+    domain.tld
+    # => "blogspot.com"
+    # Disable support for private TLDs
+    PublicSuffix::List.private_domains = false
+    # => #<PublicSuffix::List>
+    domain = PublicSuffix.parse("something.blogspot.com")
+    # => #<PublicSuffix::Domain>
+    domain.tld
+    # => "com"
 
 ## Feedback and bug reports
 
