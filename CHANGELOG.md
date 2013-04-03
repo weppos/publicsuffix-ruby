@@ -3,6 +3,8 @@
 
 ## Release 1.2.1
 
+- NEW: Ability to skip Private Domains (GH-28). [Thanks @rb2k]
+
 - CHANGED: Updated definitions.
 
 
