@@ -1,6 +1,11 @@
 # Changelog
 
 
+## Release 1.3.1
+
+- CHANGED: Updated definitions.
+
+
 ## Release 1.3.0
 
 - NEW: Ability to skip Private Domains (GH-28). [Thanks @rb2k]
