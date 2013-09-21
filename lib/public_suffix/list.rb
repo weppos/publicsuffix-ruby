@@ -80,8 +80,11 @@ module PublicSuffix
     #
     # @return [PublicSuffix::List]
     def self.private_domains=(value)
-      @private_domains = !!value
-      self.clear
+      if @private_domains != !!value
+        @private_domains = !!value
+        self.clear
+      end
+      self
     end
 
     # Sets the default rule list to +nil+.
