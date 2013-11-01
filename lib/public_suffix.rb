@@ -34,15 +34,15 @@ module PublicSuffix
   # @example Parse a valid domain
   #   PublicSuffix.parse("google.com")
   #   # => #<PublicSuffix::Domain ...>
-  # 
+  #
   # @example Parse a valid subdomain
   #   PublicSuffix.parse("www.google.com")
   #   # => #<PublicSuffix::Domain ...>
-  # 
+  #
   # @example Parse a fully qualified domain
   #   PublicSuffix.parse("google.com.")
   #   # => #<PublicSuffix::Domain ...>
-  # 
+  #
   # @example Parse a fully qualified domain (subdomain)
   #   PublicSuffix.parse("www.google.com.")
   #   # => #<PublicSuffix::Domain ...>
@@ -64,7 +64,7 @@ module PublicSuffix
   def self.parse(domain, list = List.default)
     rule = list.find(domain)
 
-    if rule.nil?
+    if rule.nil? || domain.include?('..')
       raise DomainInvalid, "`#{domain}' is not a valid domain"
     end
     if !rule.allow?(domain)
@@ -112,7 +112,7 @@ module PublicSuffix
   #   # => false
   #   PublicSuffix.valid?("www.example.do")
   #   # => true
-  # 
+  #
   # @example Validate a fully qualified domain
   #   PublicSuffix.valid?("google.com.")
   #   # => true

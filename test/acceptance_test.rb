@@ -27,6 +27,8 @@ class AcceptanceTest < Test::Unit::TestCase
   InvalidCases = [
     ["nic.ke",                  PublicSuffix::DomainNotAllowed],
     ["http://www.google.com",   PublicSuffix::DomainInvalid],
+    ['a..com',                  PublicSuffix::DomainInvalid],
+    ['a..b.com',                PublicSuffix::DomainInvalid],
     [nil,                       PublicSuffix::DomainInvalid],
     ["",                        PublicSuffix::DomainInvalid],
     ["  ",                      PublicSuffix::DomainInvalid],

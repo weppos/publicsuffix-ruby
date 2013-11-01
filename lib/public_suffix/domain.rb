@@ -75,6 +75,9 @@ module PublicSuffix
       name
     end
 
+    # Makes Domain act like a string
+    alias :to_str :to_s
+
     # Returns an array containing the domain parts.
     #
     # @return [Array<String, nil>]
