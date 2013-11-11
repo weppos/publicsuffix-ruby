@@ -1,6 +1,11 @@
 # Changelog
 
 
+## master
+
+- CHANGED: Updated definitions.
+
+
 ## Release 1.3.1
 
 - CHANGED: Updated definitions.
