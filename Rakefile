@@ -97,7 +97,7 @@ end
 desc <<-DESC
   Downloads the Public Suffix List file from the repository and stores it locally.
 DESC
-task :psl do
+task :upddef do
   require "net/http"
 
   DEFINITION_URL = "http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.dat?raw=1"
