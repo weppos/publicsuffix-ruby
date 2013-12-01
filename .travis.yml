@@ -4,7 +4,6 @@ rvm:
   - 2.0.0
   - jruby-19mode
   - rbx-19mode
-  - ree
 notifications:
   recipients:
     - weppos@weppos.net
