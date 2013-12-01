@@ -35,7 +35,7 @@ Not convinced yet? Check out [this real world example](http://stackoverflow.com/
 
 - Ruby >= 1.9.3
 
-For an older versions of Ruby use a previous release. We also support several [Ruby implementations](http://www.simonecarletti.com/code/publicsuffix/#implementations).
+For an older versions of Ruby use a previous release. We also support several [Ruby implementations](http://simonecarletti.com/code/publicsuffix/#implementations).
 
 
 ## Installation
@@ -135,10 +135,10 @@ Report issues or feature requests to [GitHub Issues](https://github.com/weppos/p
 
 ## More
 
-* [Homepage](http://www.simonecarletti.com/code/publicsuffix)
+* [Homepage](http://simonecarletti.com/code/publicsuffix)
 * [Repository](https://github.com/weppos/publicsuffix-ruby)
 * [API Documentation](http://rubydoc.info/gems/public_suffix)
-* [Introducing the Public Suffix List library for Ruby](http://www.simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
+* [Introducing the Public Suffix List library for Ruby](http://simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
 
 
 ## Changelog
