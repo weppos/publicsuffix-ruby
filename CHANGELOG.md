@@ -1,6 +1,11 @@
 # Changelog
 
 
+# master
+
+- CHANGED: Moved the definitions in the lib folder.
+
+
 ## Release 1.3.3
 
 - CHANGED: Updated definitions.
