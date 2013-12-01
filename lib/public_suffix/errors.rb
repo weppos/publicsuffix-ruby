@@ -24,8 +24,6 @@ module PublicSuffix
   #   PublicSuffix.parse("http://www.nic.it")
   #   # => PublicSuffix::DomainInvalid
   #
-  # @since 0.6.0
-  #
   class DomainInvalid < Error
   end
 
@@ -41,8 +39,6 @@ module PublicSuffix
   #
   #   PublicSuffix.parse("www.nic.do")
   #   # => PublicSuffix::Domain
-  #
-  # @since 0.6.0
   #
   class DomainNotAllowed < DomainInvalid
   end
