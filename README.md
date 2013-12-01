@@ -33,11 +33,9 @@ Not convinced yet? Check out [this real world example](http://stackoverflow.com/
 
 ## Requirements
 
-- Ruby >= 1.8.7
+- Ruby >= 1.9.3
 
-*PublicSuffix* requires Ruby 1.8.7 or greater. For older versions of Ruby, see the [CHANGELOG.md](CHANGELOG.md) file.
-
-We also support several [Ruby implementations](http://www.simonecarletti.com/code/publicsuffix/#implementations).
+For an older versions of Ruby use a previous release. We also support several [Ruby implementations](http://www.simonecarletti.com/code/publicsuffix/#implementations).
 
 
 ## Installation
