@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'rubygems/package_task'
 require 'bundler'
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
@@ -7,21 +6,21 @@ require 'public_suffix'
 
 
 # Common package properties
-PKG_NAME    = ENV['PKG_NAME']    || PublicSuffix::GEM
-PKG_VERSION = ENV['PKG_VERSION'] || PublicSuffix::VERSION
+PKG_NAME    = PublicSuffix::GEM
+PKG_VERSION = PublicSuffix::VERSION
 
 
 # Run test by default.
-task :default => :test
+task default: :test
 
 
 spec = Gem::Specification.new do |s|
   s.name              = PKG_NAME
   s.version           = PKG_VERSION
-  s.summary           = "Domain name parser based in the Public Suffix List."
+  s.summary           = "Domain name parser based on the Public Suffix List."
   s.description       = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
 
-  s.required_ruby_version = ">= 1.8.7"
+  s.required_ruby_version = ">= 1.9.3"
 
   s.author            = "Simone Carletti"
   s.email             = "weppos@weppos.net"
@@ -51,15 +50,15 @@ task :gemspec do
 end
 
 desc "Remove any temporary products, including gemspec"
-task :clean => [:clobber] do
+task clean: [:clobber] do
   rm "#{spec.name}.gemspec" if File.file?("#{spec.name}.gemspec")
 end
 
 desc "Remove any generated file"
-task :clobber => [:clobber_package]
+task clobber: [:clobber_package]
 
 desc "Package the library and generates the gemspec"
-task :package => [:gemspec]
+task package: [:gemspec]
 
 
 require 'rake/testtask'
@@ -85,7 +84,7 @@ namespace :yardoc do
   end
 end
 
-task :clobber => "yardoc:clobber"
+task clobber: "yardoc:clobber"
 
 
 desc "Open an irb session preloaded with this library"
