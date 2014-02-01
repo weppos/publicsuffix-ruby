@@ -5,6 +5,8 @@
 
 - CHANGED: Moved the definitions in the lib folder.
 
+- CHANGED: Updated definitions.
+
 
 ## Release 1.3.3
 
