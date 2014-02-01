@@ -1,6 +1,6 @@
-# Public Suffix List - Ruby implementation
+# Public Suffix List
 
-*PublicSuffix* is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org/).
+<tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org/).
 
 [![Build Status](https://secure.travis-ci.org/weppos/publicsuffix-ruby.png)](http://travis-ci.org/weppos/publicsuffix-ruby)
 
