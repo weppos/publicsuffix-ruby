@@ -3,7 +3,7 @@
 #
 # Domain name parser based on the Public Suffix List.
 #
-# Copyright (c) 2009-2013 Simone Carletti <weppos@weppos.net>
+# Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
 #++
 
 
