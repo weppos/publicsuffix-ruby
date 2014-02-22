@@ -7817,4 +7817,7 @@ priv.at
 za.net
 za.org
 
+// in.net: http://http://domains.in.net/
+in.net
+
 // ===END PRIVATE DOMAINS===
