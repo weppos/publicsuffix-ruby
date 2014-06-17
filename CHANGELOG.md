@@ -1,6 +1,11 @@
 # Changelog
 
 
+#### Release 1.4.4
+
+- CHANGED: Updated definitions.
+
+
 #### Release 1.4.3
 
 - CHANGED: Updated definitions.
