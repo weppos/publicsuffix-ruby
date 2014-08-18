@@ -85,24 +85,24 @@ class PublicSuffix::DomainTest < Test::Unit::TestCase
 
   def test_domain
     assert_equal nil, @klass.new("com").domain
-    assert_equal nil, @klass.new("zip").domain
+    assert_equal nil, @klass.new("qqq").domain
     assert_equal "google.com", @klass.new("com", "google").domain
-    assert_equal "google.zip", @klass.new("zip", "google").domain
+    assert_equal "google.qqq", @klass.new("qqq", "google").domain
     assert_equal "google.com", @klass.new("com", "google", "www").domain
-    assert_equal "google.zip", @klass.new("zip", "google", "www").domain
+    assert_equal "google.qqq", @klass.new("qqq", "google", "www").domain
   end
 
   def test_subdomain
     assert_equal nil, @klass.new("com").subdomain
-    assert_equal nil, @klass.new("zip").subdomain
+    assert_equal nil, @klass.new("qqq").subdomain
     assert_equal nil, @klass.new("com", "google").subdomain
-    assert_equal nil, @klass.new("zip", "google").subdomain
+    assert_equal nil, @klass.new("qqq", "google").subdomain
     assert_equal "www.google.com", @klass.new("com", "google", "www").subdomain
-    assert_equal "www.google.zip", @klass.new("zip", "google", "www").subdomain
+    assert_equal "www.google.qqq", @klass.new("qqq", "google", "www").subdomain
   end
 
   def test_rule
-    assert_equal nil,                                      @klass.new("zip").rule
+    assert_equal nil, @klass.new("qqq").rule
     assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com").rule
     assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com", "google").rule
     assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com", "google", "www").rule
@@ -111,28 +111,28 @@ class PublicSuffix::DomainTest < Test::Unit::TestCase
 
   def test_domain_question
     assert  @klass.new("com", "google").domain?
-    assert  @klass.new("zip", "google").domain?
+    assert  @klass.new("qqq", "google").domain?
     assert  @klass.new("com", "google", "www").domain?
     assert !@klass.new("com").domain?
   end
 
   def test_subdomain_question
     assert  @klass.new("com", "google", "www").subdomain?
-    assert  @klass.new("zip", "google", "www").subdomain?
+    assert  @klass.new("qqq", "google", "www").subdomain?
     assert !@klass.new("com").subdomain?
     assert !@klass.new("com", "google").subdomain?
   end
 
   def test_is_a_domain_question
     assert  @klass.new("com", "google").is_a_domain?
-    assert  @klass.new("zip", "google").is_a_domain?
+    assert  @klass.new("qqq", "google").is_a_domain?
     assert !@klass.new("com", "google", "www").is_a_domain?
     assert !@klass.new("com").is_a_domain?
   end
 
   def test_is_a_subdomain_question
     assert  @klass.new("com", "google", "www").is_a_subdomain?
-    assert  @klass.new("zip", "google", "www").is_a_subdomain?
+    assert  @klass.new("qqq", "google", "www").is_a_subdomain?
     assert !@klass.new("com").is_a_subdomain?
     assert !@klass.new("com", "google").is_a_subdomain?
   end
@@ -143,9 +143,9 @@ class PublicSuffix::DomainTest < Test::Unit::TestCase
     assert  @klass.new("com", "example", "www").valid?
 
     # not-assigned
-    assert !@klass.new("zip").valid?
-    assert !@klass.new("zip", "example").valid?
-    assert !@klass.new("zip", "example", "www").valid?
+    assert !@klass.new("qqq").valid?
+    assert !@klass.new("qqq", "example").valid?
+    assert !@klass.new("qqq", "example", "www").valid?
 
     # not-allowed
     assert !@klass.new("ke").valid?
@@ -155,14 +155,14 @@ class PublicSuffix::DomainTest < Test::Unit::TestCase
 
   def test_valid_domain_question
     assert  @klass.new("com", "google").valid_domain?
-    assert !@klass.new("zip", "google").valid_domain?
+    assert !@klass.new("qqq", "google").valid_domain?
     assert  @klass.new("com", "google", "www").valid_domain?
     assert !@klass.new("com").valid_domain?
   end
 
   def test_valid_subdomain_question
     assert  @klass.new("com", "google", "www").valid_subdomain?
-    assert !@klass.new("zip", "google", "www").valid_subdomain?
+    assert !@klass.new("qqq", "google", "www").valid_subdomain?
     assert !@klass.new("com").valid_subdomain?
     assert !@klass.new("com", "google").valid_subdomain?
   end
