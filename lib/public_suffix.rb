@@ -34,15 +34,15 @@ module PublicSuffix
   # @example Parse a valid domain
   #   PublicSuffix.parse("google.com")
   #   # => #<PublicSuffix::Domain ...>
-  # 
+  #
   # @example Parse a valid subdomain
   #   PublicSuffix.parse("www.google.com")
   #   # => #<PublicSuffix::Domain ...>
-  # 
+  #
   # @example Parse a fully qualified domain
   #   PublicSuffix.parse("google.com.")
   #   # => #<PublicSuffix::Domain ...>
-  # 
+  #
   # @example Parse a fully qualified domain (subdomain)
   #   PublicSuffix.parse("www.google.com.")
   #   # => #<PublicSuffix::Domain ...>
@@ -104,7 +104,7 @@ module PublicSuffix
   #   # => true
   #
   # @example Validate a not-assigned domain
-  #   PublicSuffix.valid?("example.zip")
+  #   PublicSuffix.valid?("example.qqq")
   #   # => false
   #
   # @example Validate a not-allowed domain
@@ -112,7 +112,7 @@ module PublicSuffix
   #   # => false
   #   PublicSuffix.valid?("www.example.do")
   #   # => true
-  # 
+  #
   # @example Validate a fully qualified domain
   #   PublicSuffix.valid?("google.com.")
   #   # => true

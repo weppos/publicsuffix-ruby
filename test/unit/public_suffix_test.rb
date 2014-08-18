@@ -51,12 +51,12 @@ class PublicSuffixTest < Test::Unit::TestCase
     assert_equal "example", domain.sld
     assert_equal "www",     domain.trd
   end
-  
+
   def test_private_domains_are_enabled_by_default
     domain = PublicSuffix.parse("www.example.blogspot.com")
     assert_equal "blogspot.com",    domain.tld
   end
-  
+
   def test_disable_support_for_private_domains
     begin
       PublicSuffix::List.private_domains = false
@@ -78,8 +78,8 @@ class PublicSuffixTest < Test::Unit::TestCase
   end
 
   def test_self_parse_raises_with_invalid_domain
-    error = assert_raise(PublicSuffix::DomainInvalid) { PublicSuffix.parse("example.zip") }
-    assert_match %r{example\.zip}, error.message
+    error = assert_raise(PublicSuffix::DomainInvalid) { PublicSuffix.parse("example.qqq") }
+    assert_match %r{example\.qqq}, error.message
   end
 
   def test_self_parse_raises_with_unallowed_domain
@@ -102,14 +102,14 @@ class PublicSuffixTest < Test::Unit::TestCase
 
   # Returns false when domain has an invalid TLD
   def test_self_valid_with_invalid_tld
-    assert !PublicSuffix.valid?("google.zip")
-    assert !PublicSuffix.valid?("www.google.zip")
+    assert !PublicSuffix.valid?("google.qqq")
+    assert !PublicSuffix.valid?("www.google.qqq")
   end
 
   def test_self_valid_with_fully_qualified_domain_name
     assert  PublicSuffix.valid?("google.com.")
     assert  PublicSuffix.valid?("google.co.uk.")
-    assert !PublicSuffix.valid?("google.zip.")
+    assert !PublicSuffix.valid?("google.qqq.")
   end
 
 end

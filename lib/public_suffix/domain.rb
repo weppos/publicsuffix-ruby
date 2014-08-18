@@ -146,8 +146,8 @@ module PublicSuffix
     # as a valid domain name and simply applies the necessary transformations.
     #
     #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("zip", "google").domain
-    #   # => "google.zip"
+    #   PublicSuffix::Domain.new("qqq", "google").domain
+    #   # => "google.qqq"
     #
     # This method returns a FQD, not just the domain part.
     # To get the domain part, use <tt>#sld</tt> (aka second level domain).
@@ -184,8 +184,8 @@ module PublicSuffix
     # as a valid domain name and simply applies the necessary transformations.
     #
     #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("zip", "google", "www").subdomain
-    #   # => "www.google.zip"
+    #   PublicSuffix::Domain.new("qqq", "google", "www").subdomain
+    #   # => "www.google.qqq"
     #
     # This method returns a FQD, not just the domain part.
     # To get the subdomain part, use <tt>#trd</tt> (aka third level domain).
@@ -240,7 +240,7 @@ module PublicSuffix
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   PublicSuffix::Domain.new("zip", "google").domain?
+    #   PublicSuffix::Domain.new("qqq", "google").domain?
     #   # => true
     #
     # @see #subdomain?
@@ -272,7 +272,7 @@ module PublicSuffix
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   PublicSuffix::Domain.new("zip", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("qqq", "google", "www").subdomain?
     #   # => true
     #
     # @see #domain?
@@ -313,7 +313,7 @@ module PublicSuffix
     #   # => true
     #
     # @example Check a not-assigned domain
-    #   Domain.new("zip", "example").valid?
+    #   Domain.new("qqq", "example").valid?
     #   # => false
     #
     # @example Check a not-allowed domain
@@ -345,7 +345,7 @@ module PublicSuffix
     #   # => true
     #
     #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("zip", "google").false?
+    #   PublicSuffix::Domain.new("qqq", "google").false?
     #   # => true
     #
     # @see #domain?
@@ -372,7 +372,7 @@ module PublicSuffix
     #   # => true
     #
     #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("zip", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("qqq", "google", "www").subdomain?
     #   # => false
     #
     # @see #subdomain?
