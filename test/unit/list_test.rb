@@ -89,11 +89,6 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
     assert_equal 2, list.select("british-library.uk").size
   end
 
-  def test_select_returns_empty_when_domain_has_scheme
-    assert_equal [], list.select("http://google.com")
-    assert_not_equal [], list.select("google.com")
-  end
-
   def test_select_returns_empty_when_domain_is_nil
     assert_equal [], list.select(nil)
   end
@@ -101,6 +96,11 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
   def test_select_returns_empty_when_domain_is_blank
     assert_equal [], list.select("")
     assert_equal [], list.select("  ")
+  end
+
+  def test_select_returns_empty_when_domain_has_scheme
+    assert_equal [], list.select("http://google.com")
+    assert_not_equal [], list.select("google.com")
   end
 
 

@@ -2,16 +2,16 @@ require 'test_helper'
 
 class AcceptanceTest < Minitest::Unit::TestCase
 
-  ValidCases = {
-    "google.com" => [nil, "google", "com"],
-    "foo.google.com" => ["foo", "google", "com"],
+  ValidCases = [
+      ["google.com",              [nil, "google", "com"]],
+      ["foo.google.com",          ["foo", "google", "com"]],
 
-    "verybritish.co.uk" => [nil, "verybritish", "co.uk"],
-    "foo.verybritish.co.uk" => ["foo", "verybritish", "co.uk"],
+      ["verybritish.co.uk",       [nil, "verybritish", "co.uk"]],
+      ["foo.verybritish.co.uk",   ["foo", "verybritish", "co.uk"]],
 
-    "parliament.uk" => [nil, "parliament", "uk"],
-    "foo.parliament.uk" => ["foo", "parliament", "uk"],
-  }
+      ["parliament.uk",           [nil, "parliament", "uk"]],
+      ["foo.parliament.uk",       ["foo", "parliament", "uk"]],
+  ]
 
   def test_valid
     ValidCases.each do |name, results|
@@ -24,12 +24,12 @@ class AcceptanceTest < Minitest::Unit::TestCase
     end
   end
 
+
   InvalidCases = [
-    ["nic.ke",                  PublicSuffix::DomainNotAllowed],
-    ["http://www.google.com",   PublicSuffix::DomainInvalid],
-    [nil,                       PublicSuffix::DomainInvalid],
-    ["",                        PublicSuffix::DomainInvalid],
-    ["  ",                      PublicSuffix::DomainInvalid],
+      ["nic.ke",                  PublicSuffix::DomainNotAllowed],
+      [nil,                       PublicSuffix::DomainInvalid],
+      ["",                        PublicSuffix::DomainInvalid],
+      ["  ",                      PublicSuffix::DomainInvalid],
   ]
 
   def test_invalid
@@ -37,6 +37,39 @@ class AcceptanceTest < Minitest::Unit::TestCase
       assert_raises(error) { PublicSuffix.parse(name) }
       assert !PublicSuffix.valid?(name)
     end
+  end
+
+
+  RejectedCases = [
+      ["www. .com",           true],
+      ["foo.co..uk",          true],
+
+      # This case was covered in GH-15.
+      # I decide to cover this case because it's not easily reproducible with URI.parse
+      # and can lead to several false positives.
+      ["http://google.com",   false],
+  ]
+
+  def test_rejected
+    RejectedCases.each do |name, expected|
+      assert_equal expected, PublicSuffix.valid?(name)
+      assert !valid_domain?(name), "#{name} expected to be invalid"
+    end
+  end
+
+
+  def valid_uri?(name)
+    uri = URI.parse(name)
+    uri.host != nil
+  rescue
+    false
+  end
+
+  def valid_domain?(name)
+    uri = URI.parse(name)
+    uri.host != nil && uri.scheme.nil?
+  rescue
+    false
   end
 
 end
