@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AcceptanceTest < Test::Unit::TestCase
+class AcceptanceTest < Minitest::Unit::TestCase
 
   ValidCases = {
     "google.com" => [nil, "google", "com"],
@@ -34,7 +34,7 @@ class AcceptanceTest < Test::Unit::TestCase
 
   def test_invalid
     InvalidCases.each do |(name, error)|
-      assert_raise(error) { PublicSuffix.parse(name) }
+      assert_raises(error) { PublicSuffix.parse(name) }
       assert !PublicSuffix.valid?(name)
     end
   end

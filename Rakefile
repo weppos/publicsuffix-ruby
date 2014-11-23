@@ -5,18 +5,12 @@ $:.unshift(File.dirname(__FILE__) + "/lib")
 require 'public_suffix'
 
 
-# Common package properties
-PKG_NAME    = PublicSuffix::GEM
-PKG_VERSION = PublicSuffix::VERSION
-
-
 # Run test by default.
-task default: :test
-
+task :default => :test
 
 spec = Gem::Specification.new do |s|
-  s.name              = PKG_NAME
-  s.version           = PKG_VERSION
+  s.name              = PublicSuffix::GEM
+  s.version           = PublicSuffix::VERSION
   s.summary           = "Domain name parser based on the Public Suffix List."
   s.description       = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
 
@@ -65,7 +59,7 @@ require 'rake/testtask'
 
 Rake::TestTask.new do |t|
   t.libs << "test"
-  t.test_files = FileList["test/**/*_test.rb"]
+  t.pattern = "test/**/*_test.rb"
   t.verbose = !!ENV["VERBOSE"]
   t.warning = !!ENV["WARNING"]
 end
@@ -75,7 +69,7 @@ require 'yard'
 require 'yard/rake/yardoc_task'
 
 YARD::Rake::YardocTask.new(:yardoc) do |y|
-  y.options = ["--output-dir", "yardoc"]
+  y.options = %w( --output-dir yardoc )
 end
 
 namespace :yardoc do
@@ -93,9 +87,7 @@ task :console do
 end
 
 
-desc <<-DESC
-  Downloads the Public Suffix List file from the repository and stores it locally.
-DESC
+desc "Downloads the Public Suffix List file from the repository and stores it locally."
 task :upddef do
   require "net/http"
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublicSuffixTest < Test::Unit::TestCase
+class PublicSuffixTest < Minitest::Unit::TestCase
 
   def test_self_parse_a_domain_with_tld_and_sld
     domain = PublicSuffix.parse("example.com")
@@ -78,17 +78,17 @@ class PublicSuffixTest < Test::Unit::TestCase
   end
 
   def test_self_parse_raises_with_invalid_domain
-    error = assert_raise(PublicSuffix::DomainInvalid) { PublicSuffix.parse("example.qqq") }
+    error = assert_raises(PublicSuffix::DomainInvalid) { PublicSuffix.parse("example.qqq") }
     assert_match %r{example\.qqq}, error.message
   end
 
   def test_self_parse_raises_with_unallowed_domain
-    error = assert_raise(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.ke") }
+    error = assert_raises(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.ke") }
     assert_match %r{example\.ke}, error.message
   end
 
   def test_self_raises_with_uri
-    error = assert_raise(PublicSuffix::DomainInvalid) { PublicSuffix.parse("http://google.com") }
+    error = assert_raises(PublicSuffix::DomainInvalid) { PublicSuffix.parse("http://google.com") }
     assert_match %r{http://google\.com}, error.message
   end
 
