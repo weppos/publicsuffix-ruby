@@ -57,7 +57,7 @@ module PublicSuffix
     #
     # This represent the base class for a Rule definition
     # in the {Public Suffix List}[http://publicsuffix.org].
-    # 
+    #
     # This is intended to be an Abstract class
     # and you shouldn't create a direct instance. The only purpose
     # of this class is to expose a common interface
@@ -113,10 +113,10 @@ module PublicSuffix
     # You can use the <tt>#match?</tt> method.
     #
     #   rule = PublicSuffix::Rule.factory("com")
-    #   
+    #
     #   rule.match?("google.com")
     #   # => true
-    #   
+    #
     #   rule.match?("google.com")
     #   # => false
     #
@@ -125,12 +125,12 @@ module PublicSuffix
     # to learn more about rule priority.
     #
     # When you have the right rule, you can use it to tokenize the domain name.
-    # 
+    #
     #   rule = PublicSuffix::Rule.factory("com")
-    # 
+    #
     #   rule.decompose("google.com")
     #   # => ["google", "com"]
-    # 
+    #
     #   rule.decompose("www.google.com")
     #   # => ["www.google", "com"]
     #
@@ -208,7 +208,7 @@ module PublicSuffix
       #   # => true
       #
       def allow?(domain)
-        !decompose(domain).last.nil?
+        !domain.include?('..') && !decompose(domain).last.nil?
       end
 
 
@@ -346,7 +346,7 @@ module PublicSuffix
       #
       # See http://publicsuffix.org/format/:
       # If the prevailing rule is a exception rule,
-      # modify it by removing the leftmost label. 
+      # modify it by removing the leftmost label.
       #
       # @return [Array<String>]
       def parts
