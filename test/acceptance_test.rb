@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AcceptanceTest < Minitest::Unit::TestCase
+class AcceptanceTest < Test::Unit::TestCase
 
   ValidCases = [
       ["google.com",              [nil, "google", "com"]],

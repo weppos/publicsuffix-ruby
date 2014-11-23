@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublicSuffix::DomainTest < Minitest::Unit::TestCase
+class PublicSuffix::DomainTest < Test::Unit::TestCase
 
   def setup
     @klass = PublicSuffix::Domain

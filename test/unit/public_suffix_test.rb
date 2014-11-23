@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublicSuffixTest < Minitest::Unit::TestCase
+class PublicSuffixTest < Test::Unit::TestCase
 
   def test_self_parse_a_domain_with_tld_and_sld
     domain = PublicSuffix.parse("example.com")
