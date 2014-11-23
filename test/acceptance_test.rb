@@ -43,6 +43,9 @@ class AcceptanceTest < Minitest::Unit::TestCase
   RejectedCases = [
       ["www. .com",           true],
       ["foo.co..uk",          true],
+      ["goo,gle.com",         true],
+      ["-google.com",         true],
+      ["google-.com",         true],
 
       # This case was covered in GH-15.
       # I decide to cover this case because it's not easily reproducible with URI.parse
