@@ -1,6 +1,11 @@
 # Changelog
 
 
+#### master
+
+- CHANGED: Dropped support for Ruby < 2.0
+
+
 #### Release 1.4.6
 
 - CHANGED: Updated definitions.

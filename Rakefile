@@ -14,7 +14,7 @@ spec = Gem::Specification.new do |s|
   s.summary           = "Domain name parser based on the Public Suffix List."
   s.description       = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
 
-  s.required_ruby_version = ">= 1.9.3"
+  s.required_ruby_version = ">= 2.0"
 
   s.author            = "Simone Carletti"
   s.email             = "weppos@weppos.net"
