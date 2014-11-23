@@ -5,6 +5,8 @@
 
 - CHANGED: Dropped support for Ruby < 2.0
 
+- CHANGED: Updated definitions.
+
 
 #### Release 1.4.6
 
