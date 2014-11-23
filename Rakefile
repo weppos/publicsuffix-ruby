@@ -9,7 +9,7 @@ require 'public_suffix'
 task :default => :test
 
 spec = Gem::Specification.new do |s|
-  s.name              = PublicSuffix::GEM
+  s.name              = "public_suffix"
   s.version           = PublicSuffix::VERSION
   s.summary           = "Domain name parser based on the Public Suffix List."
   s.description       = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
