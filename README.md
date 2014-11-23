@@ -33,7 +33,7 @@ Not convinced yet? Check out [this real world example](http://stackoverflow.com/
 
 ## Requirements
 
-- Ruby >= 1.9.3
+- Ruby >= 2.0
 
 For an older versions of Ruby use a previous release. We also support several [Ruby implementations](http://simonecarletti.com/code/publicsuffix/#implementations).
 
@@ -51,78 +51,88 @@ You might need administrator privileges on your system to install the gem.
 
 Example domain without subdomains.
 
-    domain = PublicSuffix.parse("google.com")
-    # => #<PublicSuffix::Domain>
-    domain.tld
-    # => "com"
-    domain.sld
-    # => "google"
-    domain.trd
-    # => nil
-    domain.domain
-    # => "google.com"
-    domain.subdomain
-    # => nil
+```ruby
+domain = PublicSuffix.parse("google.com")
+# => #<PublicSuffix::Domain>
+domain.tld
+# => "com"
+domain.sld
+# => "google"
+domain.trd
+# => nil
+domain.domain
+# => "google.com"
+domain.subdomain
+# => nil
+```
 
 Example domain with subdomains.
 
-    domain = PublicSuffix.parse("www.google.com")
-    # => #<PublicSuffix::Domain>
-    domain.tld
-    # => "com"
-    domain.sld
-    # => "google"
-    domain.trd
-    # => "www"
-    domain.domain
-    # => "google.com"
-    domain.subdomain
-    # => "www.google.com"
+```ruby
+domain = PublicSuffix.parse("www.google.com")
+# => #<PublicSuffix::Domain>
+domain.tld
+# => "com"
+domain.sld
+# => "google"
+domain.trd
+# => "www"
+domain.domain
+# => "google.com"
+domain.subdomain
+# => "www.google.com"
+```
 
 Simple validation example.
 
-    PublicSuffix.valid?("google.com")
-    # => true
+```ruby
+PublicSuffix.valid?("google.com")
+# => true
 
-    PublicSuffix.valid?("www.google.com")
-    # => true
+PublicSuffix.valid?("www.google.com")
+# => true
 
-    PublicSuffix.valid?("x.yz")
-    # => false
+PublicSuffix.valid?("x.yz")
+# => false
+```
 
 ## Fully Qualified Domain Names
 
 This library automatically recognizes Fully Qualified Domain Names. A FQDN is a domain name that end with a trailing dot.
 
-    # Parse a standard domain name
-    domain = PublicSuffix.parse("www.google.com")
-    # => #<PublicSuffix::Domain>
-    domain.tld
-    # => "com"
+```ruby
+# Parse a standard domain name
+domain = PublicSuffix.parse("www.google.com")
+# => #<PublicSuffix::Domain>
+domain.tld
+# => "com"
 
-    # Parse a fully qualified domain name
-    domain = PublicSuffix.parse("www.google.com.")
-    # => #<PublicSuffix::Domain>
-    domain.tld
-    # => "com"
+# Parse a fully qualified domain name
+domain = PublicSuffix.parse("www.google.com.")
+# => #<PublicSuffix::Domain>
+domain.tld
+# => "com"
+```
 
 ## Private domains
 
 This library has support for switching off support for private (non-ICANN) domains
 
-    # Parse a domain on a private TLD
-    domain = PublicSuffix.parse("something.blogspot.com")
-    # => #<PublicSuffix::Domain>
-    domain.tld
-    # => "blogspot.com"
+```ruby
+# Parse a domain on a private TLD
+domain = PublicSuffix.parse("something.blogspot.com")
+# => #<PublicSuffix::Domain>
+domain.tld
+# => "blogspot.com"
 
-    # Disable support for private TLDs
-    PublicSuffix::List.private_domains = false
-    # => #<PublicSuffix::List>
-    domain = PublicSuffix.parse("something.blogspot.com")
-    # => #<PublicSuffix::Domain>
-    domain.tld
-    # => "com"
+# Disable support for private TLDs
+PublicSuffix::List.private_domains = false
+# => #<PublicSuffix::List>
+domain = PublicSuffix.parse("something.blogspot.com")
+# => #<PublicSuffix::Domain>
+domain.tld
+# => "com"
+```
 
 ## Feedback and bug reports
 
