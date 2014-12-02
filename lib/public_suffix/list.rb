@@ -276,7 +276,7 @@ module PublicSuffix
     # @return [PublicSuffix::Rule::*, nil]
     def find(domain)
       rules = select(domain)
-      rules.select { |r|   r.type == :exception }.first ||
+      rules.detect { |r|   r.type == :exception } ||
       rules.inject { |t,r| t.length > r.length ? t : r }
     end
 
