@@ -241,7 +241,7 @@ module PublicSuffix
       # @raise  [NotImplementedError]
       # @abstract
       def parts
-        raise NotImplementedError
+        raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
       end
 
       #
@@ -253,7 +253,7 @@ module PublicSuffix
       # @raise  [NotImplementedError]
       # @abstract
       def decompose(domain)
-        raise NotImplementedError
+        raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
       end
 
 
