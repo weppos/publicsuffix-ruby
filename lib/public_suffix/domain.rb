@@ -143,8 +143,9 @@ module PublicSuffix
     # @see #subdomain
     #
     def domain
-      return unless domain?
-      [@sld, @tld].join(".")
+      if domain?
+        [@sld, @tld].join(".")
+      end
     end
 
     # Returns a domain-like representation of this object
@@ -181,8 +182,9 @@ module PublicSuffix
     # @see #domain
     #
     def subdomain
-      return unless subdomain?
-      [@trd, @sld, @tld].join(".")
+      if subdomain?
+        [@trd, @sld, @tld].join(".")
+      end
     end
 
     # Returns the rule matching this domain
