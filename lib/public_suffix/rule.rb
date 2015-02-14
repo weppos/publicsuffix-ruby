@@ -244,13 +244,15 @@ module PublicSuffix
 
       private
 
-        def odiff(one, two)
-          ii = 0
-          while(ii < one.size && one[ii] == two[ii])
-            ii += 1
-          end
-          one[ii..one.length]
+      def odiff(one, two)
+        ii = 0
+
+        while(ii < one.size && one[ii] == two[ii])
+          ii += 1
         end
+
+        one[ii..one.length]
+      end
 
     end
 
