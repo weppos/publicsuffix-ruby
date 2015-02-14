@@ -22,36 +22,6 @@ module PublicSuffix
   #
   module Rule
 
-    # Takes the +name+ of the rule, detects the specific rule class
-    # and creates a new instance of that class.
-    # The +name+ becomes the rule +value+.
-    #
-    # @param  [String] name The rule definition.
-    #
-    # @return [PublicSuffix::Rule::*] A rule instance.
-    #
-    # @example Creates a Normal rule
-    #   PublicSuffix::Rule.factory("ar")
-    #   # => #<PublicSuffix::Rule::Normal>
-    #
-    # @example Creates a Wildcard rule
-    #   PublicSuffix::Rule.factory("*.ar")
-    #   # => #<PublicSuffix::Rule::Wildcard>
-    #
-    # @example Creates an Exception rule
-    #   PublicSuffix::Rule.factory("!congresodelalengua3.ar")
-    #   # => #<PublicSuffix::Rule::Exception>
-    #
-    def self.factory(name)
-      klass = case name.to_s[0,1]
-        when "*"  then  "wildcard"
-        when "!"  then  "exception"
-        else            "normal"
-      end
-      const_get(klass.capitalize).new(name)
-    end
-
-
     #
     # = Abstract rule class
     #
@@ -383,6 +353,36 @@ module PublicSuffix
         [$1, $2]
       end
 
+    end
+
+    RULES = {
+      '*' => Wildcard,
+      '!' => Exception
+    }
+    RULES.default = Normal
+
+    # Takes the +name+ of the rule, detects the specific rule class
+    # and creates a new instance of that class.
+    # The +name+ becomes the rule +value+.
+    #
+    # @param  [String] name The rule definition.
+    #
+    # @return [PublicSuffix::Rule::*] A rule instance.
+    #
+    # @example Creates a Normal rule
+    #   PublicSuffix::Rule.factory("ar")
+    #   # => #<PublicSuffix::Rule::Normal>
+    #
+    # @example Creates a Wildcard rule
+    #   PublicSuffix::Rule.factory("*.ar")
+    #   # => #<PublicSuffix::Rule::Wildcard>
+    #
+    # @example Creates an Exception rule
+    #   PublicSuffix::Rule.factory("!congresodelalengua3.ar")
+    #   # => #<PublicSuffix::Rule::Exception>
+    #
+    def self.factory(name)
+      RULES[name.to_s[0,1]].new(name)
     end
 
   end
