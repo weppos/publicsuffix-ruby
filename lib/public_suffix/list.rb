@@ -106,7 +106,7 @@ module PublicSuffix
     #
     # @return [File]
     def self.default_definition
-      @default_definition || File.new(File.join(File.dirname(__FILE__), "..", "definitions.txt"), "r:utf-8")
+      @default_definition || File.new(File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt"), "r:utf-8")
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
