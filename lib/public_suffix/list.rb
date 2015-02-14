@@ -44,7 +44,6 @@ module PublicSuffix
     include Enumerable
 
     class << self
-      attr_accessor :default
       attr_accessor :default_definition
     end
 
