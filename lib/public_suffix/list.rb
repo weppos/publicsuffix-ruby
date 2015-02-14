@@ -44,7 +44,7 @@ module PublicSuffix
     include Enumerable
 
     class << self
-      attr_accessor :default_definition
+      attr_writer :default_definition
     end
 
     # Gets the default rule list.
