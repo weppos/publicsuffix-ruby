@@ -138,7 +138,7 @@ module PublicSuffix
     #
     class Base
 
-      attr_reader :name, :value, :type, :labels
+      attr_reader :name, :value, :labels
 
       # Initializes a new rule with name and value.
       # If value is +nil+, name also becomes the value for this rule.
@@ -151,8 +151,23 @@ module PublicSuffix
       def initialize(name, value = nil)
         @name   = name.to_s
         @value  = value || @name
-        @type   = self.class.name.split("::").last.downcase.to_sym
         @labels = Domain.domain_to_labels(@value)
+      end
+
+      #
+      # The rule type name.
+      #
+      # @return [Symbol]
+      #
+      def self.type
+        @type ||= self.name.split("::").last.downcase.to_sym
+      end
+
+      #
+      # @see {type}
+      #
+      def type
+        self.class.type
       end
 
       # Checks whether this rule is equal to <tt>other</tt>.
