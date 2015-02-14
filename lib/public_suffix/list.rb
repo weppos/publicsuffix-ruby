@@ -1,11 +1,10 @@
-#--
+#
 # Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
-#++
-
+#
 
 module PublicSuffix
 
@@ -44,8 +43,7 @@ module PublicSuffix
     include Enumerable
 
     class << self
-      attr_accessor :default
-      attr_accessor :default_definition
+      attr_writer :default_definition
     end
 
     # Gets the default rule list.
@@ -76,7 +74,9 @@ module PublicSuffix
 
     # Enables/disables support for private (non-ICANN) domains
     # Implicitly reloads the list
-    # @param [Boolean] enable/disable support
+    #
+    # @param [Boolean] value
+    #   enable/disable support
     #
     # @return [PublicSuffix::List]
     def self.private_domains=(value)
@@ -100,6 +100,8 @@ module PublicSuffix
       self.clear.default
     end
 
+    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
+
     # Gets the default definition list.
     # Can be any <tt>IOStream</tt> including a <tt>File</tt>
     # or a simple <tt>String</tt>.
@@ -107,7 +109,7 @@ module PublicSuffix
     #
     # @return [File]
     def self.default_definition
-      @default_definition || File.new(File.join(File.dirname(__FILE__), "..", "definitions.txt"), "r:utf-8")
+      @default_definition || File.new(DEFAULT_DEFINITION_PATH, "r:utf-8")
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
@@ -136,7 +138,6 @@ module PublicSuffix
       end
     end
 
-
     # Gets the array of rules.
     #
     # @return [Array<PublicSuffix::Rule::*>]
@@ -147,7 +148,6 @@ module PublicSuffix
     #
     # @return [Array]
     attr_reader :indexes
-
 
     # Initializes an empty {PublicSuffix::List}.
     #
@@ -250,7 +250,6 @@ module PublicSuffix
       self
     end
 
-
     # Returns the most appropriate rule for domain.
     #
     # From the Public Suffix List documentation:
@@ -290,7 +289,7 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     def select(domain)
       # raise DomainInvalid, "Blank domain"
-      return [] if domain.to_s !~ /[^[:space:]]/
+      return [] if domain.to_s =~ /\A\s*\z/
       # raise DomainInvalid, "`#{domain}' is not expected to contain a scheme"
       return [] if domain.include?("://")
 

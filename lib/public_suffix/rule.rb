@@ -1,11 +1,10 @@
-#--
+#
 # Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
-#++
-
+#
 
 module PublicSuffix
 
@@ -20,37 +19,7 @@ module PublicSuffix
   #   PublicSuffix::Rule.factory("ar")
   #   # => #<PublicSuffix::Rule::Normal>
   #
-  class Rule
-
-    # Takes the +name+ of the rule, detects the specific rule class
-    # and creates a new instance of that class.
-    # The +name+ becomes the rule +value+.
-    #
-    # @param  [String] name The rule definition.
-    #
-    # @return [PublicSuffix::Rule::*] A rule instance.
-    #
-    # @example Creates a Normal rule
-    #   PublicSuffix::Rule.factory("ar")
-    #   # => #<PublicSuffix::Rule::Normal>
-    #
-    # @example Creates a Wildcard rule
-    #   PublicSuffix::Rule.factory("*.ar")
-    #   # => #<PublicSuffix::Rule::Wildcard>
-    #
-    # @example Creates an Exception rule
-    #   PublicSuffix::Rule.factory("!congresodelalengua3.ar")
-    #   # => #<PublicSuffix::Rule::Exception>
-    #
-    def self.factory(name)
-      klass = case name.to_s[0..0]
-        when "*"  then  "wildcard"
-        when "!"  then  "exception"
-        else            "normal"
-      end
-      const_get(klass.capitalize).new(name)
-    end
-
+  module Rule
 
     #
     # = Abstract rule class
@@ -138,7 +107,7 @@ module PublicSuffix
     #
     class Base
 
-      attr_reader :name, :value, :type, :labels
+      attr_reader :name, :value, :labels
 
       # Initializes a new rule with name and value.
       # If value is +nil+, name also becomes the value for this rule.
@@ -151,8 +120,23 @@ module PublicSuffix
       def initialize(name, value = nil)
         @name   = name.to_s
         @value  = value || @name
-        @type   = self.class.name.split("::").last.downcase.to_sym
         @labels = Domain.domain_to_labels(@value)
+      end
+
+      #
+      # The rule type name.
+      #
+      # @return [Symbol]
+      #
+      def self.type
+        @type ||= self.name.split("::").last.downcase.to_sym
+      end
+
+      #
+      # @see {type}
+      #
+      def type
+        self.class.type
       end
 
       # Checks whether this rule is equal to <tt>other</tt>.
@@ -169,7 +153,6 @@ module PublicSuffix
         self.name == other.name
       end
       alias :eql? :==
-
 
       # Checks if this rule matches +domain+.
       #
@@ -211,7 +194,6 @@ module PublicSuffix
         !decompose(domain).last.nil?
       end
 
-
       # Gets the length of this rule for comparison.
       # The length usually matches the number of rule +parts+.
       #
@@ -226,7 +208,7 @@ module PublicSuffix
       # @raise  [NotImplementedError]
       # @abstract
       def parts
-        raise NotImplementedError
+        raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
       end
 
       #
@@ -238,19 +220,20 @@ module PublicSuffix
       # @raise  [NotImplementedError]
       # @abstract
       def decompose(domain)
-        raise NotImplementedError
+        raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
       end
-
 
       private
 
-        def odiff(one, two)
-          ii = 0
-          while(ii < one.size && one[ii] == two[ii])
-            ii += 1
-          end
-          one[ii..one.length]
+      def odiff(one, two)
+        ii = 0
+
+        while(ii < one.size && one[ii] == two[ii])
+          ii += 1
         end
+
+        one[ii..one.length]
+      end
 
     end
 
@@ -366,6 +349,36 @@ module PublicSuffix
         [$1, $2]
       end
 
+    end
+
+    RULES = {
+      '*' => Wildcard,
+      '!' => Exception
+    }
+    RULES.default = Normal
+
+    # Takes the +name+ of the rule, detects the specific rule class
+    # and creates a new instance of that class.
+    # The +name+ becomes the rule +value+.
+    #
+    # @param  [String] name The rule definition.
+    #
+    # @return [PublicSuffix::Rule::*] A rule instance.
+    #
+    # @example Creates a Normal rule
+    #   PublicSuffix::Rule.factory("ar")
+    #   # => #<PublicSuffix::Rule::Normal>
+    #
+    # @example Creates a Wildcard rule
+    #   PublicSuffix::Rule.factory("*.ar")
+    #   # => #<PublicSuffix::Rule::Wildcard>
+    #
+    # @example Creates an Exception rule
+    #   PublicSuffix::Rule.factory("!congresodelalengua3.ar")
+    #   # => #<PublicSuffix::Rule::Exception>
+    #
+    def self.factory(name)
+      RULES[name.to_s[0,1]].new(name)
     end
 
   end

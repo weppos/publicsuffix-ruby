@@ -1,11 +1,10 @@
-#--
+#
 # Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
-#++
-
+#
 
 module PublicSuffix
 
@@ -32,6 +31,8 @@ module PublicSuffix
     def self.domain_to_labels(domain)
       domain.to_s.split(".").reverse
     end
+
+    attr_reader :tld, :sld, :trd
 
     # Creates and returns a new {PublicSuffix::Domain} instance.
     #
@@ -88,31 +89,8 @@ module PublicSuffix
     #   # => [nil, "google", "com"]
     #
     def to_a
-      [trd, sld, tld]
+      [@trd, @sld, @tld]
     end
-
-
-    # Returns the Top Level Domain part, aka the extension.
-    #
-    # @return [String, nil]
-    def tld
-      @tld
-    end
-
-    # Returns the Second Level Domain part, aka the domain part.
-    #
-    # @return [String, nil]
-    def sld
-      @sld
-    end
-
-    # Returns the Third Level Domain part, aka the subdomain part.
-    #
-    # @return [String, nil]
-    def trd
-      @trd
-    end
-
 
     # Returns the full domain name.
     #
@@ -127,7 +105,7 @@ module PublicSuffix
     #   # => "www.google.com"
     #
     def name
-      [trd, sld, tld].reject { |part| part.nil? }.join(".")
+      [@trd, @sld, @tld].compact.join(".")
     end
 
     # Returns a domain-like representation of this object
@@ -164,8 +142,9 @@ module PublicSuffix
     # @see #subdomain
     #
     def domain
-      return unless domain?
-      [sld, tld].join(".")
+      if domain?
+        [@sld, @tld].join(".")
+      end
     end
 
     # Returns a domain-like representation of this object
@@ -202,8 +181,9 @@ module PublicSuffix
     # @see #domain
     #
     def subdomain
-      return unless subdomain?
-      [trd, sld, tld].join(".")
+      if subdomain?
+        [@trd, @sld, @tld].join(".")
+      end
     end
 
     # Returns the rule matching this domain
@@ -215,7 +195,6 @@ module PublicSuffix
     def rule
       List.default.find(name)
     end
-
 
     # Checks whether <tt>self</tt> looks like a domain.
     #
@@ -246,7 +225,7 @@ module PublicSuffix
     # @see #subdomain?
     #
     def domain?
-      !(tld.nil? || sld.nil?)
+      !(@tld.nil? || @sld.nil?)
     end
 
     # Checks whether <tt>self</tt> looks like a subdomain.
@@ -278,7 +257,7 @@ module PublicSuffix
     # @see #domain?
     #
     def subdomain?
-      !(tld.nil? || sld.nil? || trd.nil?)
+      !(@tld.nil? || @sld.nil? || @trd.nil?)
     end
 
     # Checks whether <tt>self</tt> is exclusively a domain,
@@ -326,7 +305,6 @@ module PublicSuffix
       r = rule
       !r.nil? && r.allow?(name)
     end
-
 
     # Checks whether <tt>self</tt> looks like a domain and validates
     # according to default {List}.

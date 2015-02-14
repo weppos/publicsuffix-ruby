@@ -1,11 +1,10 @@
-#--
+#
 # Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
-#++
-
+#
 
 module PublicSuffix
 
@@ -42,7 +41,6 @@ module PublicSuffix
   #
   class DomainNotAllowed < DomainInvalid
   end
-
 
   # Backward Compatibility
   #

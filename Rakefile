@@ -93,7 +93,7 @@ task :upddef do
 
   DEFINITION_URL = "https://publicsuffix.org/list/effective_tld_names.dat"
 
-  File.open("lib/definitions.txt", "w+") do |f|
+  File.open("data/definitions.txt", "w+") do |f|
     response = Net::HTTP.get_response(URI.parse(DEFINITION_URL))
     response.body
     f.write(response.body)
