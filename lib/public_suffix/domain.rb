@@ -33,6 +33,8 @@ module PublicSuffix
       domain.to_s.split(".").reverse
     end
 
+    attr_reader :tld, :sld, :trd
+
     # Creates and returns a new {PublicSuffix::Domain} instance.
     #
     # @overload initialize(tld)
@@ -90,29 +92,6 @@ module PublicSuffix
     def to_a
       [trd, sld, tld]
     end
-
-
-    # Returns the Top Level Domain part, aka the extension.
-    #
-    # @return [String, nil]
-    def tld
-      @tld
-    end
-
-    # Returns the Second Level Domain part, aka the domain part.
-    #
-    # @return [String, nil]
-    def sld
-      @sld
-    end
-
-    # Returns the Third Level Domain part, aka the subdomain part.
-    #
-    # @return [String, nil]
-    def trd
-      @trd
-    end
-
 
     # Returns the full domain name.
     #
