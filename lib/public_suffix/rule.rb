@@ -20,7 +20,7 @@ module PublicSuffix
   #   PublicSuffix::Rule.factory("ar")
   #   # => #<PublicSuffix::Rule::Normal>
   #
-  class Rule
+  module Rule
 
     # Takes the +name+ of the rule, detects the specific rule class
     # and creates a new instance of that class.
