@@ -99,6 +99,8 @@ module PublicSuffix
       self.clear.default
     end
 
+    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
+
     # Gets the default definition list.
     # Can be any <tt>IOStream</tt> including a <tt>File</tt>
     # or a simple <tt>String</tt>.
@@ -106,7 +108,7 @@ module PublicSuffix
     #
     # @return [File]
     def self.default_definition
-      @default_definition || File.new(File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt"), "r:utf-8")
+      @default_definition || File.new(DEFAULT_DEFINITION_PATH, "r:utf-8")
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
