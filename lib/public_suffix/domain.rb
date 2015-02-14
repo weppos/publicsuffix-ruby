@@ -90,7 +90,7 @@ module PublicSuffix
     #   # => [nil, "google", "com"]
     #
     def to_a
-      [trd, sld, tld]
+      [@trd, @sld, @tld]
     end
 
     # Returns the full domain name.
@@ -106,7 +106,7 @@ module PublicSuffix
     #   # => "www.google.com"
     #
     def name
-      [trd, sld, tld].reject { |part| part.nil? }.join(".")
+      [@trd, @sld, @tld].reject { |part| part.nil? }.join(".")
     end
 
     # Returns a domain-like representation of this object
@@ -144,7 +144,7 @@ module PublicSuffix
     #
     def domain
       return unless domain?
-      [sld, tld].join(".")
+      [@sld, @tld].join(".")
     end
 
     # Returns a domain-like representation of this object
@@ -182,7 +182,7 @@ module PublicSuffix
     #
     def subdomain
       return unless subdomain?
-      [trd, sld, tld].join(".")
+      [@trd, @sld, @tld].join(".")
     end
 
     # Returns the rule matching this domain
@@ -225,7 +225,7 @@ module PublicSuffix
     # @see #subdomain?
     #
     def domain?
-      !(tld.nil? || sld.nil?)
+      !(@tld.nil? || @sld.nil?)
     end
 
     # Checks whether <tt>self</tt> looks like a subdomain.
@@ -257,7 +257,7 @@ module PublicSuffix
     # @see #domain?
     #
     def subdomain?
-      !(tld.nil? || sld.nil? || trd.nil?)
+      !(@tld.nil? || @sld.nil? || @trd.nil?)
     end
 
     # Checks whether <tt>self</tt> is exclusively a domain,
