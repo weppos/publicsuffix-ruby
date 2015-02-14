@@ -43,7 +43,7 @@ module PublicSuffix
     #   # => #<PublicSuffix::Rule::Exception>
     #
     def self.factory(name)
-      klass = case name.to_s[0..0]
+      klass = case name.to_s[0,1]
         when "*"  then  "wildcard"
         when "!"  then  "exception"
         else            "normal"
