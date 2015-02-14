@@ -105,7 +105,7 @@ module PublicSuffix
     #   # => "www.google.com"
     #
     def name
-      [@trd, @sld, @tld].reject { |part| part.nil? }.join(".")
+      [@trd, @sld, @tld].compact.join(".")
     end
 
     # Returns a domain-like representation of this object
