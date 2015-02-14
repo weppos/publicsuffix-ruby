@@ -290,7 +290,7 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     def select(domain)
       # raise DomainInvalid, "Blank domain"
-      return [] if domain.to_s !~ /[^[:space:]]/
+      return [] if domain.to_s =~ /\A\s*\z/
       # raise DomainInvalid, "`#{domain}' is not expected to contain a scheme"
       return [] if domain.include?("://")
 
