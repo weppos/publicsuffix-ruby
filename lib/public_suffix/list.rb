@@ -75,7 +75,9 @@ module PublicSuffix
 
     # Enables/disables support for private (non-ICANN) domains
     # Implicitly reloads the list
-    # @param [Boolean] enable/disable support
+    #
+    # @param [Boolean] value
+    #   enable/disable support
     #
     # @return [PublicSuffix::List]
     def self.private_domains=(value)
