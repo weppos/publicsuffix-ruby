@@ -6,7 +6,6 @@
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
 #
 
-
 module PublicSuffix
 
   # A Rule is a special object which holds a single definition
@@ -155,7 +154,6 @@ module PublicSuffix
       end
       alias :eql? :==
 
-
       # Checks if this rule matches +domain+.
       #
       # @param [String, #to_s] domain
@@ -196,7 +194,6 @@ module PublicSuffix
         !decompose(domain).last.nil?
       end
 
-
       # Gets the length of this rule for comparison.
       # The length usually matches the number of rule +parts+.
       #
@@ -225,7 +222,6 @@ module PublicSuffix
       def decompose(domain)
         raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
       end
-
 
       private
 

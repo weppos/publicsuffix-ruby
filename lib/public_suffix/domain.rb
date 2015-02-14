@@ -6,7 +6,6 @@
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
 #
 
-
 module PublicSuffix
 
   class Domain
@@ -197,7 +196,6 @@ module PublicSuffix
       List.default.find(name)
     end
 
-
     # Checks whether <tt>self</tt> looks like a domain.
     #
     # This method doesn't actually validate the domain.
@@ -307,7 +305,6 @@ module PublicSuffix
       r = rule
       !r.nil? && r.allow?(name)
     end
-
 
     # Checks whether <tt>self</tt> looks like a domain and validates
     # according to default {List}.

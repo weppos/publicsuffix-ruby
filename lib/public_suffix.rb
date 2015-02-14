@@ -6,13 +6,11 @@
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
 #
 
-
 require 'public_suffix/domain'
 require 'public_suffix/version'
 require 'public_suffix/errors'
 require 'public_suffix/rule'
 require 'public_suffix/list'
-
 
 module PublicSuffix
 

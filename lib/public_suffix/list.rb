@@ -6,7 +6,6 @@
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
 #
 
-
 module PublicSuffix
 
   # A {PublicSuffix::List} is a collection of one
@@ -139,7 +138,6 @@ module PublicSuffix
       end
     end
 
-
     # Gets the array of rules.
     #
     # @return [Array<PublicSuffix::Rule::*>]
@@ -150,7 +148,6 @@ module PublicSuffix
     #
     # @return [Array]
     attr_reader :indexes
-
 
     # Initializes an empty {PublicSuffix::List}.
     #
@@ -252,7 +249,6 @@ module PublicSuffix
       @rules.clear
       self
     end
-
 
     # Returns the most appropriate rule for domain.
     #

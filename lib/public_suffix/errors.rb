@@ -6,7 +6,6 @@
 # Copyright (c) 2009-2014 Simone Carletti <weppos@weppos.net>
 #
 
-
 module PublicSuffix
 
   class Error < StandardError
@@ -42,7 +41,6 @@ module PublicSuffix
   #
   class DomainNotAllowed < DomainInvalid
   end
-
 
   # Backward Compatibility
   #
