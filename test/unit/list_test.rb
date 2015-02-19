@@ -54,6 +54,22 @@ class PublicSuffix::ListTest < Test::Unit::TestCase
     assert_equal PublicSuffix::Rule.factory("net"), @list.find("google.net")
   end
 
+  def test_init_private_domains
+    PublicSuffix::List.remove_instance_variable :@private_domains if PublicSuffix::List.instance_variables.include? :@private_domains
+    refute PublicSuffix::List.instance_variables.include? :@private_domains
+
+    PublicSuffix::List.private_domains?
+    assert PublicSuffix::List.instance_variables.include? :@private_domains
+  end
+
+  def test_init_default_definition
+    PublicSuffix::List.remove_instance_variable :@default_definition if PublicSuffix::List.instance_variables.include? :@default_definition
+    refute PublicSuffix::List.instance_variables.include? :@default_definition
+
+    PublicSuffix::List.default_definition
+    assert PublicSuffix::List.instance_variables.include? :@default_definition
+  end
+
   def test_empty?
     assert  @list.empty?
     @list.add(PublicSuffix::Rule.factory(""))
