@@ -1,7 +1,7 @@
 # Changelog
 
 
-#### master
+#### Release 1.5.0
 
 - CHANGED: Dropped support for Ruby < 2.0
 
