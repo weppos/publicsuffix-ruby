@@ -103,6 +103,10 @@ class PublicSuffix::ListTest < Test::Unit::TestCase
     assert_not_equal [], list.select("google.com")
   end
 
+  def test_select_returns_empty_when_domain_has_overlong_label
+    assert_equal [], list.select("foo.abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde.com")
+    assert_equal [], list.select("abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde.co.uk")
+  end
 
   def test_self_default_getter
     assert_equal     nil, PublicSuffix::List.class_eval { @default }

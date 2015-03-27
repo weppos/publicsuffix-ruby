@@ -292,8 +292,11 @@ module PublicSuffix
       return [] if domain.to_s =~ /\A\s*\z/
       # raise DomainInvalid, "`#{domain}' is not expected to contain a scheme"
       return [] if domain.include?("://")
+      labels = Domain.domain_to_labels(domain)
+      # raise DomainInvalid, "`#{domain}' contains a label exceeding 63 characters"
+      return [] if labels.select { |l| l.size > 63 }.any?
 
-      indices = (@indexes[Domain.domain_to_labels(domain).first] || [])
+      indices = (@indexes[labels.first] || [])
       @rules.values_at(*indices).select { |rule| rule.match?(domain) }
     end
 
