@@ -60,6 +60,24 @@ class AcceptanceTest < Test::Unit::TestCase
     end
   end
 
+  
+  CaseCases = [
+      ["Www.google.com",          ["www", "google", "com"]],
+      ["www.Google.com",          ["www", "google", "com"]],
+      ["www.google.Com",          ["www", "google", "com"]],
+  ]
+
+  def test_ignore_case
+    CaseCases.each do |name, results|
+      domain = PublicSuffix.parse(name)
+      trd, sld, tld = results
+      assert_equal tld, domain.tld, "Invalid tld for `#{name}'"
+      assert_equal sld, domain.sld, "Invalid sld for `#{name}'"
+      assert_equal trd, domain.trd, "Invalid trd for `#{name}'"
+      assert PublicSuffix.valid?(name)
+    end
+  end
+
 
   def valid_uri?(name)
     uri = URI.parse(name)

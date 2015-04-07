@@ -55,7 +55,8 @@ module PublicSuffix
   #   doesn't allow +domain+.
   #
   def self.parse(domain, list = List.default)
-    rule = list.find(domain)
+    domain = domain.to_s.downcase
+    rule   = list.find(domain)
 
     if rule.nil?
       raise DomainInvalid, "`#{domain}' is not a valid domain"
@@ -117,7 +118,8 @@ module PublicSuffix
   #   # => false
   #
   def self.valid?(domain)
-    rule = List.default.find(domain)
+    domain = domain.to_s.downcase
+    rule   = List.default.find(domain)
     !rule.nil? && rule.allow?(domain)
   end
 
