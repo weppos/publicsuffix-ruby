@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublicSuffix::ListTest < Test::Unit::TestCase
+class PublicSuffix::ListTest < Minitest::Unit::TestCase
 
   def setup
     @list = PublicSuffix::List.new
