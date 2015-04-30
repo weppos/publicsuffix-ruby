@@ -54,6 +54,13 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
     assert_equal PublicSuffix::Rule.factory("net"), @list.find("google.net")
   end
 
+  def test_add_should_not_duplicate_indices
+    @list = PublicSuffix::List.parse("com")
+    @list.add(PublicSuffix::Rule.factory("net"))
+
+    assert_equal @list.indexes["com"], [0]
+  end
+
   def test_empty?
     assert  @list.empty?
     @list.add(PublicSuffix::Rule.factory(""))

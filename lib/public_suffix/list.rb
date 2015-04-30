@@ -156,7 +156,6 @@ module PublicSuffix
     #
     def initialize(&block)
       @rules   = []
-      @indexes = {}
       yield(self) if block_given?
       create_index!
     end
@@ -169,6 +168,7 @@ module PublicSuffix
     # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
     # select we can avoid mapping every single rule against the candidate domain.
     def create_index!
+      @indexes = {}
       @rules.map { |l| l.labels.first }.each_with_index do |elm, inx|
         if !@indexes.has_key?(elm)
           @indexes[elm] = [inx]
