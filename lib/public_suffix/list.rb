@@ -1,3 +1,4 @@
+require 'net/http'
 #
 # Public Suffix
 #
@@ -52,6 +53,7 @@ module PublicSuffix
     #
     # @return [PublicSuffix::List]
     def self.default
+      @default = nil if self.list_expired?
       @default ||= parse(default_definition)
     end
 
@@ -101,6 +103,7 @@ module PublicSuffix
     end
 
     DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
+    TTL = 604800 # 1 week
 
     # Gets the default definition list.
     # Can be any <tt>IOStream</tt> including a <tt>File</tt>
@@ -109,7 +112,21 @@ module PublicSuffix
     #
     # @return [File]
     def self.default_definition
+      self.update_suffix_list
       @default_definition || File.new(DEFAULT_DEFINITION_PATH, "r:utf-8")
+    end
+
+    def self.update_suffix_list
+      if self.list_expired?
+        list = Net::HTTP.get URI("https://publicsuffix.org/list/effective_tld_names.dat")
+        File.open(DEFAULT_DEFINITION_PATH, "w") do |f|
+          f.write list.force_encoding(Encoding::UTF_8)
+        end
+      end
+    end
+    
+    def self.list_expired?
+      (Time.now - File.mtime(DEFAULT_DEFINITION_PATH)) > TTL
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
