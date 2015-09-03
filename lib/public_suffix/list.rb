@@ -118,7 +118,11 @@ module PublicSuffix
 
     def self.update_suffix_list
       if self.list_expired?
-        list = Net::HTTP.get URI("https://publicsuffix.org/list/effective_tld_names.dat")
+        uri = URI('https://publicsuffix.org/list/public_suffix_list.dat')
+        list = Net::HTTP.start uri.host, uri.port, use_ssl: uri.scheme == 'https', verify_mode: OpenSSL::SSL::VERIFY_NONE do |http|
+          request = Net::HTTP::Get.new uri.request_uri
+          http.request request
+        end.body
         File.open(DEFAULT_DEFINITION_PATH, "w") do |f|
           f.write list.force_encoding(Encoding::UTF_8)
         end
