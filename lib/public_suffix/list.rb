@@ -112,20 +112,20 @@ module PublicSuffix
     #
     # @return [File]
     def self.default_definition
-      self.update_suffix_list
+      if self.list_expired?
+        self.update_suffix_list
+      end
       @default_definition || File.new(DEFAULT_DEFINITION_PATH, "r:utf-8")
     end
 
     def self.update_suffix_list
-      if self.list_expired?
-        uri = URI('https://publicsuffix.org/list/public_suffix_list.dat')
-        list = Net::HTTP.start uri.host, uri.port, use_ssl: uri.scheme == 'https', verify_mode: OpenSSL::SSL::VERIFY_NONE do |http|
-          request = Net::HTTP::Get.new uri.request_uri
-          http.request request
-        end.body
-        File.open(DEFAULT_DEFINITION_PATH, "w") do |f|
-          f.write list.force_encoding(Encoding::UTF_8)
-        end
+      uri = URI('https://publicsuffix.org/list/public_suffix_list.dat')
+      list = Net::HTTP.start uri.host, uri.port, use_ssl: uri.scheme == 'https', verify_mode: OpenSSL::SSL::VERIFY_NONE do |http|
+        request = Net::HTTP::Get.new uri.request_uri
+        http.request request
+      end.body
+      File.open(DEFAULT_DEFINITION_PATH, "w") do |f|
+        f.write list.force_encoding(Encoding::UTF_8)
       end
     end
     
