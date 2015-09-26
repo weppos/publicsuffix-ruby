@@ -223,6 +223,27 @@ module PublicSuffix
         raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
       end
 
+      #
+      # @param [String, #to_s] domain
+      #   The domain string from which to extract the registered part
+      # "- The public suffix is the set of labels from the domain which match the labels of 
+      #    the prevailing rule, using the matching algorithm above.
+      #  - The registered or registrable domain is the public suffix plus one additional label."
+      #  https://publicsuffix.org/list/
+      #
+      # @return [String] registered part of domain
+      #
+      def registered_domain(domain)
+        reg_dom_len = parts.length
+        whole_parts = domain.split('.')
+        if (reg_dom_len < whole_parts.length)
+          registered_parts = whole_parts.pop(reg_dom_len + 1)
+        else
+          registered_parts = whole_parts
+        end
+        registered_parts.join('.')
+      end
+
       private
 
       def odiff(one, two)
