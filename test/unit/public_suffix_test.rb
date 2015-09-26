@@ -183,4 +183,18 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     end
   end
 
+  def test_registered_domain_invalid
+    assert_throws(:dom_invalid) do
+      begin
+        PublicSuffix.registered_domain('dom.this.fake')
+      rescue PublicSuffix::DomainInvalid
+        throw :dom_invalid
+      end
+    end
+  end
+
+  def test_registered_domain
+    reg_part = PublicSuffix.registered_domain('www.example.com')
+    assert_match 'example.com', reg_part
+  end
 end
