@@ -3,7 +3,7 @@
 
 Gem::Specification.new do |s|
   s.name = "public_suffix"
-  s.version = "1.5.1"
+  s.version = "1.5.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
