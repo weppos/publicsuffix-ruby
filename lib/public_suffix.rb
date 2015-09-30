@@ -48,7 +48,7 @@ module PublicSuffix
   #   PublicSuffix.parse("http://www.google.com")
   #   # => PublicSuffix::DomainInvalid
   #
-  # @raise [PublicSuffix::Error]
+  # @raise [PublicSuffix::DomainInvalid]
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule
@@ -76,6 +76,31 @@ module PublicSuffix
     trd = parts.empty? ? nil : parts.join(".")
 
     Domain.new(tld, sld, trd)
+  end
+
+  # Find the registered part of the domain
+  # "The registered or registrable domain is the public suffix plus one additional label."
+  # https://publicsuffix.org/list/
+  #
+  # @param  [String, #to_s] domain
+  #   The domain name or fully qualified domain name to parse.
+  # @param  [PublicSuffix::List] list
+  #   The rule list to search, defaults to the default {PublicSuffix::List}
+  #
+  # @return [String]
+  #
+  # @raise [PublicSuffix::DomainInvalid]
+  #   If domain does not end with a public suffix according to the rule list
+  #
+  def self.registered_domain(domain, list = List.default)
+    domain = domain.to_s.downcase
+    rule   = list.find(domain)
+
+    if rule.nil?
+      raise DomainInvalid, "`#{domain}' is not a valid domain"
+    end
+
+    rule.registered_domain(domain)
   end
 
   # Checks whether +domain+ is assigned and allowed,
