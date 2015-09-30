@@ -9,3 +9,7 @@ pkg/*
 # YARD
 .yardoc
 yardoc/
+
+# rbenv-gemsets
+.gems
+.rbenv-gemsets
