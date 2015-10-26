@@ -1,6 +1,11 @@
 # Changelog
 
 
+#### master
+
+- CHANGED: Updated definitions.
+
+
 #### Release 1.5.1
 
 - FIXED: Ignore case for parsing and validating (GH-62)
