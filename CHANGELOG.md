@@ -1,7 +1,7 @@
 # Changelog
 
 
-#### master
+#### Release 1.5.2
 
 - CHANGED: Updated definitions.
 
