@@ -69,6 +69,7 @@ module PublicSuffix
     #
     # @return [Boolean]
     def self.private_domains?
+      @private_domains = nil unless defined? @private_domains
       @private_domains != false
     end
 
@@ -109,6 +110,7 @@ module PublicSuffix
     #
     # @return [File]
     def self.default_definition
+      @default_definition = nil unless defined? @default_definition
       @default_definition || File.new(DEFAULT_DEFINITION_PATH, "r:utf-8")
     end
 
