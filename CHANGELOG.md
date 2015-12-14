@@ -1,7 +1,7 @@
 # Changelog
 
 
-#### master
+#### Release 1.5.3
 
 - FIXED: Don't duplicate rule indices when creating index (GH-77). [Thanks @ags]
 
