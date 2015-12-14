@@ -3,6 +3,8 @@
 
 #### master
 
+- FIXED: Don't duplicate rule indices when creating index (GH-77). [Thanks @ags]
+
 - CHANGED: Updated definitions.
 
 
