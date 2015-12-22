@@ -130,7 +130,12 @@ module PublicSuffix
     end
     
     def self.list_expired?
-      (Time.now - File.mtime(DEFAULT_DEFINITION_PATH)) > TTL
+      if File.exist?(DEFAULT_DEFINITION_PATH)
+        (Time.now - File.mtime(DEFAULT_DEFINITION_PATH)) > TTL
+      else
+        self.update_suffix_list
+        false
+      end
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
