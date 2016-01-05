@@ -102,7 +102,7 @@ module PublicSuffix
       self.clear.default
     end
 
-    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
+    DEFAULT_DEFINITION_PATH = File.join(Dir.tmpdir, 'public_suffix_definitions.txt')
     TTL = 604800 # 1 week
 
     # Gets the default definition list.
