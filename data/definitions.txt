@@ -89,7 +89,6 @@ leasing.aero
 logistics.aero
 magazine.aero
 maintenance.aero
-marketplace.aero
 media.aero
 microlight.aero
 modelling.aero
@@ -112,7 +111,6 @@ show.aero
 skydiving.aero
 software.aero
 student.aero
-taxi.aero
 trader.aero
 trading.aero
 trainer.aero
@@ -1150,7 +1148,7 @@ tv.im
 
 // in : http://en.wikipedia.org/wiki/.in
 // see also: https://registry.in/Policies
-// Please note, that nic.in is not an offical eTLD, but used by most
+// Please note, that nic.in is not an official eTLD, but used by most
 // government institutions.
 in
 co.in
@@ -4431,19 +4429,19 @@ mil.ng
 mobi.ng
 
 // ni : http://www.nic.ni/
-com.ni    
-gob.ni    
+com.ni
+gob.ni
 edu.ni
 org.ni
 nom.ni
 net.ni
-mil.ni  
+mil.ni
 co.ni
 biz.ni
-web.ni    
+web.ni
 int.ni
 ac.ni
-in.ni  
+in.ni
 info.ni
 
 // nl : http://en.wikipedia.org/wiki/.nl
@@ -6577,8 +6575,8 @@ lib.wi.us
 // lib.wv.us  Bug 941670 - Removed at request of Larry W Arnold <arnold@wvlc.lib.wv.us>
 lib.wy.us
 // k12.ma.us contains school districts in Massachusetts. The 4LDs are
-//  managed indepedently except for private (PVT), charter (CHTR) and
-//  parochial (PAROCH) schools.  Those are delegated dorectly to the
+//  managed independently except for private (PVT), charter (CHTR) and
+//  parochial (PAROCH) schools.  Those are delegated directly to the
 //  5LD operators.   <k12-ma-hostmaster _ at _ rsuc.gweep.net>
 pvt.k12.ma.us
 chtr.k12.ma.us
@@ -6932,7 +6930,7 @@ web.za
 *.zw
 
 
-// List of new gTLDs imported from https://newgtlds.icann.org/newgtlds.csv on 2015-11-12T22:43:48Z
+// List of new gTLDs imported from https://newgtlds.icann.org/newgtlds.csv on 2016-01-04T22:39:54Z
 
 // aaa : 2015-02-26 American Automobile Association, Inc.
 aaa
@@ -7105,6 +7103,9 @@ apple
 // aquarelle : 2014-07-24 Aquarelle.com
 aquarelle
 
+// arab : 2015-11-12 League of Arab States
+arab
+
 // aramco : 2014-11-20 Aramco Services Company
 aramco
 
@@ -7231,6 +7232,9 @@ bcn
 // beats : 2015-05-14 Beats Electronics, LLC
 beats
 
+// beauty : 2015-12-03 L'Oréal
+beauty
+
 // beer : 2014-01-09 Top Level Domain Holdings Limited
 beer
 
@@ -7336,11 +7340,17 @@ bosch
 // bostik : 2015-05-28 Bostik SA
 bostik
 
+// boston : 2015-12-10 Boston Globe Media Partners, LLC
+boston
+
 // bot : 2014-12-18 Amazon EU S.à r.l.
 bot
 
 // boutique : 2013-11-14 Over Galley, LLC
 boutique
+
+// box : 2015-11-12 NS1 Limited
+box
 
 // bradesco : 2014-12-18 Banco Bradesco S.A.
 bradesco
@@ -7671,6 +7681,9 @@ crown
 
 // crs : 2014-04-03 Federated Co-operatives Limited
 crs
+
+// cruise : 2015-12-10 Viking River Cruises (Bermuda) Ltd.
+cruise
 
 // cruises : 2013-12-05 Spring Way, LLC
 cruises
@@ -8068,6 +8081,9 @@ foundation
 // fox : 2015-09-11 FOX Registry, LLC
 fox
 
+// free : 2015-12-10 Amazon EU S.à r.l.
+free
+
 // fresenius : 2015-07-30 Fresenius Immobilien-Verwaltungs-GmbH
 fresenius
 
@@ -8257,6 +8273,9 @@ guitars
 // guru : 2013-08-27 Pioneer Cypress, LLC
 guru
 
+// hair : 2015-12-03 L'Oréal
+hair
+
 // hamburg : 2014-02-20 Hamburg Top-Level-Domain GmbH
 hamburg
 
@@ -8305,7 +8324,7 @@ hisamitsu
 // hitachi : 2014-10-31 Hitachi, Ltd.
 hitachi
 
-// hiv : 2014-03-13 dotHIV gemeinnuetziger e.V.
+// hiv : 2014-03-13
 hiv
 
 // hkt : 2015-05-14 PCCW-HKT DataCom Services Limited
@@ -9310,7 +9329,7 @@ prof
 // progressive : 2015-07-23 Progressive Casualty Insurance Company
 progressive
 
-// promo : 2014-12-18 Play.PROMO Oy
+// promo : 2014-12-18
 promo
 
 // properties : 2013-12-05 Big Pass, LLC
@@ -9444,6 +9463,9 @@ rio
 
 // rip : 2014-07-10 United TLD Holdco Ltd.
 rip
+
+// rmit : 2015-11-19 Royal Melbourne Institute of Technology
+rmit
 
 // rocher : 2014-12-18 Ferrero Trading Lux S.A.
 rocher
@@ -10087,6 +10109,9 @@ vodka
 // volkswagen : 2015-05-14 Volkswagen Group of America Inc.
 volkswagen
 
+// volvo : 2015-11-12 Volvo Holding Sverige Aktiebolag
+volvo
+
 // vote : 2013-11-21 Monolith Registry LLC
 vote
 
@@ -10431,6 +10456,9 @@ xin
 
 // xn--ngbe9e0a : 2014-12-04 Kuwait Finance House
 بيتك
+
+// xn--ngbrx : 2015-11-12 League of Arab States
+عرب
 
 // xn--nqv7f : 2013-11-14 Public Interest Registry
 机构
@@ -11153,12 +11181,17 @@ blogspot.td
 blogspot.tw
 blogspot.ug
 blogspot.vn
+cloudfunctions.net
 codespot.com
 googleapis.com
 googlecode.com
 pagespeedmobilizer.com
 withgoogle.com
 withyoutube.com
+
+// Hashbang : https://hashbang.sh
+// Hashbang is a non-profit that provides shells and various other services.
+hashbang.sh
 
 // Heroku : https://www.heroku.com/
 // Submitted by Tom Maher <tmaher@heroku.com> 2013-05-02
@@ -11214,6 +11247,10 @@ operaunite.com
 // Submitted by Duarte Santos <domain-admin@outsystemscloud.com> 2014-03-11
 outsystemscloud.com
 
+// Pagefront : https://www.pagefronthq.com/
+// Submitted by Jason Kriss <jason@pagefronthq.com> 2015-12-02
+pagefrontapp.com
+
 // .pl domains (grandfathered)
 art.pl
 gliwice.pl
@@ -11235,6 +11272,11 @@ priv.at
 // Submitted by Daniel Dent (https://www.danieldent.com/) 2015-07-16
 qa2.com
 
+// Rackmaze LLC : https://www.rackmaze.com
+// Submitted by Kirill Pertsev <kika@rackmaze.com> 2015-12-02
+rackmaze.com
+rackmaze.net
+
 // Red Hat, Inc. OpenShift : https://openshift.redhat.com/
 // Submitted by Tim Kramer <tkramer@rhcloud.com> 2012-10-24
 rhcloud.com
@@ -11254,6 +11296,22 @@ pp.ua
 sinaapp.com
 vipsinaapp.com
 1kapp.com
+
+// Synology, Inc. : https://www.synology.com/
+// Submitted by Rony Weng <ronyweng@synology.com> 2015-12-02
+synology.me
+diskstation.me
+i234.me
+myds.me
+dscloud.biz
+dscloud.me
+dscloud.mobi
+dsmynas.com
+dsmynas.net
+dsmynas.org
+familyds.com
+familyds.net
+familyds.org
 
 // TASK geographical domains (www.task.gda.pl/uslugi/dns)
 gda.pl
