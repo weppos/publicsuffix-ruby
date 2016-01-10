@@ -1,19 +1,22 @@
 language: ruby
 rvm:
-  - 2.0
-  - 2.1
-  - 2.2
-  - ruby-head
-  - jruby-19mode
-  - rbx-19mode
+- 2.0
+- 2.1
+- 2.2
+- ruby-head
+- jruby-19mode
+- rbx-19mode
+
+before_install:
+- gem install bundler
 
 notifications:
   recipients:
-    - weppos@weppos.net
+  - weppos@weppos.net
 
 matrix:
   allow_failures:
-    - rvm: rbx-19mode
-    - rvm: jruby-19mode
-    - rvm: ruby-head
+  - rvm: rbx-19mode
+  - rvm: jruby-19mode
+  - rvm: ruby-head
 
