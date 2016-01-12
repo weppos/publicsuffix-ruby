@@ -170,9 +170,20 @@ module PublicSuffix
       #   # => false
       #
       def match?(domain)
-        l1 = labels
-        l2 = Domain.domain_to_labels(domain)
-        odiff(l1, l2).empty?
+        if domain.kind_of?(Array)
+          i = labels.size - 1
+          while i > 0
+            if(labels[i] != domain[i])
+              return false
+            end
+            i = i - 1
+          end
+          return true
+        else
+          l1 = labels
+          l2 = Domain.domain_to_labels(domain)
+          odiff(l1, l2).empty?
+        end
       end
 
       # Checks if this rule allows +domain+.

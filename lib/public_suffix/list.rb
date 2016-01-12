@@ -293,8 +293,9 @@ module PublicSuffix
       # raise DomainInvalid, "`#{domain}' is not expected to contain a scheme"
       return [] if domain.include?("://")
 
-      indices = (@indexes[Domain.domain_to_labels(domain).first] || [])
-      @rules.values_at(*indices).select { |rule| rule.match?(domain) }
+      domain_labels = Domain.domain_to_labels(domain)
+      indices = (@indexes[domain_labels.first] || [])
+      @rules.values_at(*indices).select { |rule| rule.match?(domain_labels) }
     end
 
   end
