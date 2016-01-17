@@ -134,6 +134,10 @@ domain.tld
 # => "com"
 ```
 
+## Does ```PublicSuffix``` make requests to Public Suffix List website?
+
+No. ```PublicSuffix``` comes with a bundled list. It does not make any requests to parse or validate a domain.
+
 ## Feedback and bug reports
 
 If you use this library and find yourself missing any functionality, please [let me know](mailto:weppos@weppos.net).
