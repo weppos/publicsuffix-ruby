@@ -136,7 +136,8 @@ domain.tld
 
 ## Does ```PublicSuffix``` make requests to Public Suffix List website?
 
-No. ```PublicSuffix``` comes with a bundled list. It does not make any requests to parse or validate a domain.
+No. ```PublicSuffix``` comes with a bundled list. It does not make any HTTP requests to parse or validate a domain.
+
 
 ## Feedback and bug reports
 
