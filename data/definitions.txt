@@ -1003,7 +1003,10 @@ gw
 gy
 co.gy
 com.gy
+edu.gy
+gov.gy
 net.gy
+org.gy
 
 // hk : https://www.hkdnr.hk
 // Submitted by registry <hk.tech@hkirc.hk> 2008-06-11
@@ -6136,10 +6139,6 @@ org.to
 edu.to
 mil.to
 
-// tp : No registrations at this time.
-// Submitted by Ryan Sleevi <ryan.sleevi@gmail.com> 2014-01-03
-tp
-
 // subTLDs: https://www.nic.tr/forms/eng/policies.pdf
 //     and: https://www.nic.tr/forms/politikalar.pdf
 // Submitted by <mehmetgurevin@gmail.com> 2014-07-19
@@ -6906,7 +6905,7 @@ xxx
 
 // za : http://www.zadna.org.za/content/page/domain-information
 ac.za
-agrica.za
+agric.za
 alt.za
 co.za
 edu.za
@@ -10730,6 +10729,10 @@ cupcake.is
 // Submitted by Andrew Farmer <andrew.farmer@dreamhost.com> 2012-10-02
 dreamhosters.com
 
+// Drobo : http://www.drobo.com/
+// Submitted by Ricardo Padilha <rpadilha@drobo.com> 2015-12-17
+mydrobo.com
+
 // DuckDNS : http://www.duckdns.org/
 // Submitted by Richard Harper <richard@duckdns.org> 2015-05-17
 duckdns.org
@@ -11190,7 +11193,6 @@ withgoogle.com
 withyoutube.com
 
 // Hashbang : https://hashbang.sh
-// Hashbang is a non-profit that provides shells and various other services.
 hashbang.sh
 
 // Heroku : https://www.heroku.com/
@@ -11299,10 +11301,7 @@ vipsinaapp.com
 
 // Synology, Inc. : https://www.synology.com/
 // Submitted by Rony Weng <ronyweng@synology.com> 2015-12-02
-synology.me
 diskstation.me
-i234.me
-myds.me
 dscloud.biz
 dscloud.me
 dscloud.mobi
@@ -11312,6 +11311,9 @@ dsmynas.org
 familyds.com
 familyds.net
 familyds.org
+i234.me
+myds.me
+synology.me
 
 // TASK geographical domains (www.task.gda.pl/uslugi/dns)
 gda.pl
