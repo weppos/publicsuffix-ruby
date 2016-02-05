@@ -13,6 +13,8 @@
 
 - CHANGED: If the suffix is now listed, then the prevaling rule is "*" as defined by the PSL algorithm (GH-91)
 
+- CHANGED: Input validation is performed only if you call PublicSuffix.parse or PublicSuffix.list
+
 
 #### Release 1.5.3
 

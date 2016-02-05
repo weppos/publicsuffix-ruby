@@ -67,7 +67,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     end
   end
 
-  def test_self_parse_a_domain_with_custom_list
+  def test_self_parse_with_custom_list
     list = PublicSuffix::List.new
     list << PublicSuffix::Rule.factory("test")
 
@@ -86,12 +86,12 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     assert_equal nil,               domain.trd
   end
 
-  def test_self_parse_raises_with_unallowed_domain
+  def test_self_parse_with_unallowed_domain
     error = assert_raises(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.ke") }
     assert_match %r{example\.ke}, error.message
   end
 
-  def test_self_raises_with_uri
+  def test_self_parse_with_uri
     error = assert_raises(PublicSuffix::DomainInvalid) { PublicSuffix.parse("http://google.com") }
     assert_match %r{http://google\.com}, error.message
   end
@@ -134,6 +134,43 @@ class PublicSuffixTest < Minitest::Unit::TestCase
   def test_self_domain_with_blank_sld
     assert_nil PublicSuffix.domain("com")
     assert_nil PublicSuffix.domain(".com")
+  end
+
+
+  def test_self_normalize
+    [
+        ['com', 'com'],
+        ['example.com', 'example.com'],
+        ['www.example.com', 'www.example.com'],
+
+        ['example.com.',  'example.com'],     # strip FQDN
+        [' example.com ', 'example.com'],     # strip spaces
+        ['Example.COM',   'example.com'],     # downcase
+    ].each do |input, output|
+      assert_equal output, PublicSuffix.normalize(input)
+    end
+  end
+
+  def test_normalize_blank
+    [
+        nil,
+        '',
+        ' '
+    ].each do |input, output|
+      error = PublicSuffix.normalize(input)
+      assert_instance_of PublicSuffix::DomainInvalid, error
+      assert_equal "Name is blank", error.message
+    end
+  end
+
+  def test_normalize_scheme
+    [
+        'https://google.com'
+    ].each do |input, output|
+      error = PublicSuffix.normalize(input)
+      assert_instance_of PublicSuffix::DomainInvalid, error
+      assert_match /scheme/, error.message
+    end
   end
 
 end

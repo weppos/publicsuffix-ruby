@@ -52,17 +52,18 @@ module PublicSuffix
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
   def self.parse(name, list = List.default)
-    name = name.to_s.downcase
-    rule = list.find(name)
+    what = normalize(name)
+    raise what if what.is_a?(DomainInvalid)
 
+    rule = list.find(what)
     if rule.nil?
-      raise DomainInvalid, "`#{name}' is not a valid domain"
+      raise DomainInvalid, "`#{what}` is not a valid domain"
     end
-    if !rule.allow?(name)
-      raise DomainNotAllowed, "`#{name}' is not allowed according to Registry policy"
+    if !rule.allow?(what)
+      raise DomainNotAllowed, "`#{what}` is not allowed according to Registry policy"
     end
 
-    left, right = rule.decompose(name)
+    left, right = rule.decompose(what)
 
     parts = left.split(".")
     # If we have 0 parts left, there is just a tld and no domain or subdomain
@@ -113,9 +114,11 @@ module PublicSuffix
   #   The domain name or fully qualified domain name to validate.
   # @return [Boolean]
   def self.valid?(name)
-    name = name.to_s.downcase
-    rule = List.default.find(name)
-    !rule.nil? && rule.allow?(name)
+    what = normalize(name)
+    return false if what.is_a?(DomainInvalid)
+
+    rule = List.default.find(what)
+    !rule.nil? && rule.allow?(what)
   rescue DomainInvalid
     false
   end
@@ -133,6 +136,21 @@ module PublicSuffix
     parse(name, list).domain
   rescue PublicSuffix::Error
     nil
+  end
+
+
+  private
+
+  # Pretend we know how to deal with user input.
+  def self.normalize(name)
+    name = name.to_s.dup
+    name.strip!
+    name.chomp!(".")
+    name.downcase!
+
+    return DomainInvalid.new("Name is blank") if name.empty?
+    return DomainInvalid.new("%s is not expected to contain a scheme" % name) if name.include?("://")
+    name
   end
 
 end

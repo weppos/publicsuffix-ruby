@@ -101,22 +101,10 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
     assert_equal 2, list.select("british-library.uk").size
   end
 
-  def test_select_name_nil
-    error = assert_raises(PublicSuffix::DomainInvalid) { list.select(nil) }
-    assert_match /blank/, error.message
-  end
-
   def test_select_name_blank
-    error = assert_raises(PublicSuffix::DomainInvalid) { list.select("") }
-    assert_match /blank/, error.message
-
-    error = assert_raises(PublicSuffix::DomainInvalid) { list.select(" ") }
-    assert_match /blank/, error.message
-  end
-
-  def test_select_name_scheme
-    error = assert_raises(PublicSuffix::DomainInvalid) { list.select("http://example.com") }
-    assert_match /scheme/, error.message
+    assert_equal [], list.select(nil)
+    assert_equal [], list.select("")
+    assert_equal [], list.select(" ")
   end
 
 

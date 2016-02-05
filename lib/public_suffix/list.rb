@@ -283,9 +283,7 @@ module PublicSuffix
     # @param  [String, #to_s] name The domain name.
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name)
-      raise DomainInvalid, "Name is blank" if name.to_s =~ /\A\s*\z/
-      raise DomainInvalid, "`#{name}` is not expected to contain a scheme" if name.include?("://")
-
+      name = name.to_s
       indices = (@indexes[Domain.domain_to_labels(name).first] || [])
       @rules.values_at(*indices).select { |rule| rule.match?(name) }
     end
