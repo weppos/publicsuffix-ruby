@@ -118,19 +118,19 @@ module PublicSuffix
     !rule.nil? && rule.allow?(name)
   end
 
+  # Attempt to parse the name and returns the domain, if valid.
+  #
+  # This method doesn't raise. Instead, it returns nil if the domain is not valid for whatever reason.
+  #
   # @param  [String, #to_s] name
   #   The domain name or fully qualified domain name to parse.
   # @param  [PublicSuffix::List] list
   #   The rule list to search, defaults to the default {PublicSuffix::List}
   # @return [String]
-  #
-  # @raise [PublicSuffix::Error]
-  #   If domain is not a valid domain.
-  # @raise [PublicSuffix::DomainNotAllowed]
-  #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
   def self.domain(name, list = List.default)
-    domain = parse(name, list)
-    [domain.sld, domain.tld].join(".")
+    parse(name, list).domain
+  rescue PublicSuffix::Error
+    nil
   end
 
 end

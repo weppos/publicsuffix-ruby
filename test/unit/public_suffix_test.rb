@@ -120,14 +120,17 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     assert_equal "google.co.uk",  PublicSuffix.domain("www.google.co.uk")
   end
 
-  def test_self_domain_raises_with_invalid_domain
-    error = assert_raises(PublicSuffix::DomainInvalid) { PublicSuffix.domain("example.qqq") }
-    assert_match %r{example\.qqq}, error.message
+  def test_self_domain_with_invalid_domain_returns_nil
+    assert_nil PublicSuffix.domain("example.qqq")
   end
 
-  def test_self_domain_raises_with_unallowed_domain
-    error = assert_raises(PublicSuffix::DomainNotAllowed) { PublicSuffix.domain("example.ke") }
-    assert_match %r{example\.ke}, error.message
+  def test_self_domain_with_unallowed_domain_returns_nil
+    assert_nil PublicSuffix.domain("example.ke")
+  end
+
+  def test_self_domain_with_blank_sld_returns_nil
+    assert_nil PublicSuffix.domain("com")
+    assert_nil PublicSuffix.domain(".com")
   end
 
 end
