@@ -11,7 +11,7 @@ module PublicSuffix
   # A Rule is a special object which holds a single definition
   # of the Public Suffix List.
   #
-  # There are 3 types of ruleas, each one represented by a specific
+  # There are 3 types of rules, each one represented by a specific
   # subclass within the +PublicSuffix::Rule+ namespace.
   #
   # To create a new Rule, use the {PublicSuffix::Rule#factory} method.
@@ -21,12 +21,11 @@ module PublicSuffix
   #
   module Rule
 
-    #
-    # = Abstract rule class
+    # # Abstract rule class
     #
     # This represent the base class for a Rule definition
     # in the {Public Suffix List}[http://publicsuffix.org].
-    # 
+    #
     # This is intended to be an Abstract class
     # and you shouldn't create a direct instance. The only purpose
     # of this class is to expose a common interface
@@ -36,7 +35,7 @@ module PublicSuffix
     # * {PublicSuffix::Rule::Exception}
     # * {PublicSuffix::Rule::Wildcard}
     #
-    # == Properties
+    # ## Properties
     #
     # A rule is composed by 4 properties:
     #
@@ -57,7 +56,7 @@ module PublicSuffix
     #       @value="google.com"
     #   >
     #
-    # == Rule Creation
+    # ## Rule Creation
     #
     # The best way to create a new rule is passing the rule name
     # to the <tt>PublicSuffix::Rule.factory</tt> method.
@@ -71,7 +70,7 @@ module PublicSuffix
     # This method will detect the rule type and create an instance
     # from the proper rule class.
     #
-    # == Rule Usage
+    # ## Rule Usage
     #
     # A rule describes the composition of a domain name
     # and explains how to tokenize the domain name
@@ -82,10 +81,10 @@ module PublicSuffix
     # You can use the <tt>#match?</tt> method.
     #
     #   rule = PublicSuffix::Rule.factory("com")
-    #   
+    #
     #   rule.match?("google.com")
     #   # => true
-    #   
+    #
     #   rule.match?("google.com")
     #   # => false
     #
@@ -94,12 +93,12 @@ module PublicSuffix
     # to learn more about rule priority.
     #
     # When you have the right rule, you can use it to tokenize the domain name.
-    # 
+    #
     #   rule = PublicSuffix::Rule.factory("com")
-    # 
+    #
     #   rule.decompose("google.com")
     #   # => ["google", "com"]
-    # 
+    #
     #   rule.decompose("www.google.com")
     #   # => ["www.google", "com"]
     #
@@ -329,7 +328,7 @@ module PublicSuffix
       #
       # See http://publicsuffix.org/format/:
       # If the prevailing rule is a exception rule,
-      # modify it by removing the leftmost label. 
+      # modify it by removing the leftmost label.
       #
       # @return [Array<String>]
       def parts
@@ -361,10 +360,6 @@ module PublicSuffix
     # and creates a new instance of that class.
     # The +name+ becomes the rule +value+.
     #
-    # @param  [String] name The rule definition.
-    #
-    # @return [PublicSuffix::Rule::*] A rule instance.
-    #
     # @example Creates a Normal rule
     #   PublicSuffix::Rule.factory("ar")
     #   # => #<PublicSuffix::Rule::Normal>
@@ -377,6 +372,9 @@ module PublicSuffix
     #   PublicSuffix::Rule.factory("!congresodelalengua3.ar")
     #   # => #<PublicSuffix::Rule::Exception>
     #
+    # @param  [String] name The rule definition.
+    #
+    # @return [PublicSuffix::Rule::*] A rule instance.
     def self.factory(name)
       RULES[name.to_s[0,1]].new(name)
     end

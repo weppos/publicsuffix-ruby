@@ -43,6 +43,7 @@ module PublicSuffix
     include Enumerable
 
     # Gets the default rule list.
+    #
     # Initializes a new {PublicSuffix::List} parsing the content
     # of {PublicSuffix::List.default_definition}, if required.
     #
@@ -130,6 +131,7 @@ module PublicSuffix
       end
     end
 
+
     # Gets the array of rules.
     #
     # @return [Array<PublicSuffix::Rule::*>]
@@ -151,6 +153,7 @@ module PublicSuffix
       yield(self) if block_given?
       create_index!
     end
+
 
     # Creates a naive index for +@rules+. Just a hash that will tell
     # us where the elements of +@rules+ are relative to its first
@@ -246,27 +249,26 @@ module PublicSuffix
     #
     # From the Public Suffix List documentation:
     #
-    # * If a hostname matches more than one rule in the file,
+    # - If a hostname matches more than one rule in the file,
     #   the longest matching rule (the one with the most levels) will be used.
-    # * An exclamation mark (!) at the start of a rule marks an exception to a previous wildcard rule.
+    # - An exclamation mark (!) at the start of a rule marks an exception to a previous wildcard rule.
     #   An exception rule takes priority over any other matching rule.
     #
     # == Algorithm description
     #
-    # * Match domain against all rules and take note of the matching ones.
-    # * If no rules match, the prevailing rule is "*".
-    # * If more than one rule matches, the prevailing rule is the one which is an exception rule.
-    # * If there is no matching exception rule, the prevailing rule is the one with the most labels.
-    # * If the prevailing rule is a exception rule, modify it by removing the leftmost label.
-    # * The public suffix is the set of labels from the domain
+    # - Match domain against all rules and take note of the matching ones.
+    # - If no rules match, the prevailing rule is "*".
+    # - If more than one rule matches, the prevailing rule is the one which is an exception rule.
+    # - If there is no matching exception rule, the prevailing rule is the one with the most labels.
+    # - If the prevailing rule is a exception rule, modify it by removing the leftmost label.
+    # - The public suffix is the set of labels from the domain
     #   which directly match the labels of the prevailing rule (joined by dots).
-    # * The registered domain is the public suffix plus one additional label.
+    # - The registered domain is the public suffix plus one additional label.
     #
-    # @param  [String, #to_s] domain The domain name.
-    #
+    # @param  [String, #to_s] name The domain name.
     # @return [PublicSuffix::Rule::*, nil]
-    def find(domain)
-      rules = select(domain)
+    def find(name)
+      rules = select(name)
       rules.detect { |r|   r.type == :exception } ||
       rules.inject { |t,r| t.length > r.length ? t : r }
     end
@@ -276,17 +278,17 @@ module PublicSuffix
     # Will use +@indexes+ to try only the rules that share the same first label,
     # that will speed up things when using +List.find('foo')+ a lot.
     #
-    # @param  [String, #to_s] domain The domain name.
-    #
+    # @param  [String, #to_s] name The domain name.
     # @return [Array<PublicSuffix::Rule::*>]
-    def select(domain)
+    def select(name)
       # raise DomainInvalid, "Blank domain"
-      return [] if domain.to_s =~ /\A\s*\z/
+      return [] if name.to_s =~ /\A\s*\z/
       # raise DomainInvalid, "`#{domain}' is not expected to contain a scheme"
-      return [] if domain.include?("://")
+      return [] if name.include?("://")
 
-      indices = (@indexes[Domain.domain_to_labels(domain).first] || [])
-      @rules.values_at(*indices).select { |rule| rule.match?(domain) }
+      indices = (@indexes[Domain.domain_to_labels(name).first] || [])
+      @rules.values_at(*indices).select { |rule| rule.match?(name) }
+    end
     end
 
   end
