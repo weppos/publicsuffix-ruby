@@ -32,14 +32,7 @@ class PslTest < Minitest::Unit::TestCase
 
     failures = []
     self.class.tests.each do |input, output|
-      domain = begin
-
-
-        d = PublicSuffix.parse(input)
-        [d.sld, d.tld].join(".")
-      rescue
-        nil
-      end
+      domain = PublicSuffix.domain(input) rescue nil
       failures << [input, output, domain] if output != domain
     end
 
