@@ -123,10 +123,6 @@ module PublicSuffix
     # This method doesn't validate the input. It handles the domain
     # as a valid domain name and simply applies the necessary transformations.
     #
-    #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("qqq", "google").domain
-    #   # => "google.qqq"
-    #
     # This method returns a FQD, not just the domain part.
     # To get the domain part, use <tt>#sld</tt> (aka second level domain).
     #
@@ -136,18 +132,17 @@ module PublicSuffix
     #   PublicSuffix::Domain.new("com", "google", "www").sld
     #   # => "google"
     #
-    # @return [String]
-    #
     # @see #domain?
     # @see #subdomain
     #
+    # @return [String]
     def domain
       if domain?
         [@sld, @tld].join(".")
       end
     end
 
-    # Returns a domain-like representation of this object
+    # Returns a subdomain-like representation of this object
     # if the object is a {#subdomain?}, <tt>nil</tt> otherwise.
     #
     #   PublicSuffix::Domain.new("com").subdomain
@@ -162,11 +157,7 @@ module PublicSuffix
     # This method doesn't validate the input. It handles the domain
     # as a valid domain name and simply applies the necessary transformations.
     #
-    #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("qqq", "google", "www").subdomain
-    #   # => "www.google.qqq"
-    #
-    # This method returns a FQD, not just the domain part.
+    # This method returns a FQD, not just the subdomain part.
     # To get the subdomain part, use <tt>#trd</tt> (aka third level domain).
     #
     #   PublicSuffix::Domain.new("com", "google", "www").subdomain
@@ -175,11 +166,10 @@ module PublicSuffix
     #   PublicSuffix::Domain.new("com", "google", "www").trd
     #   # => "www"
     #
-    # @return [String]
-    #
     # @see #subdomain?
     # @see #domain
     #
+    # @return [String]
     def subdomain
       if subdomain?
         [@trd, @sld, @tld].join(".")
@@ -204,8 +194,6 @@ module PublicSuffix
     # If you also want to validate the domain,
     # use {#valid_domain?} instead.
     #
-    # @return [Boolean]
-    #
     # @example
     #
     #   PublicSuffix::Domain.new("com").domain?
@@ -219,11 +207,12 @@ module PublicSuffix
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   PublicSuffix::Domain.new("qqq", "google").domain?
+    #   PublicSuffix::Domain.new("com", nil).domain?
     #   # => true
     #
     # @see #subdomain?
     #
+    # @return [Boolean]
     def domain?
       !(@tld.nil? || @sld.nil?)
     end
@@ -235,8 +224,6 @@ module PublicSuffix
     # a value for the {#tld}, {#sld} and {#trd} attributes.
     # If you also want to validate the domain,
     # use {#valid_subdomain?} instead.
-    #
-    # @return [Boolean]
     #
     # @example
     #
@@ -251,11 +238,12 @@ module PublicSuffix
     #
     #   # This is an invalid domain, but returns true
     #   # because this method doesn't validate the content.
-    #   PublicSuffix::Domain.new("qqq", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("com", "example", nil).subdomain?
     #   # => true
     #
     # @see #domain?
     #
+    # @return [Boolean]
     def subdomain?
       !(@tld.nil? || @sld.nil? || @trd.nil?)
     end
@@ -291,9 +279,9 @@ module PublicSuffix
     #   Domain.new("com", "example", "www").valid?
     #   # => true
     #
-    # @example Check a not-assigned domain
-    #   Domain.new("qqq", "example").valid?
-    #   # => false
+    # @example Check a not-listed rule
+    #   Domain.new("tldnotlisted", "example").valid?
+    #   # => true
     #
     # @example Check a not-allowed domain
     #   Domain.new("do", "example").valid?
@@ -316,14 +304,14 @@ module PublicSuffix
     #   PublicSuffix::Domain.new("com").domain?
     #   # => false
     #
-    #   PublicSuffix::Domain.new("com", "google").domain?
+    #   PublicSuffix::Domain.new("com", "example").domain?
     #   # => true
     #
-    #   PublicSuffix::Domain.new("com", "google", "www").domain?
+    #   PublicSuffix::Domain.new("com", "example", "www").domain?
     #   # => true
     #
     #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("qqq", "google").false?
+    #   PublicSuffix::Domain.new("jp", "ac").false?
     #   # => true
     #
     # @see #domain?
@@ -350,7 +338,7 @@ module PublicSuffix
     #   # => true
     #
     #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("qqq", "google", "www").subdomain?
+    #   PublicSuffix::Domain.new("jp", "kobe", "c").subdomain?
     #   # => false
     #
     # @see #subdomain?

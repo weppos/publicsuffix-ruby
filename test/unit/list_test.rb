@@ -47,7 +47,7 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
   def test_add_should_recreate_index
     @list = PublicSuffix::List.parse("com")
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
-    assert_equal nil, @list.find("google.net")
+    assert_equal @list.default_rule, @list.find("google.net")
 
     @list << PublicSuffix::Rule.factory("net")
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
@@ -83,31 +83,40 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
 
 
   def test_find
-    assert_equal PublicSuffix::Rule.factory("com"),  list.find("google.com")
-    assert_equal PublicSuffix::Rule.factory("com"),  list.find("foo.google.com")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("google.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("google.co.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("foo.google.co.uk")
+    assert_equal PublicSuffix::Rule.factory("com"),                 list.find("example.com")
+    assert_equal PublicSuffix::Rule.factory("com"),                 list.find("foo.example.com")
+    assert_equal PublicSuffix::Rule.factory("*.uk"),                list.find("example.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"),                list.find("example.co.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"),                list.find("foo.example.co.uk")
     assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("british-library.uk")
     assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("foo.british-library.uk")
   end
+
+  def test_find_default_rule
+    assert_equal PublicSuffix::List.default.default_rule,  list.find("example.tldnotlisted")
+  end
+
 
   def test_select
     assert_equal 2, list.select("british-library.uk").size
   end
 
-  def test_select_returns_empty_when_domain_is_nil
-    assert_equal [], list.select(nil)
+  def test_select_name_nil
+    error = assert_raises(PublicSuffix::DomainInvalid) { list.select(nil) }
+    assert_match /blank/, error.message
   end
 
-  def test_select_returns_empty_when_domain_is_blank
-    assert_equal [], list.select("")
-    assert_equal [], list.select("  ")
+  def test_select_name_blank
+    error = assert_raises(PublicSuffix::DomainInvalid) { list.select("") }
+    assert_match /blank/, error.message
+
+    error = assert_raises(PublicSuffix::DomainInvalid) { list.select(" ") }
+    assert_match /blank/, error.message
   end
 
-  def test_select_returns_empty_when_domain_has_scheme
-    assert_equal [], list.select("http://google.com")
-    assert_not_equal [], list.select("google.com")
+  def test_select_name_scheme
+    error = assert_raises(PublicSuffix::DomainInvalid) { list.select("http://example.com") }
+    assert_match /scheme/, error.message
   end
 
 

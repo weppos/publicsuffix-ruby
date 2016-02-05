@@ -88,9 +88,9 @@ module PublicSuffix
   #   PublicSuffix.valid?("www.example.com")
   #   # => true
   #
-  # @example Validate a not-assigned domain
-  #   PublicSuffix.valid?("example.qqq")
-  #   # => false
+  # @example Validate a not-listed domain
+  #   PublicSuffix.valid?("example.tldnotlisted")
+  #   # => true
   #
   # @example Validate a not-allowed domain
   #   PublicSuffix.valid?("example.do")
@@ -116,6 +116,8 @@ module PublicSuffix
     name = name.to_s.downcase
     rule = List.default.find(name)
     !rule.nil? && rule.allow?(name)
+  rescue DomainInvalid
+    false
   end
 
   # Attempt to parse the name and returns the domain, if valid.

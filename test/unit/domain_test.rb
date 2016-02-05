@@ -85,24 +85,24 @@ class PublicSuffix::DomainTest < Minitest::Unit::TestCase
 
   def test_domain
     assert_equal nil, @klass.new("com").domain
-    assert_equal nil, @klass.new("qqq").domain
+    assert_equal nil, @klass.new("tldnotlisted").domain
     assert_equal "google.com", @klass.new("com", "google").domain
-    assert_equal "google.qqq", @klass.new("qqq", "google").domain
+    assert_equal "google.tldnotlisted", @klass.new("tldnotlisted", "google").domain
     assert_equal "google.com", @klass.new("com", "google", "www").domain
-    assert_equal "google.qqq", @klass.new("qqq", "google", "www").domain
+    assert_equal "google.tldnotlisted", @klass.new("tldnotlisted", "google", "www").domain
   end
 
   def test_subdomain
     assert_equal nil, @klass.new("com").subdomain
-    assert_equal nil, @klass.new("qqq").subdomain
+    assert_equal nil, @klass.new("tldnotlisted").subdomain
     assert_equal nil, @klass.new("com", "google").subdomain
-    assert_equal nil, @klass.new("qqq", "google").subdomain
+    assert_equal nil, @klass.new("tldnotlisted", "google").subdomain
     assert_equal "www.google.com", @klass.new("com", "google", "www").subdomain
-    assert_equal "www.google.qqq", @klass.new("qqq", "google", "www").subdomain
+    assert_equal "www.google.tldnotlisted", @klass.new("tldnotlisted", "google", "www").subdomain
   end
 
   def test_rule
-    assert_equal nil, @klass.new("qqq").rule
+    assert_equal PublicSuffix::Rule.default, @klass.new("tldnotlisted").rule
     assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com").rule
     assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com", "google").rule
     assert_equal PublicSuffix::Rule.factory("com"), @klass.new("com", "google", "www").rule
@@ -110,31 +110,31 @@ class PublicSuffix::DomainTest < Minitest::Unit::TestCase
 
 
   def test_domain_question
-    assert  @klass.new("com", "google").domain?
-    assert  @klass.new("qqq", "google").domain?
-    assert  @klass.new("com", "google", "www").domain?
     assert !@klass.new("com").domain?
+    assert  @klass.new("com", "example").domain?
+    assert  @klass.new("com", "example", "www").domain?
+    assert  @klass.new("tldnotlisted", "example").domain?
   end
 
   def test_subdomain_question
-    assert  @klass.new("com", "google", "www").subdomain?
-    assert  @klass.new("qqq", "google", "www").subdomain?
     assert !@klass.new("com").subdomain?
-    assert !@klass.new("com", "google").subdomain?
+    assert !@klass.new("com", "example").subdomain?
+    assert  @klass.new("com", "example", "www").subdomain?
+    assert  @klass.new("tldnotlisted", "example", "www").subdomain?
   end
 
   def test_is_a_domain_question
-    assert  @klass.new("com", "google").is_a_domain?
-    assert  @klass.new("qqq", "google").is_a_domain?
-    assert !@klass.new("com", "google", "www").is_a_domain?
     assert !@klass.new("com").is_a_domain?
+    assert  @klass.new("com", "example").is_a_domain?
+    assert !@klass.new("com", "example", "www").is_a_domain?
+    assert  @klass.new("tldnotlisted", "example").is_a_domain?
   end
 
   def test_is_a_subdomain_question
-    assert  @klass.new("com", "google", "www").is_a_subdomain?
-    assert  @klass.new("qqq", "google", "www").is_a_subdomain?
     assert !@klass.new("com").is_a_subdomain?
     assert !@klass.new("com", "google").is_a_subdomain?
+    assert  @klass.new("com", "google", "www").is_a_subdomain?
+    assert  @klass.new("tldnotlisted", "example", "www").is_a_subdomain?
   end
 
   def test_valid_question
@@ -142,10 +142,10 @@ class PublicSuffix::DomainTest < Minitest::Unit::TestCase
     assert  @klass.new("com", "example").valid?
     assert  @klass.new("com", "example", "www").valid?
 
-    # not-assigned
-    assert !@klass.new("qqq").valid?
-    assert !@klass.new("qqq", "example").valid?
-    assert !@klass.new("qqq", "example", "www").valid?
+    # not-listed
+    assert !@klass.new("tldnotlisted").valid?
+    assert  @klass.new("tldnotlisted", "example").valid?
+    assert  @klass.new("tldnotlisted", "example", "www").valid?
 
     # not-allowed
     assert !@klass.new("ke").valid?
@@ -154,17 +154,17 @@ class PublicSuffix::DomainTest < Minitest::Unit::TestCase
   end
 
   def test_valid_domain_question
-    assert  @klass.new("com", "google").valid_domain?
-    assert !@klass.new("qqq", "google").valid_domain?
-    assert  @klass.new("com", "google", "www").valid_domain?
     assert !@klass.new("com").valid_domain?
+    assert  @klass.new("com", "example").valid_domain?
+    assert  @klass.new("com", "example", "www").valid_domain?
+    assert  @klass.new("tldnotlisted", "example").valid_domain?
   end
 
   def test_valid_subdomain_question
-    assert  @klass.new("com", "google", "www").valid_subdomain?
-    assert !@klass.new("qqq", "google", "www").valid_subdomain?
     assert !@klass.new("com").valid_subdomain?
-    assert !@klass.new("com", "google").valid_subdomain?
+    assert !@klass.new("com", "example").valid_subdomain?
+    assert  @klass.new("com", "example", "www").valid_subdomain?
+    assert  @klass.new("tldnotlisted", "example", "www").valid_subdomain?
   end
 
 end

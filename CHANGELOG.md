@@ -11,6 +11,8 @@
 
 - CHANGED: Removed deprecated PublicSuffix::InvalidDomain exception
 
+- CHANGED: If the suffix is now listed, then the prevaling rule is "*" as defined by the PSL algorithm (GH-91)
+
 
 #### Release 1.5.3
 
