@@ -42,10 +42,6 @@ module PublicSuffix
   class List
     include Enumerable
 
-    class << self
-      attr_writer :default_definition
-    end
-
     # Gets the default rule list.
     # Initializes a new {PublicSuffix::List} parsing the content
     # of {PublicSuffix::List.default_definition}, if required.
@@ -102,22 +98,18 @@ module PublicSuffix
 
     DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
 
-    # Gets the default definition list.
-    # Can be any <tt>IOStream</tt> including a <tt>File</tt>
-    # or a simple <tt>String</tt>.
-    # The object must respond to <tt>#each_line</tt>.
+    # Reads and returns the content of the the default definition list.
     #
-    # @return [File]
+    # @return [String]
     def self.default_definition
-      @default_definition || File.new(DEFAULT_DEFINITION_PATH, "r:utf-8")
+      File.open(DEFAULT_DEFINITION_PATH, "r:utf-8") { |f| f.read }
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
     #
     # See http://publicsuffix.org/format/ for more details about input format.
     #
-    # @param [String] input The rule list to parse.
-    #
+    # @param  [#each_line] string The list to parse.
     # @return [Array<PublicSuffix::Rule::*>]
     def self.parse(input)
       new do |list|
