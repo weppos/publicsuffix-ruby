@@ -173,4 +173,14 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     end
   end
 
+  def test_normalize_leading_dot
+    [
+        '.google.com'
+    ].each do |input, output|
+      error = PublicSuffix.normalize(input)
+      assert_instance_of PublicSuffix::DomainInvalid, error
+      assert_match "Name starts with a dot", error.message
+    end
+  end
+
 end
