@@ -8,6 +8,8 @@ rvm:
 - jruby-19mode
 - rbx-19mode
 
+sudo: false
+
 before_install:
 - gem install bundler
 
