@@ -15,6 +15,8 @@
 
 - CHANGED: Input validation is performed only if you call PublicSuffix.parse or PublicSuffix.list
 
+- CHANGED: Input with leading dot is invalid per PSL acceptance tests
+
 
 #### Release 1.5.3
 
