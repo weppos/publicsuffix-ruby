@@ -3,6 +3,8 @@
 
 #### master
 
+- NEW: Added PublicSuffix.domain # => sld.tld
+
 - CHANGED: Updated definitions.
 
 - CHANGED: PublicSuffix::List.default_definition no longer memoizes the data (no need to keep it in memory as the list is already memoized) Also the method now returns a String, instead of a File pointer (that was never closed).

@@ -14,15 +14,7 @@ require 'public_suffix/list'
 
 module PublicSuffix
 
-  # Parses +domain+ and returns the
-  # {PublicSuffix::Domain} instance.
-  #
-  # @param  [String, #to_s] domain
-  #   The domain name or fully qualified domain name to parse.
-  # @param  [PublicSuffix::List] list
-  #   The rule list to search, defaults to the default {PublicSuffix::List}
-  #
-  # @return [PublicSuffix::Domain]
+  # Parses +name+ and returns the {PublicSuffix::Domain} instance.
   #
   # @example Parse a valid domain
   #   PublicSuffix.parse("google.com")
@@ -48,24 +40,29 @@ module PublicSuffix
   #   PublicSuffix.parse("http://www.google.com")
   #   # => PublicSuffix::DomainInvalid
   #
+  #
+  # @param  [String, #to_s] name
+  #   The domain name or fully qualified domain name to parse.
+  # @param  [PublicSuffix::List] list
+  #   The rule list to search, defaults to the default {PublicSuffix::List}
+  # @return [PublicSuffix::Domain]
+  #
   # @raise [PublicSuffix::Error]
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
-  #   If a rule for +domain+ is found, but the rule
-  #   doesn't allow +domain+.
-  #
-  def self.parse(domain, list = List.default)
-    domain = domain.to_s.downcase
-    rule   = list.find(domain)
+  #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
+  def self.parse(name, list = List.default)
+    name = name.to_s.downcase
+    rule = list.find(name)
 
     if rule.nil?
-      raise DomainInvalid, "`#{domain}' is not a valid domain"
+      raise DomainInvalid, "`#{name}' is not a valid domain"
     end
-    if !rule.allow?(domain)
-      raise DomainNotAllowed, "`#{domain}' is not allowed according to Registry policy"
+    if !rule.allow?(name)
+      raise DomainNotAllowed, "`#{name}' is not allowed according to Registry policy"
     end
 
-    left, right = rule.decompose(domain)
+    left, right = rule.decompose(name)
 
     parts = left.split(".")
     # If we have 0 parts left, there is just a tld and no domain or subdomain
@@ -78,16 +75,10 @@ module PublicSuffix
     Domain.new(tld, sld, trd)
   end
 
-  # Checks whether +domain+ is assigned and allowed,
-  # without actually parsing it.
+  # Checks whether +domain+ is assigned and allowed, without actually parsing it.
   #
   # This method doesn't care whether domain is a domain or subdomain.
   # The validation is performed using the default {PublicSuffix::List}.
-  #
-  # @param  [String, #to_s] domain
-  #   The domain name or fully qualified domain name to validate.
-  #
-  # @return [Boolean]
   #
   # @example Validate a valid domain
   #   PublicSuffix.valid?("example.com")
@@ -117,10 +108,29 @@ module PublicSuffix
   #   PublicSuffix.valid?("http://www.example.com")
   #   # => false
   #
-  def self.valid?(domain)
-    domain = domain.to_s.downcase
-    rule   = List.default.find(domain)
-    !rule.nil? && rule.allow?(domain)
+  #
+  # @param  [String, #to_s] name
+  #   The domain name or fully qualified domain name to validate.
+  # @return [Boolean]
+  def self.valid?(name)
+    name = name.to_s.downcase
+    rule = List.default.find(name)
+    !rule.nil? && rule.allow?(name)
+  end
+
+  # @param  [String, #to_s] name
+  #   The domain name or fully qualified domain name to parse.
+  # @param  [PublicSuffix::List] list
+  #   The rule list to search, defaults to the default {PublicSuffix::List}
+  # @return [String]
+  #
+  # @raise [PublicSuffix::Error]
+  #   If domain is not a valid domain.
+  # @raise [PublicSuffix::DomainNotAllowed]
+  #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
+  def self.domain(name, list = List.default)
+    domain = parse(name, list)
+    [domain.sld, domain.tld].join(".")
   end
 
 end
