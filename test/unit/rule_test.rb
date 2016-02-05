@@ -23,6 +23,14 @@ class PublicSuffix::RuleTest < Minitest::Unit::TestCase
     assert_instance_of PublicSuffix::Rule::Wildcard, rule
   end
 
+
+  def test_default_returns_default_wildcard
+    default = PublicSuffix::Rule.default
+    assert_equal PublicSuffix::Rule::Wildcard.new("*"), default
+    assert_equal %w( example tldnotlisted ), default.decompose("example.tldnotlisted")
+    assert_equal %w( www.example tldnotlisted ), default.decompose("www.example.tldnotlisted")
+  end
+
 end
 
 

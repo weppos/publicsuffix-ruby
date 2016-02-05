@@ -256,21 +256,23 @@ module PublicSuffix
     #
     # == Algorithm description
     #
-    # - Match domain against all rules and take note of the matching ones.
-    # - If no rules match, the prevailing rule is "*".
-    # - If more than one rule matches, the prevailing rule is the one which is an exception rule.
-    # - If there is no matching exception rule, the prevailing rule is the one with the most labels.
-    # - If the prevailing rule is a exception rule, modify it by removing the leftmost label.
-    # - The public suffix is the set of labels from the domain
-    #   which directly match the labels of the prevailing rule (joined by dots).
-    # - The registered domain is the public suffix plus one additional label.
+    # 1. Match domain against all rules and take note of the matching ones.
+    # 2. If no rules match, the prevailing rule is "*".
+    # 3. If more than one rule matches, the prevailing rule is the one which is an exception rule.
+    # 4. If there is no matching exception rule, the prevailing rule is the one with the most labels.
+    # 5. If the prevailing rule is a exception rule, modify it by removing the leftmost label.
+    # 6. The public suffix is the set of labels from the domain
+    #    which directly match the labels of the prevailing rule (joined by dots).
+    # 7. The registered domain is the public suffix plus one additional label.
     #
     # @param  [String, #to_s] name The domain name.
-    # @return [PublicSuffix::Rule::*, nil]
-    def find(name)
+    # @param  [PublicSuffix::Rule::*] default The default rule to return in case no rule matches.
+    # @return [PublicSuffix::Rule::*]
+    def find(name, default = default_rule)
       rules = select(name)
-      rules.detect { |r|   r.type == :exception } ||
-      rules.inject { |t,r| t.length > r.length ? t : r }
+      rules.detect { |r|   r.type == :exception }         ||
+      rules.inject { |t,r| t.length > r.length ? t : r }  ||
+      default
     end
 
     # Selects all the rules matching given domain.
@@ -281,14 +283,18 @@ module PublicSuffix
     # @param  [String, #to_s] name The domain name.
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name)
-      # raise DomainInvalid, "Blank domain"
-      return [] if name.to_s =~ /\A\s*\z/
-      # raise DomainInvalid, "`#{domain}' is not expected to contain a scheme"
-      return [] if name.include?("://")
-
+      name = name.to_s
       indices = (@indexes[Domain.domain_to_labels(name).first] || [])
       @rules.values_at(*indices).select { |rule| rule.match?(name) }
     end
+
+    # Gets the default rule.
+    #
+    # @see PublicSuffix::Rule.default_rule
+    #
+    # @return [PublicSuffix::Rule::*]
+    def default_rule
+      PublicSuffix::Rule.default
     end
 
   end

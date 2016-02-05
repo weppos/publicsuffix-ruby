@@ -48,14 +48,14 @@ class AcceptanceTest < Minitest::Unit::TestCase
       ["google-.com",         true],
 
       # This case was covered in GH-15.
-      # I decide to cover this case because it's not easily reproducible with URI.parse
+      # I decided to cover this case because it's not easily reproducible with URI.parse
       # and can lead to several false positives.
       ["http://google.com",   false],
   ]
 
   def test_rejected
     RejectedCases.each do |name, expected|
-      assert_equal expected, PublicSuffix.valid?(name)
+      assert_equal expected, PublicSuffix.valid?(name), "Expected %s to be %s" % [name.inspect, expected.inspect]
       assert !valid_domain?(name), "#{name} expected to be invalid"
     end
   end

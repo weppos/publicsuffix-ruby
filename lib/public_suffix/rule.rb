@@ -379,6 +379,17 @@ module PublicSuffix
       RULES[name.to_s[0,1]].new(name)
     end
 
+    # The default rule to use if no rule match.
+    #
+    # The default rule is "*". From https://publicsuffix.org/list/:
+    #
+    # > If no rules match, the prevailing rule is "*".
+    #
+    # @return [PublicSuffix::Rule::Wildcard] The default rule.
+    def self.default
+      factory("*")
+    end
+
   end
 
 end
