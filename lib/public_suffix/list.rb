@@ -48,8 +48,8 @@ module PublicSuffix
     # of {PublicSuffix::List.default_definition}, if required.
     #
     # @return [PublicSuffix::List]
-    def self.default
-      @default ||= parse(default_definition)
+    def self.default(**options)
+      @default ||= parse(default_definition, options)
     end
 
     # Sets the default rule list to +value+.
@@ -60,25 +60,6 @@ module PublicSuffix
     # @return [PublicSuffix::List]
     def self.default=(value)
       @default = value
-    end
-
-    # Shows if support for private (non-ICANN) domains is enabled or not
-    #
-    # @return [Boolean]
-    def self.private_domains?
-      @private_domains != false
-    end
-
-    # Enables/disables support for private (non-ICANN) domains
-    # Implicitly reloads the list
-    #
-    # @param [Boolean] value
-    #   enable/disable support
-    #
-    # @return [PublicSuffix::List]
-    def self.private_domains=(value)
-      @private_domains = !!value
-      self.clear
     end
 
     # Sets the default rule list to +nil+.
@@ -110,13 +91,14 @@ module PublicSuffix
     #
     # See http://publicsuffix.org/format/ for more details about input format.
     #
-    # @param  [#each_line] string The list to parse.
+    # @param  string [#each_line] The list to parse.
+    # @param  private_domain [Boolean] whether to ignore the private domains section.
     # @return [Array<PublicSuffix::Rule::*>]
-    def self.parse(input)
+    def self.parse(input, private_domains: true)
       new do |list|
         input.each_line do |line|
           line.strip!
-          break if !private_domains? && line.include?('===BEGIN PRIVATE DOMAINS===')
+          break if !private_domains && line.include?('===BEGIN PRIVATE DOMAINS===')
           # strip blank lines
           if line.empty?
             next

@@ -2,6 +2,20 @@ require 'test_helper'
 
 class PublicSuffixTest < Minitest::Unit::TestCase
 
+  def test_private_domains_enabled_by_default
+    domain = PublicSuffix.parse("www.example.blogspot.com")
+    assert_equal "blogspot.com", domain.tld
+  end
+
+  def test_private_domains_disable
+    PublicSuffix::List.default = PublicSuffix::List.parse(PublicSuffix::List.default_definition, private_domains: false)
+    domain = PublicSuffix.parse("www.example.blogspot.com")
+    assert_equal "com", domain.tld
+  ensure
+    PublicSuffix::List.clear
+  end
+
+
   def test_self_parse_a_domain_with_tld_and_sld
     domain = PublicSuffix.parse("example.com")
     assert_instance_of PublicSuffix::Domain, domain
@@ -50,21 +64,6 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     assert_equal "com",     domain.tld
     assert_equal "example", domain.sld
     assert_equal "www",     domain.trd
-  end
-
-  def test_private_domains_are_enabled_by_default
-    domain = PublicSuffix.parse("www.example.blogspot.com")
-    assert_equal "blogspot.com",    domain.tld
-  end
-
-  def test_disable_support_for_private_domains
-    begin
-      PublicSuffix::List.private_domains = false
-      domain = PublicSuffix.parse("www.example.blogspot.com")
-      assert_equal "com",    domain.tld
-    ensure
-      PublicSuffix::List.private_domains = true
-    end
   end
 
   def test_self_parse_with_custom_list

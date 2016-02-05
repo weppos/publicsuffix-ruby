@@ -17,6 +17,8 @@
 
 - CHANGED: Input with leading dot is invalid per PSL acceptance tests
 
+- CHANGED: Remove private_domains class-level attribute. It is replaced by the `private_domains: false` option in the list parse method.
+
 
 #### Release 1.5.3
 
