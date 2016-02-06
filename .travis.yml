@@ -9,6 +9,7 @@ rvm:
 - rbx-19mode
 
 sudo: false
+env: COVERALL=1
 
 before_install:
 - gem install bundler
