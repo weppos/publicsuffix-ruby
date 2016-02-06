@@ -2,6 +2,8 @@ require 'rubygems'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'mocha/setup'
+require 'coveralls'
+Coveralls.wear!
 
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
 
