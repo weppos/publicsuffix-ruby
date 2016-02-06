@@ -35,21 +35,34 @@ Not convinced yet? Check out [this real world example](http://stackoverflow.com/
 
 - Ruby >= 2.0
 
-For an older versions of Ruby use a previous release. We also support several [Ruby implementations](http://simonecarletti.com/code/publicsuffix/#implementations).
+For an older versions of Ruby use a previous release.
 
 
 ## Installation
 
 The best way to install *PublicSuffix* is via [RubyGems](https://rubygems.org/).
 
-    $ gem install public_suffix
+```shell
+$ gem install public_suffix
+```
 
 You might need administrator privileges on your system to install the gem.
 
 
-## Basic Usage
+## Usage
 
-Example domain without subdomains.
+Extract the domain out from a name:
+
+```ruby
+PublicSuffix.domain("google.com")
+# => "google.com"
+PublicSuffix.domain("www.google.com")
+# => "google.com"
+PublicSuffix.domain("www.google.co.uk")
+# => "google.co.uk"
+```
+
+Parse a domain without subdomains:
 
 ```ruby
 domain = PublicSuffix.parse("google.com")
@@ -66,7 +79,7 @@ domain.subdomain
 # => nil
 ```
 
-Example domain with subdomains.
+Parse a domain with subdomains:
 
 ```ruby
 domain = PublicSuffix.parse("www.google.com")
@@ -83,7 +96,7 @@ domain.subdomain
 # => "www.google.com"
 ```
 
-Simple validation example.
+Simple validation example:
 
 ```ruby
 PublicSuffix.valid?("google.com")
@@ -92,7 +105,8 @@ PublicSuffix.valid?("google.com")
 PublicSuffix.valid?("www.google.com")
 # => true
 
-PublicSuffix.valid?("x.yz")
+# Explicitly forbidden, it is listed as a private domain
+PublicSuffix.valid?("blogspot.com")
 # => false
 ```
 
@@ -102,21 +116,17 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
 
 ```ruby
 # Parse a standard domain name
-domain = PublicSuffix.parse("www.google.com")
-# => #<PublicSuffix::Domain>
-domain.tld
-# => "com"
+PublicSuffix.domain("www.google.com")
+# => "domain.com"
 
 # Parse a fully qualified domain name
-domain = PublicSuffix.parse("www.google.com.")
-# => #<PublicSuffix::Domain>
-domain.tld
-# => "com"
+PublicSuffix.domain("www.google.com.")
+# => "domain.com"
 ```
 
 ## Private domains
 
-This library has support for switching off support for private (non-ICANN) domains
+This library has support for switching off support for private (non-ICANN). The private domains section is stripped when the list is parsed, hence you will need to re-parse it.
 
 ```ruby
 # Parse a domain on a private TLD
@@ -126,7 +136,7 @@ domain.tld
 # => "blogspot.com"
 
 # Disable support for private TLDs
-PublicSuffix::List.private_domains = false
+PublicSuffix::List.default = Public::Suffix.parse(Public::Suffix.default_definition, private_domains: false)
 # => #<PublicSuffix::List>
 domain = PublicSuffix.parse("something.blogspot.com")
 # => #<PublicSuffix::Domain>
@@ -150,10 +160,10 @@ Report issues or feature requests to [GitHub Issues](https://github.com/weppos/p
 
 ## More
 
-* [Homepage](http://simonecarletti.com/code/publicsuffix)
-* [Repository](https://github.com/weppos/publicsuffix-ruby)
-* [API Documentation](http://rubydoc.info/gems/public_suffix)
-* [Introducing the Public Suffix List library for Ruby](http://simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
+- [Homepage](http://simonecarletti.com/code/publicsuffix)
+- [Repository](https://github.com/weppos/publicsuffix-ruby)
+- [API Documentation](http://rubydoc.info/gems/public_suffix)
+- [Introducing the Public Suffix List library for Ruby](https://simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
 
 
 ## Changelog
