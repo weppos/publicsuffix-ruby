@@ -109,8 +109,6 @@ module PublicSuffix
 
     rule = List.default.find(what)
     !rule.nil? && rule.allow?(what)
-  rescue DomainInvalid
-    false
   end
 
   # Attempt to parse the name and returns the domain, if valid.
