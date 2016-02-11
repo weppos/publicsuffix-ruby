@@ -95,15 +95,18 @@ module PublicSuffix
     # @param  private_domain [Boolean] whether to ignore the private domains section.
     # @return [Array<PublicSuffix::Rule::*>]
     def self.parse(input, private_domains: true)
+      comment_token = "//".freeze
+      private_token = "===BEGIN PRIVATE DOMAINS===".freeze
+      
       new do |list|
         input.each_line do |line|
           line.strip!
-          break if !private_domains && line.include?('===BEGIN PRIVATE DOMAINS===')
+          break if !private_domains && line.include?(private_token)
           # strip blank lines
           if line.empty?
             next
           # strip comments
-          elsif line.start_with?("//")
+          elsif line.start_with?(comment_token)
             next
           # append rule
           else
