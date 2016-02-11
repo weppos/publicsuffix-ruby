@@ -14,6 +14,11 @@ require 'public_suffix/list'
 
 module PublicSuffix
 
+  DOT   = ".".freeze
+  BANG  = "!".freeze
+  STAR  = "*".freeze
+
+
   # Parses +name+ and returns the {PublicSuffix::Domain} instance.
   #
   # @example Parse a valid domain
@@ -132,13 +137,13 @@ module PublicSuffix
   def self.decompose(name, rule)
     left, right = rule.decompose(name)
 
-    parts = left.split(".")
+    parts = left.split(DOT)
     # If we have 0 parts left, there is just a tld and no domain or subdomain
     # If we have 1 part  left, there is just a tld, domain and not subdomain
     # If we have 2 parts left, the last part is the domain, the other parts (combined) are the subdomain
     tld = right
     sld = parts.empty? ? nil : parts.pop
-    trd = parts.empty? ? nil : parts.join(".")
+    trd = parts.empty? ? nil : parts.join(DOT)
 
     Domain.new(tld, sld, trd)
   end
@@ -147,11 +152,11 @@ module PublicSuffix
   def self.normalize(name)
     name = name.to_s.dup
     name.strip!
-    name.chomp!(".")
+    name.chomp!(DOT)
     name.downcase!
 
     return DomainInvalid.new("Name is blank") if name.empty?
-    return DomainInvalid.new("Name starts with a dot") if name.start_with?(".")
+    return DomainInvalid.new("Name starts with a dot") if name.start_with?(DOT)
     return DomainInvalid.new("%s is not expected to contain a scheme" % name) if name.include?("://")
     name
   end

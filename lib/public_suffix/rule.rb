@@ -246,7 +246,7 @@ module PublicSuffix
       #
       # @return [Array<String>]
       def parts
-        @parts ||= @value.split(".")
+        @parts ||= @value.split(DOT)
       end
 
       # Decomposes the domain according to rule properties.
@@ -258,7 +258,7 @@ module PublicSuffix
       #   The array with [trd + sld, tld].
       #
       def decompose(domain)
-        domain.to_s.chomp(".") =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s.chomp(DOT) =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -280,7 +280,7 @@ module PublicSuffix
       #
       # @return [Array<String>]
       def parts
-        @parts ||= @value.split(".")
+        @parts ||= @value.split(DOT)
       end
 
       # Overwrites the default implementation to cope with
@@ -300,7 +300,7 @@ module PublicSuffix
       #   The array with [trd + sld, tld].
       #
       def decompose(domain)
-        domain.to_s.chomp(".") =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
+        domain.to_s.chomp(DOT) =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -326,7 +326,7 @@ module PublicSuffix
       #
       # @return [Array<String>]
       def parts
-        @parts ||= @value.split(".")[1..-1]
+        @parts ||= @value.split(DOT)[1..-1]
       end
 
       # Decomposes the domain according to rule properties.
@@ -338,17 +338,12 @@ module PublicSuffix
       #   The array with [trd + sld, tld].
       #
       def decompose(domain)
-        domain.to_s.chomp(".") =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s.chomp(DOT) =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 
     end
 
-    RULES = {
-      '*' => Wildcard,
-      '!' => Exception
-    }
-    RULES.default = Normal
 
     # Takes the +name+ of the rule, detects the specific rule class
     # and creates a new instance of that class.
@@ -370,7 +365,14 @@ module PublicSuffix
     #
     # @return [PublicSuffix::Rule::*] A rule instance.
     def self.factory(name)
-      RULES[name.to_s[0,1]].new(name)
+      case name.to_s[0,1]
+      when STAR
+        Wildcard
+      when BANG
+        Exception
+      else
+        Normal
+      end.new(name)
     end
 
     # The default rule to use if no rule match.
@@ -381,7 +383,7 @@ module PublicSuffix
     #
     # @return [PublicSuffix::Rule::Wildcard] The default rule.
     def self.default
-      factory("*")
+      factory(STAR)
     end
 
   end

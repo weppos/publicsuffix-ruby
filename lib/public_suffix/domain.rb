@@ -29,7 +29,7 @@ module PublicSuffix
     #   # => ['uk', 'co', 'google']
     #
     def self.domain_to_labels(domain)
-      domain.to_s.split(".").reverse
+      domain.to_s.split(DOT).reverse
     end
 
     attr_reader :tld, :sld, :trd
@@ -105,7 +105,7 @@ module PublicSuffix
     #   # => "www.google.com"
     #
     def name
-      [@trd, @sld, @tld].compact.join(".")
+      [@trd, @sld, @tld].compact.join(DOT)
     end
 
     # Returns a domain-like representation of this object
@@ -138,7 +138,7 @@ module PublicSuffix
     # @return [String]
     def domain
       if domain?
-        [@sld, @tld].join(".")
+        [@sld, @tld].join(DOT)
       end
     end
 
@@ -172,7 +172,7 @@ module PublicSuffix
     # @return [String]
     def subdomain
       if subdomain?
-        [@trd, @sld, @tld].join(".")
+        [@trd, @sld, @tld].join(DOT)
       end
     end
 
