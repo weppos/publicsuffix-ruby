@@ -239,7 +239,7 @@ module PublicSuffix
     # - An exclamation mark (!) at the start of a rule marks an exception to a previous wildcard rule.
     #   An exception rule takes priority over any other matching rule.
     #
-    # == Algorithm description
+    # ## Algorithm description
     #
     # 1. Match domain against all rules and take note of the matching ones.
     # 2. If no rules match, the prevailing rule is "*".
@@ -250,14 +250,15 @@ module PublicSuffix
     #    which directly match the labels of the prevailing rule (joined by dots).
     # 7. The registered domain is the public suffix plus one additional label.
     #
-    # @param  [String, #to_s] name The domain name.
+    # @param  name [String, #to_s] The domain name.
     # @param  [PublicSuffix::Rule::*] default The default rule to return in case no rule matches.
     # @return [PublicSuffix::Rule::*]
     def find(name, default = default_rule)
-      rules = select(name)
-      rules.detect { |r| r.class == Rule::Exception }     ||
-      rules.inject { |t,r| t.length > r.length ? t : r }  ||
-      default
+      rule = select(name).inject do |l, r|
+        return r if r.class == Rule::Exception
+        l.length > r.length ? l : r
+      end
+      rule || default
     end
 
     # Selects all the rules matching given domain.
