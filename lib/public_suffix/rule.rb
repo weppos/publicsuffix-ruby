@@ -194,10 +194,7 @@ module PublicSuffix
         raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
       end
 
-      #
-      # @param [String, #to_s] domain
-      #   The domain name to decompose.
-      #
+      # @param  domain [String, #to_s] The domain name to decompose.
       # @return [Array<String, nil>]
       #
       # @raise  [NotImplementedError]
@@ -251,14 +248,10 @@ module PublicSuffix
 
       # Decomposes the domain according to rule properties.
       #
-      # @param [String, #to_s] domain
-      #   The domain name to decompose.
-      #
-      # @return [Array<String>]
-      #   The array with [trd + sld, tld].
-      #
+      # @param  domain [String, #to_s] The domain name to decompose.
+      # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        domain.to_s.chomp(DOT) =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -270,7 +263,6 @@ module PublicSuffix
       #
       # @param [String] name
       #   The name of this rule.
-      #
       def initialize(name)
         super(name, name.to_s[2..-1])
       end
@@ -293,14 +285,10 @@ module PublicSuffix
 
       # Decomposes the domain according to rule properties.
       #
-      # @param [String, #to_s] domain
-      #   The domain name to decompose.
-      #
-      # @return [Array<String>]
-      #   The array with [trd + sld, tld].
-      #
+      # @param  domain [String, #to_s] The domain name to decompose.
+      # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        domain.to_s.chomp(DOT) =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
+        domain.to_s =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
         [$1, $2]
       end
 
@@ -311,7 +299,6 @@ module PublicSuffix
       # Initializes a new rule with +name+.
       #
       # @param  [String] name   The name of this rule.
-      #
       def initialize(name)
         super(name, name.to_s[1..-1])
       end
@@ -331,14 +318,10 @@ module PublicSuffix
 
       # Decomposes the domain according to rule properties.
       #
-      # @param [String, #to_s] domain
-      #   The domain name to decompose.
-      #
-      # @return [Array<String>]
-      #   The array with [trd + sld, tld].
-      #
+      # @param  domain [String, #to_s] The domain name to decompose.
+      # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        domain.to_s.chomp(DOT) =~ /^(.*)\.(#{parts.join('\.')})$/
+        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
         [$1, $2]
       end
 
