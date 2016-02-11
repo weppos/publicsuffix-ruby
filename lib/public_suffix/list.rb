@@ -103,7 +103,7 @@ module PublicSuffix
           if line.empty?
             next
           # strip comments
-          elsif line =~ %r{^//}
+          elsif line.start_with?("//")
             next
           # append rule
           else
