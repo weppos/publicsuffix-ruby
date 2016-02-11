@@ -42,6 +42,8 @@ module PublicSuffix
   class List
     include Enumerable
 
+    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
+
     # Gets the default rule list.
     #
     # Initializes a new {PublicSuffix::List} parsing the content
@@ -77,8 +79,6 @@ module PublicSuffix
     def self.reload
       self.clear.default
     end
-
-    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
 
     # Reads and returns the content of the the default definition list.
     #
@@ -255,7 +255,7 @@ module PublicSuffix
     # @return [PublicSuffix::Rule::*]
     def find(name, default = default_rule)
       rules = select(name)
-      rules.detect { |r|   r.type == :exception }         ||
+      rules.detect { |r| r.class == Rule::Exception }     ||
       rules.inject { |t,r| t.length > r.length ? t : r }  ||
       default
     end

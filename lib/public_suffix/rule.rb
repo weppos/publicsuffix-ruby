@@ -122,22 +122,6 @@ module PublicSuffix
         @labels = Domain.domain_to_labels(@value)
       end
 
-      #
-      # The rule type name.
-      #
-      # @return [Symbol]
-      #
-      def self.type
-        @type ||= self.name.split("::").last.downcase.to_sym
-      end
-
-      #
-      # @see {type}
-      #
-      def type
-        self.class.type
-      end
-
       # Checks whether this rule is equal to <tt>other</tt>.
       #
       # @param [PublicSuffix::Rule::*] other
@@ -226,12 +210,22 @@ module PublicSuffix
 
       def odiff(one, two)
         ii = 0
-
         while(ii < one.size && one[ii] == two[ii])
           ii += 1
         end
-
         one[ii..one.length]
+      end
+
+
+      # DEPRECATED
+
+      def self.type
+        # warn("deprecated")
+      end
+
+      public
+      def type
+        self.class.type
       end
 
     end

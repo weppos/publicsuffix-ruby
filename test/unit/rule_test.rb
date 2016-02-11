@@ -48,7 +48,6 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
     rule = @klass.new("verona.it")
     assert_instance_of @klass,          rule
 
-    assert_equal :base,                 rule.type
     assert_equal "verona.it",           rule.name
     assert_equal "verona.it",           rule.value
     assert_equal %w(verona it).reverse, rule.labels
@@ -106,7 +105,6 @@ class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
   def test_initialize
     rule = @klass.new("verona.it")
     assert_instance_of @klass,              rule
-    assert_equal :normal,                   rule.type
     assert_equal "verona.it",               rule.name
     assert_equal "verona.it",               rule.value
     assert_equal %w(verona it).reverse,     rule.labels
@@ -183,7 +181,6 @@ class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
   def test_initialize
     rule = @klass.new("!british-library.uk")
     assert_instance_of @klass,                    rule
-    assert_equal :exception,                      rule.type
     assert_equal "!british-library.uk",           rule.name
     assert_equal "british-library.uk",            rule.value
     assert_equal %w(british-library uk).reverse,  rule.labels
@@ -254,7 +251,6 @@ class PublicSuffix::RuleWildcardTest < Minitest::Unit::TestCase
   def test_initialize
     rule = @klass.new("*.aichi.jp")
     assert_instance_of @klass,              rule
-    assert_equal :wildcard,                 rule.type
     assert_equal "*.aichi.jp",              rule.name
     assert_equal "aichi.jp",                rule.value
     assert_equal %w(aichi jp).reverse,      rule.labels
