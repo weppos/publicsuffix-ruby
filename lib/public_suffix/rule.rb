@@ -106,19 +106,14 @@ module PublicSuffix
     #
     class Base
 
-      attr_reader :name, :value, :labels
+      attr_reader :value, :labels
 
       # Initializes a new rule with name and value.
       # If value is +nil+, name also becomes the value for this rule.
       #
-      # @param [String] name
-      #   The name of the rule
-      # @param [String] value
-      #   The value of the rule. If nil, defaults to +name+.
-      #
-      def initialize(name, value = nil)
-        @name   = name.to_s
-        @value  = value || @name
+      # @param value [String] the value of the rule
+      def initialize(value)
+        @value  = value.to_s
         @labels = Domain.domain_to_labels(@value)
       end
 
@@ -131,9 +126,8 @@ module PublicSuffix
       #   Returns true if this rule and other are instances of the same class
       #   and has the same value, false otherwise.
       def ==(other)
-        return false unless other.is_a?(self.class)
-        self.equal?(other) ||
-        self.name == other.name
+         self.equal?(other) ||
+        (self.class == other.class && self.value == other.value)
       end
       alias :eql? :==
 
@@ -229,13 +223,11 @@ module PublicSuffix
 
     class Normal < Base
 
-      # Initializes a new rule with +name+.
+      # Initializes a new rule from +definition+.
       #
-      # @param [String] name
-      #   The name of this rule.
-      #
-      def initialize(name)
-        super(name, name)
+      # @param definition [String] the rule as defined in the PSL
+      def initialize(definition)
+        super(definition)
       end
 
       # dot-split rule value and returns all rule parts
@@ -246,12 +238,20 @@ module PublicSuffix
         @parts ||= @value.split(DOT)
       end
 
+      # Gets the original rule definition.
+      #
+      # @return [String] The rule definition.
+      def rule
+        value
+      end
+
       # Decomposes the domain according to rule properties.
       #
       # @param  domain [String, #to_s] The domain name to decompose.
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
+        suffix = parts.join('\.')
+        domain.to_s =~ /^(.*)\.(#{suffix})$/
         [$1, $2]
       end
 
@@ -259,12 +259,14 @@ module PublicSuffix
 
     class Wildcard < Base
 
-      # Initializes a new rule with +name+.
+      # Initializes a new rule from +definition+.
       #
-      # @param [String] name
-      #   The name of this rule.
-      def initialize(name)
-        super(name, name.to_s[2..-1])
+      # The wildcard "*" is removed from the value, as it's common
+      # for each wildcard rule.
+      #
+      # @param definition [String] the rule as defined in the PSL
+      def initialize(definition)
+        super(definition.to_s[2..-1])
       end
 
       # dot-split rule value and returns all rule parts
@@ -283,12 +285,20 @@ module PublicSuffix
         parts.length + 1 # * counts as 1
       end
 
+      # Gets the original rule definition.
+      #
+      # @return [String] The rule definition.
+      def rule
+        value == "" ? STAR : STAR + DOT + value
+      end
+
       # Decomposes the domain according to rule properties.
       #
       # @param  domain [String, #to_s] The domain name to decompose.
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        domain.to_s =~ /^(.*)\.(.*?\.#{parts.join('\.')})$/
+        suffix = (['.*?'] + parts).join('\.')
+        domain.to_s =~ /^(.*)\.(#{suffix})$/
         [$1, $2]
       end
 
@@ -296,11 +306,14 @@ module PublicSuffix
 
     class Exception < Base
 
-      # Initializes a new rule with +name+.
+      # Initializes a new rule from +definition+.
       #
-      # @param  [String] name   The name of this rule.
-      def initialize(name)
-        super(name, name.to_s[1..-1])
+      # The bang ! is removed from the value, as it's common
+      # for each wildcard rule.
+      #
+      # @param definition [String] the rule as defined in the PSL
+      def initialize(definition)
+        super(definition.to_s[1..-1])
       end
 
       # dot-split rule value and returns all rule parts
@@ -316,12 +329,20 @@ module PublicSuffix
         @parts ||= @value.split(DOT)[1..-1]
       end
 
+      # Gets the original rule definition.
+      #
+      # @return [String] The rule definition.
+      def rule
+        BANG + value
+      end
+
       # Decomposes the domain according to rule properties.
       #
       # @param  domain [String, #to_s] The domain name to decompose.
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        domain.to_s =~ /^(.*)\.(#{parts.join('\.')})$/
+        suffix = parts.join('\.')
+        domain.to_s =~ /^(.*)\.(#{suffix})$/
         [$1, $2]
       end
 

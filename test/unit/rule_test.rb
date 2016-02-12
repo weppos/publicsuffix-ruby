@@ -48,10 +48,10 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
     rule = @klass.new("verona.it")
     assert_instance_of @klass,          rule
 
-    assert_equal "verona.it",           rule.name
     assert_equal "verona.it",           rule.value
     assert_equal %w(verona it).reverse, rule.labels
   end
+
 
   def test_equality_with_self
     rule = PublicSuffix::Rule::Base.new("foo")
@@ -61,6 +61,7 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
   def test_equality_with_internals
     assert_equal      @klass.new("foo"), @klass.new("foo")
     assert_not_equal  @klass.new("foo"), @klass.new("bar")
+    assert_not_equal  @klass.new("foo"), PublicSuffix::Rule::Test.new("foo")
     assert_not_equal  @klass.new("foo"), PublicSuffix::Rule::Test.new("bar")
     assert_not_equal  @klass.new("foo"), Class.new { def name; foo; end }.new
   end
@@ -105,8 +106,8 @@ class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
   def test_initialize
     rule = @klass.new("verona.it")
     assert_instance_of @klass,              rule
-    assert_equal "verona.it",               rule.name
     assert_equal "verona.it",               rule.value
+    assert_equal "verona.it",               rule.rule
     assert_equal %w(verona it).reverse,     rule.labels
   end
 
@@ -163,8 +164,8 @@ class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
   def test_initialize
     rule = @klass.new("!british-library.uk")
     assert_instance_of @klass,                    rule
-    assert_equal "!british-library.uk",           rule.name
     assert_equal "british-library.uk",            rule.value
+    assert_equal "!british-library.uk",           rule.rule
     assert_equal %w(british-library uk).reverse,  rule.labels
   end
 
@@ -214,8 +215,8 @@ class PublicSuffix::RuleWildcardTest < Minitest::Unit::TestCase
   def test_initialize
     rule = @klass.new("*.aichi.jp")
     assert_instance_of @klass,              rule
-    assert_equal "*.aichi.jp",              rule.name
     assert_equal "aichi.jp",                rule.value
+    assert_equal "*.aichi.jp",              rule.rule
     assert_equal %w(aichi jp).reverse,      rule.labels
   end
 
