@@ -13,13 +13,13 @@
 
 - CHANGED: If the suffix is now listed, then the prevaling rule is "*" as defined by the PSL algorithm (GH-91)
 
-- CHANGED: Input validation is performed only if you call PublicSuffix.parse or PublicSuffix.list
+- CHANGED: Input validation is performed only if you call `PublicSuffix.parse` or `PublicSuffix.list`
 
 - CHANGED: Input with leading dot is invalid per PSL acceptance tests
 
-- CHANGED: Removed private_domains class-level attribute. It is replaced by the `private_domains: false` option in the list parse method.
+- CHANGED: Removed `private_domains` class-level attribute. It is replaced by the `private_domains: false` option in the list parse method.
 
-- REMOVED: Removed futile utility helpers such as Domain#rule, Domain#is_a_domain?, Domain#is_a_subdomain?, Domain#valid?. You can easily obtain the same result by having a custom method that reconstructs the logic, and/or calling `PublicSuffix.{domain|parse}(domain.to_s)`.
+- REMOVED: Removed futile utility helpers such as `Domain#rule`, `Domain#is_a_domain?`, `Domain#is_a_subdomain?`, `Domain#valid?`. You can easily obtain the same result by having a custom method that reconstructs the logic, and/or calling `PublicSuffix.{domain|parse}(domain.to_s)`.
 
 
 #### Release 1.5.3
