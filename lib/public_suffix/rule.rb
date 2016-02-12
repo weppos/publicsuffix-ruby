@@ -191,18 +191,6 @@ module PublicSuffix
         one[ii..one.length]
       end
 
-
-      # DEPRECATED
-
-      def self.type
-        # warn("deprecated")
-      end
-
-      public
-      def type
-        self.class.type
-      end
-
     end
 
     class Normal < Base

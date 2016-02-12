@@ -72,14 +72,6 @@ module PublicSuffix
       self
     end
 
-    # Resets the default rule list and reinitialize it
-    # parsing the content of {PublicSuffix::List.default_definition}.
-    #
-    # @return [PublicSuffix::List]
-    def self.reload
-      self.clear.default
-    end
-
     # Reads and returns the content of the the default definition list.
     #
     # @return [String]
@@ -211,7 +203,6 @@ module PublicSuffix
     def size
       @rules.size
     end
-    alias length size
 
     # Checks whether the list is empty.
     #

@@ -13,7 +13,7 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
 
   def test_initialize
     assert_instance_of PublicSuffix::List, @list
-    assert_equal 0, @list.length
+    assert_equal 0, @list.size
   end
 
   def test_initialize_create_index_when_empty
@@ -41,7 +41,7 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
   def test_add
     assert_equal @list, @list.add(PublicSuffix::Rule.factory(""))
     assert_equal @list, @list <<  PublicSuffix::Rule.factory("")
-    assert_equal 2, @list.length
+    assert_equal 2, @list.size
   end
 
   def test_add_should_recreate_index
@@ -68,17 +68,17 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
   end
 
   def test_size
-    assert_equal 0, @list.length
+    assert_equal 0, @list.size
     assert_equal @list, @list.add(PublicSuffix::Rule.factory(""))
-    assert_equal 1, @list.length
+    assert_equal 1, @list.size
   end
 
   def test_clear
-    assert_equal 0, @list.length
+    assert_equal 0, @list.size
     assert_equal @list, @list.add(PublicSuffix::Rule.factory(""))
-    assert_equal 1, @list.length
+    assert_equal 1, @list.size
     assert_equal @list, @list.clear
-    assert_equal 0, @list.length
+    assert_equal 0, @list.size
   end
 
 
@@ -128,14 +128,6 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
     assert_equal     nil, PublicSuffix::List.class_eval { @default }
   end
 
-  def test_self_reload
-    PublicSuffix::List.default
-    PublicSuffix::List.expects(:default_definition).returns("")
-
-    PublicSuffix::List.reload
-    assert_equal PublicSuffix::List.new, PublicSuffix::List.default
-  end
-
   def test_self_parse
     list = PublicSuffix::List.parse(<<EOS)
 // ***** BEGIN LICENSE BLOCK *****
@@ -156,7 +148,7 @@ ad
 EOS
 
     assert_instance_of PublicSuffix::List, list
-    assert_equal 5, list.length
+    assert_equal 5, list.size
     assert_equal %w(ac com.ac ad *.ar !congresodelalengua3.ar).map { |name| PublicSuffix::Rule.factory(name) }, list.to_a
   end
 
