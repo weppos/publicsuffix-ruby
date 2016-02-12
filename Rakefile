@@ -58,12 +58,11 @@ task package: [:gemspec]
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|
-  t.libs << "test"
+  t.libs = %w( lib test )
   t.pattern = "test/**/*_test.rb"
   t.verbose = !!ENV["VERBOSE"]
   t.warning = !!ENV["WARNING"]
 end
-
 
 require 'yard'
 require 'yard/rake/yardoc_task'

@@ -42,6 +42,8 @@ module PublicSuffix
   class List
     include Enumerable
 
+    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
+
     # Gets the default rule list.
     #
     # Initializes a new {PublicSuffix::List} parsing the content
@@ -78,8 +80,6 @@ module PublicSuffix
       self.clear.default
     end
 
-    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
-
     # Reads and returns the content of the the default definition list.
     #
     # @return [String]
@@ -95,15 +95,18 @@ module PublicSuffix
     # @param  private_domain [Boolean] whether to ignore the private domains section.
     # @return [Array<PublicSuffix::Rule::*>]
     def self.parse(input, private_domains: true)
+      comment_token = "//".freeze
+      private_token = "===BEGIN PRIVATE DOMAINS===".freeze
+      
       new do |list|
         input.each_line do |line|
           line.strip!
-          break if !private_domains && line.include?('===BEGIN PRIVATE DOMAINS===')
+          break if !private_domains && line.include?(private_token)
           # strip blank lines
           if line.empty?
             next
           # strip comments
-          elsif line =~ %r{^//}
+          elsif line.start_with?(comment_token)
             next
           # append rule
           else
@@ -146,12 +149,10 @@ module PublicSuffix
     # select we can avoid mapping every single rule against the candidate domain.
     def create_index!
       @indexes = {}
-      @rules.map { |l| l.labels.first }.each_with_index do |elm, inx|
-        if !@indexes.has_key?(elm)
-          @indexes[elm] = [inx]
-        else
-          @indexes[elm] << inx
-        end
+      @rules.each_with_index do |rule, index|
+        tld = Domain.name_to_parts(rule.value).last
+        @indexes[tld] ||= []
+        @indexes[tld] << index
       end
     end
 
@@ -236,7 +237,7 @@ module PublicSuffix
     # - An exclamation mark (!) at the start of a rule marks an exception to a previous wildcard rule.
     #   An exception rule takes priority over any other matching rule.
     #
-    # == Algorithm description
+    # ## Algorithm description
     #
     # 1. Match domain against all rules and take note of the matching ones.
     # 2. If no rules match, the prevailing rule is "*".
@@ -247,14 +248,15 @@ module PublicSuffix
     #    which directly match the labels of the prevailing rule (joined by dots).
     # 7. The registered domain is the public suffix plus one additional label.
     #
-    # @param  [String, #to_s] name The domain name.
+    # @param  name [String, #to_s] The domain name.
     # @param  [PublicSuffix::Rule::*] default The default rule to return in case no rule matches.
     # @return [PublicSuffix::Rule::*]
     def find(name, default = default_rule)
-      rules = select(name)
-      rules.detect { |r|   r.type == :exception }         ||
-      rules.inject { |t,r| t.length > r.length ? t : r }  ||
-      default
+      rule = select(name).inject do |l, r|
+        return r if r.class == Rule::Exception
+        l.length > r.length ? l : r
+      end
+      rule || default
     end
 
     # Selects all the rules matching given domain.
@@ -266,7 +268,7 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name)
       name = name.to_s
-      indices = (@indexes[Domain.domain_to_labels(name).first] || [])
+      indices = (@indexes[Domain.name_to_parts(name).last] || [])
       @rules.values_at(*indices).select { |rule| rule.match?(name) }
     end
 
