@@ -176,16 +176,6 @@ module PublicSuffix
       end
     end
 
-    # Returns the rule matching this domain
-    # in the default {PublicSuffix::List}.
-    #
-    # @return [PublicSuffix::Rule::Base, nil]
-    #   The rule instance a rule matches current domain,
-    #   nil if no rule is found.
-    def rule
-      List.default.find(name)
-    end
-
     # Checks whether <tt>self</tt> looks like a domain.
     #
     # This method doesn't actually validate the domain.
@@ -246,106 +236,6 @@ module PublicSuffix
     # @return [Boolean]
     def subdomain?
       !(@tld.nil? || @sld.nil? || @trd.nil?)
-    end
-
-    # Checks whether <tt>self</tt> is exclusively a domain,
-    # and not a subdomain.
-    #
-    # @return [Boolean]
-    def is_a_domain?
-      domain? && !subdomain?
-    end
-
-    # Checks whether <tt>self</tt> is exclusively a subdomain.
-    #
-    # @return [Boolean]
-    def is_a_subdomain?
-      subdomain?
-    end
-
-    # Checks whether <tt>self</tt> is assigned and allowed
-    # according to default {List}.
-    #
-    # This method triggers a new rule lookup in the default {List},
-    # which is a quite intensive task.
-    #
-    # @return [Boolean]
-    #
-    # @example Check a valid domain
-    #   Domain.new("com", "example").valid?
-    #   # => true
-    #
-    # @example Check a valid subdomain
-    #   Domain.new("com", "example", "www").valid?
-    #   # => true
-    #
-    # @example Check a not-listed rule
-    #   Domain.new("tldnotlisted", "example").valid?
-    #   # => true
-    #
-    # @example Check a not-allowed domain
-    #   Domain.new("do", "example").valid?
-    #   # => false
-    #   Domain.new("do", "example", "www").valid?
-    #   # => true
-    #
-    def valid?
-      r = rule
-      !r.nil? && r.allow?(name)
-    end
-
-    # Checks whether <tt>self</tt> looks like a domain and validates
-    # according to default {List}.
-    #
-    # @return [Boolean]
-    #
-    # @example
-    #
-    #   PublicSuffix::Domain.new("com").domain?
-    #   # => false
-    #
-    #   PublicSuffix::Domain.new("com", "example").domain?
-    #   # => true
-    #
-    #   PublicSuffix::Domain.new("com", "example", "www").domain?
-    #   # => true
-    #
-    #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("jp", "ac").false?
-    #   # => true
-    #
-    # @see #domain?
-    # @see #valid?
-    #
-    def valid_domain?
-      domain? && valid?
-    end
-
-    # Checks whether <tt>self</tt> looks like a subdomain and validates
-    # according to default {List}.
-    #
-    # @return [Boolean]
-    #
-    # @example
-    #
-    #   PublicSuffix::Domain.new("com").subdomain?
-    #   # => false
-    #
-    #   PublicSuffix::Domain.new("com", "google").subdomain?
-    #   # => false
-    #
-    #   PublicSuffix::Domain.new("com", "google", "www").subdomain?
-    #   # => true
-    #
-    #   # This is an invalid domain
-    #   PublicSuffix::Domain.new("jp", "kobe", "c").subdomain?
-    #   # => false
-    #
-    # @see #subdomain?
-    # @see #valid?
-    #
-    def valid_subdomain?
-      subdomain? && valid?
     end
 
   end
