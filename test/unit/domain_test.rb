@@ -7,25 +7,25 @@ class PublicSuffix::DomainTest < Minitest::Unit::TestCase
   end
 
   # Tokenizes given input into labels.
-  def test_self_domain_to_labels
+  def test_self_name_to_labels
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffix::Domain.domain_to_labels("someone.spaces.live.com")
+                  PublicSuffix::Domain.name_to_labels("someone.spaces.live.com")
     assert_equal  %w( com zoho wiki leontina23samiko ),
-                  PublicSuffix::Domain.domain_to_labels("leontina23samiko.wiki.zoho.com")
+                  PublicSuffix::Domain.name_to_labels("leontina23samiko.wiki.zoho.com")
   end
 
   # Converts input into String.
-  def test_self_domain_to_labels_converts_input_to_string
+  def test_self_name_to_labels_converts_input_to_string
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffix::Domain.domain_to_labels(:"someone.spaces.live.com")
+                  PublicSuffix::Domain.name_to_labels(:"someone.spaces.live.com")
   end
 
   # Ignores trailing .
-  def test_self_domain_to_labels_ignores_trailing_dot
+  def test_self_name_to_labels_ignores_trailing_dot
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffix::Domain.domain_to_labels("someone.spaces.live.com")
+                  PublicSuffix::Domain.name_to_labels("someone.spaces.live.com")
     assert_equal  %w( com live spaces someone ),
-                  PublicSuffix::Domain.domain_to_labels(:"someone.spaces.live.com")
+                  PublicSuffix::Domain.name_to_labels(:"someone.spaces.live.com")
   end
 
 

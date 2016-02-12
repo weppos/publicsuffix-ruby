@@ -47,9 +47,7 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
   def test_initialize
     rule = @klass.new("verona.it")
     assert_instance_of @klass,          rule
-
     assert_equal "verona.it",           rule.value
-    assert_equal %w(verona it).reverse, rule.labels
   end
 
 
@@ -108,7 +106,6 @@ class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
     assert_instance_of @klass,              rule
     assert_equal "verona.it",               rule.value
     assert_equal "verona.it",               rule.rule
-    assert_equal %w(verona it).reverse,     rule.labels
   end
 
 
@@ -166,7 +163,6 @@ class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
     assert_instance_of @klass,                    rule
     assert_equal "british-library.uk",            rule.value
     assert_equal "!british-library.uk",           rule.rule
-    assert_equal %w(british-library uk).reverse,  rule.labels
   end
 
 
@@ -217,7 +213,6 @@ class PublicSuffix::RuleWildcardTest < Minitest::Unit::TestCase
     assert_instance_of @klass,              rule
     assert_equal "aichi.jp",                rule.value
     assert_equal "*.aichi.jp",              rule.rule
-    assert_equal %w(aichi jp).reverse,      rule.labels
   end
 
 
@@ -226,13 +221,6 @@ class PublicSuffix::RuleWildcardTest < Minitest::Unit::TestCase
     assert  @klass.new("*.uk").match?("example.co.uk")
     assert  @klass.new("*.co.uk").match?("example.co.uk")
     assert !@klass.new("*.go.uk").match?("example.co.uk")
-  end
-
-  def test_match_with_fully_qualified_domain_name
-    assert  @klass.new("*.uk").match?("uk.")
-    assert  @klass.new("*.uk").match?("co.uk.")
-    assert  @klass.new("*.uk").match?("example.co.uk.")
-    assert  @klass.new("*.uk").match?("www.example.co.uk.")
   end
 
   def test_allow

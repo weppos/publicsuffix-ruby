@@ -149,12 +149,10 @@ module PublicSuffix
     # select we can avoid mapping every single rule against the candidate domain.
     def create_index!
       @indexes = {}
-      @rules.map { |l| l.labels.first }.each_with_index do |elm, inx|
-        if !@indexes.has_key?(elm)
-          @indexes[elm] = [inx]
-        else
-          @indexes[elm] << inx
-        end
+      @rules.each_with_index do |rule, index|
+        tld = Domain.name_to_parts(rule.value).last
+        @indexes[tld] ||= []
+        @indexes[tld] << index
       end
     end
 
@@ -270,7 +268,7 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name)
       name = name.to_s
-      indices = (@indexes[Domain.domain_to_labels(name).first] || [])
+      indices = (@indexes[Domain.name_to_parts(name).last] || [])
       @rules.values_at(*indices).select { |rule| rule.match?(name) }
     end
 

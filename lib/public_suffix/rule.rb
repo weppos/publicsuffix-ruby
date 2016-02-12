@@ -39,20 +39,13 @@ module PublicSuffix
     #
     # A rule is composed by 4 properties:
     #
-    # name    - The name of the rule, corresponding to the rule definition
-    #           in the public suffix list
-    # value   - The value, a normalized version of the rule name.
+    # value   - A normalized version of the rule name.
     #           The normalization process depends on rule tpe.
-    # type    - The rule type (:normal, :wildcard, :exception)
-    # labels  - The canonicalized rule name
     #
     # Here's an example
     #
     #   PublicSuffix::Rule.factory("*.google.com")
     #   #<PublicSuffix::Rule::Wildcard:0x1015c14b0
-    #       @labels=["com", "google"],
-    #       @name="*.google.com",
-    #       @type=:wildcard,
     #       @value="google.com"
     #   >
     #
@@ -106,7 +99,7 @@ module PublicSuffix
     #
     class Base
 
-      attr_reader :value, :labels
+      attr_reader :value
 
       # Initializes a new rule with name and value.
       # If value is +nil+, name also becomes the value for this rule.
@@ -114,7 +107,6 @@ module PublicSuffix
       # @param value [String] the value of the rule
       def initialize(value)
         @value  = value.to_s
-        @labels = Domain.domain_to_labels(@value)
       end
 
       # Checks whether this rule is equal to <tt>other</tt>.
@@ -133,11 +125,6 @@ module PublicSuffix
 
       # Checks if this rule matches +domain+.
       #
-      # @param [String, #to_s] domain
-      #   The domain name to check.
-      #
-      # @return [Boolean]
-      #
       # @example
       #   rule = Rule.factory("com")
       #   # #<PublicSuffix::Rule::Normal>
@@ -146,10 +133,14 @@ module PublicSuffix
       #   rule.match?("example.net")
       #   # => false
       #
-      def match?(domain)
-        l1 = labels
-        l2 = Domain.domain_to_labels(domain)
-        odiff(l1, l2).empty?
+      # @param  name [String, #to_s] The domain name to check.
+      # @return [Boolean]
+      def match?(name)
+        # Note: it works because of the assumption there are no
+        # rules like foo.*.com. If the assumption is incorrect,
+        # we need to properly walk the input and skip parts according
+        # to wildcard component.
+        name.end_with?(value)
       end
 
       # Checks if this rule allows +domain+.
@@ -171,31 +162,24 @@ module PublicSuffix
         !decompose(domain).last.nil?
       end
 
-      # Gets the length of this rule for comparison.
-      # The length usually matches the number of rule +parts+.
-      #
-      # Subclasses might actually override this method.
-      #
-      # @return [Integer] The number of parts.
-      def length
-        parts.length
-      end
-
-      #
-      # @raise  [NotImplementedError]
       # @abstract
       def parts
-        raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
+        raise NotImplementedError
+      end
+
+      # @abstract
+      def length
+        raise NotImplementedError
       end
 
       # @param  domain [String, #to_s] The domain name to decompose.
       # @return [Array<String, nil>]
       #
-      # @raise  [NotImplementedError]
       # @abstract
       def decompose(domain)
-        raise(NotImplementedError,"#{self.class}##{__method__} is not implemented")
+        raise NotImplementedError
       end
+
 
       private
 
@@ -230,14 +214,6 @@ module PublicSuffix
         super(definition)
       end
 
-      # dot-split rule value and returns all rule parts
-      # in the order they appear in the value.
-      #
-      # @return [Array<String>]
-      def parts
-        @parts ||= @value.split(DOT)
-      end
-
       # Gets the original rule definition.
       #
       # @return [String] The rule definition.
@@ -255,6 +231,22 @@ module PublicSuffix
         [$1, $2]
       end
 
+      # dot-split rule value and returns all rule parts
+      # in the order they appear in the value.
+      #
+      # @return [Array<String>]
+      def parts
+        @value.split(DOT)
+      end
+
+      # Gets the length of this rule for comparison,
+      # represented by the number of dot-separated parts in the rule.
+      #
+      # @return [Integer] The length of the rule.
+      def length
+        @length ||= parts.length
+      end
+
     end
 
     class Wildcard < Base
@@ -267,22 +259,6 @@ module PublicSuffix
       # @param definition [String] the rule as defined in the PSL
       def initialize(definition)
         super(definition.to_s[2..-1])
-      end
-
-      # dot-split rule value and returns all rule parts
-      # in the order they appear in the value.
-      #
-      # @return [Array<String>]
-      def parts
-        @parts ||= @value.split(DOT)
-      end
-
-      # Overwrites the default implementation to cope with
-      # the +*+ char.
-      #
-      # @return [Integer] The number of parts.
-      def length
-        parts.length + 1 # * counts as 1
       end
 
       # Gets the original rule definition.
@@ -302,6 +278,23 @@ module PublicSuffix
         [$1, $2]
       end
 
+      # dot-split rule value and returns all rule parts
+      # in the order they appear in the value.
+      #
+      # @return [Array<String>]
+      def parts
+        @value.split(DOT)
+      end
+
+      # Gets the length of this rule for comparison,
+      # represented by the number of dot-separated parts in the rule
+      # plus 1 for the *.
+      #
+      # @return [Integer] The length of the rule.
+      def length
+        @length ||= parts.length + 1 # * counts as 1
+      end
+
     end
 
     class Exception < Base
@@ -314,19 +307,6 @@ module PublicSuffix
       # @param definition [String] the rule as defined in the PSL
       def initialize(definition)
         super(definition.to_s[1..-1])
-      end
-
-      # dot-split rule value and returns all rule parts
-      # in the order they appear in the value.
-      # The leftmost label is not considered a label.
-      #
-      # See http://publicsuffix.org/format/:
-      # If the prevailing rule is a exception rule,
-      # modify it by removing the leftmost label.
-      #
-      # @return [Array<String>]
-      def parts
-        @parts ||= @value.split(DOT)[1..-1]
       end
 
       # Gets the original rule definition.
@@ -344,6 +324,27 @@ module PublicSuffix
         suffix = parts.join('\.')
         domain.to_s =~ /^(.*)\.(#{suffix})$/
         [$1, $2]
+      end
+
+      # dot-split rule value and returns all rule parts
+      # in the order they appear in the value.
+      # The leftmost label is not considered a label.
+      #
+      # See http://publicsuffix.org/format/:
+      # If the prevailing rule is a exception rule,
+      # modify it by removing the leftmost label.
+      #
+      # @return [Array<String>]
+      def parts
+        @value.split(DOT)[1..-1]
+      end
+
+      # Gets the length of this rule for comparison,
+      # represented by the number of dot-separated parts in the rule.
+      #
+      # @return [Integer] The length of the rule.
+      def length
+        @length ||= parts.length
       end
 
     end
