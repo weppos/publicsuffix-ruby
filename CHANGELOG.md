@@ -21,6 +21,8 @@
 
 - CHANGED: Removed `private_domains` class-level attribute. It is replaced by the `private_domains: false` option in the list parse method.
 
+- CHANGED: The default list now assumes you use UTF-8 for reading the input (GH-94),
+
 - REMOVED: Removed futile utility helpers such as `Domain#rule`, `Domain#is_a_domain?`, `Domain#is_a_subdomain?`, `Domain#valid?`. You can easily obtain the same result by having a custom method that reconstructs the logic, and/or calling `PublicSuffix.{domain|parse}(domain.to_s)`.
 
 

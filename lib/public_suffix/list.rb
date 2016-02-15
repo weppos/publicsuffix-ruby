@@ -76,7 +76,7 @@ module PublicSuffix
     #
     # @return [String]
     def self.default_definition
-      File.open(DEFAULT_DEFINITION_PATH, "r:utf-8") { |f| f.read }
+      File.open(DEFAULT_DEFINITION_PATH) { |f| f.read }
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
