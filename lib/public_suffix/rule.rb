@@ -146,7 +146,8 @@ module PublicSuffix
         # rules like foo.*.com. If the assumption is incorrect,
         # we need to properly walk the input and skip parts according
         # to wildcard component.
-        name.end_with?(value)
+        diff = name.chomp(value)
+        diff.empty? || diff[-1] == "."
       end
 
       # Checks if this rule allows +domain+.

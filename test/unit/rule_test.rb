@@ -79,6 +79,13 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
     assert !@klass.new("go.uk").match?("example.co.uk")
   end
 
+  def test_match_partial_match
+    assert_equal false, @klass.new("le.it").match?("example.it")
+    assert_equal true , @klass.new("le.it").match?("le.it")
+    assert_equal true , @klass.new("le.it").match?("foo.le.it")
+  end
+
+
   def test_length
     assert_raises(NotImplementedError) { @klass.new("com").length }
   end
