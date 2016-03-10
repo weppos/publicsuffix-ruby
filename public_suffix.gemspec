@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.date = "2015-12-14"
   s.description = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
   s.email = "weppos@weppos.net"
-  s.files = [".gemtest", ".gitignore", ".ruby-gemset", ".travis.yml", ".yardopts", "CHANGELOG.md", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "data/definitions.txt", "lib/public_suffix.rb", "lib/public_suffix/domain.rb", "lib/public_suffix/errors.rb", "lib/public_suffix/list.rb", "lib/public_suffix/rule.rb", "lib/public_suffix/version.rb", "public_suffix.gemspec", "test/acceptance_test.rb", "test/test_helper.rb", "test/unit/domain_test.rb", "test/unit/errors_test.rb", "test/unit/list_test.rb", "test/unit/public_suffix_test.rb", "test/unit/rule_test.rb"]
+  s.files = [".gitignore", ".ruby-gemset", ".travis.yml", ".yardopts", "CHANGELOG.md", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "data/definitions.txt", "lib/public_suffix.rb", "lib/public_suffix/domain.rb", "lib/public_suffix/errors.rb", "lib/public_suffix/list.rb", "lib/public_suffix/rule.rb", "lib/public_suffix/version.rb", "public_suffix.gemspec", "test/acceptance_test.rb", "test/benchmark_helper.rb", "test/execution_profiler.rb", "test/initialization_profiler.rb", "test/performance_benchmark.rb", "test/psl_test.rb", "test/test_helper.rb", "test/tests.txt", "test/unit/domain_test.rb", "test/unit/errors_test.rb", "test/unit/list_test.rb", "test/unit/public_suffix_test.rb", "test/unit/rule_test.rb"]
   s.homepage = "http://simonecarletti.com/code/publicsuffix"
   s.licenses = ["MIT"]
   s.required_ruby_version = Gem::Requirement.new(">= 2.0")
