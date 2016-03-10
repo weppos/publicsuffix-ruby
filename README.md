@@ -38,7 +38,7 @@ For an older versions of Ruby use a previous release.
 
 ## Installation
 
-The best way to install *PublicSuffix* is via [RubyGems](https://rubygems.org/).
+The best way to install <tt>PublicSuffix</tt> is via [RubyGems](https://rubygems.org/).
 
 ```shell
 $ gem install public_suffix
@@ -124,27 +124,35 @@ PublicSuffix.domain("www.google.com.")
 
 ## Private domains
 
-This library has support for switching off support for private (non-ICANN). The private domains section is stripped when the list is parsed, hence you will need to re-parse it.
+This library has support for switching off support for private (non-ICANN). 
 
 ```ruby
-# Parse a domain on a private TLD
-domain = PublicSuffix.parse("something.blogspot.com")
-# => #<PublicSuffix::Domain>
-domain.tld
+# Extract a domain including private domains (by default)
+PublicSuffix.domain("something.blogspot.com")
+# => "something.blogspot.com"
+
+# Extract a domain excluding private domains
+PublicSuffix.domain("something.blogspot.com", include_private: false)
 # => "blogspot.com"
 
-# Disable support for private TLDs
-PublicSuffix::List.default = Public::Suffix.parse(Public::Suffix.default_definition, private_domains: false)
-# => #<PublicSuffix::List>
-domain = PublicSuffix.parse("something.blogspot.com")
-# => #<PublicSuffix::Domain>
-domain.tld
-# => "com"
+# It also works for #parse and #valid?
+PublicSuffix.parse("something.blogspot.com", include_private: false)
+PublicSuffix.valid?("something.blogspot.com", include_private: false)
 ```
 
-## Does ```PublicSuffix``` make requests to Public Suffix List website?
+If you don't care about private domains at all, it's more efficient to exclude them when the list is parsed:
 
-No. ```PublicSuffix``` comes with a bundled list. It does not make any HTTP requests to parse or validate a domain.
+```ruby
+# Disable support for private TLDs
+PublicSuffix::List.default = Public::Suffix.parse(Public::Suffix.default_definition, private_domains: false)
+# => "blogspot.com"
+PublicSuffix.domain("something.blogspot.com")
+# => "blogspot.com"
+```
+
+## Does <tt>PublicSuffix</tt> make requests to Public Suffix List website?
+
+No. <tt>PublicSuffix</tt> comes with a bundled list. It does not make any HTTP requests to parse or validate a domain.
 
 
 ## Feedback and bug reports
