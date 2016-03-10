@@ -1,4 +1,4 @@
-# Public Suffix List
+# Public Suffix for Ruby
 
 <tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org/).
 
