@@ -70,7 +70,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     list = PublicSuffix::List.new
     list << PublicSuffix::Rule.factory("test")
 
-    domain = PublicSuffix.parse("www.example.test", list)
+    domain = PublicSuffix.parse("www.example.test", list: list)
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "test",    domain.tld
     assert_equal "example", domain.sld

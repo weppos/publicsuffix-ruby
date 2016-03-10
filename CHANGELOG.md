@@ -5,6 +5,8 @@
 
 - NEW: Added PublicSuffix.domain # => sld.tld
 
+- NEW: Added the ability to disable the use of private domains either at runtime, in addition to the ability to not load the private domains section when reading the list (`private_domains: false`). This feature also superseded the `private_domains` class-level attribute, that is no longer available.
+
 - CHANGED: Considerable performance improvements (GH-92)
 
 - CHANGED: Updated definitions.

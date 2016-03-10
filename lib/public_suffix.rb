@@ -46,21 +46,20 @@ module PublicSuffix
   #   # => PublicSuffix::DomainInvalid
   #
   #
-  # @param  [String, #to_s] name
-  #   The domain name or fully qualified domain name to parse.
-  # @param  [PublicSuffix::List] list
-  #   The rule list to search, defaults to the default {PublicSuffix::List}
+  # @param  [String, #to_s] name The domain name or fully qualified domain name to parse.
+  # @param  [PublicSuffix::List] list The rule list to search, defaults to the default {PublicSuffix::List}
+  # @param  [Boolean] include_private
   # @return [PublicSuffix::Domain]
   #
   # @raise [PublicSuffix::Error]
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
-  def self.parse(name, list = List.default)
+  def self.parse(name, list: List.default, include_private: true)
     what = normalize(name)
     raise what if what.is_a?(DomainInvalid)
 
-    rule = list.find(what)
+    rule = list.find(what, include_private: include_private)
     if rule.nil?
       raise DomainInvalid, "`#{what}` is not a valid domain"
     end
@@ -105,14 +104,14 @@ module PublicSuffix
   #   # => false
   #
   #
-  # @param  [String, #to_s] name
-  #   The domain name or fully qualified domain name to validate.
+  # @param  [String, #to_s] name The domain name or fully qualified domain name to validate.
+  # @param  [Boolean] include_private
   # @return [Boolean]
-  def self.valid?(name)
+  def self.valid?(name, list: List.default, include_private: true)
     what = normalize(name)
     return false if what.is_a?(DomainInvalid)
 
-    rule = List.default.find(what)
+    rule = List.default.find(what, include_private: include_private)
     !rule.nil? && rule.allow?(what)
   end
 
@@ -120,13 +119,12 @@ module PublicSuffix
   #
   # This method doesn't raise. Instead, it returns nil if the domain is not valid for whatever reason.
   #
-  # @param  [String, #to_s] name
-  #   The domain name or fully qualified domain name to parse.
-  # @param  [PublicSuffix::List] list
-  #   The rule list to search, defaults to the default {PublicSuffix::List}
+  # @param  [String, #to_s] name The domain name or fully qualified domain name to parse.
+  # @param  [PublicSuffix::List] list The rule list to search, defaults to the default {PublicSuffix::List}
+  # @param  [Boolean] include_private
   # @return [String]
-  def self.domain(name, list = List.default)
-    parse(name, list).domain
+  def self.domain(name, list: List.default, include_private: true)
+    parse(name, list: list, include_private: include_private).domain
   rescue PublicSuffix::Error
     nil
   end

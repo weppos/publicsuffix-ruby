@@ -99,14 +99,20 @@ module PublicSuffix
     #
     class Base
 
+      # @return [String] the rule definition
       attr_reader :value
+
+      # @return [Boolean] true if the rule is a private domain
+      attr_reader :private
+
 
       # Initializes a new rule with name and value.
       # If value is +nil+, name also becomes the value for this rule.
       #
       # @param value [String] the value of the rule
-      def initialize(value)
-        @value  = value.to_s
+      def initialize(value, private: false)
+        @value    = value.to_s
+        @private  = private
       end
 
       # Checks whether this rule is equal to <tt>other</tt>.
@@ -180,17 +186,6 @@ module PublicSuffix
         raise NotImplementedError
       end
 
-
-      private
-
-      def odiff(one, two)
-        ii = 0
-        while(ii < one.size && one[ii] == two[ii])
-          ii += 1
-        end
-        one[ii..one.length]
-      end
-
     end
 
     class Normal < Base
@@ -198,8 +193,8 @@ module PublicSuffix
       # Initializes a new rule from +definition+.
       #
       # @param definition [String] the rule as defined in the PSL
-      def initialize(definition)
-        super(definition)
+      def initialize(definition, **options)
+        super(definition, **options)
       end
 
       # Gets the original rule definition.
@@ -245,8 +240,8 @@ module PublicSuffix
       # for each wildcard rule.
       #
       # @param definition [String] the rule as defined in the PSL
-      def initialize(definition)
-        super(definition.to_s[2..-1])
+      def initialize(definition, **options)
+        super(definition.to_s[2..-1], **options)
       end
 
       # Gets the original rule definition.
@@ -293,8 +288,8 @@ module PublicSuffix
       # for each wildcard rule.
       #
       # @param definition [String] the rule as defined in the PSL
-      def initialize(definition)
-        super(definition.to_s[1..-1])
+      def initialize(definition, **options)
+        super(definition.to_s[1..-1], **options)
       end
 
       # Gets the original rule definition.
@@ -357,7 +352,7 @@ module PublicSuffix
     # @param  [String] name The rule definition.
     #
     # @return [PublicSuffix::Rule::*] A rule instance.
-    def self.factory(name)
+    def self.factory(name, **options)
       case name.to_s[0,1]
       when STAR
         Wildcard
@@ -365,7 +360,7 @@ module PublicSuffix
         Exception
       else
         Normal
-      end.new(name)
+      end.new(name, **options)
     end
 
     # The default rule to use if no rule match.

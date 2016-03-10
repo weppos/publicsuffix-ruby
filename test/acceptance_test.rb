@@ -60,7 +60,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
     end
   end
 
-  
+
   CaseCases = [
       ["Www.google.com",          ["www", "google", "com"]],
       ["www.Google.com",          ["www", "google", "com"]],
@@ -75,6 +75,25 @@ class AcceptanceTest < Minitest::Unit::TestCase
       assert_equal sld, domain.sld, "Invalid sld for `#{name}'"
       assert_equal trd, domain.trd, "Invalid trd for `#{name}'"
       assert PublicSuffix.valid?(name)
+    end
+  end
+
+
+  IncludePrivateCases = [
+      ["blogspot.com", false, "blogspot.com"],
+      ["blogspot.com", true,  nil],
+      ["subdomain.blogspot.com", false, "blogspot.com"],
+      ["subdomain.blogspot.com", true,  "subdomain.blogspot.com"],
+  ]
+
+  def test_include_private
+    # test domain and parse
+    IncludePrivateCases.each do |given, include_private, expected|
+      assert_equal expected, PublicSuffix.domain(given, include_private: include_private)
+    end
+    # test valid?
+    IncludePrivateCases.each do |given, include_private, expected|
+      assert_equal expected != nil, PublicSuffix.valid?(given, include_private: include_private)
     end
   end
 

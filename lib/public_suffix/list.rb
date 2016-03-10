@@ -89,20 +89,29 @@ module PublicSuffix
     def self.parse(input, private_domains: true)
       comment_token = "//".freeze
       private_token = "===BEGIN PRIVATE DOMAINS===".freeze
-      
+      section = nil # 1 == ICANN, 2 == PRIVATE
+
       new do |list|
         input.each_line do |line|
           line.strip!
-          break if !private_domains && line.include?(private_token)
+          case
+
           # strip blank lines
-          if line.empty?
+          when line.include?(private_token)
+            break if !private_domains
+            section = 2
+
+          # strip blank lines
+          when line.empty?
             next
+
           # strip comments
-          elsif line.start_with?(comment_token)
+          when line.start_with?(comment_token)
             next
-          # append rule
+
           else
-            list.add(Rule.factory(line), false)
+            list.add(Rule.factory(line, private: section == 2), false)
+
           end
         end
       end
@@ -182,7 +191,7 @@ module PublicSuffix
     #
     # @param [PublicSuffix::Rule::*] rule
     #   The rule to add to the list.
-    # @param [Boolean] index
+    # @param [Boolean] reindex
     #   Set to true to recreate the rule index
     #   after the rule has been added to the list.
     #
@@ -190,9 +199,9 @@ module PublicSuffix
     #
     # @see #create_index!
     #
-    def add(rule, index = true)
+    def add(rule, reindex = true)
       @rules << rule
-      create_index! if index == true
+      create_index! if reindex
       self
     end
     alias << add
@@ -242,8 +251,8 @@ module PublicSuffix
     # @param  name [String, #to_s] The domain name.
     # @param  [PublicSuffix::Rule::*] default The default rule to return in case no rule matches.
     # @return [PublicSuffix::Rule::*]
-    def find(name, default = default_rule)
-      rule = select(name).inject do |l, r|
+    def find(name, default: default_rule, **options)
+      rule = select(name, **options).inject do |l, r|
         return r if r.class == Rule::Exception
         l.length > r.length ? l : r
       end
@@ -252,15 +261,27 @@ module PublicSuffix
 
     # Selects all the rules matching given domain.
     #
-    # Will use +@indexes+ to try only the rules that share the same first label,
-    # that will speed up things when using +List.find('foo')+ a lot.
+    # Internally, the lookup heavily rely on the `@indexes`. The input is split into labels,
+    # and we retriever from the index only the rules that end with the input label. After that,
+    # a sequential scan is performed. In most cases, where the number of rules for the same label
+    # is limited, this algorithm is efficient enough.
+    #
+    # If `include_private` is set to false, the algorithm will skip the rules that are flagged as private domain.
+    # Note that the rules will still be part of the loop. If you frequently need to access lists
+    # ignoring the private domains, you should create a list that doesn't include these domains setting the
+    # `private_domains: false` option when calling {.parse}.
     #
     # @param  [String, #to_s] name The domain name.
+    # @param  [Boolean] include_private
     # @return [Array<PublicSuffix::Rule::*>]
-    def select(name)
+    def select(name, include_private: true)
       name = name.to_s
       indices = (@indexes[Domain.name_to_parts(name).last] || [])
-      @rules.values_at(*indices).select { |rule| rule.match?(name) }
+
+      finder = @rules.values_at(*indices).lazy
+      finder = finder.select { |rule| rule.match?(name) }
+      finder = finder.select { |rule| !rule.private } if include_private == false
+      finder.to_a
     end
 
     # Gets the default rule.
