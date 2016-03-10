@@ -2,18 +2,16 @@
 
 <tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org/).
 
-[![Build Status](https://secure.travis-ci.org/weppos/publicsuffix-ruby.png)](http://travis-ci.org/weppos/publicsuffix-ruby)
+[![Build Status](https://travis-ci.org/weppos/publicsuffix-ruby.svg?branch=master)](https://travis-ci.org/weppos/publicsuffix-ruby)
 
 
 ## What is the Public Suffix List?
 
-The Public Suffix List is a cross-vendor initiative to provide an accurate list of domain name suffixes.
+The [Public Suffix List](https://publicsuffix.org) is a cross-vendor initiative to provide an accurate list of domain name suffixes.
 
 The Public Suffix List is an initiative of the Mozilla Project, but is maintained as a community resource. It is available for use in any software, but was originally created to meet the needs of browser manufacturers.
 
 A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
-
-Source: http://publicsuffix.org
 
 
 ## Why the Public Suffix List is better than any available Regular Expression parser?
