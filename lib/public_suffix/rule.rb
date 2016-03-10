@@ -99,6 +99,7 @@ module PublicSuffix
     #
     class Base
 
+      # @return [String] the rule definition
       attr_reader :value
 
       # Initializes a new rule with name and value.
@@ -178,17 +179,6 @@ module PublicSuffix
       # @abstract
       def decompose(domain)
         raise NotImplementedError
-      end
-
-
-      private
-
-      def odiff(one, two)
-        ii = 0
-        while(ii < one.size && one[ii] == two[ii])
-          ii += 1
-        end
-        one[ii..one.length]
       end
 
     end
