@@ -24,7 +24,7 @@ module PublicSuffix
     # # Abstract rule class
     #
     # This represent the base class for a Rule definition
-    # in the {Public Suffix List}[http://publicsuffix.org].
+    # in the {Public Suffix List}[https://publicsuffix.org].
     #
     # This is intended to be an Abstract class
     # and you shouldn't create a direct instance. The only purpose
@@ -65,11 +65,10 @@ module PublicSuffix
     #
     # ## Rule Usage
     #
-    # A rule describes the composition of a domain name
-    # and explains how to tokenize the domain name
-    # into tld, sld and trd.
+    # A rule describes the composition of a domain name and explains how to tokenize
+    # the name into tld, sld and trd.
     #
-    # To use a rule, you first need to be sure the domain you want to tokenize
+    # To use a rule, you first need to be sure the name you want to tokenize
     # can be handled by the current rule.
     # You can use the <tt>#match?</tt> method.
     #
@@ -81,7 +80,7 @@ module PublicSuffix
     #   rule.match?("google.com")
     #   # => false
     #
-    # Rule order is significant. A domain can match more than one rule.
+    # Rule order is significant. A name can match more than one rule.
     # See the {Public Suffix Documentation}[http://publicsuffix.org/format/]
     # to learn more about rule priority.
     #
@@ -117,9 +116,7 @@ module PublicSuffix
 
       # Checks whether this rule is equal to <tt>other</tt>.
       #
-      # @param [PublicSuffix::Rule::*] other
-      #   The rule to compare.
-      #
+      # @param  [PublicSuffix::Rule::*] other The rule to compare
       # @return [Boolean]
       #   Returns true if this rule and other are instances of the same class
       #   and has the same value, false otherwise.
@@ -129,7 +126,7 @@ module PublicSuffix
       end
       alias :eql? :==
 
-      # Checks if this rule matches +domain+.
+      # Checks if this rule matches +name+.
       #
       # @example
       #   rule = Rule.factory("com")
@@ -150,12 +147,7 @@ module PublicSuffix
         diff.empty? || diff[-1] == "."
       end
 
-      # Checks if this rule allows +domain+.
-      #
-      # @param [String, #to_s] domain
-      #   The domain name to check.
-      #
-      # @return [Boolean]
+      # Checks if this rule allows +name+.
       #
       # @example
       #   rule = Rule.factory("*.do")
@@ -165,8 +157,10 @@ module PublicSuffix
       #   rule.allow?("www.example.do")
       #   # => true
       #
-      def allow?(domain)
-        !decompose(domain).last.nil?
+      # @param [String, #to_s] name The domain name to check
+      # @return [Boolean]
+      def allow?(name)
+        !decompose(name).last.nil?
       end
 
       # @abstract
@@ -179,10 +173,9 @@ module PublicSuffix
         raise NotImplementedError
       end
 
-      # @param  domain [String, #to_s] The domain name to decompose.
-      # @return [Array<String, nil>]
-      #
       # @abstract
+      # @param  [String, #to_s] name The domain name to decompose
+      # @return [Array<String, nil>]
       def decompose(domain)
         raise NotImplementedError
       end
@@ -205,9 +198,9 @@ module PublicSuffix
         value
       end
 
-      # Decomposes the domain according to rule properties.
+      # Decomposes the domain name according to rule properties.
       #
-      # @param  domain [String, #to_s] The domain name to decompose.
+      # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
@@ -252,9 +245,9 @@ module PublicSuffix
         value == "" ? STAR : STAR + DOT + value
       end
 
-      # Decomposes the domain according to rule properties.
+      # Decomposes the domain name according to rule properties.
       #
-      # @param  domain [String, #to_s] The domain name to decompose.
+      # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = (['.*?'] + parts).join('\.')
@@ -300,9 +293,9 @@ module PublicSuffix
         BANG + value
       end
 
-      # Decomposes the domain according to rule properties.
+      # Decomposes the domain name according to rule properties.
       #
-      # @param  domain [String, #to_s] The domain name to decompose.
+      # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
@@ -351,7 +344,6 @@ module PublicSuffix
     #   # => #<PublicSuffix::Rule::Exception>
     #
     # @param  [String] name The rule definition.
-    #
     # @return [PublicSuffix::Rule::*] A rule instance.
     def self.factory(name, **options)
       case name.to_s[0,1]
