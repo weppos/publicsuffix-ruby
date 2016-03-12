@@ -66,23 +66,40 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
 
 
   def test_match
-    assert  @klass.new("uk").match?("example.uk")
-    assert !@klass.new("gk").match?("example.uk")
-    assert !@klass.new("example").match?("example.uk")
+    [
+        # standard match
+        [PublicSuffix::Rule.factory("uk"), "uk", true],
+        [PublicSuffix::Rule.factory("uk"), "example.uk", true],
+        [PublicSuffix::Rule.factory("uk"), "example.co.uk", true],
+        [PublicSuffix::Rule.factory("co.uk"), "example.co.uk", true],
 
-    assert  @klass.new("uk").match?("example.co.uk")
-    assert !@klass.new("gk").match?("example.co.uk")
-    assert !@klass.new("co").match?("example.co.uk")
+        [PublicSuffix::Rule.factory("*.com"), "com", false],
+        [PublicSuffix::Rule.factory("*.com"), "example.com", true],
+        [PublicSuffix::Rule.factory("*.com"), "foo.example.com", true],
+        [PublicSuffix::Rule.factory("!example.com"), "com", false],
+        [PublicSuffix::Rule.factory("!example.com"), "example.com", true],
+        [PublicSuffix::Rule.factory("!example.com"), "foo.example.com", true],
 
-    assert  @klass.new("co.uk").match?("example.co.uk")
-    assert !@klass.new("uk.co").match?("example.co.uk")
-    assert !@klass.new("go.uk").match?("example.co.uk")
-  end
+        # TLD mismatch
+        [PublicSuffix::Rule.factory("gk"), "example.uk", false],
+        [PublicSuffix::Rule.factory("gk"), "example.co.uk", false],
+        [PublicSuffix::Rule.factory("co.uk"), "uk", false],
 
-  def test_match_partial_match
-    assert_equal false, @klass.new("le.it").match?("example.it")
-    assert_equal true , @klass.new("le.it").match?("le.it")
-    assert_equal true , @klass.new("le.it").match?("foo.le.it")
+        # general mismatch
+        [PublicSuffix::Rule.factory("uk.co"), "example.co.uk", false],
+        [PublicSuffix::Rule.factory("go.uk"), "example.co.uk", false],
+        [PublicSuffix::Rule.factory("co.uk"), "uk", false],
+
+        # partial matches/mismatches
+        [PublicSuffix::Rule.factory("co"), "example.co.uk", false],
+        [PublicSuffix::Rule.factory("example"), "example.uk", false],
+        [PublicSuffix::Rule.factory("le.it"), "example.it", false],
+        [PublicSuffix::Rule.factory("le.it"), "le.it", true],
+        [PublicSuffix::Rule.factory("le.it"), "foo.le.it", true],
+
+    ].each do |rule, input, expected|
+      assert_equal expected, rule.match?(input)
+    end
   end
 
 
@@ -113,27 +130,6 @@ class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
     assert_instance_of @klass,              rule
     assert_equal "verona.it",               rule.value
     assert_equal "verona.it",               rule.rule
-  end
-
-
-  def test_match
-    assert  @klass.new("uk").match?("example.uk")
-    assert !@klass.new("gk").match?("example.uk")
-    assert !@klass.new("example").match?("example.uk")
-
-    assert  @klass.new("uk").match?("example.co.uk")
-    assert !@klass.new("gk").match?("example.co.uk")
-    assert !@klass.new("co").match?("example.co.uk")
-
-    assert  @klass.new("co.uk").match?("example.co.uk")
-    assert !@klass.new("uk.co").match?("example.co.uk")
-    assert !@klass.new("go.uk").match?("example.co.uk")
-  end
-
-  def test_allow
-    assert !@klass.new("com").allow?("com")
-    assert  @klass.new("com").allow?("example.com")
-    assert  @klass.new("com").allow?("www.example.com")
   end
 
 
@@ -173,22 +169,6 @@ class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
   end
 
 
-  def test_match
-    assert  @klass.new("!uk").match?("example.co.uk")
-    assert !@klass.new("!gk").match?("example.co.uk")
-    assert  @klass.new("!co.uk").match?("example.co.uk")
-    assert !@klass.new("!go.uk").match?("example.co.uk")
-    assert  @klass.new("!british-library.uk").match?("british-library.uk")
-    assert !@klass.new("!british-library.uk").match?("example.co.uk")
-  end
-
-  def test_allow
-    assert !@klass.new("!british-library.uk").allow?("uk")
-    assert  @klass.new("!british-library.uk").allow?("british-library.uk")
-    assert  @klass.new("!british-library.uk").allow?("www.british-library.uk")
-  end
-
-
   def test_length
     assert_equal 1, @klass.new("!british-library.uk").length
     assert_equal 2, @klass.new("!foo.british-library.uk").length
@@ -220,21 +200,6 @@ class PublicSuffix::RuleWildcardTest < Minitest::Unit::TestCase
     assert_instance_of @klass,              rule
     assert_equal "aichi.jp",                rule.value
     assert_equal "*.aichi.jp",              rule.rule
-  end
-
-
-  def test_match
-    assert  @klass.new("*.uk").match?("example.uk")
-    assert  @klass.new("*.uk").match?("example.co.uk")
-    assert  @klass.new("*.co.uk").match?("example.co.uk")
-    assert !@klass.new("*.go.uk").match?("example.co.uk")
-  end
-
-  def test_allow
-    assert !@klass.new("*.uk").allow?("uk")
-    assert !@klass.new("*.uk").allow?("co.uk")
-    assert  @klass.new("*.uk").allow?("example.co.uk")
-    assert  @klass.new("*.uk").allow?("www.example.co.uk")
   end
 
 

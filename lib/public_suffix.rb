@@ -63,7 +63,7 @@ module PublicSuffix
     if rule.nil?
       raise DomainInvalid, "`#{what}` is not a valid domain"
     end
-    if !rule.allow?(what)
+    if rule.decompose(what).last.nil?
       raise DomainNotAllowed, "`#{what}` is not allowed according to Registry policy"
     end
 
@@ -113,6 +113,7 @@ module PublicSuffix
 
     rule = List.default.find(what, include_private: include_private)
     !rule.nil? && rule.allow?(what)
+    !rule.nil? && !rule.decompose(what).last.nil?
   end
 
   # Attempt to parse the name and returns the domain, if valid.

@@ -154,22 +154,6 @@ module PublicSuffix
         diff.empty? || diff[-1] == "."
       end
 
-      # Checks if this rule allows +name+.
-      #
-      # @example
-      #   rule = Rule.factory("*.do")
-      #   # => #<PublicSuffix::Rule::Wildcard>
-      #   rule.allow?("example.do")
-      #   # => false
-      #   rule.allow?("www.example.do")
-      #   # => true
-      #
-      # @param [String, #to_s] name The domain name to check
-      # @return [Boolean]
-      def allow?(name)
-        !decompose(name).last.nil?
-      end
-
       # @abstract
       def parts
         raise NotImplementedError
