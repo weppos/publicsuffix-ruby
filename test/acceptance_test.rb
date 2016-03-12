@@ -3,24 +3,26 @@ require 'test_helper'
 class AcceptanceTest < Minitest::Unit::TestCase
 
   ValidCases = [
-      ["google.com",              [nil, "google", "com"]],
-      ["foo.google.com",          ["foo", "google", "com"]],
+      ["example.com",             "example.com",        [nil, "example", "com"]],
+      ["foo.example.com",         "example.com",        ["foo", "example", "com"]],
 
-      ["verybritish.co.uk",       [nil, "verybritish", "co.uk"]],
-      ["foo.verybritish.co.uk",   ["foo", "verybritish", "co.uk"]],
+      ["verybritish.co.uk",       "verybritish.co.uk",  [nil, "verybritish", "co.uk"]],
+      ["foo.verybritish.co.uk",   "verybritish.co.uk",  ["foo", "verybritish", "co.uk"]],
 
-      ["parliament.uk",           [nil, "parliament", "uk"]],
-      ["foo.parliament.uk",       ["foo", "parliament", "uk"]],
+      ["parliament.uk",           "parliament.uk",      [nil, "parliament", "uk"]],
+      ["foo.parliament.uk",       "parliament.uk",      ["foo", "parliament", "uk"]],
   ]
 
   def test_valid
-    ValidCases.each do |name, results|
-      domain = PublicSuffix.parse(name)
+    ValidCases.each do |input, domain, results|
+      parsed = PublicSuffix.parse(input)
       trd, sld, tld = results
-      assert_equal tld, domain.tld, "Invalid tld for '#{name}'"
-      assert_equal sld, domain.sld, "Invalid sld for '#{name}'"
-      assert_equal trd, domain.trd, "Invalid trd for '#{name}'"
-      assert PublicSuffix.valid?(name)
+      assert_equal tld, parsed.tld, "Invalid tld for `#{name}`"
+      assert_equal sld, parsed.sld, "Invalid sld for `#{name}`"
+      assert_equal trd, parsed.trd, "Invalid trd for `#{name}`"
+      
+      assert_equal domain, PublicSuffix.domain(input)
+      assert PublicSuffix.valid?(input)
     end
   end
 
