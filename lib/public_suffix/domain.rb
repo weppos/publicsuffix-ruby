@@ -10,39 +10,21 @@ module PublicSuffix
 
   class Domain
 
-    # Splits a string into the dot-separated parts and reverse them.
+    # Splits a string into the labels, that is the dot-separated parts.
     #
     # The input is not validated, but it is assumed to be a valid domain name.
     #
     # @example
     #
     #   name_to_labels('example.com')
-    #   # => ['com', 'example']
-    #
-    #   name_to_labels('example.co.uk')
-    #   # => ['uk', 'co', 'example']
-    #
-    # @param  name [String, #to_s] The domain name to split.
-    # @return [Array<String>]
-    def self.name_to_labels(name)
-      name_to_parts(name).reverse
-    end
-
-    # Splits a string into the dot-separated parts.
-    #
-    # The input is not validated, but it is assumed to be a valid domain name.
-    #
-    # @example
-    #
-    #   name_to_parts('example.com')
     #   # => ['example', 'com']
     #
-    #   name_to_parts('example.co.uk')
+    #   name_to_labels('example.co.uk')
     #   # => ['example', 'co', 'uk']
     #
     # @param  name [String, #to_s] The domain name to split.
     # @return [Array<String>]
-    def self.name_to_parts(name)
+    def self.name_to_labels(name)
       name.to_s.split(DOT)
     end
 

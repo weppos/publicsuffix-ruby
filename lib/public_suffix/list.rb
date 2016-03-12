@@ -151,7 +151,7 @@ module PublicSuffix
     def create_index!
       @indexes = {}
       @rules.each_with_index do |rule, index|
-        tld = Domain.name_to_parts(rule.value).last
+        tld = Domain.name_to_labels(rule.value).last
         @indexes[tld] ||= []
         @indexes[tld] << index
       end
@@ -276,7 +276,7 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name, include_private: true)
       name = name.to_s
-      indices = (@indexes[Domain.name_to_parts(name).last] || [])
+      indices = (@indexes[Domain.name_to_labels(name).last] || [])
 
       finder = @rules.values_at(*indices).lazy
       finder = finder.select { |rule| rule.match?(name) }

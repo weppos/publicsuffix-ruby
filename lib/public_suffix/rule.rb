@@ -128,12 +128,19 @@ module PublicSuffix
 
       # Checks if this rule matches +name+.
       #
+      # A domain name is said to match a rule if and only if all of the following conditions are met:
+      # - When the domain and rule are split into corresponding labels,
+      #   that the domain contains as many or more labels than the rule.
+      # - Beginning with the right-most labels of both the domain and the rule,
+      #   and continuing for all labels in the rule, one finds that for every pair,
+      #   either they are identical, or that the label from the rule is "*".
+      #
+      # @see https://publicsuffix.org/list/
+      #
       # @example
-      #   rule = Rule.factory("com")
-      #   # #<PublicSuffix::Rule::Normal>
-      #   rule.match?("example.com")
+      #   Rule.factory("com").match?("example.com")
       #   # => true
-      #   rule.match?("example.net")
+      #   Rule.factory("com").match?("example.net")
       #   # => false
       #
       # @param  name [String, #to_s] The domain name to check.
@@ -343,17 +350,17 @@ module PublicSuffix
     #   PublicSuffix::Rule.factory("!congresodelalengua3.ar")
     #   # => #<PublicSuffix::Rule::Exception>
     #
-    # @param  [String] name The rule definition.
+    # @param  [String] content The rule content.
     # @return [PublicSuffix::Rule::*] A rule instance.
-    def self.factory(name, **options)
-      case name.to_s[0,1]
+    def self.factory(content, **options)
+      case content.to_s[0,1]
       when STAR
         Wildcard
       when BANG
         Exception
       else
         Normal
-      end.new(name, **options)
+      end.new(content, **options)
     end
 
     # The default rule to use if no rule match.
