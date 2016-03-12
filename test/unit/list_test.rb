@@ -83,21 +83,56 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
 
 
   def test_find
-    assert_equal PublicSuffix::Rule.factory("com"),                 list.find("example.com")
-    assert_equal PublicSuffix::Rule.factory("com"),                 list.find("foo.example.com")
-    assert_equal PublicSuffix::Rule.factory("*.uk"),                list.find("example.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"),                list.find("example.co.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"),                list.find("foo.example.co.uk")
+        list = PublicSuffix::List.parse(<<EOS)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+// ===BEGIN ICANN DOMAINS===
+
+// com
+com
+
+// uk
+*.uk
+*.sch.uk
+!bl.uk
+!british-library.uk
+
+// io
+io
+
+// ===END ICANN DOMAINS===
+// ===BEGIN PRIVATE DOMAINS===
+
+// Google, Inc.
+blogspot.com
+
+// ===END PRIVATE DOMAINS===
+EOS
+
+    # match IANA
+    assert_equal PublicSuffix::Rule.factory("com"), list.find("example.com")
+    assert_equal PublicSuffix::Rule.factory("com"), list.find("foo.example.com")
+
+    # match wildcard
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.co.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("foo.example.co.uk")
+
+    # match exception
     assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("british-library.uk")
     assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("foo.british-library.uk")
-  end
 
-  def test_find_default_rule
-    assert_equal PublicSuffix::List.default.default_rule, list.find("example.tldnotlisted")
-  end
+    # match default rule
+    assert_equal PublicSuffix::Rule.factory("*"), list.find("test")
+    assert_equal PublicSuffix::Rule.factory("*"), list.find("example.test")
+    assert_equal PublicSuffix::Rule.factory("*"), list.find("foo.example.test")
 
-  # def test_find_custom_default_rule
-  # end
+    # match private
+    assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("blogspot.com")
+    assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("foo.blogspot.com")
+  end
 
 
   def test_select
@@ -150,43 +185,19 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
   end
 
   def test_self_parse
-    list = PublicSuffix::List.parse(<<EOS)
+        list = PublicSuffix::List.parse(<<EOS)
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 // ===BEGIN ICANN DOMAINS===
 
-// ac : http://en.wikipedia.org/wiki/.ac
-ac
-com.ac
+// com
+com
 
-// ad : http://en.wikipedia.org/wiki/.ad
-ad
-
-// ar : http://en.wikipedia.org/wiki/.ar
-*.ar
-!congresodelalengua3.ar
-
-// ===END ICANN DOMAINS===
-EOS
-
-    assert_instance_of PublicSuffix::List, list
-    assert_equal 5, list.size
-    assert_equal %w( ac com.ac ad *.ar !congresodelalengua3.ar ).map { |name| PublicSuffix::Rule.factory(name) }, list.to_a
-  end
-
-  def test_self_parse_with_private_domains
-    list = PublicSuffix::List.parse(<<EOS)
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-// ===BEGIN ICANN DOMAINS===
-
-// ac : http://en.wikipedia.org/wiki/.ac
-ac
-com.ac
+// uk
+*.uk
+!british-library.uk
 
 // ===END ICANN DOMAINS===
 // ===BEGIN PRIVATE DOMAINS===
@@ -197,7 +208,36 @@ blogspot.com
 // ===END PRIVATE DOMAINS===
 EOS
 
-    assert_equal false, list.find("com.ac").private
+    assert_instance_of PublicSuffix::List, list
+    assert_equal 4, list.size
+    assert_equal %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }, list.to_a
+  end
+
+  def test_self_parse_private_domains
+    list = PublicSuffix::List.parse(<<EOS)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+// ===BEGIN ICANN DOMAINS===
+
+// com
+com
+
+// uk
+*.uk
+!british-library.uk
+
+// ===END ICANN DOMAINS===
+// ===BEGIN PRIVATE DOMAINS===
+
+// Google, Inc.
+blogspot.com
+
+// ===END PRIVATE DOMAINS===
+EOS
+
+    assert_equal false, list.find("com").private
     assert_equal true,  list.find("blogspot.com").private
   end
 
@@ -209,19 +249,6 @@ EOS
 private
 
   def list
-    @_list ||= PublicSuffix::List.parse(<<EOS)
-// com : http://en.wikipedia.org/wiki/.com
-com
-
-// uk : http://en.wikipedia.org/wiki/.uk
-*.uk
-*.sch.uk
-!bl.uk
-!british-library.uk
-EOS
-  end
-
-  def list_with_private
     @_list ||= PublicSuffix::List.parse(<<EOS)
 // com : http://en.wikipedia.org/wiki/.com
 com

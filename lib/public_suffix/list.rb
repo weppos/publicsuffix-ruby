@@ -96,16 +96,16 @@ module PublicSuffix
           line.strip!
           case
 
-          # strip blank lines
+          # skip blank lines
+          when line.empty?
+            next
+
+          # include private domains or stop scanner
           when line.include?(private_token)
             break if !private_domains
             section = 2
 
-          # strip blank lines
-          when line.empty?
-            next
-
-          # strip comments
+          # skip comments
           when line.start_with?(comment_token)
             next
 
@@ -228,7 +228,7 @@ module PublicSuffix
       self
     end
 
-    # Returns the most appropriate rule for domain.
+    # Finds and returns the most appropriate rule for the domain name.
     #
     # From the Public Suffix List documentation:
     #
