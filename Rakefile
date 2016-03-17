@@ -18,7 +18,7 @@ spec = Gem::Specification.new do |s|
 
   s.author            = "Simone Carletti"
   s.email             = "weppos@weppos.net"
-  s.homepage          = "http://simonecarletti.com/code/publicsuffix"
+  s.homepage          = "https://simonecarletti.com/code/publicsuffix-ruby"
   s.license           = "MIT"
 
   s.files             = `git ls-files`.split("\n")

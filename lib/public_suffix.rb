@@ -1,10 +1,8 @@
-#
-# Public Suffix
+# = Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
 #
 # Copyright (c) 2009-2016 Simone Carletti <weppos@weppos.net>
-#
 
 require 'public_suffix/domain'
 require 'public_suffix/version'
