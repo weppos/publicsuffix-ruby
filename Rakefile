@@ -87,12 +87,12 @@ end
 
 
 desc "Downloads the Public Suffix List file from the repository and stores it locally."
-task :upddef do
+task :"update-list" do
   require "net/http"
 
   DEFINITION_URL = "https://raw.githubusercontent.com/publicsuffix/list/master/public_suffix_list.dat"
 
-  File.open("data/definitions.txt", "w+") do |f|
+  File.open("data/list.txt", "w+") do |f|
     response = Net::HTTP.get_response(URI.parse(DEFINITION_URL))
     response.body
     f.write(response.body)

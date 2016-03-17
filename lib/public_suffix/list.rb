@@ -42,7 +42,7 @@ module PublicSuffix
   class List
     include Enumerable
 
-    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "definitions.txt")
+    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "list.txt")
 
     # Gets the default rule list.
     #
