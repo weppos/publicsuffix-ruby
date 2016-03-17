@@ -16,15 +16,8 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
     assert_equal 0, @list.size
   end
 
-  def test_initialize_create_index_when_empty
+  def test_initialize_indexes
     assert_equal({}, @list.indexes)
-  end
-
-  def test_indexes
-    assert !list.indexes.empty?
-    assert_equal [1,2,3,4], list.indexes.delete('uk')
-    assert_equal [0], list.indexes.delete('com')
-    assert list.indexes.empty?
   end
 
 
@@ -83,7 +76,7 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
 
 
   def test_find
-        list = PublicSuffix::List.parse(<<EOS)
+    list = PublicSuffix::List.parse(<<EOS)
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -185,7 +178,7 @@ EOS
   end
 
   def test_self_parse
-        list = PublicSuffix::List.parse(<<EOS)
+    list = PublicSuffix::List.parse(<<EOS)
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -211,9 +204,13 @@ EOS
     assert_instance_of PublicSuffix::List, list
     assert_equal 4, list.size
     assert_equal %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }, list.to_a
+
+    # private domains
+    assert_equal false, list.find("com").private
+    assert_equal true,  list.find("blogspot.com").private
   end
 
-  def test_self_parse_private_domains
+  def test_self_parse_indexes
     list = PublicSuffix::List.parse(<<EOS)
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -237,12 +234,7 @@ blogspot.com
 // ===END PRIVATE DOMAINS===
 EOS
 
-    assert_equal false, list.find("com").private
-    assert_equal true,  list.find("blogspot.com").private
-  end
-
-  def test_self_parse_should_create_cache
-    assert_equal PublicSuffix::Rule.factory("com"), list.find("google.com")
+    assert_equal({"com"=>[0, 3], "uk"=>[1, 2]}, list.indexes)
   end
 
 

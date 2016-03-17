@@ -11,8 +11,6 @@
 
 - CHANGED: Updated definitions.
 
-- CHANGED: PublicSuffix::List.default_definition no longer memoizes the data (no need to keep it in memory as the list is already memoized) Also the method now returns a String, instead of a File pointer (that was never closed).
-
 - CHANGED: Removed deprecated PublicSuffix::InvalidDomain exception
 
 - CHANGED: If the suffix is now listed, then the prevaling rule is "*" as defined by the PSL algorithm (GH-91)

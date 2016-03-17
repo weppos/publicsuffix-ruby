@@ -27,8 +27,8 @@ class PslTest < Minitest::Unit::TestCase
 
   def test_valid
     # Parse the PSL and run the tests
-    defs = File.read(File.join(ROOT, "data/definitions.txt"))
-    PublicSuffix::List.default = PublicSuffix::List.parse(defs)
+    data = File.read(PublicSuffix::List::DEFAULT_LIST_PATH)
+    PublicSuffix::List.default = PublicSuffix::List.parse(data)
 
     failures = []
     self.class.tests.each do |input, output|

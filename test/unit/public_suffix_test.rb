@@ -8,7 +8,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
   end
 
   def test_private_domains_disable
-    PublicSuffix::List.default = PublicSuffix::List.parse(PublicSuffix::List.default_definition, private_domains: false)
+    PublicSuffix::List.default = PublicSuffix::List.parse(File.read(PublicSuffix::List::DEFAULT_LIST_PATH), private_domains: false)
     domain = PublicSuffix.parse("www.example.blogspot.com")
     assert_equal "com", domain.tld
   ensure

@@ -40,16 +40,16 @@ module PublicSuffix
   class List
     include Enumerable
 
-    DEFAULT_DEFINITION_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "list.txt")
+    DEFAULT_LIST_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "list.txt")
 
     # Gets the default rule list.
     #
     # Initializes a new {PublicSuffix::List} parsing the content
-    # of {PublicSuffix::List.default_definition}, if required.
+    # of {PublicSuffix::List.default_list_content}, if required.
     #
     # @return [PublicSuffix::List]
     def self.default(**options)
-      @default ||= parse(default_definition, options)
+      @default ||= parse(File.read(DEFAULT_LIST_PATH), options)
     end
 
     # Sets the default rule list to +value+.
@@ -68,13 +68,6 @@ module PublicSuffix
     def self.clear
       self.default = nil
       self
-    end
-
-    # Reads and returns the content of the the default definition list.
-    #
-    # @return [String]
-    def self.default_definition
-      File.open(DEFAULT_DEFINITION_PATH) { |f| f.read }
     end
 
     # Parse given +input+ treating the content as Public Suffix List.
@@ -108,7 +101,7 @@ module PublicSuffix
             next
 
           else
-            list.add(Rule.factory(line, private: section == 2), false)
+            list.add(Rule.factory(line, private: section == 2), reindex: false)
 
           end
         end
@@ -121,21 +114,16 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     attr_reader :rules
 
-    # Gets the naive index, a hash that with the keys being the first label of
-    # every rule pointing to an array of integers (indexes of the rules in @rules).
-    #
-    # @return [Array]
-    attr_reader :indexes
-
+    
     # Initializes an empty {PublicSuffix::List}.
     #
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     #
     def initialize(&block)
-      @rules   = []
+      @rules = []
       yield(self) if block_given?
-      create_index!
+      reindex!
     end
 
 
@@ -146,7 +134,7 @@ module PublicSuffix
     # For instance if @rules[5] and @rules[4] are the only elements of the list
     # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
     # select we can avoid mapping every single rule against the candidate domain.
-    def create_index!
+    def reindex!
       @indexes = {}
       @rules.each_with_index do |rule, index|
         tld = Domain.name_to_labels(rule.value).last
@@ -154,6 +142,13 @@ module PublicSuffix
         @indexes[tld] << index
       end
     end
+
+    # Gets the naive index, a hash that with the keys being the first label of
+    # every rule pointing to an array of integers (indexes of the rules in @rules).
+    def indexes
+      @indexes.dup
+    end
+
 
     # Checks whether two lists are equal.
     #
@@ -189,11 +184,11 @@ module PublicSuffix
     #
     # @return [self]
     #
-    # @see #create_index!
+    # @see #reindex!
     #
-    def add(rule, reindex = true)
+    def add(rule, reindex: true)
       @rules << rule
-      create_index! if reindex
+      reindex! if reindex
       self
     end
     alias << add
@@ -217,6 +212,7 @@ module PublicSuffix
     # @return [self]
     def clear
       @rules.clear
+      reindex!
       self
     end
 
