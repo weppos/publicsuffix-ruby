@@ -177,12 +177,6 @@ module PublicSuffix
       @rules.each(*args, &block)
     end
 
-    # Gets the list as array.
-    #
-    # @return [Array<PublicSuffix::Rule::*>]
-    def to_a
-      @rules
-    end
 
     # Adds the given object to the list
     # and optionally refreshes the rule index.
