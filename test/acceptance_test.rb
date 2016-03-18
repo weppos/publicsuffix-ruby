@@ -82,20 +82,20 @@ class AcceptanceTest < Minitest::Unit::TestCase
 
 
   IncludePrivateCases = [
-      ["blogspot.com", false, "blogspot.com"],
-      ["blogspot.com", true,  nil],
-      ["subdomain.blogspot.com", false, "blogspot.com"],
-      ["subdomain.blogspot.com", true,  "subdomain.blogspot.com"],
+      ["blogspot.com", true, "blogspot.com"],
+      ["blogspot.com", false,  nil],
+      ["subdomain.blogspot.com", true, "blogspot.com"],
+      ["subdomain.blogspot.com", false,  "subdomain.blogspot.com"],
   ]
 
-  def test_include_private
+  def test_ignore_private
     # test domain and parse
-    IncludePrivateCases.each do |given, include_private, expected|
-      assert_equal expected, PublicSuffix.domain(given, include_private: include_private)
+    IncludePrivateCases.each do |given, ignore_private, expected|
+      assert_equal expected, PublicSuffix.domain(given, ignore_private: ignore_private)
     end
     # test valid?
-    IncludePrivateCases.each do |given, include_private, expected|
-      assert_equal expected != nil, PublicSuffix.valid?(given, include_private: include_private)
+    IncludePrivateCases.each do |given, ignore_private, expected|
+      assert_equal expected != nil, PublicSuffix.valid?(given, ignore_private: ignore_private)
     end
   end
 

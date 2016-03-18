@@ -138,7 +138,7 @@ EOS
     assert_equal [], list.select(" ")
   end
 
-  def test_select_include_private
+  def test_select_ignore_private
     list = PublicSuffix::List.new
     list.add r1 = PublicSuffix::Rule.factory("io")
     list.add r2 = PublicSuffix::Rule.factory("example.io", private: true)
@@ -147,13 +147,13 @@ EOS
     assert_equal list.select("example.io"), [r1, r2]
     assert_equal list.select("foo.example.io"), [r1, r2]
 
-    assert_equal list.select("foo.io", include_private: true), [r1]
-    assert_equal list.select("example.io", include_private: true), [r1, r2]
-    assert_equal list.select("foo.example.io", include_private: true), [r1, r2]
+    assert_equal list.select("foo.io", ignore_private: false), [r1]
+    assert_equal list.select("example.io", ignore_private: false), [r1, r2]
+    assert_equal list.select("foo.example.io", ignore_private: false), [r1, r2]
 
-    assert_equal list.select("foo.io", include_private: false), [r1]
-    assert_equal list.select("example.io", include_private: false), [r1]
-    assert_equal list.select("foo.example.io", include_private: false), [r1]
+    assert_equal list.select("foo.io", ignore_private: true), [r1]
+    assert_equal list.select("example.io", ignore_private: true), [r1]
+    assert_equal list.select("foo.example.io", ignore_private: true), [r1]
   end
 
 

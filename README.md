@@ -132,12 +132,12 @@ PublicSuffix.domain("something.blogspot.com")
 # => "something.blogspot.com"
 
 # Extract a domain excluding private domains
-PublicSuffix.domain("something.blogspot.com", include_private: false)
+PublicSuffix.domain("something.blogspot.com", ignore_private: true)
 # => "blogspot.com"
 
 # It also works for #parse and #valid?
-PublicSuffix.parse("something.blogspot.com", include_private: false)
-PublicSuffix.valid?("something.blogspot.com", include_private: false)
+PublicSuffix.parse("something.blogspot.com", ignore_private: true)
+PublicSuffix.valid?("something.blogspot.com", ignore_private: true)
 ```
 
 If you don't care about private domains at all, it's more efficient to exclude them when the list is parsed:

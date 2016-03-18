@@ -254,21 +254,21 @@ module PublicSuffix
     # a sequential scan is performed. In most cases, where the number of rules for the same label
     # is limited, this algorithm is efficient enough.
     #
-    # If `include_private` is set to false, the algorithm will skip the rules that are flagged as private domain.
+    # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as private domain.
     # Note that the rules will still be part of the loop. If you frequently need to access lists
     # ignoring the private domains, you should create a list that doesn't include these domains setting the
     # `private_domains: false` option when calling {.parse}.
     #
     # @param  [String, #to_s] name The domain name.
-    # @param  [Boolean] include_private
+    # @param  [Boolean] ignore_private
     # @return [Array<PublicSuffix::Rule::*>]
-    def select(name, include_private: true)
+    def select(name, ignore_private: false)
       name = name.to_s
       indices = (@indexes[Domain.name_to_labels(name).last] || [])
 
       finder = @rules.values_at(*indices).lazy
       finder = finder.select { |rule| rule.match?(name) }
-      finder = finder.select { |rule| !rule.private } if include_private == false
+      finder = finder.select { |rule| !rule.private } if ignore_private
       finder.to_a
     end
 
