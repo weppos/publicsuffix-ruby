@@ -40,7 +40,7 @@ end
 desc "Build the gemspec file #{spec.name}.gemspec"
 task :gemspec do
   file = File.dirname(__FILE__) + "/#{spec.name}.gemspec"
-  File.open(file, "w") {|f| f << spec.to_ruby }
+  File.open(file, "w") { |f| f << spec.to_ruby }
 end
 
 desc "Remove any temporary products, including gemspec"
