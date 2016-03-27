@@ -256,15 +256,6 @@ Style/TrailingBlankLines:
     - 'test/performance_benchmark.rb'
     - 'test/unit/errors_test.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-# SupportedStyles: comma, consistent_comma, no_comma
-Style/TrailingCommaInLiteral:
-  Exclude:
-    - 'test/acceptance_test.rb'
-    - 'test/unit/rule_test.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/TrailingWhitespace:
