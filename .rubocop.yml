@@ -4,6 +4,9 @@ AllCops:
   Exclude:
     - 'public_suffix.gemspec'
 
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
 Style/EmptyLines:
   Enabled: false
 
