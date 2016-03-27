@@ -55,7 +55,7 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
   end
 
   def test_empty?
-    assert  @list.empty?
+    assert @list.empty?
     @list.add(PublicSuffix::Rule.factory(""))
     assert !@list.empty?
   end
@@ -158,7 +158,7 @@ EOS
 
 
   def test_self_default_getter
-    assert_equal     nil, PublicSuffix::List.class_eval { @default }
+    assert_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default
     assert_not_equal nil, PublicSuffix::List.class_eval { @default }
   end
@@ -167,14 +167,14 @@ EOS
     PublicSuffix::List.default
     assert_not_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default = nil
-    assert_equal     nil, PublicSuffix::List.class_eval { @default }
+    assert_equal nil, PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_clear
     PublicSuffix::List.default
     assert_not_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.clear
-    assert_equal     nil, PublicSuffix::List.class_eval { @default }
+    assert_equal nil, PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_parse
