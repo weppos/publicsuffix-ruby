@@ -186,13 +186,6 @@ Style/NegatedIf:
     - 'Gemfile'
     - 'lib/public_suffix/list.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: IncludeSemanticChanges.
-Style/NonNilCheck:
-  Exclude:
-    - 'test/acceptance_test.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/PerlBackrefs:

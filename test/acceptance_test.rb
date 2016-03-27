@@ -95,21 +95,21 @@ class AcceptanceTest < Minitest::Unit::TestCase
     end
     # test valid?
     IncludePrivateCases.each do |given, ignore_private, expected|
-      assert_equal expected != nil, PublicSuffix.valid?(given, ignore_private: ignore_private)
+      assert_equal !expected.nil?, PublicSuffix.valid?(given, ignore_private: ignore_private)
     end
   end
 
 
   def valid_uri?(name)
     uri = URI.parse(name)
-    uri.host != nil
+    !uri.host.nil?
   rescue
     false
   end
 
   def valid_domain?(name)
     uri = URI.parse(name)
-    uri.host != nil && uri.scheme.nil?
+    !uri.host.nil? && uri.scheme.nil?
   rescue
     false
   end
