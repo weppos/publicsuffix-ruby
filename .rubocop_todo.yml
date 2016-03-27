@@ -40,12 +40,6 @@ Style/FormatString:
     - 'test/acceptance_test.rb'
     - 'test/psl_test.rb'
 
-# Offense count: 2
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/public_suffix/domain.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues.
