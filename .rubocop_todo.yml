@@ -67,15 +67,6 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 32
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'lib/public_suffix/list.rb'
-    - 'lib/public_suffix/rule.rb'
-
 # Offense count: 1
 Style/AsciiComments:
   Exclude:

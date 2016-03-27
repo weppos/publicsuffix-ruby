@@ -122,7 +122,7 @@ module PublicSuffix
          self.equal?(other) ||
         (self.class == other.class && self.value == other.value)
       end
-      alias :eql? :==
+      alias eql? ==
 
       # Checks if this rule matches +name+.
       #

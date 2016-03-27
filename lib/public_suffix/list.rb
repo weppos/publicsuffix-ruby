@@ -165,7 +165,7 @@ module PublicSuffix
       self.equal?(other) ||
       self.rules == other.rules
     end
-    alias :eql? :==
+    alias eql? ==
 
     # Iterates each rule in the list.
     def each(*args, &block)
