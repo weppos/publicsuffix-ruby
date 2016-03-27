@@ -26,11 +26,6 @@ Lint/UselessAccessModifier:
   Exclude:
     - 'lib/public_suffix.rb'
 
-# Offense count: 1
-Lint/UselessAssignment:
-  Exclude:
-    - 'test/execution_profiler.rb'
-
 # Offense count: 12
 Metrics/AbcSize:
   Max: 38
