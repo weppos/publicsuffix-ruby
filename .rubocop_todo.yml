@@ -7,11 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 2
-Lint/Eval:
-  Exclude:
-    - 'test/psl_test.rb'
-
-# Offense count: 2
 Lint/IneffectiveAccessModifier:
   Exclude:
     - 'lib/public_suffix.rb'

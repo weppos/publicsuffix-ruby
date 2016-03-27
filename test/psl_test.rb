@@ -7,6 +7,7 @@ class PslTest < Minitest::Unit::TestCase
 
   ROOT = File.expand_path("../../", __FILE__)
 
+  # rubocop:disable Lint/Eval
   def self.tests
     File.readlines(File.join(ROOT, "test/tests.txt")).map do |line|
       line = line.strip
@@ -23,6 +24,7 @@ class PslTest < Minitest::Unit::TestCase
       [input, output]
     end
   end
+  # rubocop:enable
 
 
   def test_valid
