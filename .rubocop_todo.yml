@@ -21,13 +21,6 @@ Lint/IneffectiveAccessModifier:
   Exclude:
     - 'lib/public_suffix.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoreEmptyBlocks.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'test/unit/public_suffix_test.rb'
-
 # Offense count: 1
 Lint/UselessAccessModifier:
   Exclude:
