@@ -36,6 +36,11 @@ Style/NegatedIf:
 Style/RescueModifier:
   Enabled: false
 
+# Hate It or Love It, I prefer double quotes as this is more consistent
+# with several other programming languages and the output of puts and inspect.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: consistent_comma
 

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublicSuffixTest < Minitest::Unit::TestCase
 
@@ -138,13 +138,13 @@ class PublicSuffixTest < Minitest::Unit::TestCase
 
   def test_self_normalize
     [
-        ['com', 'com'],
-        ['example.com', 'example.com'],
-        ['www.example.com', 'www.example.com'],
+        ["com", "com"],
+        ["example.com", "example.com"],
+        ["www.example.com", "www.example.com"],
 
-        ['example.com.',  'example.com'],     # strip FQDN
-        [' example.com ', 'example.com'],     # strip spaces
-        ['Example.COM',   'example.com'],     # downcase
+        ["example.com.",  "example.com"],     # strip FQDN
+        [" example.com ", "example.com"],     # strip spaces
+        ["Example.COM",   "example.com"],     # downcase
     ].each do |input, output|
       assert_equal output, PublicSuffix.normalize(input)
     end
@@ -153,8 +153,8 @@ class PublicSuffixTest < Minitest::Unit::TestCase
   def test_normalize_blank
     [
         nil,
-        '',
-        ' ',
+        "",
+        " ",
     ].each do |input, _|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error
@@ -164,7 +164,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
 
   def test_normalize_scheme
     [
-        'https://google.com',
+        "https://google.com",
     ].each do |input, _|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error
@@ -174,7 +174,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
 
   def test_normalize_leading_dot
     [
-        '.google.com',
+        ".google.com",
     ].each do |input, _|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error

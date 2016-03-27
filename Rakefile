@@ -1,8 +1,8 @@
-require 'rubygems'
-require 'bundler'
+require "rubygems"
+require "bundler"
 
 $:.unshift(File.dirname(__FILE__) + "/lib")
-require 'public_suffix'
+require "public_suffix"
 
 
 # Run test by default.
@@ -31,7 +31,7 @@ spec = Gem::Specification.new do |s|
 end
 
 
-require 'rubygems/package_task'
+require "rubygems/package_task"
 
 Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
@@ -55,7 +55,7 @@ desc "Package the library and generates the gemspec"
 task package: [:gemspec]
 
 
-require 'rake/testtask'
+require "rake/testtask"
 
 Rake::TestTask.new do |t|
   t.libs = %w( lib test )
@@ -64,8 +64,8 @@ Rake::TestTask.new do |t|
   t.warning = !ENV["WARNING"].nil?
 end
 
-require 'yard'
-require 'yard/rake/yardoc_task'
+require "yard"
+require "yard/rake/yardoc_task"
 
 YARD::Rake::YardocTask.new(:yardoc) do |y|
   y.options = %w( --output-dir yardoc )

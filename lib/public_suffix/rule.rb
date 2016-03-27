@@ -238,7 +238,7 @@ module PublicSuffix
       # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        suffix = (['.*?'] + parts).join('\.')
+        suffix = ([".*?"] + parts).join('\.')
         domain.to_s =~ /^(.*)\.(#{suffix})$/
         [$1, $2]
       end

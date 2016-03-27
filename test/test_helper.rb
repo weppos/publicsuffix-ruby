@@ -1,16 +1,16 @@
-if ENV['COVERALL']
-  require 'coveralls'
+if ENV["COVERALL"]
+  require "coveralls"
   Coveralls.wear!
 end
 
-require 'minitest/autorun'
-require 'minitest/reporters'
-require 'mocha/setup'
+require "minitest/autorun"
+require "minitest/reporters"
+require "mocha/setup"
 
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
 
-$:.unshift File.expand_path('../../lib', __FILE__)
-require 'public_suffix'
+$:.unshift File.expand_path("../../lib", __FILE__)
+require "public_suffix"
 
 Minitest::Unit::TestCase.class_eval do
   def assert_not_equal(exp, act, msg = nil)

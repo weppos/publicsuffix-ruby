@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'public_suffix'
+require "test_helper"
+require "public_suffix"
 
 # This test runs against the current PSL file and ensures
 # the definitions satisfies the test suite.
