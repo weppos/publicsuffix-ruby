@@ -226,13 +226,6 @@ Style/NonNilCheck:
   Exclude:
     - 'test/acceptance_test.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'public_suffix.gemspec'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/PerlBackrefs:
