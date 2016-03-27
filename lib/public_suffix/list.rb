@@ -120,7 +120,7 @@ module PublicSuffix
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     #
-    def initialize(&block)
+    def initialize
       @rules = []
       yield(self) if block_given?
       reindex!

@@ -164,7 +164,7 @@ module PublicSuffix
       # @abstract
       # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String, nil>]
-      def decompose(domain)
+      def decompose(*)
         raise NotImplementedError
       end
 

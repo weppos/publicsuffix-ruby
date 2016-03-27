@@ -28,15 +28,6 @@ Lint/UnusedBlockArgument:
   Exclude:
     - 'test/unit/public_suffix_test.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'lib/public_suffix/domain.rb'
-    - 'lib/public_suffix/list.rb'
-    - 'lib/public_suffix/rule.rb'
-
 # Offense count: 1
 Lint/UselessAccessModifier:
   Exclude:

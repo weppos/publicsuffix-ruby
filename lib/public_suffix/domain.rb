@@ -59,7 +59,7 @@ module PublicSuffix
     #   PublicSuffix::Domain.new("com", "example", "wwww")
     #   # => #<PublicSuffix::Domain @tld="com", @trd=nil, @sld="example">
     #
-    def initialize(*args, &block)
+    def initialize(*args)
       @tld, @sld, @trd = args
       yield(self) if block_given?
     end
