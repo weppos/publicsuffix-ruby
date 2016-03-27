@@ -83,9 +83,9 @@ class AcceptanceTest < Minitest::Unit::TestCase
 
   INCLUDE_PRIVATE_CASES = [
       ["blogspot.com", true, "blogspot.com"],
-      ["blogspot.com", false,  nil],
+      ["blogspot.com", false, nil],
       ["subdomain.blogspot.com", true, "blogspot.com"],
-      ["subdomain.blogspot.com", false,  "subdomain.blogspot.com"],
+      ["subdomain.blogspot.com", false, "subdomain.blogspot.com"],
   ].freeze
 
   def test_ignore_private

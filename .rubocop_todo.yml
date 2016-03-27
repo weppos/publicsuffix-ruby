@@ -31,14 +31,6 @@ Style/Documentation:
     - 'lib/public_suffix/domain.rb'
     - 'lib/public_suffix/rule.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Style/ExtraSpacing:
-  Exclude:
-    - 'test/acceptance_test.rb'
-    - 'test/unit/list_test.rb'
-
 # Offense count: 3
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: format, sprintf, percent
