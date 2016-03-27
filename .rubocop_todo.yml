@@ -65,22 +65,6 @@ Style/Documentation:
     - 'lib/public_suffix/domain.rb'
     - 'lib/public_suffix/rule.rb'
 
-# Offense count: 50
-# Cop supports --auto-correct.
-Style/EmptyLines:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/public_suffix.rb'
-    - 'lib/public_suffix/domain.rb'
-    - 'lib/public_suffix/list.rb'
-    - 'lib/public_suffix/rule.rb'
-    - 'test/acceptance_test.rb'
-    - 'test/psl_test.rb'
-    - 'test/unit/domain_test.rb'
-    - 'test/unit/list_test.rb'
-    - 'test/unit/public_suffix_test.rb'
-    - 'test/unit/rule_test.rb'
-
 # Offense count: 33
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
