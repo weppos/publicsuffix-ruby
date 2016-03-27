@@ -24,6 +24,9 @@ Style/HashSyntax:
   Exclude:
     - 'Rakefile'
 
+Style/IndentArray:
+  IndentationWidth: 4
+
 Style/IfUnlessModifier:
   Enabled: false
 
