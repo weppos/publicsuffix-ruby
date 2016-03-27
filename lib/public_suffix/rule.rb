@@ -125,7 +125,9 @@ module PublicSuffix
 
       # Checks if this rule matches +name+.
       #
-      # A domain name is said to match a rule if and only if all of the following conditions are met:
+      # A domain name is said to match a rule if and only if
+      # all of the following conditions are met:
+      #
       # - When the domain and rule are split into corresponding labels,
       #   that the domain contains as many or more labels than the rule.
       # - Beginning with the right-most labels of both the domain and the rule,

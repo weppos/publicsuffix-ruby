@@ -203,7 +203,9 @@ EOS
 
     assert_instance_of PublicSuffix::List, list
     assert_equal 4, list.size
-    assert_equal %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }, list.to_a
+
+    rules = %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }
+    assert_equal rules, list.to_a
 
     # private domains
     assert_equal false, list.find("com").private

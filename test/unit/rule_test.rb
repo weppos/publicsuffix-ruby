@@ -56,14 +56,15 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
     assert_equal rule, rule
   end
 
+  # rubocop:disable Style/SingleLineMethods
   def test_equality_with_internals
     assert_equal      @klass.new("foo"), @klass.new("foo")
     assert_not_equal  @klass.new("foo"), @klass.new("bar")
     assert_not_equal  @klass.new("foo"), PublicSuffix::Rule::Test.new("foo")
     assert_not_equal  @klass.new("foo"), PublicSuffix::Rule::Test.new("bar")
-    assert_not_equal  @klass.new("foo"), Class.new { def name; foo; end }.new # rubocop:disable Style/SingleLineMethods
+    assert_not_equal  @klass.new("foo"), Class.new { def name; foo; end }.new
   end
-
+  # rubocop:enable Style/SingleLineMethods
 
   def test_match
     [

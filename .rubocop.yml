@@ -20,6 +20,12 @@ Metrics/MethodLength:
     - 'test/**/*_test.rb'
   Max: 15
 
+Metrics/LineLength:
+  Enabled: false
+  Exclude:
+    - 'test/**/*_test.rb'
+  Max: 100
+
 Style/EmptyLines:
   Enabled: false
 

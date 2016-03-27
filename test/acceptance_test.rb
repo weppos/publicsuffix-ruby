@@ -57,8 +57,10 @@ class AcceptanceTest < Minitest::Unit::TestCase
 
   def test_rejected
     REJECTED_CASES.each do |name, expected|
-      assert_equal expected, PublicSuffix.valid?(name), "Expected %s to be %s" % [name.inspect, expected.inspect]
-      assert !valid_domain?(name), "#{name} expected to be invalid"
+      assert_equal expected, PublicSuffix.valid?(name),
+                   "Expected %s to be %s" % [name.inspect, expected.inspect]
+      assert !valid_domain?(name),
+             "#{name} expected to be invalid"
     end
   end
 
