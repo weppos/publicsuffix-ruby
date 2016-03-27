@@ -20,6 +20,10 @@ Style/EmptyLinesAroundClassBody:
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
+Style/HashSyntax:
+  Exclude:
+    - 'Rakefile'
+
 Style/IfUnlessModifier:
   Enabled: false
 
