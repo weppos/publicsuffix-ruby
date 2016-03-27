@@ -194,12 +194,6 @@ Style/LeadingCommentSpace:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-Style/MultilineIfThen:
-  Exclude:
-    - 'public_suffix.gemspec'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
 # SupportedStyles: aligned, indented
 Style/MultilineOperationIndentation:
@@ -271,12 +265,6 @@ Style/TrailingWhitespace:
 Style/TrivialAccessors:
   Exclude:
     - 'lib/public_suffix/list.rb'
-
-# Offense count: 9
-# Cop supports --auto-correct.
-Style/UnneededPercentQ:
-  Exclude:
-    - 'public_suffix.gemspec'
 
 # Offense count: 4
 # Cop supports --auto-correct.

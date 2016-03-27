@@ -1,6 +1,6 @@
 inherit_from: .rubocop_todo.yml
 
-Style/PercentLiteralDelimiters:
+AllCops:
   Exclude:
     - 'public_suffix.gemspec'
 
