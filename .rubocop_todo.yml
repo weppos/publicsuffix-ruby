@@ -40,12 +40,6 @@ Style/FormatString:
     - 'test/acceptance_test.rb'
     - 'test/psl_test.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Exclude:
-    - 'lib/public_suffix/rule.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles.

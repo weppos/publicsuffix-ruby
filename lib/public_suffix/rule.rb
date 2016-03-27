@@ -192,8 +192,8 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
-        domain.to_s =~ /^(.*)\.(#{suffix})$/
-        [$1, $2]
+        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
@@ -239,8 +239,8 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = ([".*?"] + parts).join('\.')
-        domain.to_s =~ /^(.*)\.(#{suffix})$/
-        [$1, $2]
+        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
@@ -287,8 +287,8 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
-        domain.to_s =~ /^(.*)\.(#{suffix})$/
-        [$1, $2]
+        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
