@@ -60,8 +60,8 @@ require 'rake/testtask'
 Rake::TestTask.new do |t|
   t.libs = %w( lib test )
   t.pattern = "test/**/*_test.rb"
-  t.verbose = !!ENV["VERBOSE"]
-  t.warning = !!ENV["WARNING"]
+  t.verbose = !ENV["VERBOSE"].nil?
+  t.warning = !ENV["WARNING"].nil?
 end
 
 require 'yard'

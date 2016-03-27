@@ -64,9 +64,9 @@ class AcceptanceTest < Minitest::Unit::TestCase
 
 
   CaseCases = [
-      ["Www.google.com",          ["www", "google", "com"]],
-      ["www.Google.com",          ["www", "google", "com"]],
-      ["www.google.Com",          ["www", "google", "com"]],
+      ["Www.google.com", %w( www google com )],
+      ["www.Google.com", %w( www google com )],
+      ["www.google.Com", %w( www google com )],
   ]
 
   def test_ignore_case
