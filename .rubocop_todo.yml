@@ -223,14 +223,6 @@ Style/TrailingBlankLines:
     - 'test/performance_benchmark.rb'
     - 'test/unit/errors_test.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/TrailingWhitespace:
-  Exclude:
-    - 'lib/public_suffix.rb'
-    - 'lib/public_suffix/list.rb'
-    - 'test/acceptance_test.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, Whitelist.

@@ -20,7 +20,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
       assert_equal tld, parsed.tld, "Invalid tld for `#{name}`"
       assert_equal sld, parsed.sld, "Invalid sld for `#{name}`"
       assert_equal trd, parsed.trd, "Invalid trd for `#{name}`"
-      
+
       assert_equal domain, PublicSuffix.domain(input)
       assert PublicSuffix.valid?(input)
     end

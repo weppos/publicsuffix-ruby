@@ -113,7 +113,7 @@ module PublicSuffix
 
     default_rule ||= list.default_rule
     rule = list.find(what, default: default_rule, ignore_private: ignore_private)
-    
+
     !rule.nil? && !rule.decompose(what).last.nil?
   end
 

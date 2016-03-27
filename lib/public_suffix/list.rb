@@ -114,7 +114,7 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     attr_reader :rules
 
-    
+
     # Initializes an empty {PublicSuffix::List}.
     #
     # @yield [self] Yields on self.
@@ -132,7 +132,7 @@ module PublicSuffix
     # {PublicSuffix::Rule::Base#labels} element.
     #
     # For instance if @rules[5] and @rules[4] are the only elements of the list
-    # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
+    # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in
     # select we can avoid mapping every single rule against the candidate domain.
     def reindex!
       @indexes = {}
