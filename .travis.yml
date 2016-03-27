@@ -6,7 +6,6 @@ rvm:
 - 2.3.0
 - ruby-head
 - jruby-19mode
-- rbx-19mode
 
 sudo: false
 env: COVERALL=1
@@ -20,7 +19,6 @@ notifications:
 
 matrix:
   allow_failures:
-  - rvm: rbx-19mode
   - rvm: jruby-19mode
   - rvm: ruby-head
 
