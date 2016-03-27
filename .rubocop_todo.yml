@@ -65,36 +65,6 @@ Style/Documentation:
     - 'lib/public_suffix/domain.rb'
     - 'lib/public_suffix/rule.rb'
 
-# Offense count: 33
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'lib/public_suffix/domain.rb'
-    - 'lib/public_suffix/list.rb'
-    - 'lib/public_suffix/rule.rb'
-    - 'test/acceptance_test.rb'
-    - 'test/psl_test.rb'
-    - 'test/unit/domain_test.rb'
-    - 'test/unit/errors_test.rb'
-    - 'test/unit/list_test.rb'
-    - 'test/unit/public_suffix_test.rb'
-    - 'test/unit/rule_test.rb'
-
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'lib/public_suffix.rb'
-    - 'lib/public_suffix/domain.rb'
-    - 'lib/public_suffix/errors.rb'
-    - 'lib/public_suffix/list.rb'
-    - 'lib/public_suffix/rule.rb'
-    - 'lib/public_suffix/version.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.

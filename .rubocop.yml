@@ -7,6 +7,12 @@ AllCops:
 Style/EmptyLines:
   Enabled: false
 
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
 Style/IfUnlessModifier:
   Enabled: false
 
