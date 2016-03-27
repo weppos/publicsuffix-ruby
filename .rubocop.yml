@@ -11,6 +11,12 @@ Metrics/AbcSize:
   Exclude:
     - 'test/**/*_test.rb'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*_test.rb'
+  Max: 15
+
+
 Style/EmptyLines:
   Enabled: false
 
