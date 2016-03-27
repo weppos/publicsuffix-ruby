@@ -9,7 +9,7 @@ require "mocha/setup"
 
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
 
-$:.unshift File.expand_path("../../lib", __FILE__)
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "public_suffix"
 
 Minitest::Unit::TestCase.class_eval do
