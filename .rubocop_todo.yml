@@ -179,13 +179,6 @@ Style/MutableConstant:
     - 'Rakefile'
     - 'test/acceptance_test.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/NegatedIf:
-  Exclude:
-    - 'Gemfile'
-    - 'lib/public_suffix/list.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/PerlBackrefs:
