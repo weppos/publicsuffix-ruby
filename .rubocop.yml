@@ -7,6 +7,10 @@ AllCops:
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*_test.rb'
+
 Style/EmptyLines:
   Enabled: false
 
