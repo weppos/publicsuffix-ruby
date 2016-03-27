@@ -234,7 +234,7 @@ blogspot.com
 // ===END PRIVATE DOMAINS===
 EOS
 
-    assert_equal({"com" => [0, 3], "uk" => [1, 2]}, list.indexes)
+    assert_equal({ "com" => [0, 3], "uk" => [1, 2] }, list.indexes)
   end
 
 
