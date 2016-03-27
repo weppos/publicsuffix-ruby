@@ -70,6 +70,8 @@ module PublicSuffix
       self
     end
 
+    # rubocop:disable Metrics/MethodLength
+
     # Parse given +input+ treating the content as Public Suffix List.
     #
     # See http://publicsuffix.org/format/ for more details about input format.
@@ -107,6 +109,7 @@ module PublicSuffix
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
 
     # Gets the array of rules.
@@ -114,13 +117,13 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     attr_reader :rules
 
-    
+
     # Initializes an empty {PublicSuffix::List}.
     #
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     #
-    def initialize(&block)
+    def initialize
       @rules = []
       yield(self) if block_given?
       reindex!
@@ -132,7 +135,7 @@ module PublicSuffix
     # {PublicSuffix::Rule::Base#labels} element.
     #
     # For instance if @rules[5] and @rules[4] are the only elements of the list
-    # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in 
+    # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in
     # select we can avoid mapping every single rule against the candidate domain.
     def reindex!
       @indexes = {}
@@ -162,10 +165,9 @@ module PublicSuffix
     # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(List)
-      self.equal?(other) ||
-      self.rules == other.rules
+      equal?(other) || rules == other.rules
     end
-    alias :eql? :==
+    alias eql? ==
 
     # Iterates each rule in the list.
     def each(*args, &block)
@@ -173,8 +175,7 @@ module PublicSuffix
     end
 
 
-    # Adds the given object to the list
-    # and optionally refreshes the rule index.
+    # Adds the given object to the list and optionally refreshes the rule index.
     #
     # @param [PublicSuffix::Rule::*] rule
     #   The rule to add to the list.

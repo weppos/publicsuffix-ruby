@@ -1,4 +1,4 @@
-require_relative 'benchmark_helper'
+require_relative "benchmark_helper"
 
 iterations = 100_000
 

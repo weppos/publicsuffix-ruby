@@ -1,4 +1,4 @@
-require 'benchmark'
+require "benchmark"
 
-$:.unshift File.expand_path('../../lib', __FILE__)
-require 'public_suffix'
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require "public_suffix"

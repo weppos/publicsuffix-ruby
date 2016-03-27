@@ -1,12 +1,12 @@
-require 'rubygems'
-require 'bundler'
+require "rubygems"
+require "bundler"
 
-$:.unshift(File.dirname(__FILE__) + "/lib")
-require 'public_suffix'
+$LOAD_PATH.unshift(File.dirname(__FILE__) + "/lib")
+require "public_suffix"
 
 
-# Run test by default.
-task :default => :test
+# By default, run tests and linter.
+task default: [:test, :rubocop]
 
 spec = Gem::Specification.new do |s|
   s.name              = "public_suffix"
@@ -31,7 +31,7 @@ spec = Gem::Specification.new do |s|
 end
 
 
-require 'rubygems/package_task'
+require "rubygems/package_task"
 
 Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
@@ -40,7 +40,7 @@ end
 desc "Build the gemspec file #{spec.name}.gemspec"
 task :gemspec do
   file = File.dirname(__FILE__) + "/#{spec.name}.gemspec"
-  File.open(file, "w") {|f| f << spec.to_ruby }
+  File.open(file, "w") { |f| f << spec.to_ruby }
 end
 
 desc "Remove any temporary products, including gemspec"
@@ -55,17 +55,21 @@ desc "Package the library and generates the gemspec"
 task package: [:gemspec]
 
 
-require 'rake/testtask'
+require "rake/testtask"
 
 Rake::TestTask.new do |t|
   t.libs = %w( lib test )
   t.pattern = "test/**/*_test.rb"
-  t.verbose = !!ENV["VERBOSE"]
-  t.warning = !!ENV["WARNING"]
+  t.verbose = !ENV["VERBOSE"].nil?
+  t.warning = !ENV["WARNING"].nil?
 end
 
-require 'yard'
-require 'yard/rake/yardoc_task'
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
+require "yard"
+require "yard/rake/yardoc_task"
 
 YARD::Rake::YardocTask.new(:yardoc) do |y|
   y.options = %w( --output-dir yardoc )
@@ -76,8 +80,7 @@ namespace :yardoc do
     rm_r "yardoc" rescue nil
   end
 end
-
-task clobber: "yardoc:clobber"
+task clobber: ["yardoc:clobber"]
 
 
 desc "Open an irb session preloaded with this library"
@@ -90,7 +93,7 @@ desc "Downloads the Public Suffix List file from the repository and stores it lo
 task :"update-list" do
   require "net/http"
 
-  DEFINITION_URL = "https://raw.githubusercontent.com/publicsuffix/list/master/public_suffix_list.dat"
+  DEFINITION_URL = "https://raw.githubusercontent.com/publicsuffix/list/master/public_suffix_list.dat".freeze
 
   File.open("data/list.txt", "w+") do |f|
     response = Net::HTTP.get_response(URI.parse(DEFINITION_URL))

@@ -1,13 +1,13 @@
-$:.unshift File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 
-require 'memory_profiler'
-require 'public_suffix'
+require "memory_profiler"
+require "public_suffix"
 
-list = PublicSuffix::List.default
+PublicSuffix::List.default
 
 report = MemoryProfiler.report do
-    PublicSuffix.domain("www.example.com")
-    PublicSuffix.domain("a.b.ide.kyoto.jp")
+  PublicSuffix.domain("www.example.com")
+  PublicSuffix.domain("a.b.ide.kyoto.jp")
 end
 
 report.pretty_print

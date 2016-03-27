@@ -19,7 +19,7 @@ module PublicSuffix
   #
   module Rule
 
-    # # Abstract rule class
+    # = Abstract rule class
     #
     # This represent the base class for a Rule definition
     # in the {Public Suffix List}[https://publicsuffix.org].
@@ -119,14 +119,15 @@ module PublicSuffix
       #   Returns true if this rule and other are instances of the same class
       #   and has the same value, false otherwise.
       def ==(other)
-         self.equal?(other) ||
-        (self.class == other.class && self.value == other.value)
+        equal?(other) || (self.class == other.class && value == other.value)
       end
-      alias :eql? :==
+      alias eql? ==
 
       # Checks if this rule matches +name+.
       #
-      # A domain name is said to match a rule if and only if all of the following conditions are met:
+      # A domain name is said to match a rule if and only if
+      # all of the following conditions are met:
+      #
       # - When the domain and rule are split into corresponding labels,
       #   that the domain contains as many or more labels than the rule.
       # - Beginning with the right-most labels of both the domain and the rule,
@@ -165,12 +166,13 @@ module PublicSuffix
       # @abstract
       # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String, nil>]
-      def decompose(domain)
+      def decompose(*)
         raise NotImplementedError
       end
 
     end
 
+    # Normal represents a standard rule (e.g. com).
     class Normal < Base
 
       # Initializes a new rule from +definition+.
@@ -193,8 +195,8 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
-        domain.to_s =~ /^(.*)\.(#{suffix})$/
-        [$1, $2]
+        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
@@ -215,6 +217,7 @@ module PublicSuffix
 
     end
 
+    # Wildcard represents a wildcard rule (e.g. *.co.uk).
     class Wildcard < Base
 
       # Initializes a new rule from +definition+.
@@ -239,9 +242,9 @@ module PublicSuffix
       # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
-        suffix = (['.*?'] + parts).join('\.')
-        domain.to_s =~ /^(.*)\.(#{suffix})$/
-        [$1, $2]
+        suffix = ([".*?"] + parts).join('\.')
+        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
@@ -263,6 +266,7 @@ module PublicSuffix
 
     end
 
+    # Exception represents an exception rule (e.g. !parliament.uk).
     class Exception < Base
 
       # Initializes a new rule from +definition+.
@@ -288,8 +292,8 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
-        domain.to_s =~ /^(.*)\.(#{suffix})$/
-        [$1, $2]
+        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
@@ -335,7 +339,7 @@ module PublicSuffix
     # @param  [String] content The rule content.
     # @return [PublicSuffix::Rule::*] A rule instance.
     def self.factory(content, **options)
-      case content.to_s[0,1]
+      case content.to_s[0, 1]
       when STAR
         Wildcard
       when BANG

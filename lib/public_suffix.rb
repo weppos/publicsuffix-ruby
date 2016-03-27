@@ -4,18 +4,25 @@
 #
 # Copyright (c) 2009-2016 Simone Carletti <weppos@weppos.net>
 
-require 'public_suffix/domain'
-require 'public_suffix/version'
-require 'public_suffix/errors'
-require 'public_suffix/rule'
-require 'public_suffix/list'
+require "public_suffix/domain"
+require "public_suffix/version"
+require "public_suffix/errors"
+require "public_suffix/rule"
+require "public_suffix/list"
 
+# PublicSuffix is a Ruby domain name parser based on the Public Suffix List.
+#
+# The [Public Suffix List](https://publicsuffix.org) is a cross-vendor initiative
+# to provide an accurate list of domain name suffixes.
+#
+# The Public Suffix List is an initiative of the Mozilla Project,
+# but is maintained as a community resource. It is available for use in any software,
+# but was originally created to meet the needs of browser manufacturers.
 module PublicSuffix
 
   DOT   = ".".freeze
   BANG  = "!".freeze
   STAR  = "*".freeze
-
 
   # Parses +name+ and returns the {PublicSuffix::Domain} instance.
   #
@@ -113,7 +120,7 @@ module PublicSuffix
 
     default_rule ||= list.default_rule
     rule = list.find(what, default: default_rule, ignore_private: ignore_private)
-    
+
     !rule.nil? && !rule.decompose(what).last.nil?
   end
 
@@ -132,7 +139,7 @@ module PublicSuffix
   end
 
 
-  private
+  # private
 
   def self.decompose(name, rule)
     left, right = rule.decompose(name)

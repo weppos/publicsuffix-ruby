@@ -1,0 +1,82 @@
+AllCops:
+  Exclude:
+    - 'public_suffix.gemspec'
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*_test.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*_test.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*_test.rb'
+  Max: 15
+
+Metrics/LineLength:
+  Enabled: false
+  Exclude:
+    - 'test/**/*_test.rb'
+  Max: 100
+
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
+Style/EmptyLines:
+  Enabled: false
+
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# I personally don't care about the format style.
+# In most cases I like to use %, but not at the point I want to enforce it
+# as a convention in the entire code.
+Style/FormatString:
+  Enabled: false
+
+Style/HashSyntax:
+  Exclude:
+    - 'Rakefile'
+
+Style/IndentArray:
+  IndentationWidth: 4
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
+
+# Hate It or Love It, I prefer double quotes as this is more consistent
+# with several other programming languages and the output of puts and inspect.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrivialAccessors:
+  # IgnoreClassMethods because I want to be able to define class-level accessors
+  # that sets an instance variable on the metaclass, such as:
+  #
+  #    def self.default=(value)
+  #      @default = value
+  #    end
+  #
+  IgnoreClassMethods: true
+
+Style/WordArray:
+  Enabled: false

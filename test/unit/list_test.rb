@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublicSuffix::ListTest < Minitest::Unit::TestCase
 
@@ -55,7 +55,7 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
   end
 
   def test_empty?
-    assert  @list.empty?
+    assert @list.empty?
     @list.add(PublicSuffix::Rule.factory(""))
     assert !@list.empty?
   end
@@ -158,7 +158,7 @@ EOS
 
 
   def test_self_default_getter
-    assert_equal     nil, PublicSuffix::List.class_eval { @default }
+    assert_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default
     assert_not_equal nil, PublicSuffix::List.class_eval { @default }
   end
@@ -167,14 +167,14 @@ EOS
     PublicSuffix::List.default
     assert_not_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default = nil
-    assert_equal     nil, PublicSuffix::List.class_eval { @default }
+    assert_equal nil, PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_clear
     PublicSuffix::List.default
     assert_not_equal nil, PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.clear
-    assert_equal     nil, PublicSuffix::List.class_eval { @default }
+    assert_equal nil, PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_parse
@@ -203,7 +203,9 @@ EOS
 
     assert_instance_of PublicSuffix::List, list
     assert_equal 4, list.size
-    assert_equal %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }, list.to_a
+
+    rules = %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }
+    assert_equal rules, list.to_a
 
     # private domains
     assert_equal false, list.find("com").private
@@ -234,11 +236,11 @@ blogspot.com
 // ===END PRIVATE DOMAINS===
 EOS
 
-    assert_equal({"com"=>[0, 3], "uk"=>[1, 2]}, list.indexes)
+    assert_equal({ "com" => [0, 3], "uk" => [1, 2] }, list.indexes)
   end
 
 
-private
+  private
 
   def list
     @_list ||= PublicSuffix::List.parse(<<EOS)

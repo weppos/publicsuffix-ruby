@@ -6,6 +6,7 @@
 
 module PublicSuffix
 
+  # Domain represents a domain name, composed by a TLD, SLD and TRD.
   class Domain
 
     # Splits a string into the labels, that is the dot-separated parts.
@@ -59,7 +60,7 @@ module PublicSuffix
     #   PublicSuffix::Domain.new("com", "example", "wwww")
     #   # => #<PublicSuffix::Domain @tld="com", @trd=nil, @sld="example">
     #
-    def initialize(*args, &block)
+    def initialize(*args)
       @tld, @sld, @trd = args
       yield(self) if block_given?
     end
@@ -132,9 +133,7 @@ module PublicSuffix
     #
     # @return [String]
     def domain
-      if domain?
-        [@sld, @tld].join(DOT)
-      end
+      [@sld, @tld].join(DOT) if domain?
     end
 
     # Returns a subdomain-like representation of this object
@@ -166,9 +165,7 @@ module PublicSuffix
     #
     # @return [String]
     def subdomain
-      if subdomain?
-        [@trd, @sld, @tld].join(DOT)
-      end
+      [@trd, @sld, @tld].join(DOT) if subdomain?
     end
 
     # Checks whether <tt>self</tt> looks like a domain.

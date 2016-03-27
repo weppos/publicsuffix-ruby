@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'public_suffix'
+require "test_helper"
+require "public_suffix"
 
 # This test runs against the current PSL file and ensures
 # the definitions satisfies the test suite.
@@ -7,6 +7,7 @@ class PslTest < Minitest::Unit::TestCase
 
   ROOT = File.expand_path("../../", __FILE__)
 
+  # rubocop:disable Lint/Eval
   def self.tests
     File.readlines(File.join(ROOT, "test/tests.txt")).map do |line|
       line = line.strip
@@ -23,6 +24,7 @@ class PslTest < Minitest::Unit::TestCase
       [input, output]
     end
   end
+  # rubocop:enable
 
 
   def test_valid
@@ -40,7 +42,7 @@ class PslTest < Minitest::Unit::TestCase
     end
 
     message = "The following #{failures.size} tests fail:\n"
-    failures.each { |i,o,d| message += "Expected %s to be %s, got %s\n" % [i.inspect, o.inspect, d.inspect] }
+    failures.each { |i, o, d| message += "Expected %s to be %s, got %s\n" % [i.inspect, o.inspect, d.inspect] }
     assert_equal 0, failures.size, message
   end
 
