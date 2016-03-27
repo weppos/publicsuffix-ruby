@@ -10,6 +10,14 @@ require "public_suffix/errors"
 require "public_suffix/rule"
 require "public_suffix/list"
 
+# PublicSuffix is a Ruby domain name parser based on the Public Suffix List.
+#
+# The [Public Suffix List](https://publicsuffix.org) is a cross-vendor initiative
+# to provide an accurate list of domain name suffixes.
+#
+# The Public Suffix List is an initiative of the Mozilla Project,
+# but is maintained as a community resource. It is available for use in any software,
+# but was originally created to meet the needs of browser manufacturers.
 module PublicSuffix
 
   DOT   = ".".freeze

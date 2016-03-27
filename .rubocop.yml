@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   Exclude:
     - 'public_suffix.gemspec'
@@ -25,6 +23,11 @@ Metrics/LineLength:
   Exclude:
     - 'test/**/*_test.rb'
   Max: 100
+
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
 
 Style/EmptyLines:
   Enabled: false

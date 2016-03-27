@@ -6,6 +6,7 @@
 
 module PublicSuffix
 
+  # Domain represents a domain name, composed by a TLD, SLD and TRD.
   class Domain
 
     # Splits a string into the labels, that is the dot-separated parts.

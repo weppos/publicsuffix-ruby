@@ -19,7 +19,7 @@ module PublicSuffix
   #
   module Rule
 
-    # # Abstract rule class
+    # = Abstract rule class
     #
     # This represent the base class for a Rule definition
     # in the {Public Suffix List}[https://publicsuffix.org].
@@ -172,6 +172,7 @@ module PublicSuffix
 
     end
 
+    # Normal represents a standard rule (e.g. com).
     class Normal < Base
 
       # Initializes a new rule from +definition+.
@@ -216,6 +217,7 @@ module PublicSuffix
 
     end
 
+    # Wildcard represents a wildcard rule (e.g. *.co.uk).
     class Wildcard < Base
 
       # Initializes a new rule from +definition+.
@@ -264,6 +266,7 @@ module PublicSuffix
 
     end
 
+    # Exception represents an exception rule (e.g. !parliament.uk).
     class Exception < Base
 
       # Initializes a new rule from +definition+.
