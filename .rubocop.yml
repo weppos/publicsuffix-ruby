@@ -1,5 +1,4 @@
 inherit_from: .rubocop_todo.yml
 
-#AllCops:
-#  Exclude:
-#    - "test/**/*_test.rb"
+Style/WordArray:
+  Enabled: false

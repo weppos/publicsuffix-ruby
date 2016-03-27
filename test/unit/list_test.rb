@@ -238,7 +238,7 @@ EOS
   end
 
 
-private
+  private
 
   def list
     @_list ||= PublicSuffix::List.parse(<<EOS)
