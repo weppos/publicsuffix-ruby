@@ -85,13 +85,6 @@ Style/MultilineOperationIndentation:
 
 # Offense count: 6
 # Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'Rakefile'
-    - 'test/acceptance_test.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
 Style/PerlBackrefs:
   Exclude:
     - 'lib/public_suffix/rule.rb'

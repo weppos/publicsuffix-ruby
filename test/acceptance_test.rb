@@ -11,7 +11,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
 
       ["parliament.uk",           "parliament.uk",      [nil, "parliament", "uk"]],
       ["foo.parliament.uk",       "parliament.uk",      ["foo", "parliament", "uk"]],
-  ]
+  ].freeze
 
   def test_valid
     VALID_CASES.each do |input, domain, results|
@@ -32,7 +32,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
       [nil,                       PublicSuffix::DomainInvalid],
       ["",                        PublicSuffix::DomainInvalid],
       ["  ",                      PublicSuffix::DomainInvalid],
-  ]
+  ].freeze
 
   def test_invalid
     INVALID_CASES.each do |(name, error)|
@@ -53,7 +53,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
       # I decided to cover this case because it's not easily reproducible with URI.parse
       # and can lead to several false positives.
       ["http://google.com",   false],
-  ]
+  ].freeze
 
   def test_rejected
     REJECTED_CASES.each do |name, expected|
@@ -67,7 +67,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
       ["Www.google.com", %w( www google com )],
       ["www.Google.com", %w( www google com )],
       ["www.google.Com", %w( www google com )],
-  ]
+  ].freeze
 
   def test_ignore_case
     CASE_CASES.each do |name, results|
@@ -86,7 +86,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
       ["blogspot.com", false,  nil],
       ["subdomain.blogspot.com", true, "blogspot.com"],
       ["subdomain.blogspot.com", false,  "subdomain.blogspot.com"],
-  ]
+  ].freeze
 
   def test_ignore_private
     # test domain and parse
