@@ -40,13 +40,6 @@ Style/FormatString:
     - 'test/acceptance_test.rb'
     - 'test/psl_test.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: aligned, indented
-Style/MultilineOperationIndentation:
-  Enabled: false
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/PerlBackrefs:
