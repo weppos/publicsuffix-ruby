@@ -334,7 +334,7 @@ module PublicSuffix
     # @param  [String] content The rule content.
     # @return [PublicSuffix::Rule::*] A rule instance.
     def self.factory(content, **options)
-      case content.to_s[0,1]
+      case content.to_s[0, 1]
       when STAR
         Wildcard
       when BANG

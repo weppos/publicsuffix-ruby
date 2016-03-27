@@ -40,7 +40,7 @@ class PslTest < Minitest::Unit::TestCase
     end
 
     message = "The following #{failures.size} tests fail:\n"
-    failures.each { |i,o,d| message += "Expected %s to be %s, got %s\n" % [i.inspect, o.inspect, d.inspect] }
+    failures.each { |i, o, d| message += "Expected %s to be %s, got %s\n" % [i.inspect, o.inspect, d.inspect] }
     assert_equal 0, failures.size, message
   end
 

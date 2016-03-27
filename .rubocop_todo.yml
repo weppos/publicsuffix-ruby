@@ -239,13 +239,6 @@ Style/PerlBackrefs:
   Exclude:
     - 'lib/public_suffix/rule.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/SpaceAfterComma:
-  Exclude:
-    - 'lib/public_suffix/rule.rb'
-    - 'test/psl_test.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
