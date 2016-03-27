@@ -141,15 +141,6 @@ Style/GuardClause:
 Style/HashSyntax:
   Enabled: false
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'Gemfile'
-    - 'lib/public_suffix.rb'
-    - 'lib/public_suffix/domain.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.

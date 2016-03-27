@@ -4,6 +4,9 @@ AllCops:
   Exclude:
     - 'public_suffix.gemspec'
 
+Style/IfUnlessModifier:
+  Enabled: false
+
 Style/NegatedIf:
   Enabled: false
 
