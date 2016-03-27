@@ -20,6 +20,12 @@ Style/EmptyLinesAroundClassBody:
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
+# I personally don't care about the format style.
+# In most cases I like to use %, but not at the point I want to enforce it
+# as a convention in the entire code.
+Style/FormatString:
+  Enabled: false
+
 Style/HashSyntax:
   Exclude:
     - 'Rakefile'
