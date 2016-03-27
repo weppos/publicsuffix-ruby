@@ -119,8 +119,7 @@ module PublicSuffix
       #   Returns true if this rule and other are instances of the same class
       #   and has the same value, false otherwise.
       def ==(other)
-         self.equal?(other) ||
-        (self.class == other.class && self.value == other.value)
+         equal?(other) || (self.class == other.class && value == other.value)
       end
       alias eql? ==
 

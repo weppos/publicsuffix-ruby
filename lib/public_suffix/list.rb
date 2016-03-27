@@ -162,8 +162,7 @@ module PublicSuffix
     # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(List)
-      self.equal?(other) ||
-      self.rules == other.rules
+      equal?(other) || rules == other.rules
     end
     alias eql? ==
 
