@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AcceptanceTest < Minitest::Unit::TestCase
 
-  ValidCases = [
+  VALID_CASES = [
       ["example.com",             "example.com",        [nil, "example", "com"]],
       ["foo.example.com",         "example.com",        ["foo", "example", "com"]],
 
@@ -14,7 +14,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
   ]
 
   def test_valid
-    ValidCases.each do |input, domain, results|
+    VALID_CASES.each do |input, domain, results|
       parsed = PublicSuffix.parse(input)
       trd, sld, tld = results
       assert_equal tld, parsed.tld, "Invalid tld for `#{name}`"
@@ -27,7 +27,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
   end
 
 
-  InvalidCases = [
+  INVALID_CASES = [
       ["nic.ke",                  PublicSuffix::DomainNotAllowed],
       [nil,                       PublicSuffix::DomainInvalid],
       ["",                        PublicSuffix::DomainInvalid],
@@ -35,14 +35,14 @@ class AcceptanceTest < Minitest::Unit::TestCase
   ]
 
   def test_invalid
-    InvalidCases.each do |(name, error)|
+    INVALID_CASES.each do |(name, error)|
       assert_raises(error) { PublicSuffix.parse(name) }
       assert !PublicSuffix.valid?(name)
     end
   end
 
 
-  RejectedCases = [
+  REJECTED_CASES = [
       ["www. .com",           true],
       ["foo.co..uk",          true],
       ["goo,gle.com",         true],
@@ -56,21 +56,21 @@ class AcceptanceTest < Minitest::Unit::TestCase
   ]
 
   def test_rejected
-    RejectedCases.each do |name, expected|
+    REJECTED_CASES.each do |name, expected|
       assert_equal expected, PublicSuffix.valid?(name), "Expected %s to be %s" % [name.inspect, expected.inspect]
       assert !valid_domain?(name), "#{name} expected to be invalid"
     end
   end
 
 
-  CaseCases = [
+  CASE_CASES = [
       ["Www.google.com", %w( www google com )],
       ["www.Google.com", %w( www google com )],
       ["www.google.Com", %w( www google com )],
   ]
 
   def test_ignore_case
-    CaseCases.each do |name, results|
+    CASE_CASES.each do |name, results|
       domain = PublicSuffix.parse(name)
       trd, sld, tld = results
       assert_equal tld, domain.tld, "Invalid tld for `#{name}'"
@@ -81,7 +81,7 @@ class AcceptanceTest < Minitest::Unit::TestCase
   end
 
 
-  IncludePrivateCases = [
+  INCLUDE_PRIVATE_CASES = [
       ["blogspot.com", true, "blogspot.com"],
       ["blogspot.com", false,  nil],
       ["subdomain.blogspot.com", true, "blogspot.com"],
@@ -90,11 +90,11 @@ class AcceptanceTest < Minitest::Unit::TestCase
 
   def test_ignore_private
     # test domain and parse
-    IncludePrivateCases.each do |given, ignore_private, expected|
+    INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
       assert_equal expected, PublicSuffix.domain(given, ignore_private: ignore_private)
     end
     # test valid?
-    IncludePrivateCases.each do |given, ignore_private, expected|
+    INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
       assert_equal !expected.nil?, PublicSuffix.valid?(given, ignore_private: ignore_private)
     end
   end

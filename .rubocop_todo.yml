@@ -22,16 +22,6 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 32
 
-# Offense count: 1
-Style/AsciiComments:
-  Exclude:
-    - 'lib/public_suffix/list.rb'
-
-# Offense count: 5
-Style/ConstantName:
-  Exclude:
-    - 'test/acceptance_test.rb'
-
 # Offense count: 5
 Style/Documentation:
   Exclude:
