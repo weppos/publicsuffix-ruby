@@ -5,8 +5,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__) + "/lib")
 require "public_suffix"
 
 
-# Run test by default.
-task :default => :test
+# By default, run tests and linter.
+task default: [:test, :rubocop]
 
 spec = Gem::Specification.new do |s|
   s.name              = "public_suffix"
@@ -64,6 +64,10 @@ Rake::TestTask.new do |t|
   t.warning = !ENV["WARNING"].nil?
 end
 
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
 require "yard"
 require "yard/rake/yardoc_task"
 
@@ -76,8 +80,7 @@ namespace :yardoc do
     rm_r "yardoc" rescue nil
   end
 end
-
-task clobber: "yardoc:clobber"
+task clobber: ["yardoc:clobber"]
 
 
 desc "Open an irb session preloaded with this library"
