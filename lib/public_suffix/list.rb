@@ -172,8 +172,7 @@ module PublicSuffix
     end
 
 
-    # Adds the given object to the list
-    # and optionally refreshes the rule index.
+    # Adds the given object to the list and optionally refreshes the rule index.
     #
     # @param [PublicSuffix::Rule::*] rule
     #   The rule to add to the list.

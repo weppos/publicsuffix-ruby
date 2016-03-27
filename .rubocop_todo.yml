@@ -186,12 +186,6 @@ Style/IndentationWidth:
     - 'lib/public_suffix/rule.rb'
     - 'test/execution_profiler.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/LeadingCommentSpace:
-  Exclude:
-    - 'lib/public_suffix/list.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
