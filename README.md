@@ -38,14 +38,17 @@ For an older versions of Ruby use a previous release.
 
 ## Installation
 
-The best way to install <tt>PublicSuffix</tt> is via [RubyGems](https://rubygems.org/).
+You can install the gem manually:
 
 ```shell
 $ gem install public_suffix
 ```
 
-You might need administrator privileges on your system to install the gem.
+Or use Bundler and define it as a dependency in your `Gemfile`:
 
+```shell
+$ gem 'public_suffix'
+```
 
 ## Usage
 
