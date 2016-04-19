@@ -1,6 +1,6 @@
 # Public Suffix <small>Ruby</small>
 
-<tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](http://publicsuffix.org/).
+<tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](https://publicsuffix.org/).
 
 [![Build Status](https://travis-ci.org/weppos/publicsuffix-ruby.svg?branch=master)](https://travis-ci.org/weppos/publicsuffix-ruby)
 
@@ -26,7 +26,7 @@ As well as being used to prevent cookies from being set where they shouldn't be,
 
 Source: https://wiki.mozilla.org/Public_Suffix_List
 
-Not convinced yet? Check out [this real world example](http://stackoverflow.com/q/288810/123527).
+Not convinced yet? Check out [this real world example](https://stackoverflow.com/q/288810/123527).
 
 
 ## Requirements
@@ -38,14 +38,17 @@ For an older versions of Ruby use a previous release.
 
 ## Installation
 
-The best way to install <tt>PublicSuffix</tt> is via [RubyGems](https://rubygems.org/).
+You can install the gem manually:
 
 ```shell
 $ gem install public_suffix
 ```
 
-You might need administrator privileges on your system to install the gem.
+Or use Bundler and define it as a dependency in your `Gemfile`:
 
+```shell
+$ gem 'public_suffix'
+```
 
 ## Usage
 
@@ -124,7 +127,7 @@ PublicSuffix.domain("www.google.com.")
 
 ## Private domains
 
-This library has support for switching off support for private (non-ICANN). 
+This library has support for switching off support for private (non-ICANN).
 
 ```ruby
 # Extract a domain including private domains (by default)
@@ -166,7 +169,7 @@ Report issues or feature requests to [GitHub Issues](https://github.com/weppos/p
 
 ## More
 
-- [Homepage](http://simonecarletti.com/code/publicsuffix)
+- [Homepage](https://simonecarletti.com/code/publicsuffix-ruby)
 - [Repository](https://github.com/weppos/publicsuffix-ruby)
 - [API Documentation](http://rubydoc.info/gems/public_suffix)
 - [Introducing the Public Suffix List library for Ruby](https://simonecarletti.com/blog/2010/06/public-suffix-list-library-for-ruby/)
