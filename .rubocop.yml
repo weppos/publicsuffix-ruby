@@ -2,6 +2,9 @@ AllCops:
   Exclude:
     # Exclude .gemspec files because they are generally auto-generated
     - '*.gemspec'
+    # Exclude vendored folders
+    - 'tmp/**/*'
+    - 'vendor/**/*'
 
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
