@@ -22,14 +22,29 @@ $ gem install public_suffix
 
 Or use Bundler and define it as a dependency in your `Gemfile`:
 
-```shell
+```ruby
 $ gem 'public_suffix'
+```
+
+In order to work with the latest post `v1.5.3` changes, bundle the gem directly from its `Github` source. In your `Gemfile`:
+
+```ruby
+gem 'public_suffix', git: 'git@github.com:weppos/publicsuffix-ruby.git'
 ```
 
 ## Usage
 
-Extract the domain out from a name:
+Extract the (pay-level-)domain out from a host-name, in `v1.5.3`:
+```ruby
+PublicSuffix.parse("google.com").domain
+# => "google.com"
+PublicSuffix.parse("www.google.com").domain
+# => "google.com"
+PublicSuffix.parse("www.google.co.uk").domain
+# => "google.co.uk"
+```
 
+Extract the (pay-level-)domain out from a host-name, in the latest version of the `master` branch:
 ```ruby
 PublicSuffix.domain("google.com")
 # => "google.com"
@@ -94,11 +109,11 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
 ```ruby
 # Parse a standard domain name
 PublicSuffix.domain("www.google.com")
-# => "domain.com"
+# => "google.com"
 
 # Parse a fully qualified domain name
 PublicSuffix.domain("www.google.com.")
-# => "domain.com"
+# => "google.com"
 ```
 
 ## Private domains
@@ -120,11 +135,11 @@ PublicSuffix.valid?("something.blogspot.com", ignore_private: true)
 ```
 
 If you don't care about private domains at all, it's more efficient to exclude them when the list is parsed:
+Please note: You have to exclude the private domains **before** you use PublicSuffix for the first time. Otherwise, the list will already be parsed including the private domains.
 
 ```ruby
 # Disable support for private TLDs
-PublicSuffix::List.default = Public::Suffix.parse(File.read(Public::Suffix::DEFAULT_LIST_PATH), private_domains: false)
-# => "blogspot.com"
+PublicSuffix::List.default(private_domains: false);
 PublicSuffix.domain("something.blogspot.com")
 # => "blogspot.com"
 ```
