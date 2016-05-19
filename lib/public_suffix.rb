@@ -114,7 +114,7 @@ module PublicSuffix
   # @param  [String, #to_s] name The domain name or fully qualified domain name to validate.
   # @param  [Boolean] ignore_private
   # @return [Boolean]
-  def self.valid?(name, list: List.default, default_rule: nil, ignore_private: true)
+  def self.valid?(name, list: List.default, default_rule: nil, ignore_private: false)
     what = normalize(name)
     return false if what.is_a?(DomainInvalid)
 
