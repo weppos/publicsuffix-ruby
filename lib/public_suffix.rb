@@ -60,11 +60,10 @@ module PublicSuffix
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
-  def self.parse(name, list: List.default, default_rule: nil, ignore_private: false)
+  def self.parse(name, list: List.default, default_rule: list.default_rule, ignore_private: false)
     what = normalize(name)
     raise what if what.is_a?(DomainInvalid)
 
-    default_rule ||= list.default_rule
     rule = list.find(what, default: default_rule, ignore_private: ignore_private)
 
     if rule.nil?
