@@ -1,7 +1,7 @@
 # Changelog
 
 
-#### master
+#### Release 2.0.0
 
 - NEW: Added PublicSuffix.domain # => sld.tld
 
