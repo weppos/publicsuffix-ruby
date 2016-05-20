@@ -26,6 +26,8 @@ Or use Bundler and define it as a dependency in your `Gemfile`:
 $ gem 'public_suffix'
 ```
 
+If you are upgrading to 2.0, see [2.0-Upgrade.md](2.0-Upgrade.md).
+
 ## Usage
 
 Extract the domain out from a name:
