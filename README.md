@@ -125,7 +125,7 @@ If you don't care about private domains at all, it's more efficient to exclude t
 
 ```ruby
 # Disable support for private TLDs
-PublicSuffix::List.default = Public::Suffix.parse(File.read(Public::Suffix::DEFAULT_LIST_PATH), private_domains: false)
+PublicSuffix::List.default = PublicSuffix::List.parse(File.read(PublicSuffix::List::DEFAULT_LIST_PATH), private_domains: false)
 # => "blogspot.com"
 PublicSuffix.domain("something.blogspot.com")
 # => "blogspot.com"
