@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
-# stub: public_suffix 2.0.1 ruby lib
+# stub: public_suffix 2.0.2 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "public_suffix"
-  s.version = "2.0.1"
+  s.version = "2.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Simone Carletti"]
-  s.date = "2016-05-22"
+  s.date = "2016-06-10"
   s.description = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
   s.email = "weppos@weppos.net"
   s.files = [".gitignore", ".rubocop.yml", ".rubocop_defaults.yml", ".ruby-gemset", ".travis.yml", ".yardopts", "2.0-Upgrade.md", "CHANGELOG.md", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "data/list.txt", "lib/public_suffix.rb", "lib/public_suffix/domain.rb", "lib/public_suffix/errors.rb", "lib/public_suffix/list.rb", "lib/public_suffix/rule.rb", "lib/public_suffix/version.rb", "public_suffix.gemspec", "test/acceptance_test.rb", "test/benchmark_helper.rb", "test/execution_profiler.rb", "test/initialization_profiler.rb", "test/performance_benchmark.rb", "test/psl_test.rb", "test/test_helper.rb", "test/tests.txt", "test/unit/domain_test.rb", "test/unit/errors_test.rb", "test/unit/list_test.rb", "test/unit/public_suffix_test.rb", "test/unit/rule_test.rb"]
