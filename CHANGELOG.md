@@ -1,5 +1,11 @@
 # Changelog
 
+
+#### Release 2.0.2
+
+- CHANGED: Updated definitions.
+
+
 #### Release 2.0.1
 
 - FIXED: Fix bug that prevented .valid? to reset the default rule
