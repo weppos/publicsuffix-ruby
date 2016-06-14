@@ -96,11 +96,11 @@ This library automatically recognizes Fully Qualified Domain Names. A FQDN is a 
 ```ruby
 # Parse a standard domain name
 PublicSuffix.domain("www.google.com")
-# => "domain.com"
+# => "google.com"
 
 # Parse a fully qualified domain name
 PublicSuffix.domain("www.google.com.")
-# => "domain.com"
+# => "google.com"
 ```
 
 ## Private domains
