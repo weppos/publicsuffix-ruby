@@ -177,6 +177,20 @@ EOS
     assert_equal nil, PublicSuffix::List.class_eval { @default }
   end
 
+  def test_default_rule
+    PublicSuffix::List.clear
+    assert_equal true, PublicSuffix.valid?("google.commm")
+    assert_equal false, PublicSuffix.valid?("google.commm", default_rule: nil)
+
+    PublicSuffix::List.default_rule = nil
+    assert_equal false, PublicSuffix.valid?("google.commm")
+    assert_equal true, PublicSuffix.valid?("google.commm", default_rule: PublicSuffix::Rule.default)
+
+    PublicSuffix::List.clear
+    assert_equal true, PublicSuffix.valid?("google.commm")
+    assert_equal false, PublicSuffix.valid?("google.commm", default_rule: nil)
+  end
+
   def test_self_parse
     list = PublicSuffix::List.parse(<<EOS)
 // This Source Code Form is subject to the terms of the Mozilla Public

@@ -60,7 +60,7 @@ module PublicSuffix
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
-  def self.parse(name, list: List.default, default_rule: list.default_rule, ignore_private: false)
+  def self.parse(name, list: List.default, default_rule: List.default_rule, ignore_private: false)
     what = normalize(name)
     raise what if what.is_a?(DomainInvalid)
 
@@ -113,7 +113,7 @@ module PublicSuffix
   # @param  [String, #to_s] name The domain name or fully qualified domain name to validate.
   # @param  [Boolean] ignore_private
   # @return [Boolean]
-  def self.valid?(name, list: List.default, default_rule: list.default_rule, ignore_private: false)
+  def self.valid?(name, list: List.default, default_rule: List.default_rule, ignore_private: false)
     what = normalize(name)
     return false if what.is_a?(DomainInvalid)
 

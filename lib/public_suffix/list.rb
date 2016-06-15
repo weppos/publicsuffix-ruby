@@ -62,12 +62,30 @@ module PublicSuffix
       @default = value
     end
 
-    # Sets the default rule list to +nil+.
+    # Sets the default rule list to +nil+ and undefines the default rule if set.
     #
     # @return [self]
     def self.clear
       self.default = nil
+      remove_instance_variable(:@default_rule) if defined?(@default_rule)
       self
+    end
+
+    # Gets the default rule.
+    #
+    # @return [PublicSuffix::Rule or +nil+]
+    def self.default_rule
+      defined?(@default_rule) ? @default_rule : Rule.default
+    end
+
+    # Sets the default rule to +value+.
+    #
+    # @param [PublicSuffix::Rule or +nil+] value
+    #   The default rule.
+    #
+    # @return [PublicSuffix::Rule or +nil+]
+    def self.default_rule=(value)
+      @default_rule = value
     end
 
     # rubocop:disable Metrics/MethodLength
