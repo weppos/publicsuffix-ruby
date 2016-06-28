@@ -76,6 +76,9 @@ Style/HashSyntax:
     # that looks nicer with the old rocket syntax.
     - 'Rakefile'
 
+Style/IfUnlessModifier:
+  Enabled: false
+
 # Array indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
 Style/IndentArray:
@@ -91,9 +94,6 @@ Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
   IndentationWidth: 4
 
-Style/IfUnlessModifier:
-  Enabled: false
-
 # unless is not always cool.
 Style/NegatedIf:
   Enabled: false
@@ -101,6 +101,17 @@ Style/NegatedIf:
 # There are cases were the inline rescue is ok. We can either downgrade the severity,
 # or rely on the developer judgement on a case-by-case basis.
 Style/RescueModifier:
+  Enabled: false
+
+# Sorry, but using trailing spaces helps readability.
+#
+#   %w( foo bar )
+#
+# looks better to me than
+#
+#   %w( foo bar )
+#
+Style/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
 
 # Hate It or Love It, I prefer double quotes as this is more consistent
