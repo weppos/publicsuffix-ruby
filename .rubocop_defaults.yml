@@ -76,9 +76,6 @@ Style/HashSyntax:
     # that looks nicer with the old rocket syntax.
     - 'Rakefile'
 
-Style/IfUnlessModifier:
-  Enabled: false
-
 # Array indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
 Style/IndentArray:

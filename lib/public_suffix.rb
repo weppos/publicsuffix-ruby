@@ -66,12 +66,14 @@ module PublicSuffix
 
     rule = list.find(what, default: default_rule, ignore_private: ignore_private)
 
+    # rubocop:disable Style/IfUnlessModifier
     if rule.nil?
       raise DomainInvalid, "`#{what}` is not a valid domain"
     end
     if rule.decompose(what).last.nil?
       raise DomainNotAllowed, "`#{what}` is not allowed according to Registry policy"
     end
+    # rubocop:enable Style/IfUnlessModifier
 
     decompose(what, rule)
   end
