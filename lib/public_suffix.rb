@@ -56,7 +56,7 @@ module PublicSuffix
   # @param  [Boolean] ignore_private
   # @return [PublicSuffix::Domain]
   #
-  # @raise [PublicSuffix::Error]
+  # @raise [PublicSuffix::DomainInvalid]
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
