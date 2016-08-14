@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublicSuffix::RuleTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleTest < Minitest::Test
 
   def test_factory_should_return_rule_normal
     rule = PublicSuffix::Rule.factory("com")
@@ -34,7 +34,7 @@ class PublicSuffix::RuleTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleBaseTest < Minitest::Test
 
   class ::PublicSuffix::Rule::Test < ::PublicSuffix::Rule::Base
   end
@@ -43,13 +43,11 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
     @klass = PublicSuffix::Rule::Base
   end
 
-
   def test_initialize
     rule = @klass.new("verona.it")
-    assert_instance_of @klass,          rule
-    assert_equal "verona.it",           rule.value
+    assert_instance_of @klass, rule
+    assert_equal "verona.it",  rule.value
   end
-
 
   def test_equality_with_self
     rule = PublicSuffix::Rule::Base.new("foo")
@@ -58,11 +56,11 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
 
   # rubocop:disable Style/SingleLineMethods
   def test_equality_with_internals
-    assert_equal      @klass.new("foo"), @klass.new("foo")
-    assert_not_equal  @klass.new("foo"), @klass.new("bar")
-    assert_not_equal  @klass.new("foo"), PublicSuffix::Rule::Test.new("foo")
-    assert_not_equal  @klass.new("foo"), PublicSuffix::Rule::Test.new("bar")
-    assert_not_equal  @klass.new("foo"), Class.new { def name; foo; end }.new
+    assert_equal @klass.new("foo"), @klass.new("foo")
+    refute_equal @klass.new("foo"), @klass.new("bar")
+    refute_equal @klass.new("foo"), PublicSuffix::Rule::Test.new("foo")
+    refute_equal @klass.new("foo"), PublicSuffix::Rule::Test.new("bar")
+    refute_equal @klass.new("foo"), Class.new { def name; foo; end }.new
   end
   # rubocop:enable Style/SingleLineMethods
 
@@ -120,7 +118,7 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleNormalTest < Minitest::Test
 
   def setup
     @klass = PublicSuffix::Rule::Normal
@@ -156,7 +154,7 @@ class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleExceptionTest < Minitest::Test
 
   def setup
     @klass = PublicSuffix::Rule::Exception
@@ -190,7 +188,7 @@ class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleWildcardTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleWildcardTest < Minitest::Test
 
   def setup
     @klass = PublicSuffix::Rule::Wildcard

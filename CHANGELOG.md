@@ -1,6 +1,15 @@
 # Changelog
 
 
+#### Release 2.0.2-gam3
+
+- CHANGED: made rubocop optional
+- CHANGED: have links in markdown files work for Github and YARD
+- CHANGED: Minitest::Unit::TestCase -> Minitest::Test
+- FIXED: Typo in docs for Domain#new
+- FIXED: dead publicsuffix/format link
+
+
 #### Release 2.0.2
 
 - CHANGED: Updated definitions.

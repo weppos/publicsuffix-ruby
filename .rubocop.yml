@@ -6,3 +6,8 @@ Style/ClassAndModuleChildren:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
+AllCops:
+  Exclude:
+    - 'pkg/**/*'
+    - 'public_suffix.gemspec'
+

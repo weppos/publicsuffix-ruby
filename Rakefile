@@ -4,9 +4,18 @@ require "bundler"
 $LOAD_PATH.unshift(File.dirname(__FILE__) + "/lib")
 require "public_suffix"
 
+default_tasks = [:test]
+
+begin
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new
+  default_tasks.push :rubocop
+rescue LoadError
+  $stderr.puts "Note 'rubocop' is not installed."
+end
 
 # By default, run tests and linter.
-task default: [:test, :rubocop]
+task default: default_tasks
 
 spec = Gem::Specification.new do |s|
   s.name              = "public_suffix"
@@ -64,21 +73,52 @@ Rake::TestTask.new do |t|
   t.warning = !ENV["WARNING"].nil?
 end
 
-require "rubocop/rake_task"
-
-RuboCop::RakeTask.new
-
-
 require "yard"
 require "yard/rake/yardoc_task"
+require "redcarpet"
+
+# Inject Updated markdown into YARD
+module YARD
+  module Templates
+    module Helpers
+      module HtmlHelper # rubocop:disable Documentation
+        def self.included(*)
+          raise "HERE"
+        end
+        # This class fixes up the \.md links in the extra files
+        class MyRenderHTML < Redcarpet::Render::HTML
+          def link(link, title, contents)
+            if link.=~(/\.md$/)
+              %(<a href="file.#{link.gsub(/\.md$/, '.html')}">#{contents}</a>)
+            elsif title
+              %(<a href="#{link}" title="#{title}"></a>)
+            else
+              %(<a href="#{link}">#{contents}</a>)
+            end
+          end
+        end
+        def html_markup_markdown(text)
+          if @markdown.nil?
+            # :no_intraemphasis, :gh_blockcode, :fenced_code, :autolink, :tables, :lax_spacing
+            renderer = MyRenderHTML.new
+            @markdown = Redcarpet::Markdown.new(renderer, :no_intra_emphasis => true, :gh_blockcode => true, :fenced_code_blocks => true, :autolink => true)
+          end
+          @markdown.render(text)
+        end
+      end
+    end
+  end
+end
 
 YARD::Rake::YardocTask.new(:yardoc) do |y|
-  y.options = %w( --output-dir yardoc )
+  y.options = %w( --output-dir yardoc --title 'Ruby Public Suffix API Documentation')
+  y.files   = ["lib/**/*.rb", "-", "2.0-Upgrade.md", "CHANGELOG.md", "README.md"]
 end
 
 namespace :yardoc do
   task :clobber do
     rm_r "yardoc" rescue nil
+    rm_r ".yardoc" rescue nil
   end
 end
 task clobber: ["yardoc:clobber"]

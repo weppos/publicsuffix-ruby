@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 gem "rake", "< 11"
-gem "minitest"
+gem "minitest", ">= 5.0"
 gem "minitest-reporters"
 gem "coveralls", require: false
 gem "rubocop", require: false
