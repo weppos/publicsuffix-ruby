@@ -158,7 +158,8 @@ EOS
 
 
   def test_self_default_getter
-    assert_equal nil, PublicSuffix::List.class_eval { @default }
+    PublicSuffix::List.default = nil
+    assert_nil PublicSuffix::List.class_eval { @default; }
     PublicSuffix::List.default
     refute_nil PublicSuffix::List.class_eval { @default }
   end
