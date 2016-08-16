@@ -56,7 +56,7 @@ module PublicSuffix
   #
   # @param  [String, #to_s] name The domain name or fully qualified domain name to parse.
   # @param  [PublicSuffix::List] list The rule list to search, defaults to the default {PublicSuffix::List}
-  # @param  [Boolean] ignore_private 
+  # @param  [Boolean] ignore_private
   # @return [PublicSuffix::Domain]
   #
   # @raise [PublicSuffix::DomainInvalid]
