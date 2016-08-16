@@ -5,6 +5,9 @@ AllCops:
     # Exclude vendored folders
     - 'tmp/**/*'
     - 'vendor/**/*'
+    - 'pkg/**/*'
+    - 'public_suffix.gemspec'
+
 
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
