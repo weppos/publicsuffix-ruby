@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublicSuffixTest < Minitest::Unit::TestCase
+class PublicSuffixTest < Minitest::Test
 
   def test_private_domains_enabled_by_default
     domain = PublicSuffix.parse("www.example.blogspot.com")

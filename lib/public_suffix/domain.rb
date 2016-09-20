@@ -43,7 +43,7 @@ module PublicSuffix
     #   Initializes with a +tld+, +sld+ and +trd+.
     #   @param [String] tld The TLD (extension)
     #   @param [String] sld The SLD (domain)
-    #   @param [String] tld The TRD (subdomain)
+    #   @param [String] trd The TRD (subdomain)
     #
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::Domain] self The newly creates instance
@@ -173,8 +173,6 @@ module PublicSuffix
     # This method doesn't actually validate the domain.
     # It only checks whether the instance contains
     # a value for the {#tld} and {#sld} attributes.
-    # If you also want to validate the domain,
-    # use {#valid_domain?} instead.
     #
     # @example
     #
@@ -204,8 +202,6 @@ module PublicSuffix
     # This method doesn't actually validate the subdomain.
     # It only checks whether the instance contains
     # a value for the {#tld}, {#sld} and {#trd} attributes.
-    # If you also want to validate the domain,
-    # use {#valid_subdomain?} instead.
     #
     # @example
     #

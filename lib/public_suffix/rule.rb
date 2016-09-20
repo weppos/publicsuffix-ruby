@@ -22,7 +22,7 @@ module PublicSuffix
     # = Abstract rule class
     #
     # This represent the base class for a Rule definition
-    # in the {Public Suffix List}[https://publicsuffix.org].
+    # in the {https://publicsuffix.org Public Suffix List}.
     #
     # This is intended to be an Abstract class
     # and you shouldn't create a direct instance. The only purpose
@@ -38,7 +38,7 @@ module PublicSuffix
     # A rule is composed by 4 properties:
     #
     # value   - A normalized version of the rule name.
-    #           The normalization process depends on rule tpe.
+    #           The normalization process depends on rule type.
     #
     # Here's an example
     #
@@ -79,7 +79,7 @@ module PublicSuffix
     #   # => false
     #
     # Rule order is significant. A name can match more than one rule.
-    # See the {Public Suffix Documentation}[http://publicsuffix.org/format/]
+    # See the {http://publicsuffix.org/list/ Public Suffix Documentation}
     # to learn more about rule priority.
     #
     # When you have the right rule, you can use it to tokenize the domain name.
@@ -166,8 +166,8 @@ module PublicSuffix
       # @abstract
       # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String, nil>]
-      def decompose(*)
-        raise NotImplementedError
+      def decompose(name)	# rubocop: disable
+        raise NotImplementedError, "for #{name}"
       end
 
     end
@@ -191,7 +191,7 @@ module PublicSuffix
 
       # Decomposes the domain name according to rule properties.
       #
-      # @param  [String, #to_s] name The domain name to decompose
+      # @param  [String] domain The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
@@ -239,7 +239,7 @@ module PublicSuffix
 
       # Decomposes the domain name according to rule properties.
       #
-      # @param  [String, #to_s] name The domain name to decompose
+      # @param  [String] domain The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = ([".*?"] + parts).join('\.')
@@ -288,7 +288,7 @@ module PublicSuffix
 
       # Decomposes the domain name according to rule properties.
       #
-      # @param  [String, #to_s] name The domain name to decompose
+      # @param  [String] domain The domain name to decompose
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')

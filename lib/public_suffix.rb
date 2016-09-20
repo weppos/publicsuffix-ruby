@@ -20,9 +20,12 @@ require "public_suffix/list"
 # but was originally created to meet the needs of browser manufacturers.
 module PublicSuffix
 
-  DOT   = ".".freeze
-  BANG  = "!".freeze
-  STAR  = "*".freeze
+  # Character used to join parts of a domain
+  DOT  = ".".freeze
+  # In the list represent an exception entry
+  BANG = "!".freeze
+  # In the list this represent a wildcard character.
+  STAR = "*".freeze
 
   # Parses +name+ and returns the {PublicSuffix::Domain} instance.
   #
@@ -128,9 +131,9 @@ module PublicSuffix
   #
   # This method doesn't raise. Instead, it returns nil if the domain is not valid for whatever reason.
   #
-  # @param  [String, #to_s] name The domain name or fully qualified domain name to parse.
-  # @param  [PublicSuffix::List] list The rule list to search, defaults to the default {PublicSuffix::List}
-  # @param  [Boolean] ignore_private
+  # @param  name [String, #to_s] The domain name or fully qualified domain name to parse.
+  # @param  list [PublicSuffix::List] The rule list to search, defaults to the default {PublicSuffix::List}
+  # @param  ignore_private [Boolean] Ignore the private domains
   # @return [String]
   def self.domain(name, **options)
     parse(name, **options).domain

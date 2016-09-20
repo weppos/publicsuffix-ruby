@@ -6,6 +6,7 @@
 
 module PublicSuffix
 
+  # catch all error class for PublicSuffix
   class Error < StandardError
   end
 
