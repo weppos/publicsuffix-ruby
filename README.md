@@ -1,4 +1,4 @@
-# Public Suffix <small>Ruby</small>
+# Public Suffix <small>for Ruby</small>
 
 <tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](https://publicsuffix.org/).
 
