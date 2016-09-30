@@ -357,9 +357,17 @@ module PublicSuffix
     #
     # @return [PublicSuffix::Rule::Wildcard] The default rule.
     def self.default
-      factory(STAR)
+      return @default if defined?(@default)
+      @default = factory(STAR)
     end
 
+    # Override the default rule.
+    #
+    # @param  [PublicSuffix::Rule, nil] A rule instance or nil.
+    # @return [PublicSuffix::Rule, nil] The new default rule value.
+    def self.default=(rule)
+      @default = rule
+    end
   end
 
 end
