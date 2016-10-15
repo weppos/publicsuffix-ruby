@@ -1,6 +1,11 @@
 inherit_from:
   - .rubocop_defaults.yml
 
+AllCops:
+  Exclude:
+    # Exclude artifacts
+    - 'pkg/**/*'
+
 Style/ClassAndModuleChildren:
   Exclude:
     - 'spec/**/*_spec.rb'
