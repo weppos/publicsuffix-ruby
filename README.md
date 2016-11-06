@@ -23,7 +23,7 @@ $ gem install public_suffix
 Or use Bundler and define it as a dependency in your `Gemfile`:
 
 ```shell
-$ gem 'public_suffix'
+gem 'public_suffix'
 ```
 
 If you are upgrading to 2.0, see [2.0-Upgrade.md](2.0-Upgrade.md).
