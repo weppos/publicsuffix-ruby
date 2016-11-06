@@ -22,7 +22,7 @@ $ gem install public_suffix
 
 Or use Bundler and define it as a dependency in your `Gemfile`:
 
-```shell
+```ruby
 gem 'public_suffix'
 ```
 
