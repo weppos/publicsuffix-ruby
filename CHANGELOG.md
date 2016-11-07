@@ -1,6 +1,7 @@
 # Changelog
 
-#### master
+
+#### Release 2.0.4
 
 - FIXED: Fix a bug that caused the GEM to be published with the wrong version number in the gemspec (GH-121).
 
