@@ -2,7 +2,6 @@ source "http://rubygems.org"
 
 gemspec
 
-gem "rake", "< 11"
 gem "minitest"
 gem "minitest-reporters"
 gem "coveralls", require: false
