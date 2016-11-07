@@ -4,6 +4,8 @@
 
 - FIXED: Fix a bug that caused the GEM to be published with the wrong version number in the gemspec (GH-121).
 
+- CHANGED: Updated definitions.
+
 
 #### Release 2.0.3
 
