@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublicSuffix::RuleTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleTest < Minitest::Test
 
   def test_factory_should_return_rule_normal
     rule = PublicSuffix::Rule.factory("com")
@@ -34,7 +34,7 @@ class PublicSuffix::RuleTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleBaseTest < Minitest::Test
 
   class ::PublicSuffix::Rule::Test < ::PublicSuffix::Rule::Base
   end
@@ -120,7 +120,7 @@ class PublicSuffix::RuleBaseTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleNormalTest < Minitest::Test
 
   def setup
     @klass = PublicSuffix::Rule::Normal
@@ -156,7 +156,7 @@ class PublicSuffix::RuleNormalTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleExceptionTest < Minitest::Test
 
   def setup
     @klass = PublicSuffix::Rule::Exception
@@ -190,7 +190,7 @@ class PublicSuffix::RuleExceptionTest < Minitest::Unit::TestCase
 end
 
 
-class PublicSuffix::RuleWildcardTest < Minitest::Unit::TestCase
+class PublicSuffix::RuleWildcardTest < Minitest::Test
 
   def setup
     @klass = PublicSuffix::Rule::Wildcard

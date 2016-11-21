@@ -3,7 +3,7 @@ require "public_suffix"
 
 # This test runs against the current PSL file and ensures
 # the definitions satisfies the test suite.
-class PslTest < Minitest::Unit::TestCase
+class PslTest < Minitest::Test
 
   ROOT = File.expand_path("../../", __FILE__)
 
