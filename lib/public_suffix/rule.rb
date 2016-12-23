@@ -175,13 +175,6 @@ module PublicSuffix
     # Normal represents a standard rule (e.g. com).
     class Normal < Base
 
-      # Initializes a new rule from +definition+.
-      #
-      # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, **options)
-        super(definition, **options)
-      end
-
       # Gets the original rule definition.
       #
       # @return [String] The rule definition.
