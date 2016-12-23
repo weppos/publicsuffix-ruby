@@ -219,8 +219,8 @@ module PublicSuffix
       # for each wildcard rule.
       #
       # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, **options)
-        super(definition.to_s[2..-1], **options)
+      def initialize(definition, private: false)
+        super(definition.to_s[2..-1], private: private)
       end
 
       # Gets the original rule definition.
@@ -268,8 +268,8 @@ module PublicSuffix
       # for each wildcard rule.
       #
       # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, **options)
-        super(definition.to_s[1..-1], **options)
+      def initialize(definition, private: false)
+        super(definition.to_s[1..-1], private: private)
       end
 
       # Gets the original rule definition.
@@ -331,7 +331,7 @@ module PublicSuffix
     #
     # @param  [String] content The rule content.
     # @return [PublicSuffix::Rule::*] A rule instance.
-    def self.factory(content, **options)
+    def self.factory(content, private: false)
       case content.to_s[0, 1]
       when STAR
         Wildcard
@@ -339,7 +339,7 @@ module PublicSuffix
         Exception
       else
         Normal
-      end.new(content, **options)
+      end.new(content, private: private)
     end
 
     # The default rule to use if no rule match.
