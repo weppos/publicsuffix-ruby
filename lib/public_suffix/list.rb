@@ -140,7 +140,7 @@ module PublicSuffix
     def reindex!
       @indexes = {}
       @rules.each_with_index do |rule, index|
-        tld = Domain.name_to_labels(rule.value).last
+        tld = Domain.extract_tld(rule.value)
         @indexes[tld] ||= []
         @indexes[tld] << index
       end
@@ -265,7 +265,7 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name, ignore_private: false)
       name = name.to_s
-      indices = (@indexes[Domain.name_to_labels(name).last] || [])
+      indices = (@indexes[Domain.extract_tld(name)] || [])
 
       finder = @rules.values_at(*indices).lazy
       finder = finder.select { |rule| rule.match?(name) }
