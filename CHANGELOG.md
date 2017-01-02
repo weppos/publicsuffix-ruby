@@ -2,6 +2,8 @@
 
 #### master
 
+- CHANGED: Updated definitions.
+
 - CHANGED: Initialization performance improvements (GH-#128). [Thanks @casperisfine]
 
 
