@@ -1,10 +1,10 @@
 # Changelog
 
-#### master
+#### Release 2.0.5
 
 - CHANGED: Updated definitions.
 
-- CHANGED: Initialization performance improvements (GH-#128). [Thanks @casperisfine]
+- CHANGED: Initialization performance improvements (GH-128). [Thanks @casperisfine]
 
 
 #### Release 2.0.4
