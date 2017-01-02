@@ -1,5 +1,9 @@
 # Changelog
 
+#### master
+
+- CHANGED: Initialization performance improvements (GH-#128). [Thanks @casperisfine]
+
 
 #### Release 2.0.4
 
