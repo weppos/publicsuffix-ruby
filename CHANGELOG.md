@@ -1,5 +1,10 @@
 # Changelog
 
+#### master
+
+- CHANGED: PublicSuffix::List#rules is now protected. You should not rely on it as the internal rule representation is subject to change to optimize performances.
+
+
 #### Release 2.0.5
 
 - CHANGED: Updated definitions.

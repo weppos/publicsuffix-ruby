@@ -109,12 +109,6 @@ module PublicSuffix
     end
 
 
-    # Gets the array of rules.
-    #
-    # @return [Array<PublicSuffix::Rule::*>]
-    attr_reader :rules
-
-
     # Initializes an empty {PublicSuffix::List}.
     #
     # @yield [self] Yields on self.
@@ -162,7 +156,7 @@ module PublicSuffix
     # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(List)
-      equal?(other) || rules == other.rules
+      equal?(other) || @rules == other.rules
     end
     alias eql? ==
 
@@ -278,6 +272,10 @@ module PublicSuffix
     def default_rule
       PublicSuffix::Rule.default
     end
+
+    protected
+
+    attr_reader :rules
 
   end
 end
