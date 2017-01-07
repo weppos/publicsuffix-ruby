@@ -13,7 +13,7 @@ class PublicSuffixTest < Minitest::Test
     domain = PublicSuffix.parse("www.example.blogspot.com")
     assert_equal "com", domain.tld
   ensure
-    PublicSuffix::List.clear
+    PublicSuffix::List.default = nil
   end
 
 

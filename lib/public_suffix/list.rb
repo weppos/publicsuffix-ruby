@@ -62,14 +62,6 @@ module PublicSuffix
       @default = value
     end
 
-    # Sets the default rule list to +nil+.
-    #
-    # @return [self]
-    def self.clear
-      self.default = nil
-      self
-    end
-
     # Parse given +input+ treating the content as Public Suffix List.
     #
     # See http://publicsuffix.org/format/ for more details about input format.

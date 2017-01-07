@@ -7,7 +7,7 @@ class PublicSuffix::ListTest < Minitest::Test
   end
 
   def teardown
-    PublicSuffix::List.clear
+    PublicSuffix::List.default = nil
   end
 
 
@@ -168,13 +168,6 @@ EOS
     PublicSuffix::List.default
     refute_nil PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default = nil
-    assert_nil PublicSuffix::List.class_eval { @default }
-  end
-
-  def test_self_clear
-    PublicSuffix::List.default
-    refute_nil PublicSuffix::List.class_eval { @default }
-    PublicSuffix::List.clear
     assert_nil PublicSuffix::List.class_eval { @default }
   end
 
