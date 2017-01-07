@@ -6,9 +6,6 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
 
-Lint/AmbiguousRegexpLiteral:
-  Enabled: false
-
 # [codesmell]
 Metrics/AbcSize:
   Enabled: false
@@ -17,17 +14,22 @@ Metrics/AbcSize:
     - 'test/**/*_test.rb'
 
 # [codesmell]
-Metrics/ClassLength:
+Metrics/BlockLength:
+  Enabled: false
+
+# [codesmell]
+Metrics/CyclomaticComplexity:
+  Enabled: false
   Exclude:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
 # [codesmell]
-Metrics/MethodLength:
+Metrics/ClassLength:
+  Enabled: false
   Exclude:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
-  Max: 15
 
 # [codesmell]
 Metrics/LineLength:
@@ -36,6 +38,35 @@ Metrics/LineLength:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
   Max: 100
+
+# [codesmell]
+Metrics/MethodLength:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+  Max: 10
+
+# [codesmell]
+Metrics/ModuleLength:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+
+# [codesmell]
+Metrics/ParameterLists:
+  Enabled: false
+  Max: 5
+
+# [codesmell]
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# [codesmell]
+# I don't really get the point of this cop.
+Performance/RedundantMerge:
+  Enabled: false
 
 # Do not use "and" or "or" in conditionals, but for readability we can use it
 # to chain executions. Just beware of operator order.

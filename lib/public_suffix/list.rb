@@ -70,8 +70,6 @@ module PublicSuffix
       self
     end
 
-    # rubocop:disable Metrics/MethodLength
-
     # Parse given +input+ treating the content as Public Suffix List.
     #
     # See http://publicsuffix.org/format/ for more details about input format.
@@ -109,7 +107,6 @@ module PublicSuffix
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
 
     # Gets the array of rules.

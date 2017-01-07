@@ -169,7 +169,7 @@ class PublicSuffixTest < Minitest::Test
     ].each do |input, _|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error
-      assert_match /scheme/, error.message
+      assert_match(/scheme/, error.message)
     end
   end
 
