@@ -23,23 +23,23 @@ class PublicSuffix::DomainTest < Minitest::Test
 
   def test_initialize_with_tld
     domain = @klass.new("com")
-    assert_equal "com",     domain.tld
-    assert_equal nil,       domain.sld
-    assert_equal nil,       domain.trd
+    assert_equal "com", domain.tld
+    assert_nil domain.sld
+    assert_nil domain.trd
   end
 
   def test_initialize_with_tld_and_sld
     domain = @klass.new("com", "google")
-    assert_equal "com",     domain.tld
-    assert_equal "google",  domain.sld
-    assert_equal nil,       domain.trd
+    assert_equal "com", domain.tld
+    assert_equal "google", domain.sld
+    assert_nil domain.trd
   end
 
   def test_initialize_with_tld_and_sld_and_trd
     domain = @klass.new("com", "google", "www")
-    assert_equal "com",     domain.tld
-    assert_equal "google",  domain.sld
-    assert_equal "www",     domain.trd
+    assert_equal "com", domain.tld
+    assert_equal "google", domain.sld
+    assert_equal "www", domain.trd
   end
 
 
@@ -76,8 +76,8 @@ class PublicSuffix::DomainTest < Minitest::Test
   end
 
   def test_domain
-    assert_equal nil, @klass.new("com").domain
-    assert_equal nil, @klass.new("tldnotlisted").domain
+    assert_nil @klass.new("com").domain
+    assert_nil @klass.new("tldnotlisted").domain
     assert_equal "google.com", @klass.new("com", "google").domain
     assert_equal "google.tldnotlisted", @klass.new("tldnotlisted", "google").domain
     assert_equal "google.com", @klass.new("com", "google", "www").domain
@@ -85,10 +85,10 @@ class PublicSuffix::DomainTest < Minitest::Test
   end
 
   def test_subdomain
-    assert_equal nil, @klass.new("com").subdomain
-    assert_equal nil, @klass.new("tldnotlisted").subdomain
-    assert_equal nil, @klass.new("com", "google").subdomain
-    assert_equal nil, @klass.new("tldnotlisted", "google").subdomain
+    assert_nil @klass.new("com").subdomain
+    assert_nil @klass.new("tldnotlisted").subdomain
+    assert_nil @klass.new("com", "google").subdomain
+    assert_nil @klass.new("tldnotlisted", "google").subdomain
     assert_equal "www.google.com", @klass.new("com", "google", "www").subdomain
     assert_equal "www.google.tldnotlisted", @klass.new("tldnotlisted", "google", "www").subdomain
   end

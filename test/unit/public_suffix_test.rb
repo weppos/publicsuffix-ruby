@@ -22,13 +22,13 @@ class PublicSuffixTest < Minitest::Test
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "com",     domain.tld
     assert_equal "example", domain.sld
-    assert_equal nil,       domain.trd
+    assert_nil              domain.trd
 
     domain = PublicSuffix.parse("example.co.uk")
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "co.uk",   domain.tld
     assert_equal "example", domain.sld
-    assert_equal nil,       domain.trd
+    assert_nil              domain.trd
   end
 
   def test_self_parse_a_domain_with_tld_and_sld_and_trd
@@ -83,7 +83,7 @@ class PublicSuffixTest < Minitest::Test
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "tldnotlisted",    domain.tld
     assert_equal "example",         domain.sld
-    assert_equal nil,               domain.trd
+    assert_nil                      domain.trd
   end
 
   def test_self_parse_with_unallowed_domain
