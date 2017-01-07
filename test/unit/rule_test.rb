@@ -105,10 +105,6 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
   end
 
 
-  def test_length
-    assert_raises(NotImplementedError) { @klass.new("com").length }
-  end
-
   def test_parts
     assert_raises(NotImplementedError) { @klass.new("com").parts }
   end
@@ -172,8 +168,8 @@ class PublicSuffix::RuleExceptionTest < Minitest::Test
 
 
   def test_length
-    assert_equal 1, @klass.new("!british-library.uk").length
-    assert_equal 2, @klass.new("!foo.british-library.uk").length
+    assert_equal 2, @klass.new("!british-library.uk").length
+    assert_equal 3, @klass.new("!foo.british-library.uk").length
   end
 
   def test_parts

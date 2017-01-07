@@ -99,6 +99,9 @@ module PublicSuffix
       # @return [String] the rule definition
       attr_reader :value
 
+      # @return [String] the length of the rule
+      attr_reader :length
+
       # @return [Boolean] true if the rule is a private domain
       attr_reader :private
 
@@ -109,6 +112,7 @@ module PublicSuffix
       # @param value [String] the value of the rule
       def initialize(value, private: false)
         @value    = value.to_s
+        @length   = @value.count(DOT) + 1
         @private  = private
       end
 
@@ -159,11 +163,6 @@ module PublicSuffix
       end
 
       # @abstract
-      def length
-        raise NotImplementedError
-      end
-
-      # @abstract
       # @param  [String, #to_s] name The domain name to decompose
       # @return [Array<String, nil>]
       def decompose(*)
@@ -200,14 +199,6 @@ module PublicSuffix
         @value.split(DOT)
       end
 
-      # Gets the length of this rule for comparison,
-      # represented by the number of dot-separated parts in the rule.
-      #
-      # @return [Integer] The length of the rule.
-      def length
-        @length ||= parts.length
-      end
-
     end
 
     # Wildcard represents a wildcard rule (e.g. *.co.uk).
@@ -215,12 +206,13 @@ module PublicSuffix
 
       # Initializes a new rule from +definition+.
       #
-      # The wildcard "*" is removed from the value, as it's common
-      # for each wildcard rule.
+      # The wildcard "*" is removed from the value,
+      # as it's common for each wildcard rule.
       #
       # @param definition [String] the rule as defined in the PSL
       def initialize(definition, private: false)
         super(definition.to_s[2..-1], private: private)
+        @length += 1 # * counts as 1
       end
 
       # Gets the original rule definition.
@@ -248,15 +240,6 @@ module PublicSuffix
         @value.split(DOT)
       end
 
-      # Gets the length of this rule for comparison,
-      # represented by the number of dot-separated parts in the rule
-      # plus 1 for the *.
-      #
-      # @return [Integer] The length of the rule.
-      def length
-        @length ||= parts.length + 1 # * counts as 1
-      end
-
     end
 
     # Exception represents an exception rule (e.g. !parliament.uk).
@@ -264,8 +247,8 @@ module PublicSuffix
 
       # Initializes a new rule from +definition+.
       #
-      # The bang ! is removed from the value, as it's common
-      # for each wildcard rule.
+      # The bang ! is removed from the value,
+      # as it's common for each exception rule.
       #
       # @param definition [String] the rule as defined in the PSL
       def initialize(definition, private: false)
@@ -300,14 +283,6 @@ module PublicSuffix
       # @return [Array<String>]
       def parts
         @value.split(DOT)[1..-1]
-      end
-
-      # Gets the length of this rule for comparison,
-      # represented by the number of dot-separated parts in the rule.
-      #
-      # @return [Integer] The length of the rule.
-      def length
-        @length ||= parts.length
       end
 
     end
