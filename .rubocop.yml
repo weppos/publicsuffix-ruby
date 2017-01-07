@@ -10,6 +10,8 @@ AllCops:
     - 'vendor/**/*'
     # Exclude artifacts
     - 'pkg/**/*'
+    # Other
+    - 'benchmarks/**/*'
 
 Style/ClassAndModuleChildren:
   Exclude:
