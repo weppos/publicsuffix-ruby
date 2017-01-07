@@ -90,7 +90,7 @@ module PublicSuffix
             next
 
           else
-            list.add(Rule.factory(line, private: section == 2), reindex: false)
+            list.add(Rule.factory(line, private: section == 2))
 
           end
         end
@@ -102,34 +102,9 @@ module PublicSuffix
     #
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::List] self The newly created instance.
-    #
     def initialize
-      @rules = []
+      @rules = {}
       yield(self) if block_given?
-      reindex!
-    end
-
-
-    # Creates a naive index for +@rules+. Just a hash that will tell
-    # us where the elements of +@rules+ are relative to its first
-    # {PublicSuffix::Rule::Base#labels} element.
-    #
-    # For instance if @rules[5] and @rules[4] are the only elements of the list
-    # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in
-    # select we can avoid mapping every single rule against the candidate domain.
-    def reindex!
-      @indexes = {}
-      @rules.each_with_index do |rule, index|
-        tld = Domain.name_to_labels(rule.value).last
-        @indexes[tld] ||= []
-        @indexes[tld] << index
-      end
-    end
-
-    # Gets the naive index, a hash that with the keys being the first label of
-    # every rule pointing to an array of integers (indexes of the rules in @rules).
-    def indexes
-      @indexes.dup
     end
 
 
@@ -139,9 +114,7 @@ module PublicSuffix
     # {PublicSuffix::List} and each +PublicSuffix::Rule::*+
     # in list <tt>one</tt> is available in list <tt>two</tt>, in the same order.
     #
-    # @param [PublicSuffix::List] other
-    #   The List to compare.
-    #
+    # @param  other [PublicSuffix::List] The List to compare.
     # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(List)
@@ -150,31 +123,22 @@ module PublicSuffix
     alias eql? ==
 
     # Iterates each rule in the list.
-    def each(*args, &block)
-      @rules.each(*args, &block)
+    def each(&block)
+      @rules.each_value(&block)
     end
 
 
     # Adds the given object to the list and optionally refreshes the rule index.
     #
-    # @param [PublicSuffix::Rule::*] rule
-    #   The rule to add to the list.
-    # @param [Boolean] reindex
-    #   Set to true to recreate the rule index
-    #   after the rule has been added to the list.
-    #
+    # @param  rule [PublicSuffix::Rule::*] The rule to add to the list.
     # @return [self]
-    #
-    # @see #reindex!
-    #
-    def add(rule, reindex: true)
-      @rules << rule
-      reindex! if reindex
+    def add(rule)
+      @rules[rule.value] = rule
       self
     end
     alias << add
 
-    # Gets the number of elements in the list.
+    # Gets the number of rules in the list.
     #
     # @return [Integer]
     def size
@@ -188,12 +152,11 @@ module PublicSuffix
       @rules.empty?
     end
 
-    # Removes all elements.
+    # Removes all rules.
     #
     # @return [self]
     def clear
       @rules.clear
-      reindex!
       self
     end
 
@@ -217,8 +180,8 @@ module PublicSuffix
     #    which directly match the labels of the prevailing rule (joined by dots).
     # 7. The registered domain is the public suffix plus one additional label.
     #
-    # @param  name [String, #to_s] The domain name.
-    # @param  [PublicSuffix::Rule::*] default The default rule to return in case no rule matches.
+    # @param  name [String, #to_s] The domain name
+    # @param  default [PublicSuffix::Rule::*] The default rule to return in case no rule matches
     # @return [PublicSuffix::Rule::*]
     def find(name, default: default_rule, **options)
       rule = select(name, **options).inject do |l, r|
@@ -240,17 +203,27 @@ module PublicSuffix
     # but different data structures may not be able to do it, and instead would return only the
     # match. For this reason, you should rely on {#find}.
     #
-    # @param  [String, #to_s] name The domain name.
-    # @param  [Boolean] ignore_private
+    # @param  name [String, #to_s] The domain name
+    # @param  ignore_private [Boolean]
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name, ignore_private: false)
       name = name.to_s
-      indices = (@indexes[Domain.name_to_labels(name).last] || [])
 
-      finder = @rules.values_at(*indices).lazy
-      finder = finder.select { |rule| rule.match?(name) }
-      finder = finder.select { |rule| !rule.private } if ignore_private
-      finder.to_a
+      parts = name.split(".").reverse!
+      index = 0
+      query = parts[index]
+      rules = []
+
+      loop do
+        match = @rules[query]
+        rules << match if !match.nil? && (ignore_private == false || match.private == false)
+
+        index += 1
+        break if index >= parts.size
+        query = parts[index] + "." + query
+      end
+
+      rules
     end
     private :select
 
