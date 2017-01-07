@@ -3,7 +3,8 @@
 #### master
 
 - CHANGED: `PublicSuffix::List#rules` is now protected. You should not rely on it as the internal rule representation is subject to change to optimize performances.
-- CHANGED: Removed `PublicSuffix::List.clear`, it was an unnecessary accessor method. Use `PublicSuffix::List.default = nil` if you **really** need to reset the default list. You shouldn't. 
+- CHANGED: Removed `PublicSuffix::List.clear`, it was an unnecessary accessor method. Use `PublicSuffix::List.default = nil` if you **really** need to reset the default list. You shouldn't.
+- CHANGED: `PublicSuffix::List#select` is now private. You should not use it, instead use ``PublicSuffix::List#find`. 
 
 
 #### Release 2.0.5

@@ -129,13 +129,13 @@ EOS
 
 
   def test_select
-    assert_equal 2, list.select("british-library.uk").size
+    assert_equal 2, list.send(:select, "british-library.uk").size
   end
 
   def test_select_name_blank
-    assert_equal [], list.select(nil)
-    assert_equal [], list.select("")
-    assert_equal [], list.select(" ")
+    assert_equal [], list.send(:select, nil)
+    assert_equal [], list.send(:select, "")
+    assert_equal [], list.send(:select, " ")
   end
 
   def test_select_ignore_private
@@ -143,17 +143,17 @@ EOS
     list.add r1 = PublicSuffix::Rule.factory("io")
     list.add r2 = PublicSuffix::Rule.factory("example.io", private: true)
 
-    assert_equal list.select("foo.io"), [r1]
-    assert_equal list.select("example.io"), [r1, r2]
-    assert_equal list.select("foo.example.io"), [r1, r2]
+    assert_equal list.send(:select, "foo.io"), [r1]
+    assert_equal list.send(:select, "example.io"), [r1, r2]
+    assert_equal list.send(:select, "foo.example.io"), [r1, r2]
 
-    assert_equal list.select("foo.io", ignore_private: false), [r1]
-    assert_equal list.select("example.io", ignore_private: false), [r1, r2]
-    assert_equal list.select("foo.example.io", ignore_private: false), [r1, r2]
+    assert_equal list.send(:select, "foo.io", ignore_private: false), [r1]
+    assert_equal list.send(:select, "example.io", ignore_private: false), [r1, r2]
+    assert_equal list.send(:select, "foo.example.io", ignore_private: false), [r1, r2]
 
-    assert_equal list.select("foo.io", ignore_private: true), [r1]
-    assert_equal list.select("example.io", ignore_private: true), [r1]
-    assert_equal list.select("foo.example.io", ignore_private: true), [r1]
+    assert_equal list.send(:select, "foo.io", ignore_private: true), [r1]
+    assert_equal list.send(:select, "example.io", ignore_private: true), [r1]
+    assert_equal list.send(:select, "foo.example.io", ignore_private: true), [r1]
   end
 
 
