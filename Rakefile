@@ -27,12 +27,6 @@ end
 CLOBBER.include "yardoc"
 
 
-desc "Open an irb session preloaded with this library"
-task :console do
-  sh "irb -rubygems -I lib -r public_suffix.rb"
-end
-
-
 desc "Downloads the Public Suffix List file from the repository and stores it locally."
 task :"update-list" do
   require "net/http"
