@@ -14,6 +14,13 @@ class PublicSuffix::DomainTest < Minitest::Test
                   PublicSuffix::Domain.name_to_labels("leontina23samiko.wiki.zoho.com")
   end
 
+  def test_self_extract_tld
+    assert_equal "com", PublicSuffix::Domain.extract_tld("someone.spaces.live.com")
+    assert_equal "uk", PublicSuffix::Domain.extract_tld("foo.wiki.co.uk")
+    assert_equal "uk", PublicSuffix::Domain.extract_tld("uk")
+    assert_equal "uk", PublicSuffix::Domain.extract_tld(:"foo.wiki.co.uk")
+  end
+
   # Converts input into String.
   def test_self_name_to_labels_converts_input_to_string
     assert_equal  %w( someone spaces live com ),

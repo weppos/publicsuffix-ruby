@@ -101,7 +101,7 @@ module PublicSuffix
             next
 
           else
-            list.add(Rule.factory(line, private: section == 2), reindex: false)
+            list.add(Rule.factory(line, private: section == 2))
 
           end
         end
@@ -116,33 +116,9 @@ module PublicSuffix
     #
     def initialize
       @rules = []
+      @index = {}
       yield(self) if block_given?
-      reindex!
     end
-
-
-    # Creates a naive index for +@rules+. Just a hash that will tell
-    # us where the elements of +@rules+ are relative to its first
-    # {PublicSuffix::Rule::Base#labels} element.
-    #
-    # For instance if @rules[5] and @rules[4] are the only elements of the list
-    # where Rule#labels.first is 'us' @indexes['us'] #=> [5,4], that way in
-    # select we can avoid mapping every single rule against the candidate domain.
-    def reindex!
-      @indexes = {}
-      @rules.each_with_index do |rule, index|
-        tld = Domain.name_to_labels(rule.value).last
-        @indexes[tld] ||= []
-        @indexes[tld] << index
-      end
-    end
-
-    # Gets the naive index, a hash that with the keys being the first label of
-    # every rule pointing to an array of integers (indexes of the rules in @rules).
-    def indexes
-      @indexes.dup
-    end
-
 
     # Checks whether two lists are equal.
     #
@@ -170,17 +146,13 @@ module PublicSuffix
     #
     # @param [PublicSuffix::Rule::*] rule
     #   The rule to add to the list.
-    # @param [Boolean] reindex
-    #   Set to true to recreate the rule index
-    #   after the rule has been added to the list.
     #
     # @return [self]
     #
-    # @see #reindex!
-    #
-    def add(rule, reindex: true)
+    def add(rule)
       @rules << rule
-      reindex! if reindex
+      tld_rules = @index[Domain.extract_tld(rule.value)] ||= []
+      tld_rules << rule
       self
     end
     alias << add
@@ -204,7 +176,7 @@ module PublicSuffix
     # @return [self]
     def clear
       @rules.clear
-      reindex!
+      @index.clear
       self
     end
 
@@ -241,7 +213,7 @@ module PublicSuffix
 
     # Selects all the rules matching given domain.
     #
-    # Internally, the lookup heavily rely on the `@indexes`. The input is split into labels,
+    # Internally, the lookup heavily rely on the `@index`. The input is split into labels,
     # and we retriever from the index only the rules that end with the input label. After that,
     # a sequential scan is performed. In most cases, where the number of rules for the same label
     # is limited, this algorithm is efficient enough.
@@ -256,12 +228,8 @@ module PublicSuffix
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name, ignore_private: false)
       name = name.to_s
-      indices = (@indexes[Domain.name_to_labels(name).last] || [])
-
-      finder = @rules.values_at(*indices).lazy
-      finder = finder.select { |rule| rule.match?(name) }
-      finder = finder.select { |rule| !rule.private } if ignore_private
-      finder.to_a
+      rules = (@index[Domain.extract_tld(name)] || [])
+      rules.select { |r| (!ignore_private || !r.private) && r.match?(name) }
     end
 
     # Gets the default rule.

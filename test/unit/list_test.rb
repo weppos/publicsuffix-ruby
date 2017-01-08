@@ -10,16 +10,10 @@ class PublicSuffix::ListTest < Minitest::Test
     PublicSuffix::List.clear
   end
 
-
   def test_initialize
     assert_instance_of PublicSuffix::List, @list
     assert_equal 0, @list.size
   end
-
-  def test_initialize_indexes
-    assert_equal({}, @list.indexes)
-  end
-
 
   def test_equality_with_self
     list = PublicSuffix::List.new
@@ -45,13 +39,6 @@ class PublicSuffix::ListTest < Minitest::Test
     @list << PublicSuffix::Rule.factory("net")
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
     assert_equal PublicSuffix::Rule.factory("net"), @list.find("google.net")
-  end
-
-  def test_add_should_not_duplicate_indices
-    @list = PublicSuffix::List.parse("com")
-    @list.add(PublicSuffix::Rule.factory("net"))
-
-    assert_equal @list.indexes["com"], [0]
   end
 
   def test_empty?
@@ -212,34 +199,6 @@ EOS
     assert_equal false, list.find("com").private
     assert_equal true,  list.find("blogspot.com").private
   end
-
-  def test_self_parse_indexes
-    list = PublicSuffix::List.parse(<<EOS)
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-// ===BEGIN ICANN DOMAINS===
-
-// com
-com
-
-// uk
-*.uk
-!british-library.uk
-
-// ===END ICANN DOMAINS===
-// ===BEGIN PRIVATE DOMAINS===
-
-// Google, Inc.
-blogspot.com
-
-// ===END PRIVATE DOMAINS===
-EOS
-
-    assert_equal({ "com" => [0, 3], "uk" => [1, 2] }, list.indexes)
-  end
-
 
   private
 
