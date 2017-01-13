@@ -50,6 +50,8 @@ module PublicSuffix
     # @return [PublicSuffix::List]
     def self.default(**options)
       @default ||= parse(File.read(DEFAULT_LIST_PATH), options)
+      GC.start
+      @default
     end
 
     # Sets the default rule list to +value+.
@@ -59,6 +61,7 @@ module PublicSuffix
     #
     # @return [PublicSuffix::List]
     def self.default=(value)
+      GC.start
       @default = value
     end
 
@@ -67,6 +70,7 @@ module PublicSuffix
     # @return [self]
     def self.clear
       self.default = nil
+      GC.start
       self
     end
 
@@ -82,30 +86,33 @@ module PublicSuffix
       private_token = "===BEGIN PRIVATE DOMAINS===".freeze
       section = nil # 1 == ICANN, 2 == PRIVATE
 
-      new do |list|
-        input.each_line do |line|
-          line.strip!
-          case # rubocop:disable Style/EmptyCaseCondition
+      retval = 
+        new do |list|
+          input.each_line do |line|
+            line.strip!
+            case # rubocop:disable Style/EmptyCaseCondition
 
-          # skip blank lines
-          when line.empty?
-            next
+            # skip blank lines
+            when line.empty?
+              next
 
-          # include private domains or stop scanner
-          when line.include?(private_token)
-            break if !private_domains
-            section = 2
+            # include private domains or stop scanner
+            when line.include?(private_token)
+              break if !private_domains
+              section = 2
 
-          # skip comments
-          when line.start_with?(comment_token)
-            next
+            # skip comments
+            when line.start_with?(comment_token)
+              next
 
-          else
-            list.add(Rule.factory(line, private: section == 2), reindex: false)
+            else
+              list.add(Rule.factory(line, private: section == 2), reindex: false)
 
+            end
           end
         end
-      end
+      GC.start
+      retval
     end
 
 
@@ -118,6 +125,7 @@ module PublicSuffix
       @rules = []
       yield(self) if block_given?
       reindex!
+      GC.start
     end
 
 
@@ -135,6 +143,7 @@ module PublicSuffix
         @indexes[tld] ||= []
         @indexes[tld] << index
       end
+      GC.start
     end
 
     # Gets the naive index, a hash that with the keys being the first label of
