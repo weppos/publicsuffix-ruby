@@ -205,7 +205,7 @@ module PublicSuffix
       #
       # @return [Integer] The length of the rule.
       def length
-        @length ||= parts.length
+        parts.length
       end
 
     end
@@ -254,7 +254,7 @@ module PublicSuffix
       #
       # @return [Integer] The length of the rule.
       def length
-        @length ||= parts.length + 1 # * counts as 1
+        parts.length + 1 # * counts as 1
       end
 
     end
@@ -307,7 +307,7 @@ module PublicSuffix
       #
       # @return [Integer] The length of the rule.
       def length
-        @length ||= parts.length
+        parts.length
       end
 
     end
