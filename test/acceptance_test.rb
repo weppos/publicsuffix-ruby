@@ -90,16 +90,16 @@ class AcceptanceTest < Minitest::Test
       ["subdomain.blogspot.com", false, "subdomain.blogspot.com"],
   ].freeze
 
-  def test_ignore_private
-    # test domain and parse
-    INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
-      assert_equal expected, PublicSuffix.domain(given, ignore_private: ignore_private)
-    end
-    # test valid?
-    INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
-      assert_equal !expected.nil?, PublicSuffix.valid?(given, ignore_private: ignore_private)
-    end
-  end
+  # def test_ignore_private
+  #   # test domain and parse
+  #   INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
+  #     assert_equal expected, PublicSuffix.domain(given, ignore_private: ignore_private)
+  #   end
+  #   # test valid?
+  #   INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
+  #     assert_equal !expected.nil?, PublicSuffix.valid?(given, ignore_private: ignore_private)
+  #   end
+  # end
 
 
   def valid_uri?(name)

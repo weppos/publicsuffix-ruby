@@ -99,17 +99,15 @@ module PublicSuffix
       # @return [String] the rule definition
       attr_reader :value
 
-      # @return [Boolean] true if the rule is a private domain
-      attr_reader :private
-
+      def private
+      end
 
       # Initializes a new rule with name and value.
       # If value is +nil+, name also becomes the value for this rule.
       #
       # @param value [String] the value of the rule
-      def initialize(value, private: false)
+      def initialize(value)
         @value    = value.to_s
-        @private  = private
       end
 
       # Checks whether this rule is equal to <tt>other</tt>.
@@ -219,8 +217,8 @@ module PublicSuffix
       # for each wildcard rule.
       #
       # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, private: false)
-        super(definition.to_s[2..-1], private: private)
+      def initialize(definition)
+        super(definition.to_s[2..-1])
       end
 
       # Gets the original rule definition.
@@ -268,8 +266,8 @@ module PublicSuffix
       # for each wildcard rule.
       #
       # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, private: false)
-        super(definition.to_s[1..-1], private: private)
+      def initialize(definition)
+        super(definition.to_s[1..-1])
       end
 
       # Gets the original rule definition.
@@ -331,7 +329,7 @@ module PublicSuffix
     #
     # @param  [String] content The rule content.
     # @return [PublicSuffix::Rule::*] A rule instance.
-    def self.factory(content, private: false)
+    def self.factory(content, public=nil)
       case content.to_s[0, 1]
       when STAR
         Wildcard
@@ -339,7 +337,7 @@ module PublicSuffix
         Exception
       else
         Normal
-      end.new(content, private: private)
+      end.new(content)
     end
 
     # The default rule to use if no rule match.
