@@ -28,7 +28,15 @@ module PublicSuffix
     end
 
 
-    attr_reader :tld, :sld, :trd
+    def tld
+      @tld.to_s if @tld
+    end
+    def sld
+      @sld.to_s if @sld
+    end
+    def trd
+      @trd.to_s if @trd
+    end
 
     # Creates and returns a new {PublicSuffix::Domain} instance.
     #
@@ -62,6 +70,10 @@ module PublicSuffix
     #
     def initialize(*args)
       @tld, @sld, @trd = args
+      @tld = @tld.to_sym if @tld
+      @sld = @sld.to_sym if @sld
+      @trd = @trd.to_sym if @trd
+      GC.start
       yield(self) if block_given?
     end
 
@@ -85,7 +97,7 @@ module PublicSuffix
     #   # => [nil, "google", "com"]
     #
     def to_a
-      [@trd, @sld, @tld]
+      [trd, sld, tld]
     end
 
     # Returns the full domain name.
@@ -101,7 +113,7 @@ module PublicSuffix
     #   # => "www.google.com"
     #
     def name
-      [@trd, @sld, @tld].compact.join(DOT)
+      [trd, sld, tld].compact.join(DOT)
     end
 
     # Returns a domain-like representation of this object
@@ -133,7 +145,7 @@ module PublicSuffix
     #
     # @return [String]
     def domain
-      [@sld, @tld].join(DOT) if domain?
+      [sld, tld].join(DOT) if domain?
     end
 
     # Returns a subdomain-like representation of this object
@@ -165,7 +177,7 @@ module PublicSuffix
     #
     # @return [String]
     def subdomain
-      [@trd, @sld, @tld].join(DOT) if subdomain?
+      [trd, sld, tld].join(DOT) if subdomain?
     end
 
     # Checks whether <tt>self</tt> looks like a domain.
@@ -196,7 +208,7 @@ module PublicSuffix
     #
     # @return [Boolean]
     def domain?
-      !(@tld.nil? || @sld.nil?)
+      !(tld.nil? || sld.nil?)
     end
 
     # Checks whether <tt>self</tt> looks like a subdomain.
@@ -227,7 +239,7 @@ module PublicSuffix
     #
     # @return [Boolean]
     def subdomain?
-      !(@tld.nil? || @sld.nil? || @trd.nil?)
+      !(tld.nil? || sld.nil? || trd.nil?)
     end
 
   end
