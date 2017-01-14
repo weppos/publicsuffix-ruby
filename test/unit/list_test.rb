@@ -51,7 +51,7 @@ class PublicSuffix::ListTest < Minitest::Test
     @list = PublicSuffix::List.parse("com")
     @list.add(PublicSuffix::Rule.factory("net"))
 
-    assert_equal @list.indexes["com"], [0]
+    assert_equal @list.indexes[:com], [0]
   end
 
   def test_empty?
@@ -237,7 +237,7 @@ blogspot.com
 // ===END PRIVATE DOMAINS===
 EOS
 
-    assert_equal({ "com" => [0, 3], "uk" => [1, 2] }, list.indexes)
+    assert_equal({ com: [0, 3], uk: [1, 2] }, list.indexes)
   end
 
 
