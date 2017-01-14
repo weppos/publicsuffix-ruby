@@ -107,7 +107,7 @@ module PublicSuffix
       #
       # @param value [String] the value of the rule
       def initialize(value)
-        @value    = value.to_s
+        @value    = value.to_s.freeze
       end
 
       # Checks whether this rule is equal to <tt>other</tt>.
