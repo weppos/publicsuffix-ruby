@@ -7,15 +7,15 @@ NAME_LONG   = "one.two.three.four.five.example.de"
 NAME_WILD   = "one.two.three.four.five.example.bd"
 NAME_EXCP   = "one.two.three.four.five.www.ck"
 
-IAAA = "one.two.three.four.five.example.ac"
-IZZZ = "one.two.three.four.five.example.zone"
+IAAA = "www.example.ac"
+IZZZ = "www.example.zone"
 
 PAAA = "one.two.three.four.five.example.beep.pl"
 PZZZ = "one.two.three.four.five.example.now.sh"
 
 JP   = "www.yokoshibahikari.chiba.jp"
-IT   = "one.two.three.four.five.example.it"
-COM  = "one.two.three.four.five.example.com"
+IT   = "www.example.it"
+COM  = "www.example.com"
 
 TIMES = (ARGV.first || 50_000).to_i
 
