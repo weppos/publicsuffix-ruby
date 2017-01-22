@@ -62,14 +62,6 @@ module PublicSuffix
       @default = value
     end
 
-    # Sets the default rule list to +nil+.
-    #
-    # @return [self]
-    def self.clear
-      self.default = nil
-      self
-    end
-
     # Parse given +input+ treating the content as Public Suffix List.
     #
     # See http://publicsuffix.org/format/ for more details about input format.
@@ -241,15 +233,15 @@ module PublicSuffix
 
     # Selects all the rules matching given domain.
     #
-    # Internally, the lookup heavily rely on the `@indexes`. The input is split into labels,
-    # and we retriever from the index only the rules that end with the input label. After that,
-    # a sequential scan is performed. In most cases, where the number of rules for the same label
-    # is limited, this algorithm is efficient enough.
-    #
     # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as private domain.
     # Note that the rules will still be part of the loop. If you frequently need to access lists
     # ignoring the private domains, you should create a list that doesn't include these domains setting the
     # `private_domains: false` option when calling {.parse}.
+    #
+    # Note that this method is currently private, as you should not rely on it. Instead, the public
+    # interface is {#find}. The current internal algorithm allows to return all matching rules,
+    # but different data structures may not be able to do it, and instead would return only the
+    # match. For this reason, you should rely on {#find}.
     #
     # @param  [String, #to_s] name The domain name.
     # @param  [Boolean] ignore_private
@@ -263,6 +255,7 @@ module PublicSuffix
       finder = finder.select { |rule| !rule.private } if ignore_private
       finder.to_a
     end
+    private :select
 
     # Gets the default rule.
     #
@@ -272,6 +265,7 @@ module PublicSuffix
     def default_rule
       PublicSuffix::Rule.default
     end
+
 
     protected
 
