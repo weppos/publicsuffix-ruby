@@ -11,16 +11,15 @@ class PublicSuffix::List
 end
 PublicSuffixList = PublicSuffix::List.default
 PublicSuffixList.select("example.jp")
-PublicSuffixList.find("example.jp")
 
 Benchmark.bmbm(25) do |x|
-  x.report("JP select") do
-    TIMES.times { PublicSuffixList.select(JP) }
+  x.report("select jp") do
+    TIMES.times { PublicSuffixList.select("jp") }
   end
-  x.report("JP find") do
-    TIMES.times { PublicSuffixList.find(JP) }
+  x.report("select example.jp") do
+    TIMES.times { PublicSuffixList.select("example.jp") }
   end
-  # x.report("JP (noprivate)") do
-  #   TIMES.times { PublicSuffixList.find(JP, ignore_private: true) != nil }
-  # end
+  x.report("select www.example.jp") do
+    TIMES.times { PublicSuffixList.select("www.example.jp") }
+  end
 end
