@@ -17,7 +17,7 @@ cache:
   - bundler
 
 env:
-  - COVERALL=1 BENCHMARKS=1
+  - COVERALL=1
 
 matrix:
   allow_failures:
