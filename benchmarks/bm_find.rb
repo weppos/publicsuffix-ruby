@@ -20,82 +20,83 @@ COM  = "one.two.three.four.five.example.com"
 TIMES = (ARGV.first || 50_000).to_i
 
 # Initialize
-PublicSuffix.valid?("example.com")
+PublicSuffixList = PublicSuffix::List.default
+PublicSuffixList.find("example.com")
 
 Benchmark.bmbm(25) do |x|
   x.report("NAME_SHORT") do
-    TIMES.times { PublicSuffix.valid?(NAME_SHORT) == true }
+    TIMES.times { PublicSuffixList.find(NAME_SHORT) != nil }
   end
   x.report("NAME_SHORT (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(NAME_SHORT, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(NAME_SHORT, ignore_private: true) != nil }
   end
   x.report("NAME_MEDIUM") do
-    TIMES.times { PublicSuffix.valid?(NAME_MEDIUM) == true }
+    TIMES.times { PublicSuffixList.find(NAME_MEDIUM) != nil }
   end
   x.report("NAME_MEDIUM (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(NAME_MEDIUM, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(NAME_MEDIUM, ignore_private: true) != nil }
   end
   x.report("NAME_LONG") do
-    TIMES.times { PublicSuffix.valid?(NAME_LONG) == true }
+    TIMES.times { PublicSuffixList.find(NAME_LONG) != nil }
   end
   x.report("NAME_LONG (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(NAME_LONG, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(NAME_LONG, ignore_private: true) != nil }
   end
   x.report("NAME_WILD") do
-    TIMES.times { PublicSuffix.valid?(NAME_WILD) == true }
+    TIMES.times { PublicSuffixList.find(NAME_WILD) != nil }
   end
   x.report("NAME_WILD (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(NAME_WILD, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(NAME_WILD, ignore_private: true) != nil }
   end
   x.report("NAME_EXCP") do
-    TIMES.times { PublicSuffix.valid?(NAME_EXCP) == true }
+    TIMES.times { PublicSuffixList.find(NAME_EXCP) != nil }
   end
   x.report("NAME_EXCP (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(NAME_EXCP, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(NAME_EXCP, ignore_private: true) != nil }
   end
 
   x.report("IAAA") do
-    TIMES.times { PublicSuffix.valid?(IAAA) == true }
+    TIMES.times { PublicSuffixList.find(IAAA) != nil }
   end
   x.report("IAAA (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(IAAA, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(IAAA, ignore_private: true) != nil }
   end
   x.report("IZZZ") do
-    TIMES.times { PublicSuffix.valid?(IZZZ) == true }
+    TIMES.times { PublicSuffixList.find(IZZZ) != nil }
   end
   x.report("IZZZ (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(IZZZ, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(IZZZ, ignore_private: true) != nil }
   end
 
   x.report("PAAA") do
-    TIMES.times { PublicSuffix.valid?(PAAA) == true }
+    TIMES.times { PublicSuffixList.find(PAAA) != nil }
   end
   x.report("PAAA (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(PAAA, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(PAAA, ignore_private: true) != nil }
   end
   x.report("PZZZ") do
-    TIMES.times { PublicSuffix.valid?(PZZZ) == true }
+    TIMES.times { PublicSuffixList.find(PZZZ) != nil }
   end
   x.report("PZZZ (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(PZZZ, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(PZZZ, ignore_private: true) != nil }
   end
 
   x.report("JP") do
-    TIMES.times { PublicSuffix.valid?(JP) == true }
+    TIMES.times { PublicSuffixList.find(JP) != nil }
   end
   x.report("JP (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(JP, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(JP, ignore_private: true) != nil }
   end
   x.report("IT") do
-    TIMES.times { PublicSuffix.valid?(IT) == true }
+    TIMES.times { PublicSuffixList.find(IT) != nil }
   end
   x.report("IT (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(IT, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(IT, ignore_private: true) != nil }
   end
   x.report("COM") do
-    TIMES.times { PublicSuffix.valid?(COM) == true }
+    TIMES.times { PublicSuffixList.find(COM) != nil }
   end
   x.report("COM (noprivate)") do
-    TIMES.times { PublicSuffix.valid?(COM, ignore_private: true) == true }
+    TIMES.times { PublicSuffixList.find(COM, ignore_private: true) != nil }
   end
 end
