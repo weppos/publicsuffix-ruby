@@ -19,7 +19,11 @@ class AcceptanceTest < Minitest::Test
       trd, sld, tld = results
       assert_equal tld, parsed.tld, "Invalid tld for `#{name}`"
       assert_equal sld, parsed.sld, "Invalid sld for `#{name}`"
-      assert_equal trd, parsed.trd, "Invalid trd for `#{name}`"
+      if trd.nil?
+        assert_nil parsed.trd, "Invalid trd for `#{name}`"
+      else
+        assert_equal trd, parsed.trd, "Invalid trd for `#{name}`"
+      end
 
       assert_equal domain, PublicSuffix.domain(input)
       assert PublicSuffix.valid?(input)
@@ -93,7 +97,11 @@ class AcceptanceTest < Minitest::Test
   def test_ignore_private
     # test domain and parse
     INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
-      assert_equal expected, PublicSuffix.domain(given, ignore_private: ignore_private)
+      if expected.nil?
+        assert_nil PublicSuffix.domain(given, ignore_private: ignore_private)
+      else
+        assert_equal expected, PublicSuffix.domain(given, ignore_private: ignore_private)
+      end
     end
     # test valid?
     INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
