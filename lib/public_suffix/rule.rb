@@ -154,7 +154,7 @@ module PublicSuffix
         # we need to properly walk the input and skip parts according
         # to wildcard component.
         diff = name.chomp(value)
-        diff.empty? || diff[-1] == "."
+        diff.empty? || diff[-1] == DOT
       end
 
       # @abstract
