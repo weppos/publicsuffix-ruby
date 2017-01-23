@@ -1,5 +1,5 @@
 require 'benchmark'
-require_relative '../lib/public_suffix'
+require_relative "../../lib/public_suffix"
 
 JP   = "www.yokoshibahikari.chiba.jp"
 

@@ -11,7 +11,8 @@ AllCops:
     # Exclude artifacts
     - 'pkg/**/*'
     # Other
-    - 'benchmarks/**/*'
+    - 'test/benchmarks/**/*'
+    - 'test/profilers/**/*'
 
 Style/ClassAndModuleChildren:
   Exclude:
