@@ -6,8 +6,7 @@ require "public_suffix"
 PublicSuffix::List.default
 
 report = MemoryProfiler.report do
-  PublicSuffix.domain("a.b.ide.kyoto.jp")
+  PublicSuffix::List.default.find("www.example.com")
 end
 
 report.pretty_print
-# report.pretty_print(to_file: 'profiler-%s-%d.txt' % [ARGV[0], Time.now.to_i])
