@@ -6,7 +6,7 @@ require "public_suffix"
 PublicSuffix::List.default
 
 report = MemoryProfiler.report do
-  PublicSuffix.domain("www.example.com")
+  PublicSuffix.domain("a.b.ide.kyoto.jp")
 end
 
 report.pretty_print
