@@ -224,7 +224,7 @@ EOS
     assert_equal 4, list.size
 
     rules = %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }
-    assert_equal rules, list.to_a
+    assert_equal rules, list.each.to_a
 
     # private domains
     assert_equal false, list.find("com").private

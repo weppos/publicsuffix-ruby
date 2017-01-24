@@ -35,10 +35,7 @@ module PublicSuffix
   # The {PublicSuffix::List.default} rule list is used
   # to tokenize and validate a domain.
   #
-  # {PublicSuffix::List} implements +Enumerable+ module.
-  #
   class List
-    include Enumerable
 
     DEFAULT_LIST_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "list.txt")
 
