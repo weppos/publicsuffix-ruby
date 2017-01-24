@@ -19,6 +19,9 @@ module PublicSuffix
   #
   module Rule
 
+    # @api internal
+    Entry = Struct.new(:type, :length, :private)
+
     # = Abstract rule class
     #
     # This represent the base class for a Rule definition

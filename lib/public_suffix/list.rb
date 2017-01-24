@@ -251,18 +251,13 @@ module PublicSuffix
 
     private
 
-    def entry_to_rule(node, value)
-      node.clone.tap do |r|
-        r.instance_variable_set(:@value, value)
-      end
+    def entry_to_rule(entry, value)
+      entry.type.new(value: value, length: entry.length, private: entry.private)
     end
 
     def rule_to_entry(rule)
-      rule.clone.tap do |r|
-        r.instance_variable_set(:@value, nil)
-      end
+      Rule::Entry.new(rule.class, rule.length, rule.private)
     end
-
 
   end
 end
