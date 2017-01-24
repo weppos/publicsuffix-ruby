@@ -31,6 +31,31 @@ class PublicSuffix::ListTest < Minitest::Test
     assert_equal PublicSuffix::List.new.add(rule), PublicSuffix::List.new.add(rule)
   end
 
+  def test_each_without_block
+    list = PublicSuffix::List.parse(<<EOS)
+alpha
+beta
+EOS
+
+    assert_kind_of Enumerator, list.each
+    assert_equal 2, list.each.count
+    assert_equal PublicSuffix::Rule.factory("alpha"), list.each.first
+  end
+
+  def test_each_with_block
+    list = PublicSuffix::List.parse(<<EOS)
+alpha
+beta
+EOS
+
+    entries = []
+    list.each { |r| entries << r }
+
+    assert_equal 2, entries.count
+    assert_equal PublicSuffix::Rule.factory("alpha"), entries.first
+  end
+
+
   def test_add
     assert_equal @list, @list.add(PublicSuffix::Rule.factory(""))
     assert_equal @list, @list <<  PublicSuffix::Rule.factory("")
