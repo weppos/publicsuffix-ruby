@@ -26,7 +26,7 @@ class PublicSuffix::RuleTest < Minitest::Test
 
   def test_default_returns_default_wildcard
     default = PublicSuffix::Rule.default
-    assert_equal PublicSuffix::Rule::Wildcard.new("*"), default
+    assert_equal PublicSuffix::Rule::Wildcard.build("*"), default
     assert_equal %w( example tldnotlisted ), default.decompose("example.tldnotlisted")
     assert_equal %w( www.example tldnotlisted ), default.decompose("www.example.tldnotlisted")
   end
@@ -45,24 +45,24 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
 
 
   def test_initialize
-    rule = @klass.new("verona.it")
-    assert_instance_of @klass,          rule
-    assert_equal "verona.it",           rule.value
+    rule = @klass.new(value: "verona.it")
+    assert_instance_of @klass,  rule
+    assert_equal "verona.it",   rule.value
   end
 
 
   def test_equality_with_self
-    rule = PublicSuffix::Rule::Base.new("foo")
+    rule = PublicSuffix::Rule::Base.new(value: "foo")
     assert_equal rule, rule
   end
 
   # rubocop:disable Style/SingleLineMethods
   def test_equality_with_internals
-    assert_equal @klass.new("foo"), @klass.new("foo")
-    refute_equal @klass.new("foo"), @klass.new("bar")
-    refute_equal @klass.new("foo"), PublicSuffix::Rule::Test.new("foo")
-    refute_equal @klass.new("foo"), PublicSuffix::Rule::Test.new("bar")
-    refute_equal @klass.new("foo"), Class.new { def name; foo; end }.new
+    assert_equal @klass.new(value: "foo"), @klass.new(value: "foo")
+    refute_equal @klass.new(value: "foo"), @klass.new(value: "bar")
+    refute_equal @klass.new(value: "foo"), PublicSuffix::Rule::Test.new(value: "foo")
+    refute_equal @klass.new(value: "foo"), PublicSuffix::Rule::Test.new(value: "bar")
+    refute_equal @klass.new(value: "foo"), Class.new { def name; foo; end }.new
   end
   # rubocop:enable Style/SingleLineMethods
 
@@ -106,11 +106,11 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
 
 
   def test_parts
-    assert_raises(NotImplementedError) { @klass.new("com").parts }
+    assert_raises(NotImplementedError) { @klass.new(value: "com").parts }
   end
 
   def test_decompose
-    assert_raises(NotImplementedError) { @klass.new("com").decompose("google.com") }
+    assert_raises(NotImplementedError) { @klass.new(value: "com").decompose("google.com") }
   end
 
 end
@@ -123,8 +123,8 @@ class PublicSuffix::RuleNormalTest < Minitest::Test
   end
 
 
-  def test_initialize
-    rule = @klass.new("verona.it")
+  def test_build
+    rule = @klass.build("verona.it")
     assert_instance_of @klass,              rule
     assert_equal "verona.it",               rule.value
     assert_equal "verona.it",               rule.rule
@@ -132,21 +132,21 @@ class PublicSuffix::RuleNormalTest < Minitest::Test
 
 
   def test_length
-    assert_equal 1, @klass.new("com").length
-    assert_equal 2, @klass.new("co.com").length
-    assert_equal 3, @klass.new("mx.co.com").length
+    assert_equal 1, @klass.build("com").length
+    assert_equal 2, @klass.build("co.com").length
+    assert_equal 3, @klass.build("mx.co.com").length
   end
 
   def test_parts
-    assert_equal %w(com), @klass.new("com").parts
-    assert_equal %w(co com), @klass.new("co.com").parts
-    assert_equal %w(mx co com), @klass.new("mx.co.com").parts
+    assert_equal %w(com), @klass.build("com").parts
+    assert_equal %w(co com), @klass.build("co.com").parts
+    assert_equal %w(mx co com), @klass.build("mx.co.com").parts
   end
 
   def test_decompose
-    assert_equal [nil, nil], @klass.new("com").decompose("com")
-    assert_equal %w( example com ), @klass.new("com").decompose("example.com")
-    assert_equal %w( foo.example com ), @klass.new("com").decompose("foo.example.com")
+    assert_equal [nil, nil], @klass.build("com").decompose("com")
+    assert_equal %w( example com ), @klass.build("com").decompose("example.com")
+    assert_equal %w( foo.example com ), @klass.build("com").decompose("foo.example.com")
   end
 
 end
@@ -160,27 +160,27 @@ class PublicSuffix::RuleExceptionTest < Minitest::Test
 
 
   def test_initialize
-    rule = @klass.new("!british-library.uk")
-    assert_instance_of @klass,                    rule
-    assert_equal "british-library.uk",            rule.value
-    assert_equal "!british-library.uk",           rule.rule
+    rule = @klass.build("!british-library.uk")
+    assert_instance_of @klass, rule
+    assert_equal "british-library.uk", rule.value
+    assert_equal "!british-library.uk", rule.rule
   end
 
 
   def test_length
-    assert_equal 2, @klass.new("!british-library.uk").length
-    assert_equal 3, @klass.new("!foo.british-library.uk").length
+    assert_equal 2, @klass.build("!british-library.uk").length
+    assert_equal 3, @klass.build("!foo.british-library.uk").length
   end
 
   def test_parts
-    assert_equal %w( uk ), @klass.new("!british-library.uk").parts
-    assert_equal %w( tokyo jp ), @klass.new("!metro.tokyo.jp").parts
+    assert_equal %w( uk ), @klass.build("!british-library.uk").parts
+    assert_equal %w( tokyo jp ), @klass.build("!metro.tokyo.jp").parts
   end
 
   def test_decompose
-    assert_equal [nil, nil], @klass.new("!british-library.uk").decompose("uk")
-    assert_equal %w( british-library uk ), @klass.new("!british-library.uk").decompose("british-library.uk")
-    assert_equal %w( foo.british-library uk ), @klass.new("!british-library.uk").decompose("foo.british-library.uk")
+    assert_equal [nil, nil], @klass.build("!british-library.uk").decompose("uk")
+    assert_equal %w( british-library uk ), @klass.build("!british-library.uk").decompose("british-library.uk")
+    assert_equal %w( foo.british-library uk ), @klass.build("!british-library.uk").decompose("foo.british-library.uk")
   end
 
 end
@@ -194,27 +194,27 @@ class PublicSuffix::RuleWildcardTest < Minitest::Test
 
 
   def test_initialize
-    rule = @klass.new("*.aichi.jp")
-    assert_instance_of @klass,              rule
-    assert_equal "aichi.jp",                rule.value
-    assert_equal "*.aichi.jp",              rule.rule
+    rule = @klass.build("*.aichi.jp")
+    assert_instance_of @klass, rule
+    assert_equal "aichi.jp", rule.value
+    assert_equal "*.aichi.jp", rule.rule
   end
 
 
   def test_length
-    assert_equal 2, @klass.new("*.uk").length
-    assert_equal 3, @klass.new("*.co.uk").length
+    assert_equal 2, @klass.build("*.uk").length
+    assert_equal 3, @klass.build("*.co.uk").length
   end
 
   def test_parts
-    assert_equal %w( uk ), @klass.new("*.uk").parts
-    assert_equal %w( co uk ), @klass.new("*.co.uk").parts
+    assert_equal %w( uk ), @klass.build("*.uk").parts
+    assert_equal %w( co uk ), @klass.build("*.co.uk").parts
   end
 
   def test_decompose
-    assert_equal [nil, nil], @klass.new("*.do").decompose("nic.do")
-    assert_equal %w( google co.uk ), @klass.new("*.uk").decompose("google.co.uk")
-    assert_equal %w( foo.google co.uk ), @klass.new("*.uk").decompose("foo.google.co.uk")
+    assert_equal [nil, nil], @klass.build("*.do").decompose("nic.do")
+    assert_equal %w( google co.uk ), @klass.build("*.uk").decompose("google.co.uk")
+    assert_equal %w( foo.google co.uk ), @klass.build("*.uk").decompose("foo.google.co.uk")
   end
 
 end

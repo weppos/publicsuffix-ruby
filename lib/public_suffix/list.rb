@@ -126,7 +126,7 @@ module PublicSuffix
     def each(&block)
       Enumerator.new do |y|
         @rules.each do |key, node|
-          y << node_to_rule(node, key)
+          y << entry_to_rule(node, key)
         end
       end.each(&block)
     end
@@ -137,7 +137,7 @@ module PublicSuffix
     # @param  rule [PublicSuffix::Rule::*] The rule to add to the list.
     # @return [self]
     def add(rule)
-      @rules[rule.value] = rule_to_node(rule)
+      @rules[rule.value] = rule_to_entry(rule)
 
       self
     end
@@ -222,7 +222,7 @@ module PublicSuffix
       loop do
         match = @rules[query]
         if !match.nil? && (ignore_private == false || match.private == false)
-          rules << node_to_rule(match, query)
+          rules << entry_to_rule(match, query)
         end
 
         index += 1
@@ -251,17 +251,18 @@ module PublicSuffix
 
     private
 
-    def node_to_rule(node, value)
+    def entry_to_rule(node, value)
       node.clone.tap do |r|
         r.instance_variable_set(:@value, value)
       end
     end
 
-    def rule_to_node(rule)
+    def rule_to_entry(rule)
       rule.clone.tap do |r|
         r.instance_variable_set(:@value, nil)
       end
     end
+
 
   end
 end
