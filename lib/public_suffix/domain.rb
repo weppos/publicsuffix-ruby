@@ -27,6 +27,23 @@ module PublicSuffix
       name.to_s.split(DOT)
     end
 
+    # Returns the TLD.
+    #
+    # The input is not validated, but it is assumed to be a valid domain name.
+    #
+    # @example
+    #
+    #   extract_tld('example.com')
+    #   # => 'com'
+    #
+    #   extract_tld('example.co.uk')
+    #   # => 'uk'
+    #
+    # @param  name [String, #to_s] The domain name to extract.
+    # @return [String]
+    def self.extract_tld(name)
+      name.to_s.rpartition(DOT)[2]
+    end
 
     attr_reader :tld, :sld, :trd
 
