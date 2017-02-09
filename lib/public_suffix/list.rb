@@ -37,7 +37,7 @@ module PublicSuffix
   #
   class List
 
-    DEFAULT_LIST_PATH = File.join(File.dirname(__FILE__), "..", "..", "data", "list.txt")
+    DEFAULT_LIST_PATH = File.expand_path("../../data/list.txt", __dir__)
 
     # Gets the default rule list.
     #
@@ -114,7 +114,7 @@ module PublicSuffix
     # {PublicSuffix::List} and each +PublicSuffix::Rule::*+
     # in list <tt>one</tt> is available in list <tt>two</tt>, in the same order.
     #
-    # @param  other [PublicSuffix::List] The List to compare.
+    # @param  other [PublicSuffix::List] the List to compare
     # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(List)
@@ -134,11 +134,10 @@ module PublicSuffix
 
     # Adds the given object to the list and optionally refreshes the rule index.
     #
-    # @param  rule [PublicSuffix::Rule::*] The rule to add to the list.
+    # @param  rule [PublicSuffix::Rule::*] the rule to add to the list
     # @return [self]
     def add(rule)
       @rules[rule.value] = rule_to_entry(rule)
-
       self
     end
     alias << add
@@ -165,28 +164,10 @@ module PublicSuffix
       self
     end
 
-    # Finds and returns the most appropriate rule for the domain name.
+    # Finds and returns the rule corresponding to the longest public suffix for the hostname.
     #
-    # From the Public Suffix List documentation:
-    #
-    # - If a hostname matches more than one rule in the file,
-    #   the longest matching rule (the one with the most levels) will be used.
-    # - An exclamation mark (!) at the start of a rule marks an exception to a previous wildcard rule.
-    #   An exception rule takes priority over any other matching rule.
-    #
-    # ## Algorithm description
-    #
-    # 1. Match domain against all rules and take note of the matching ones.
-    # 2. If no rules match, the prevailing rule is "*".
-    # 3. If more than one rule matches, the prevailing rule is the one which is an exception rule.
-    # 4. If there is no matching exception rule, the prevailing rule is the one with the most labels.
-    # 5. If the prevailing rule is a exception rule, modify it by removing the leftmost label.
-    # 6. The public suffix is the set of labels from the domain
-    #    which directly match the labels of the prevailing rule (joined by dots).
-    # 7. The registered domain is the public suffix plus one additional label.
-    #
-    # @param  name [String, #to_s] The domain name
-    # @param  default [PublicSuffix::Rule::*] The default rule to return in case no rule matches
+    # @param  name [#to_s] the hostname
+    # @param  default [PublicSuffix::Rule::*] the default rule to return in case no rule matches
     # @return [PublicSuffix::Rule::*]
     def find(name, default: default_rule, **options)
       rule = select(name, **options).inject do |l, r|
@@ -196,19 +177,20 @@ module PublicSuffix
       rule || default
     end
 
-    # Selects all the rules matching given domain.
+    # Selects all the rules matching given hostame.
     #
-    # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as private domain.
-    # Note that the rules will still be part of the loop. If you frequently need to access lists
-    # ignoring the private domains, you should create a list that doesn't include these domains setting the
+    # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as
+    # private domain. Note that the rules will still be part of the loop.
+    # If you frequently need to access lists ignoring the private domains,
+    # you should create a list that doesn't include these domains setting the
     # `private_domains: false` option when calling {.parse}.
     #
-    # Note that this method is currently private, as you should not rely on it. Instead, the public
-    # interface is {#find}. The current internal algorithm allows to return all matching rules,
-    # but different data structures may not be able to do it, and instead would return only the
-    # match. For this reason, you should rely on {#find}.
+    # Note that this method is currently private, as you should not rely on it. Instead,
+    # the public interface is {#find}. The current internal algorithm allows to return all
+    # matching rules, but different data structures may not be able to do it, and instead would
+    # return only the match. For this reason, you should rely on {#find}.
     #
-    # @param  name [String, #to_s] The domain name
+    # @param  name [#to_s] the hostname
     # @param  ignore_private [Boolean]
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name, ignore_private: false)
