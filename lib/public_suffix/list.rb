@@ -102,7 +102,6 @@ module PublicSuffix
     #
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::List] self The newly created instance.
-    #
     def initialize
       @rules = []
       yield(self) if block_given?
@@ -139,9 +138,7 @@ module PublicSuffix
     # {PublicSuffix::List} and each +PublicSuffix::Rule::*+
     # in list <tt>one</tt> is available in list <tt>two</tt>, in the same order.
     #
-    # @param [PublicSuffix::List] other
-    #   The List to compare.
-    #
+    # @param other [PublicSuffix::List] the List to compare
     # @return [Boolean]
     def ==(other)
       return false unless other.is_a?(List)
@@ -157,16 +154,12 @@ module PublicSuffix
 
     # Adds the given object to the list and optionally refreshes the rule index.
     #
-    # @param [PublicSuffix::Rule::*] rule
-    #   The rule to add to the list.
-    # @param [Boolean] reindex
-    #   Set to true to recreate the rule index
-    #   after the rule has been added to the list.
-    #
-    # @return [self]
-    #
     # @see #reindex!
     #
+    # @param  rule [PublicSuffix::Rule::*] the rule to add to the list
+    # @param reindex [Boolean] Set to true to recreate the rule index
+    #   after the rule has been added to the list.
+    # @return [self]
     def add(rule, reindex: true)
       @rules << rule
       reindex! if reindex
@@ -217,8 +210,8 @@ module PublicSuffix
     #    which directly match the labels of the prevailing rule (joined by dots).
     # 7. The registered domain is the public suffix plus one additional label.
     #
-    # @param  name [String, #to_s] The domain name.
-    # @param  [PublicSuffix::Rule::*] default The default rule to return in case no rule matches.
+    # @param  name [#to_s] the hostname
+    # @param  default [PublicSuffix::Rule::*] the default rule to return in case no rule matches
     # @return [PublicSuffix::Rule::*]
     def find(name, default: default_rule, **options)
       rule = select(name, **options).inject do |l, r|
@@ -230,18 +223,19 @@ module PublicSuffix
 
     # Selects all the rules matching given domain.
     #
-    # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as private domain.
-    # Note that the rules will still be part of the loop. If you frequently need to access lists
-    # ignoring the private domains, you should create a list that doesn't include these domains setting the
+    # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as
+    # private domain. Note that the rules will still be part of the loop.
+    # If you frequently need to access lists ignoring the private domains,
+    # you should create a list that doesn't include these domains setting the
     # `private_domains: false` option when calling {.parse}.
     #
-    # Note that this method is currently private, as you should not rely on it. Instead, the public
-    # interface is {#find}. The current internal algorithm allows to return all matching rules,
-    # but different data structures may not be able to do it, and instead would return only the
-    # match. For this reason, you should rely on {#find}.
+    # Note that this method is currently private, as you should not rely on it. Instead,
+    # the public interface is {#find}. The current internal algorithm allows to return all
+    # matching rules, but different data structures may not be able to do it, and instead would
+    # return only the match. For this reason, you should rely on {#find}.
     #
-    # @param  [String, #to_s] name The domain name.
-    # @param  [Boolean] ignore_private
+    # @param  name [#to_s] the hostname
+    # @param  ignore_private [Boolean]
     # @return [Array<PublicSuffix::Rule::*>]
     def select(name, ignore_private: false)
       name = name.to_s

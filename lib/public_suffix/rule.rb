@@ -141,12 +141,12 @@ module PublicSuffix
       # @see https://publicsuffix.org/list/
       #
       # @example
-      #   Rule.factory("com").match?("example.com")
+      #   PublicSuffix::Rule.factory("com").match?("example.com")
       #   # => true
-      #   Rule.factory("com").match?("example.net")
+      #   PublicSuffix::Rule.factory("com").match?("example.net")
       #   # => false
       #
-      # @param  name [String, #to_s] The domain name to check.
+      # @param  name [String] the domain name to check
       # @return [Boolean]
       def match?(name)
         # Note: it works because of the assumption there are no
