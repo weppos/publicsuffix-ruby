@@ -37,7 +37,7 @@ class ObjectBinsize
 
 end
 
-if __FILE__ == $0 && ENV["DEMO"] == "1"
+if __FILE__ == $0
   prof = ObjectBinsize.new
 
   prof.report(nil, label: "nil")
