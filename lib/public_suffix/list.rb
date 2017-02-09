@@ -196,7 +196,7 @@ module PublicSuffix
     def select(name, ignore_private: false)
       name = name.to_s
 
-      parts = name.split(".").reverse!
+      parts = name.split(DOT).reverse!
       index = 0
       query = parts[index]
       rules = []
@@ -209,7 +209,7 @@ module PublicSuffix
 
         index += 1
         break if index >= parts.size
-        query = parts[index] + "." + query
+        query = parts[index] + DOT + query
       end
 
       rules
