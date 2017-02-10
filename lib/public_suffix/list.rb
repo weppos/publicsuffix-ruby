@@ -104,7 +104,6 @@ module PublicSuffix
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     def initialize
       @rules = {}
-      @trie = nil
       yield(self) if block_given?
     end
 
@@ -236,12 +235,12 @@ module PublicSuffix
 
     private
 
-    def entry_to_rule(entry, _)
-      entry.type.new(value: entry.value, length: entry.length, private: entry.private)
+    def entry_to_rule(entry, value)
+      entry.type.new(value: value, length: entry.length, private: entry.private)
     end
 
     def rule_to_entry(rule)
-      Rule::Entry.new(rule.class, rule.length, rule.private, rule.value)
+      Rule::Entry.new(rule.class, rule.length, rule.private)
     end
 
   end

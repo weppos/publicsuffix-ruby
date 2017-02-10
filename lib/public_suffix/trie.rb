@@ -1,5 +1,7 @@
+# rubocop:disable Style/Documentation
+
 module PublicSuffix
-  class TrieHash
+  class Trie
     class Node
       attr_accessor :leaf
       attr_accessor :children
@@ -54,18 +56,20 @@ module PublicSuffix
 
     def longest_prefix(word)
       node = @root
-      result = ""
+      result = []
       length = 0
 
       split_word(word).each_with_index do |token, index|
         break unless (child = node.get(token))
-        result = merge_word(result, token)
+        result << token
         node   = child
         length = index + 1 if node.leaf?
       end
 
       return nil if length.zero?
-      node.leaf? ? result : result[0, length]
+
+      result = result[0, length] if !node.leaf?
+      merge_word(result)
     end
 
     def _prefix(word)
@@ -80,31 +84,30 @@ module PublicSuffix
     private
 
     def split_word(word)
-      word.each_char
+      word.split(".").each
     end
 
-    def merge_word(token1, token2)
-      token1 << token2
+    def merge_word(tokens)
+      tokens.join(".")
     end
 
   end
 end
 
-if __FILE__ == $0
-  require 'minitest/autorun'
+if __FILE__ == $PROGRAM_NAME
+  require "minitest/autorun"
 
-  class TrieHashTest < Minitest::Test
+  class TrieTest < Minitest::Test
     def setup
-      @trie = PublicSuffix::TrieHash.new
+      @trie = PublicSuffix::Trie.new
     end
 
     def test_validation
       @trie.insert("one.two")
       root = @trie.instance_variable_get(:@root)
-      assert_instance_of PublicSuffix::TrieHash::Node, root
+      assert_instance_of PublicSuffix::Trie::Node, root
       assert_instance_of Hash, root.children
       assert root.children.keys.all? { |key| key.is_a?(String) }
-      assert root.children.keys.all? { |key| key.size == 1 }
     end
 
     def test_insert
@@ -148,7 +151,7 @@ if __FILE__ == $0
 
   class TrieHashNodeTest < Minitest::Test
     def test_leaf
-      node = PublicSuffix::TrieHash::Node.new
+      node = PublicSuffix::Trie::Node.new
       refute node.leaf?
 
       node.leaf!
@@ -156,12 +159,12 @@ if __FILE__ == $0
     end
 
     def test_put
-      node = PublicSuffix::TrieHash::Node.new
+      node = PublicSuffix::Trie::Node.new
       refute node.contains?("2")
       node.put("2")
       assert node.contains?("2")
 
-      node = PublicSuffix::TrieHash::Node.new
+      node = PublicSuffix::Trie::Node.new
       aa = node.put("2")
       bb = node.put("2")
       assert node.contains?("2")
@@ -169,7 +172,7 @@ if __FILE__ == $0
     end
 
     def test_get
-      node = PublicSuffix::TrieHash::Node.new
+      node = PublicSuffix::Trie::Node.new
       aa = node.put("2")
       assert_same aa, node.get("2")
     end
