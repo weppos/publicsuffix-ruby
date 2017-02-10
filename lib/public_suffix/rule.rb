@@ -19,6 +19,9 @@ module PublicSuffix
   #
   module Rule
 
+    # @api internal
+    Entry = Struct.new(:type, :length, :private)
+
     # = Abstract rule class
     #
     # This represent the base class for a Rule definition
@@ -106,13 +109,21 @@ module PublicSuffix
       attr_reader :private
 
 
-      # Initializes a new rule with name and value.
-      # If value is +nil+, name also becomes the value for this rule.
+      # Initializes a new rule from the content.
       #
-      # @param value [String] the value of the rule
-      def initialize(value, private: false)
+      # @param  content [String] the content of the rule
+      # @param  private [Boolean]
+      def self.build(content, private: false)
+        new(value: content, private: private)
+      end
+
+      # Initializes a new rule.
+      #
+      # @param  value [String]
+      # @param  private [Boolean]
+      def initialize(value:, length: nil, private: false)
         @value    = value.to_s
-        @length   = @value.count(DOT) + 1
+        @length   = length || @value.count(DOT) + 1
         @private  = private
       end
 
@@ -204,15 +215,21 @@ module PublicSuffix
     # Wildcard represents a wildcard rule (e.g. *.co.uk).
     class Wildcard < Base
 
-      # Initializes a new rule from +definition+.
+      # Initializes a new rule from the content.
       #
-      # The wildcard "*" is removed from the value,
-      # as it's common for each wildcard rule.
+      # @param  content [String] the content of the rule
+      # @param  private [Boolean]
+      def self.build(content, private: false)
+        new(value: content.to_s[2..-1], private: private)
+      end
+
+      # Initializes a new rule.
       #
-      # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, private: false)
-        super(definition.to_s[2..-1], private: private)
-        @length += 1 # * counts as 1
+      # @param  value [String]
+      # @param  private [Boolean]
+      def initialize(value:, length: nil, private: false)
+        super(value: value, length: length, private: private)
+        length or @length += 1 # * counts as 1
       end
 
       # Gets the original rule definition.
@@ -245,14 +262,12 @@ module PublicSuffix
     # Exception represents an exception rule (e.g. !parliament.uk).
     class Exception < Base
 
-      # Initializes a new rule from +definition+.
+      # Initializes a new rule from the content.
       #
-      # The bang ! is removed from the value,
-      # as it's common for each exception rule.
-      #
-      # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, private: false)
-        super(definition.to_s[1..-1], private: private)
+      # @param  content [String] the content of the rule
+      # @param  private [Boolean]
+      def self.build(content, private: false)
+        new(value: content.to_s[1..-1], private: private)
       end
 
       # Gets the original rule definition.
@@ -314,7 +329,7 @@ module PublicSuffix
         Exception
       else
         Normal
-      end.new(content, private: private)
+      end.build(content, private: private)
     end
 
     # The default rule to use if no rule match.
