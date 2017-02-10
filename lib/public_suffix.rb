@@ -9,7 +9,6 @@ require_relative "public_suffix/version"
 require_relative "public_suffix/errors"
 require_relative "public_suffix/rule"
 require_relative "public_suffix/list"
-require_relative "trie"
 
 # PublicSuffix is a Ruby domain name parser based on the Public Suffix List.
 #

@@ -104,7 +104,7 @@ module PublicSuffix
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     def initialize
       @rules = {}
-      @trie = Containers::Trie.new
+      @trie = nil
       yield(self) if block_given?
     end
 
@@ -141,8 +141,6 @@ module PublicSuffix
     # @return [self]
     def add(rule)
       @rules[rule.value] = rule_to_entry(rule)
-      @trie.push(rule.value.reverse, rule_to_entry(rule))
-
       self
     end
     alias << add
@@ -180,11 +178,6 @@ module PublicSuffix
         l.length > r.length ? l : r
       end
       rule || default
-    end
-
-    def find_trie(name, default: default_rule, **options)
-      prefix = @trie.longest_prefix(name.reverse)
-      entry_to_rule(@trie.get(prefix), nil) || default
     end
 
     # Selects all the rules matching given hostname.
