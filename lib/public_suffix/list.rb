@@ -104,8 +104,11 @@ module PublicSuffix
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     def initialize
       @rules = {}
+      @trie = Containers::Trie.new
       yield(self) if block_given?
     end
+
+    attr_reader :trie
 
 
     # Checks whether two lists are equal.
@@ -138,6 +141,8 @@ module PublicSuffix
     # @return [self]
     def add(rule)
       @rules[rule.value] = rule_to_entry(rule)
+      @trie.push(rule.value.reverse, rule_to_entry(rule))
+
       self
     end
     alias << add
@@ -177,7 +182,12 @@ module PublicSuffix
       rule || default
     end
 
-    # Selects all the rules matching given hostame.
+    def find_trie(name, default: default_rule, **options)
+      prefix = @trie.longest_prefix(name.reverse)
+      entry_to_rule(@trie.get(prefix), nil) || default
+    end
+
+    # Selects all the rules matching given hostname.
     #
     # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as
     # private domain. Note that the rules will still be part of the loop.
@@ -233,12 +243,12 @@ module PublicSuffix
 
     private
 
-    def entry_to_rule(entry, value)
-      entry.type.new(value: value, length: entry.length, private: entry.private)
+    def entry_to_rule(entry, _)
+      entry.type.new(value: entry.value, length: entry.length, private: entry.private)
     end
 
     def rule_to_entry(rule)
-      Rule::Entry.new(rule.class, rule.length, rule.private)
+      Rule::Entry.new(rule.class, rule.length, rule.private, rule.value)
     end
 
   end
