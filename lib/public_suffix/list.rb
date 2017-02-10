@@ -104,6 +104,7 @@ module PublicSuffix
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     def initialize
       @rules = {}
+      @trie = PublicSuffix::Trie.new
       yield(self) if block_given?
     end
 
@@ -139,7 +140,9 @@ module PublicSuffix
     # @param  rule [PublicSuffix::Rule::*] the rule to add to the list
     # @return [self]
     def add(rule)
-      @rules[rule.value] = rule_to_entry(rule)
+      entry = rule_to_entry(rule)
+      @rules[rule.value] = entry
+      @trie.insert(rule.value.split(".").reverse.join("."), entry)
       self
     end
     alias << add

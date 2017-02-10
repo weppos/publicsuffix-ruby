@@ -3,10 +3,10 @@
 module PublicSuffix
   class Trie
     class Node
-      attr_accessor :leaf
       attr_accessor :children
+      attr_accessor :entry
 
-      def initialize(*)
+      def initialize
         @children = {}
       end
 
@@ -23,11 +23,11 @@ module PublicSuffix
       end
 
       def leaf?
-        @leaf == true
+        !@type.nil?
       end
 
-      def leaf!
-        @leaf = true
+      def leaf!(entry)
+        @entry = entry
       end
 
       private
@@ -38,15 +38,15 @@ module PublicSuffix
     end
 
     def initialize
-      @root = self.class::Node.new(nil)
+      @root = self.class::Node.new
     end
 
-    def insert(word)
+    def insert(word, entry)
       node = @root
       split_word(word).each do |token|
         node = node.put(token)
       end
-      node.leaf! && node
+      node.leaf!(entry) && node
     end
 
     def contains?(word)
@@ -97,13 +97,20 @@ end
 if __FILE__ == $PROGRAM_NAME
   require "minitest/autorun"
 
+  module PublicSuffix
+    class Rule
+      class Entry
+      end
+    end
+  end
+
   class TrieTest < Minitest::Test
     def setup
       @trie = PublicSuffix::Trie.new
     end
 
     def test_validation
-      @trie.insert("one.two")
+      @trie.insert("one.two", PublicSuffix::Rule::Entry.new)
       root = @trie.instance_variable_get(:@root)
       assert_instance_of PublicSuffix::Trie::Node, root
       assert_instance_of Hash, root.children
@@ -111,13 +118,13 @@ if __FILE__ == $PROGRAM_NAME
     end
 
     def test_insert
-      @trie.insert("com")
+      @trie.insert("com", PublicSuffix::Rule::Entry.new)
       refute @trie.contains?("co")
       refute @trie.contains?("om")
       assert @trie.contains?("com")
       refute @trie.contains?("example.com")
 
-      @trie.insert("example.com")
+      @trie.insert("example.com", PublicSuffix::Rule::Entry.new)
       refute @trie.contains?("co")
       refute @trie.contains?("om")
       assert @trie.contains?("com")
@@ -125,7 +132,7 @@ if __FILE__ == $PROGRAM_NAME
     end
 
     def test_prefix
-      @trie.insert("one.two.three.four")
+      @trie.insert("one.two.three.four", PublicSuffix::Rule::Entry.new)
       assert_nil @trie._prefix("three.four")
       refute_nil @trie._prefix("one.two")
       assert_nil @trie._prefix("one.two.three.four.five")
@@ -135,13 +142,13 @@ if __FILE__ == $PROGRAM_NAME
     end
 
     def test_longest_prefix
-      @trie.insert("a.r.e")
-      @trie.insert("a.r.e.a")
-      @trie.insert("b.a.s.e")
-      @trie.insert("c.a.t")
-      @trie.insert("c.a.t.e.r")
-      @trie.insert("c.h.i.l.d.r.e.n")
-      @trie.insert("b.a.s.e.m.e.n.t")
+      @trie.insert("a.r.e", PublicSuffix::Rule::Entry.new)
+      @trie.insert("a.r.e.a", PublicSuffix::Rule::Entry.new)
+      @trie.insert("b.a.s.e", PublicSuffix::Rule::Entry.new)
+      @trie.insert("c.a.t", PublicSuffix::Rule::Entry.new)
+      @trie.insert("c.a.t.e.r", PublicSuffix::Rule::Entry.new)
+      @trie.insert("c.h.i.l.d.r.e.n", PublicSuffix::Rule::Entry.new)
+      @trie.insert("b.a.s.e.m.e.n.t", PublicSuffix::Rule::Entry.new)
 
       assert_equal "c.a.t.e.r", @trie.longest_prefix("c.a.t.e.r.e.r")
       assert_equal "b.a.s.e", @trie.longest_prefix("b.a.s.e.m.e.x.y")
@@ -154,7 +161,7 @@ if __FILE__ == $PROGRAM_NAME
       node = PublicSuffix::Trie::Node.new
       refute node.leaf?
 
-      node.leaf!
+      node.leaf!(PublicSuffix::Rule::Entry.new)
       assert node.leaf?
     end
 
