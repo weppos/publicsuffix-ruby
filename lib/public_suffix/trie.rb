@@ -4,7 +4,8 @@ module PublicSuffix
   class Trie
     class Node
       attr_accessor :children
-      attr_accessor :entry
+      attr_accessor :type
+      attr_accessor :private
 
       def initialize
         @children = {}
@@ -26,8 +27,9 @@ module PublicSuffix
         !@type.nil?
       end
 
-      def leaf!(entry)
-        @entry = entry
+      def leaf!(type:, private:)
+        @type = type
+        @private = private
       end
 
       private
@@ -41,12 +43,12 @@ module PublicSuffix
       @root = self.class::Node.new
     end
 
-    def insert(word, entry)
+    def insert(word, type:, private:)
       node = @root
       split_word(word).each do |token|
         node = node.put(token)
       end
-      node.leaf!(entry) && node
+      node.leaf!(type: type, private: private) && node
     end
 
     def contains?(word)

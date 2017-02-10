@@ -142,7 +142,7 @@ module PublicSuffix
     def add(rule)
       entry = rule_to_entry(rule)
       @rules[rule.value] = entry
-      @trie.insert(rule.value.split(".").reverse.join("."), entry)
+      @trie.insert(rule.value.split(".").reverse.join("."), type: entry.type, private: entry.private)
       self
     end
     alias << add
