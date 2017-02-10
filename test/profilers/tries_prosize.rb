@@ -16,10 +16,10 @@ rules = File.read(ROOT + "/data/rules-ascii.txt").split("\n").each
 @trie_array   = PublicSuffix::TrieArray.new
 
 rules.each do |word|
-  @trie_hash.insert(word)
-  @trie_symbol.insert(word)
-  @trie_parts.insert(word)
-  @trie_array.insert(word)
+  @trie_hash.insert(word.reverse)
+  @trie_symbol.insert(word.reverse)
+  @trie_parts.insert(word.split(".").reverse.join("."))
+  @trie_array.insert(word.reverse)
 end
 
 prof = ObjectBinsize.new

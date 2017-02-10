@@ -11,19 +11,22 @@ ROOT = File.expand_path("../../", __dir__)
 rules = File.read(ROOT + "/data/rules-ascii.txt").split("\n").each
 
 report = MemoryProfiler.report do
-  @trie = case ARGV.first
+  case ARGV.first
   when "hash"
-    PublicSuffix::TrieHash.new
+    @trie = PublicSuffix::TrieHash.new
+    rules.each { |word| @trie.insert(word.reverse) }
   when "hash-symbol"
-    PublicSuffix::TrieHashSymbol.new
+    @trie = PublicSuffix::TrieHashSymbol.new
+    rules.each { |word| @trie.insert(word.reverse) }
   when "hash-parts"
-    PublicSuffix::TrieHashParts.new
+    @trie = PublicSuffix::TrieHashParts.new
+    rules.each { |word| @trie.insert(word.split(".").reverse.join(".")) }
   when "array"
-    PublicSuffix::TrieArray.new
+    @trie = PublicSuffix::TrieArray.new
+    rules.each { |word| @trie.insert(word.reverse) }
   else
     abort("Please select a Trie to test")
   end
-  rules.each { |word| @trie.insert(word) }
 end
 
 report.pretty_print
