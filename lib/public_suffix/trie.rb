@@ -8,18 +8,21 @@ module PublicSuffix
       attr_accessor :private
 
       def initialize
-        @children = {}
+        @children = nil
       end
 
       def contains?(key)
+        return false if @children.nil?
         !@children[index(key)].nil?
       end
 
       def put(key)
+        @children ||= {}
         @children[index(key)] ||= self.class.new
       end
 
       def get(key)
+        return nil if @children.nil?
         @children[index(key)]
       end
 
