@@ -142,7 +142,7 @@ module PublicSuffix
     def add(rule)
       entry = rule_to_entry(rule)
       @rules[rule.value] = entry
-      @trie.insert(rule.value.split(".").reverse.join("."), type: entry.type, private: entry.private)
+      @trie.insert(rule.value, type: entry.type, private: entry.private)
       self
     end
     alias << add
@@ -175,11 +175,23 @@ module PublicSuffix
     # @param  default [PublicSuffix::Rule::*] the default rule to return in case no rule matches
     # @return [PublicSuffix::Rule::*]
     def find(name, default: default_rule, **options)
+      if ENV["WHAT"] == "hash"
+        find_hash(name, default: default, **options)
+      else
+        find_trie(name, default: default, **options)
+      end
+    end
+
+    def find_hash(name, default: default_rule, **options)
       rule = select(name, **options).inject do |l, r|
         return r if r.class == Rule::Exception
         l.length > r.length ? l : r
       end
       rule || default
+    end
+
+    def find_trie(name, default: default_rule, ignore_private: false)
+      @trie.longest_prefix(name, ignore_private: ignore_private) || default
     end
 
     # Selects all the rules matching given hostname.

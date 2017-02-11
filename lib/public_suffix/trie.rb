@@ -35,9 +35,13 @@ module PublicSuffix
       private
 
       def index(key)
-        key.to_s
+        key
       end
     end
+
+
+    # @return [PublicSuffix::Node]
+    attr_reader :root
 
     def initialize
       @root = self.class::Node.new
@@ -45,145 +49,41 @@ module PublicSuffix
 
     def insert(word, type:, private:)
       node = @root
-      split_word(word).each do |token|
+      word.split(DOT).reverse.each do |token|
         node = node.put(token)
       end
       node.leaf!(type: type, private: private) && node
     end
 
-    def contains?(word)
-      node = _prefix(word)
-      node && node.leaf?
-    end
-
-    def longest_prefix(word)
+    def longest_prefix(word, ignore_private: false)
       node = @root
-      result = []
-      length = 0
 
-      split_word(word).each_with_index do |token, index|
+      results = []
+      leaf = nil
+      excp = nil
+
+      word.split(DOT).reverse.each_with_index do |token, index|
         break unless (child = node.get(token))
-        result << token
-        node   = child
-        length = index + 1 if node.leaf?
+        results << [child, token]
+        node = child
+
+        if node.leaf? && (ignore_private == false || node.private == false)
+          leaf = index + 1
+          excp = index + 1 if node.type == Rule::Exception
+        end
       end
 
-      return nil if length.zero?
+      return nil if leaf.nil?
 
-      result = result[0, length] if !node.leaf?
-      merge_word(result)
-    end
+      path = excp ? results[0, excp] : results[0, leaf]
+      node = path.last.first
 
-    def _prefix(word)
-      node = @root
-      split_word(word).each do |token|
-        node = node.get(token)
-        return nil if node.nil?
+      tokens = []
+      (path.size - 1).downto(0).each do |index|
+        tokens << path[index].last
       end
-      node
+      node.type.new(value: tokens.join(DOT), private: node.private)
     end
 
-    private
-
-    def split_word(word)
-      word.split(".").each
-    end
-
-    def merge_word(tokens)
-      tokens.join(".")
-    end
-
-  end
-end
-
-if __FILE__ == $PROGRAM_NAME
-  require "minitest/autorun"
-
-  module PublicSuffix
-    class Rule
-      class Entry
-      end
-    end
-  end
-
-  class TrieTest < Minitest::Test
-    def setup
-      @trie = PublicSuffix::Trie.new
-    end
-
-    def test_validation
-      @trie.insert("one.two", PublicSuffix::Rule::Entry.new)
-      root = @trie.instance_variable_get(:@root)
-      assert_instance_of PublicSuffix::Trie::Node, root
-      assert_instance_of Hash, root.children
-      assert root.children.keys.all? { |key| key.is_a?(String) }
-    end
-
-    def test_insert
-      @trie.insert("com", PublicSuffix::Rule::Entry.new)
-      refute @trie.contains?("co")
-      refute @trie.contains?("om")
-      assert @trie.contains?("com")
-      refute @trie.contains?("example.com")
-
-      @trie.insert("example.com", PublicSuffix::Rule::Entry.new)
-      refute @trie.contains?("co")
-      refute @trie.contains?("om")
-      assert @trie.contains?("com")
-      assert @trie.contains?("example.com")
-    end
-
-    def test_prefix
-      @trie.insert("one.two.three.four", PublicSuffix::Rule::Entry.new)
-      assert_nil @trie._prefix("three.four")
-      refute_nil @trie._prefix("one.two")
-      assert_nil @trie._prefix("one.two.three.four.five")
-
-      refute @trie._prefix("one.two").leaf?
-      assert @trie._prefix("one.two.three.four").leaf?
-    end
-
-    def test_longest_prefix
-      @trie.insert("a.r.e", PublicSuffix::Rule::Entry.new)
-      @trie.insert("a.r.e.a", PublicSuffix::Rule::Entry.new)
-      @trie.insert("b.a.s.e", PublicSuffix::Rule::Entry.new)
-      @trie.insert("c.a.t", PublicSuffix::Rule::Entry.new)
-      @trie.insert("c.a.t.e.r", PublicSuffix::Rule::Entry.new)
-      @trie.insert("c.h.i.l.d.r.e.n", PublicSuffix::Rule::Entry.new)
-      @trie.insert("b.a.s.e.m.e.n.t", PublicSuffix::Rule::Entry.new)
-
-      assert_equal "c.a.t.e.r", @trie.longest_prefix("c.a.t.e.r.e.r")
-      assert_equal "b.a.s.e", @trie.longest_prefix("b.a.s.e.m.e.x.y")
-      assert_nil @trie.longest_prefix("c.h.i.l.d")
-    end
-  end
-
-  class TrieHashNodeTest < Minitest::Test
-    def test_leaf
-      node = PublicSuffix::Trie::Node.new
-      refute node.leaf?
-
-      node.leaf!(PublicSuffix::Rule::Entry.new)
-      assert node.leaf?
-    end
-
-    def test_put
-      node = PublicSuffix::Trie::Node.new
-      refute node.contains?("2")
-      node.put("2")
-      assert node.contains?("2")
-
-      node = PublicSuffix::Trie::Node.new
-      aa = node.put("2")
-      bb = node.put("2")
-      assert node.contains?("2")
-      assert_same aa, bb
-    end
-
-    def test_get
-      node = PublicSuffix::Trie::Node.new
-      aa = node.put("2")
-      assert_same aa, node.get("2")
-    end
   end
 end
