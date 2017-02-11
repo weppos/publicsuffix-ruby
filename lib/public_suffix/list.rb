@@ -108,8 +108,6 @@ module PublicSuffix
       yield(self) if block_given?
     end
 
-    attr_reader :trie
-
 
     # Checks whether two lists are equal.
     #
