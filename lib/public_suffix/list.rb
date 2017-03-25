@@ -64,7 +64,7 @@ module PublicSuffix
     # See http://publicsuffix.org/format/ for more details about input format.
     #
     # @param  string [#each_line] The list to parse.
-    # @param  private_domain [Boolean] whether to ignore the private domains section.
+    # @param  private_domains [Boolean] whether to ignore the private domains section.
     # @return [Array<PublicSuffix::Rule::*>]
     def self.parse(input, private_domains: true)
       comment_token = "//".freeze
