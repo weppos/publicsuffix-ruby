@@ -27,6 +27,7 @@ class AcceptanceTest < Minitest::Test
 
       assert_equal domain, PublicSuffix.domain(input)
       assert PublicSuffix.valid?(input)
+      assert !PublicSuffix.invalid?(input)
     end
   end
 
@@ -42,6 +43,7 @@ class AcceptanceTest < Minitest::Test
     INVALID_CASES.each do |(name, error)|
       assert_raises(error) { PublicSuffix.parse(name) }
       assert !PublicSuffix.valid?(name)
+      assert PublicSuffix.invalid?(name)
     end
   end
 
@@ -63,6 +65,8 @@ class AcceptanceTest < Minitest::Test
     REJECTED_CASES.each do |name, expected|
       assert_equal expected, PublicSuffix.valid?(name),
                    "Expected %s to be %s" % [name.inspect, expected.inspect]
+      assert_equal expected, !PublicSuffix.invalid?(name),
+                   "Expected %s to be %s" % [name.inspect, expected.inspect]
       assert !valid_domain?(name),
              "#{name} expected to be invalid"
     end
@@ -83,6 +87,7 @@ class AcceptanceTest < Minitest::Test
       assert_equal sld, domain.sld, "Invalid sld for `#{name}'"
       assert_equal trd, domain.trd, "Invalid trd for `#{name}'"
       assert PublicSuffix.valid?(name)
+      assert !PublicSuffix.invalid?(name)
     end
   end
 
@@ -106,6 +111,7 @@ class AcceptanceTest < Minitest::Test
     # test valid?
     INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
       assert_equal !expected.nil?, PublicSuffix.valid?(given, ignore_private: ignore_private)
+      assert_equal !expected.nil?, !PublicSuffix.invalid?(given, ignore_private: ignore_private)
     end
   end
 
