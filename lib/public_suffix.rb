@@ -124,6 +124,42 @@ module PublicSuffix
     !rule.nil? && !rule.decompose(what).last.nil?
   end
 
+  # Checks whether +domain+ is non-assigned or invalid, without actually parsing it.
+  # It basically calls the `valid?` method and returns the inverse.
+  #
+  # This method doesn't care whether domain is a domain or subdomain.
+  # The validation is performed using the default {PublicSuffix::List}.
+  #
+  # @example Validate an invalid domain
+  #   PublicSuffix.invalid?(".example.com")
+  #   # => true
+  #
+  # @example Validate a valid subdomain
+  #   PublicSuffix.invalid?("www.example.com")
+  #   # => false
+  #
+  # @example Validate a not-listed domain
+  #   PublicSuffix.invalid?("example.tldnotlisted")
+  #   # => false
+  #
+  # @example Validate a fully qualified domain
+  #   PublicSuffix.invalid?("google.com.")
+  #   # => false
+  #   PublicSuffix.invalid?("www.google.com.")
+  #   # => false
+  #
+  # @example Check an URL (which is not a valid domain)
+  #   PublicSuffix.invalid?("http://www.example.com")
+  #   # => true
+  #
+  #
+  # @param  [String, #to_s] name The domain name or fully qualified domain name to validate.
+  # @param  [Boolean] ignore_private
+  # @return [Boolean]
+  def self.invalid?(name, list: List.default, default_rule: list.default_rule, ignore_private: false)
+    !valid?(name, list: List.default, default_rule: default_rule, ignore_private: ignore_private)
+  end
+
   # Attempt to parse the name and returns the domain, if valid.
   #
   # This method doesn't raise. Instead, it returns nil if the domain is not valid for whatever reason.
