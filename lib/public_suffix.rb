@@ -28,27 +28,31 @@ module PublicSuffix
   #
   # @example Parse a valid domain
   #   PublicSuffix.parse("google.com")
-  #   # => #<PublicSuffix::Domain ...>
+  #   # => #<PublicSuffix::Domain:0x007fec2e51e588 @sld="google", @tld="com", @trd=nil>
   #
   # @example Parse a valid subdomain
   #   PublicSuffix.parse("www.google.com")
-  #   # => #<PublicSuffix::Domain ...>
+  #   # => #<PublicSuffix::Domain:0x007fec276d4cf8 @sld="google", @tld="com", @trd="www">
   #
   # @example Parse a fully qualified domain
   #   PublicSuffix.parse("google.com.")
-  #   # => #<PublicSuffix::Domain ...>
+  #   # => #<PublicSuffix::Domain:0x007fec257caf38 @sld="google", @tld="com", @trd=nil>
   #
   # @example Parse a fully qualified domain (subdomain)
   #   PublicSuffix.parse("www.google.com.")
-  #   # => #<PublicSuffix::Domain ...>
+  #   # => #<PublicSuffix::Domain:0x007fec27b6bca8 @sld="google", @tld="com", @trd="www">
   #
-  # @example Parse an invalid domain
+  # @example Parse an invalid (unlisted) domain
   #   PublicSuffix.parse("x.yz")
-  #   # => PublicSuffix::DomainInvalid
+  #   # => #<PublicSuffix::Domain:0x007fec2f49bec0 @sld="x", @tld="yz", @trd=nil>
+  #
+  # @example Parse an invalid (unlisted) domain with strict checking (without applying the default * rule)
+  #   PublicSuffix.parse("x.yz", default_rule: nil)
+  #   # => PublicSuffix::DomainInvalid: `x.yz` is not a valid domain
   #
   # @example Parse an URL (not supported, only domains)
   #   PublicSuffix.parse("http://www.google.com")
-  #   # => PublicSuffix::DomainInvalid
+  #   # => PublicSuffix::DomainInvalid: http://www.google.com is not expected to contain a scheme
   #
   #
   # @param  [String, #to_s] name The domain name or fully qualified domain name to parse.
@@ -95,11 +99,11 @@ module PublicSuffix
   #   PublicSuffix.valid?("example.tldnotlisted")
   #   # => true
   #
-  # @example Validate a not-allowed domain
-  #   PublicSuffix.valid?("example.do")
-  #   # => false
-  #   PublicSuffix.valid?("www.example.do")
+  # @example Validate a not-listed domain with strict checking (without applying the default * rule)
+  #   PublicSuffix.valid?("example.tldnotlisted")
   #   # => true
+  #   PublicSuffix.valid?("example.tldnotlisted", default_rule: nil)
+  #   # => false
   #
   # @example Validate a fully qualified domain
   #   PublicSuffix.valid?("google.com.")
