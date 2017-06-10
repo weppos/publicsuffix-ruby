@@ -90,14 +90,14 @@ PublicSuffix.valid?("blogspot.com")
 
 # Unknown/not-listed TLD domains are valid by default
 PublicSuffix.valid?("example.tldnotlisted")
-=> true
+# => true
 ```
 
 Strict validation (without applying the default * rule):
 
 ```ruby
 PublicSuffix.valid?("example.tldnotlisted", default_rule: nil)
-=> false
+# => false
 ```
 
 
