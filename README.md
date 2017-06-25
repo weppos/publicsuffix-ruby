@@ -87,7 +87,19 @@ PublicSuffix.valid?("www.google.com")
 # Explicitly forbidden, it is listed as a private domain
 PublicSuffix.valid?("blogspot.com")
 # => false
+
+# Unknown/not-listed TLD domains are valid by default
+PublicSuffix.valid?("example.tldnotlisted")
+# => true
 ```
+
+Strict validation (without applying the default * rule):
+
+```ruby
+PublicSuffix.valid?("example.tldnotlisted", default_rule: nil)
+# => false
+```
+
 
 ## Fully Qualified Domain Names
 
@@ -185,4 +197,4 @@ See the [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## License
 
-Copyright (c) 2009-2016 Simone Carletti. This is Free Software distributed under the MIT license.
+Copyright (c) 2009-2017 Simone Carletti. This is Free Software distributed under the MIT license.

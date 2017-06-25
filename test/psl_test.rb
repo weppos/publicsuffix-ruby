@@ -3,11 +3,11 @@ require "public_suffix"
 
 # This test runs against the current PSL file and ensures
 # the definitions satisfies the test suite.
-class PslTest < Minitest::Unit::TestCase
+class PslTest < Minitest::Test
 
   ROOT = File.expand_path("../../", __FILE__)
 
-  # rubocop:disable Lint/Eval
+  # rubocop:disable Security/Eval
   def self.tests
     File.readlines(File.join(ROOT, "test/tests.txt")).map do |line|
       line = line.strip

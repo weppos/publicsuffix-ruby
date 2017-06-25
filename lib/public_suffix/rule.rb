@@ -2,7 +2,7 @@
 #
 # Domain name parser based on the Public Suffix List.
 #
-# Copyright (c) 2009-2016 Simone Carletti <weppos@weppos.net>
+# Copyright (c) 2009-2017 Simone Carletti <weppos@weppos.net>
 
 module PublicSuffix
 
@@ -18,6 +18,9 @@ module PublicSuffix
   #   # => #<PublicSuffix::Rule::Normal>
   #
   module Rule
+
+    # @api internal
+    Entry = Struct.new(:type, :length, :private)
 
     # = Abstract rule class
     #
@@ -99,16 +102,28 @@ module PublicSuffix
       # @return [String] the rule definition
       attr_reader :value
 
+      # @return [String] the length of the rule
+      attr_reader :length
+
       # @return [Boolean] true if the rule is a private domain
       attr_reader :private
 
 
-      # Initializes a new rule with name and value.
-      # If value is +nil+, name also becomes the value for this rule.
+      # Initializes a new rule from the content.
       #
-      # @param value [String] the value of the rule
-      def initialize(value, private: false)
+      # @param  content [String] the content of the rule
+      # @param  private [Boolean]
+      def self.build(content, private: false)
+        new(value: content, private: private)
+      end
+
+      # Initializes a new rule.
+      #
+      # @param  value [String]
+      # @param  private [Boolean]
+      def initialize(value:, length: nil, private: false)
         @value    = value.to_s
+        @length   = length || @value.count(DOT) + 1
         @private  = private
       end
 
@@ -137,12 +152,12 @@ module PublicSuffix
       # @see https://publicsuffix.org/list/
       #
       # @example
-      #   Rule.factory("com").match?("example.com")
+      #   PublicSuffix::Rule.factory("com").match?("example.com")
       #   # => true
-      #   Rule.factory("com").match?("example.net")
+      #   PublicSuffix::Rule.factory("com").match?("example.net")
       #   # => false
       #
-      # @param  name [String, #to_s] The domain name to check.
+      # @param  name [String] the domain name to check
       # @return [Boolean]
       def match?(name)
         # Note: it works because of the assumption there are no
@@ -150,16 +165,11 @@ module PublicSuffix
         # we need to properly walk the input and skip parts according
         # to wildcard component.
         diff = name.chomp(value)
-        diff.empty? || diff[-1] == "."
+        diff.empty? || diff[-1] == DOT
       end
 
       # @abstract
       def parts
-        raise NotImplementedError
-      end
-
-      # @abstract
-      def length
         raise NotImplementedError
       end
 
@@ -174,13 +184,6 @@ module PublicSuffix
 
     # Normal represents a standard rule (e.g. com).
     class Normal < Base
-
-      # Initializes a new rule from +definition+.
-      #
-      # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, **options)
-        super(definition, **options)
-      end
 
       # Gets the original rule definition.
       #
@@ -207,27 +210,26 @@ module PublicSuffix
         @value.split(DOT)
       end
 
-      # Gets the length of this rule for comparison,
-      # represented by the number of dot-separated parts in the rule.
-      #
-      # @return [Integer] The length of the rule.
-      def length
-        @length ||= parts.length
-      end
-
     end
 
     # Wildcard represents a wildcard rule (e.g. *.co.uk).
     class Wildcard < Base
 
-      # Initializes a new rule from +definition+.
+      # Initializes a new rule from the content.
       #
-      # The wildcard "*" is removed from the value, as it's common
-      # for each wildcard rule.
+      # @param  content [String] the content of the rule
+      # @param  private [Boolean]
+      def self.build(content, private: false)
+        new(value: content.to_s[2..-1], private: private)
+      end
+
+      # Initializes a new rule.
       #
-      # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, **options)
-        super(definition.to_s[2..-1], **options)
+      # @param  value [String]
+      # @param  private [Boolean]
+      def initialize(value:, length: nil, private: false)
+        super(value: value, length: length, private: private)
+        length or @length += 1 # * counts as 1
       end
 
       # Gets the original rule definition.
@@ -255,28 +257,17 @@ module PublicSuffix
         @value.split(DOT)
       end
 
-      # Gets the length of this rule for comparison,
-      # represented by the number of dot-separated parts in the rule
-      # plus 1 for the *.
-      #
-      # @return [Integer] The length of the rule.
-      def length
-        @length ||= parts.length + 1 # * counts as 1
-      end
-
     end
 
     # Exception represents an exception rule (e.g. !parliament.uk).
     class Exception < Base
 
-      # Initializes a new rule from +definition+.
+      # Initializes a new rule from the content.
       #
-      # The bang ! is removed from the value, as it's common
-      # for each wildcard rule.
-      #
-      # @param definition [String] the rule as defined in the PSL
-      def initialize(definition, **options)
-        super(definition.to_s[1..-1], **options)
+      # @param  content [String] the content of the rule
+      # @param  private [Boolean]
+      def self.build(content, private: false)
+        new(value: content.to_s[1..-1], private: private)
       end
 
       # Gets the original rule definition.
@@ -309,14 +300,6 @@ module PublicSuffix
         @value.split(DOT)[1..-1]
       end
 
-      # Gets the length of this rule for comparison,
-      # represented by the number of dot-separated parts in the rule.
-      #
-      # @return [Integer] The length of the rule.
-      def length
-        @length ||= parts.length
-      end
-
     end
 
 
@@ -338,7 +321,7 @@ module PublicSuffix
     #
     # @param  [String] content The rule content.
     # @return [PublicSuffix::Rule::*] A rule instance.
-    def self.factory(content, **options)
+    def self.factory(content, private: false)
       case content.to_s[0, 1]
       when STAR
         Wildcard
@@ -346,7 +329,7 @@ module PublicSuffix
         Exception
       else
         Normal
-      end.new(content, **options)
+      end.build(content, private: private)
     end
 
     # The default rule to use if no rule match.

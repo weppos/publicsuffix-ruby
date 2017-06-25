@@ -1,11 +1,10 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gemspec
 
-gem "rake", "< 11"
+gem "coveralls", require: false
 gem "minitest"
 gem "minitest-reporters"
-gem "coveralls", require: false
-gem "rubocop", require: false
+gem "rubocop", "0.47.1", require: false
 
-gem "memory_profiler", require: false if !RUBY_VERSION.start_with?("2.0")
+gem "memory_profiler", require: false

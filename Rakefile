@@ -27,10 +27,12 @@ end
 CLOBBER.include "yardoc"
 
 
-desc "Open an irb session preloaded with this library"
-task :console do
-  sh "irb -rubygems -I lib -r public_suffix.rb"
+task :benchmarks do
+  Dir["benchmarks/bm_*.rb"].each do |file|
+    sh "ruby #{file}"
+  end
 end
+task default: [:benchmarks] if ENV["BENCHMARKS"] == "1"
 
 
 desc "Downloads the Public Suffix List file from the repository and stores it locally."

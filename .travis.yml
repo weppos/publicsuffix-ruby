@@ -1,14 +1,16 @@
 language: ruby
 
 rvm:
-  - 2.0
   - 2.1
   - 2.2
-  - 2.3.0
-  - jruby-9.0.5.0
+  - 2.3.3
+  - 2.4.0
   - ruby-head
+  - jruby-9.0.5.0
+  - jruby-9.1.0.0
 
 before_install:
+  - gem update --system
   - gem install bundler
 
 cache:
@@ -21,3 +23,4 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-9.0.5.0
+    - rvm: jruby-9.1.0.0

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublicSuffixTest < Minitest::Unit::TestCase
+class PublicSuffixTest < Minitest::Test
 
   def test_private_domains_enabled_by_default
     domain = PublicSuffix.parse("www.example.blogspot.com")
@@ -13,7 +13,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     domain = PublicSuffix.parse("www.example.blogspot.com")
     assert_equal "com", domain.tld
   ensure
-    PublicSuffix::List.clear
+    PublicSuffix::List.default = nil
   end
 
 
@@ -22,13 +22,13 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "com",     domain.tld
     assert_equal "example", domain.sld
-    assert_equal nil,       domain.trd
+    assert_nil              domain.trd
 
     domain = PublicSuffix.parse("example.co.uk")
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "co.uk",   domain.tld
     assert_equal "example", domain.sld
-    assert_equal nil,       domain.trd
+    assert_nil              domain.trd
   end
 
   def test_self_parse_a_domain_with_tld_and_sld_and_trd
@@ -83,7 +83,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "tldnotlisted",    domain.tld
     assert_equal "example",         domain.sld
-    assert_equal nil,               domain.trd
+    assert_nil                      domain.trd
   end
 
   def test_self_parse_with_unallowed_domain
@@ -169,7 +169,7 @@ class PublicSuffixTest < Minitest::Unit::TestCase
     ].each do |input, _|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error
-      assert_match /scheme/, error.message
+      assert_match(/scheme/, error.message)
     end
   end
 

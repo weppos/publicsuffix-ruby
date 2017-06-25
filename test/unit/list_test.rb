@@ -1,23 +1,19 @@
 require "test_helper"
 
-class PublicSuffix::ListTest < Minitest::Unit::TestCase
+class PublicSuffix::ListTest < Minitest::Test
 
   def setup
     @list = PublicSuffix::List.new
   end
 
   def teardown
-    PublicSuffix::List.clear
+    PublicSuffix::List.default = nil
   end
 
 
   def test_initialize
     assert_instance_of PublicSuffix::List, @list
     assert_equal 0, @list.size
-  end
-
-  def test_initialize_indexes
-    assert_equal({}, @list.indexes)
   end
 
 
@@ -31,9 +27,34 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
     assert_equal PublicSuffix::List.new.add(rule), PublicSuffix::List.new.add(rule)
   end
 
+  def test_each_without_block
+    list = PublicSuffix::List.parse(<<EOS)
+alpha
+beta
+EOS
+
+    assert_kind_of Enumerator, list.each
+    assert_equal 2, list.each.count
+    assert_equal PublicSuffix::Rule.factory("alpha"), list.each.first
+  end
+
+  def test_each_with_block
+    list = PublicSuffix::List.parse(<<EOS)
+alpha
+beta
+EOS
+
+    entries = []
+    list.each { |r| entries << r }
+
+    assert_equal 2, entries.count
+    assert_equal PublicSuffix::Rule.factory("alpha"), entries.first
+  end
+
+
   def test_add
-    assert_equal @list, @list.add(PublicSuffix::Rule.factory(""))
-    assert_equal @list, @list <<  PublicSuffix::Rule.factory("")
+    assert_equal @list, @list.add(PublicSuffix::Rule.factory("foo"))
+    assert_equal @list, @list <<  PublicSuffix::Rule.factory("bar")
     assert_equal 2, @list.size
   end
 
@@ -45,13 +66,6 @@ class PublicSuffix::ListTest < Minitest::Unit::TestCase
     @list << PublicSuffix::Rule.factory("net")
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
     assert_equal PublicSuffix::Rule.factory("net"), @list.find("google.net")
-  end
-
-  def test_add_should_not_duplicate_indices
-    @list = PublicSuffix::List.parse("com")
-    @list.add(PublicSuffix::Rule.factory("net"))
-
-    assert_equal @list.indexes["com"], [0]
   end
 
   def test_empty?
@@ -129,13 +143,13 @@ EOS
 
 
   def test_select
-    assert_equal 2, list.select("british-library.uk").size
+    assert_equal 2, list.send(:select, "british-library.uk").size
   end
 
   def test_select_name_blank
-    assert_equal [], list.select(nil)
-    assert_equal [], list.select("")
-    assert_equal [], list.select(" ")
+    assert_equal [], list.send(:select, nil)
+    assert_equal [], list.send(:select, "")
+    assert_equal [], list.send(:select, " ")
   end
 
   def test_select_ignore_private
@@ -143,17 +157,17 @@ EOS
     list.add r1 = PublicSuffix::Rule.factory("io")
     list.add r2 = PublicSuffix::Rule.factory("example.io", private: true)
 
-    assert_equal list.select("foo.io"), [r1]
-    assert_equal list.select("example.io"), [r1, r2]
-    assert_equal list.select("foo.example.io"), [r1, r2]
+    assert_equal list.send(:select, "foo.io"), [r1]
+    assert_equal list.send(:select, "example.io"), [r1, r2]
+    assert_equal list.send(:select, "foo.example.io"), [r1, r2]
 
-    assert_equal list.select("foo.io", ignore_private: false), [r1]
-    assert_equal list.select("example.io", ignore_private: false), [r1, r2]
-    assert_equal list.select("foo.example.io", ignore_private: false), [r1, r2]
+    assert_equal list.send(:select, "foo.io", ignore_private: false), [r1]
+    assert_equal list.send(:select, "example.io", ignore_private: false), [r1, r2]
+    assert_equal list.send(:select, "foo.example.io", ignore_private: false), [r1, r2]
 
-    assert_equal list.select("foo.io", ignore_private: true), [r1]
-    assert_equal list.select("example.io", ignore_private: true), [r1]
-    assert_equal list.select("foo.example.io", ignore_private: true), [r1]
+    assert_equal list.send(:select, "foo.io", ignore_private: true), [r1]
+    assert_equal list.send(:select, "example.io", ignore_private: true), [r1]
+    assert_equal list.send(:select, "foo.example.io", ignore_private: true), [r1]
   end
 
 
@@ -161,21 +175,14 @@ EOS
     PublicSuffix::List.default = nil
     assert_nil PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default
-    assert_not_equal nil, PublicSuffix::List.class_eval { @default }
+    refute_nil PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_default_setter
     PublicSuffix::List.default
-    assert_not_equal nil, PublicSuffix::List.class_eval { @default }
+    refute_nil PublicSuffix::List.class_eval { @default }
     PublicSuffix::List.default = nil
-    assert_equal nil, PublicSuffix::List.class_eval { @default }
-  end
-
-  def test_self_clear
-    PublicSuffix::List.default
-    assert_not_equal nil, PublicSuffix::List.class_eval { @default }
-    PublicSuffix::List.clear
-    assert_equal nil, PublicSuffix::List.class_eval { @default }
+    assert_nil PublicSuffix::List.class_eval { @default }
   end
 
   def test_self_parse
@@ -206,38 +213,11 @@ EOS
     assert_equal 4, list.size
 
     rules = %w( com *.uk !british-library.uk blogspot.com ).map { |name| PublicSuffix::Rule.factory(name) }
-    assert_equal rules, list.to_a
+    assert_equal rules, list.each.to_a
 
     # private domains
     assert_equal false, list.find("com").private
     assert_equal true,  list.find("blogspot.com").private
-  end
-
-  def test_self_parse_indexes
-    list = PublicSuffix::List.parse(<<EOS)
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-// ===BEGIN ICANN DOMAINS===
-
-// com
-com
-
-// uk
-*.uk
-!british-library.uk
-
-// ===END ICANN DOMAINS===
-// ===BEGIN PRIVATE DOMAINS===
-
-// Google, Inc.
-blogspot.com
-
-// ===END PRIVATE DOMAINS===
-EOS
-
-    assert_equal({ "com" => [0, 3], "uk" => [1, 2] }, list.indexes)
   end
 
 
