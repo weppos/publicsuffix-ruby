@@ -7,7 +7,7 @@
 
 ## Requirements
 
-- Ruby >= 2.0
+- Ruby >= 2.1
 
 For an older versions of Ruby use a previous release.
 
