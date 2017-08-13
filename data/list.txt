@@ -6593,6 +6593,9 @@ yt
 // xn--54b7fta0cc ("Bangla", Bangla) : BD
 বাংলা
 
+// xn--90ae ("bg", Bulgarian) : BG
+бг
+
 // xn--90ais ("bel", Belarusian/Russian Cyrillic) : BY
 // Operated by .by registry
 бел
@@ -6627,6 +6630,34 @@ yt
 // xn--j6w193g ("Hong Kong", Chinese) : HK
 // https://www2.hkirc.hk/register/rules.jsp
 香港
+
+// xn--2scrj9c ("Bharat", Kannada) : IN
+// India
+ಭಾರತ
+
+// xn--3hcrj9c ("Bharat", Oriya) : IN
+// India
+ଭାରତ
+
+// xn--45br5cyl ("Bharatam", Assamese) : IN
+// India
+ভাৰত
+
+// xn--h2breg3eve ("Bharatam", Sanskrit) : IN
+// India
+भारतम्
+
+// xn--h2brj9c8c ("Bharot", Santali) : IN
+// India
+भारोत
+
+// xn--mgbgu82a ("Bharat", Sindhi) : IN
+// India
+ڀارت
+
+// xn--rvc1e0am3e ("Bharatam", Malayalam) : IN
+// India
+ഭാരതം
 
 // xn--h2brj9c ("Bharat", Devanagari) : IN
 // India
@@ -10657,6 +10688,10 @@ betainabox.com
 // Submitted by Nathan O'Sullivan <nathan@mammoth.com.au>
 bnr.la
 
+// Boomla : https://boomla.com
+// Submitted by Tibor Halter <thalter@boomla.com>
+boomla.net
+
 // Boxfuse : https://boxfuse.com
 // Submitted by Axel Fontaine <axel@boxfuse.com>
 boxfuse.io
@@ -11168,6 +11203,26 @@ ddnss.org
 definima.net
 definima.io
 
+// Dynu.com : https://www.dynu.com/
+// Submitted by Sue Ye <sue@dynu.com>
+ddnsfree.com
+ddnsgeek.com
+giize.com
+gleeze.com
+kozow.com
+loseyourip.com
+ooguy.com
+theworkpc.com
+casacam.net
+dynu.net
+accesscam.org
+camdvr.org
+freeddns.org
+mywire.org
+webredirect.org
+myddns.rocks
+blogsite.xyz
+
 // dynv6 : https://dynv6.com
 // Submitted by Dominik Menke <dom@digineo.de>
 dynv6.net
@@ -11249,9 +11304,11 @@ us.eu.org
 eu-1.evennode.com
 eu-2.evennode.com
 eu-3.evennode.com
+eu-4.evennode.com
 us-1.evennode.com
 us-2.evennode.com
 us-3.evennode.com
+us-4.evennode.com
 
 // eDirect Corp. : https://hosting.url.com.tw/
 // Submitted by C.S. chang <cschang@corp.url.com.tw>
@@ -11604,6 +11661,10 @@ git-repos.de
 lcube-server.de
 svn-repos.de
 
+// LiquidNet Ltd : http://www.liquidnetlimited.com/
+// Submitted by Victor Velchev <admin@liquidnetlimited.com>
+we.bs
+
 // Lukanet Ltd : https://lukanet.com
 // Submitted by Anton Avramov <register@lukanet.com>
 barsy.bg
@@ -11645,6 +11706,17 @@ cloudapp.net
 // Mozilla Foundation : https://mozilla.org/
 // Submitted by glob <glob@mozilla.com>
 bmoattachments.org
+
+// MSK-IX : https://www.msk-ix.ru/
+// Submitted by Khannanov Roman <r.khannanov@msk-ix.ru>
+net.ru
+org.ru
+pp.ru
+
+// Netlify : https://www.netlify.com
+// Submitted by Jessica Parsons <jessica@netlify.com>
+bitballoon.com
+netlify.com
 
 // Neustar Inc.
 // Submitted by Trung Tran <Trung.Tran@neustar.biz>
@@ -11751,6 +11823,10 @@ sytes.net
 webhop.me
 zapto.org
 
+// NodeArt : https://nodeart.io
+// Submitted by Konstantin Nosov <Nosov@nodeart.io>
+stage.nodeart.io
+
 // Nodum B.V. : https://nodum.io/
 // Submitted by Wietse Wind <hello+publicsuffixlist@nodum.io>
 nodum.co
@@ -11759,6 +11835,46 @@ nodum.io
 // NYC.mn : http://www.information.nyc.mn
 // Submitted by Matthew Brown <mattbrown@nyc.mn>
 nyc.mn
+
+// NymNom : https://nymnom.com/
+// Submitted by Dave McCormack <dave.mccormack@nymnom.com>
+nom.ae
+nom.ai
+nom.al
+nym.by
+nym.bz
+nom.cl
+nom.gd
+nom.gl
+nym.gr
+nom.gt
+nom.hn
+nom.im
+nym.kz
+nym.la
+nom.li
+nym.li
+nym.lt
+nym.lu
+nym.me
+nom.mk
+nym.mx
+nom.nu
+nym.nz
+nym.pe
+nym.pt
+nom.pw
+nom.qa
+nom.rs
+nom.si
+nym.sk
+nym.su
+nym.sx
+nym.tw
+nom.ug
+nom.uy
+nom.vc
+nom.vg
 
 // Octopodal Solutions, LLC. : https://ulterius.io/
 // Submitted by Andrew Sampson <andrew@ulterius.io>
@@ -11952,6 +12068,10 @@ stackspace.space
 // Storj Labs Inc. : https://storj.io/
 // Submitted by Philip Hutchins <hostmaster@storj.io>
 storj.farm
+
+// Sub 6 Limited: http://www.sub6.com
+// Submitted by Dan Miller <dm@sub6.com>
+temp-dns.com
 
 // Synology, Inc. : https://www.synology.com/
 // Submitted by Rony Weng <ronyweng@synology.com>
