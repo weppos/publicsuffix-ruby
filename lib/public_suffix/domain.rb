@@ -133,7 +133,7 @@ module PublicSuffix
     #
     # @return [String]
     def domain
-      [@sld, @tld].join(DOT) if domain?
+      [@sld, @tld].compact.join(DOT) if domain?
     end
 
     # Returns a subdomain-like representation of this object
@@ -165,7 +165,7 @@ module PublicSuffix
     #
     # @return [String]
     def subdomain
-      [@trd, @sld, @tld].join(DOT) if subdomain?
+      [@trd, @sld, @tld].compact.join(DOT) if subdomain?
     end
 
     # Checks whether <tt>self</tt> looks like a domain.
@@ -196,7 +196,7 @@ module PublicSuffix
     #
     # @return [Boolean]
     def domain?
-      !(@tld.nil? || @sld.nil?)
+      !@sld.nil?
     end
 
     # Checks whether <tt>self</tt> looks like a subdomain.
@@ -227,7 +227,7 @@ module PublicSuffix
     #
     # @return [Boolean]
     def subdomain?
-      !(@tld.nil? || @sld.nil? || @trd.nil?)
+      !(@sld.nil? || @trd.nil?)
     end
 
   end

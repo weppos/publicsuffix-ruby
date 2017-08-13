@@ -7,7 +7,7 @@
 require_relative "public_suffix/domain"
 require_relative "public_suffix/version"
 require_relative "public_suffix/errors"
-require_relative "public_suffix/rule"
+require_relative "public_suffix/rules"
 require_relative "public_suffix/list"
 
 # PublicSuffix is a Ruby domain name parser based on the Public Suffix List.
@@ -64,18 +64,15 @@ module PublicSuffix
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
-  def self.parse(name, list: List.default, default_rule: list.default_rule, ignore_private: false)
+  def self.parse(name, list: List.default, ignore_private: false)
     what = normalize(name)
     raise what if what.is_a?(DomainInvalid)
 
-    rule = list.find(what, default: default_rule, ignore_private: ignore_private)
+    rule = list.find(what, ignore_private: ignore_private)
 
     # rubocop:disable Style/IfUnlessModifier
     if rule.nil?
       raise DomainInvalid, "`#{what}` is not a valid domain"
-    end
-    if rule.decompose(what).last.nil?
-      raise DomainNotAllowed, "`#{what}` is not allowed according to Registry policy"
     end
     # rubocop:enable Style/IfUnlessModifier
 
@@ -119,13 +116,8 @@ module PublicSuffix
   # @param  [String, #to_s] name The domain name or fully qualified domain name to validate.
   # @param  [Boolean] ignore_private
   # @return [Boolean]
-  def self.valid?(name, list: List.default, default_rule: list.default_rule, ignore_private: false)
-    what = normalize(name)
-    return false if what.is_a?(DomainInvalid)
-
-    rule = list.find(what, default: default_rule, ignore_private: ignore_private)
-
-    !rule.nil? && !rule.decompose(what).last.nil?
+  def self.valid?(name, list: List.default, ignore_private: false)
+    !normalize(name).is_a?(DomainInvalid)
   end
 
   # Attempt to parse the name and returns the domain, if valid.
@@ -146,13 +138,13 @@ module PublicSuffix
   # private
 
   def self.decompose(name, rule)
-    left, right = rule.decompose(name)
+    rule_len = rule.split(DOT).length
+    parts = name.split(DOT)
 
-    parts = left.split(DOT)
     # If we have 0 parts left, there is just a tld and no domain or subdomain
     # If we have 1 part  left, there is just a tld, domain and not subdomain
     # If we have 2 parts left, the last part is the domain, the other parts (combined) are the subdomain
-    tld = right
+    tld = rule.empty?  ? nil : parts.pop(rule_len).join(DOT)
     sld = parts.empty? ? nil : parts.pop
     trd = parts.empty? ? nil : parts.join(DOT)
 

@@ -69,6 +69,7 @@ module PublicSuffix
     def self.parse(input, private_domains: true)
       comment_token = "//".freeze
       private_token = "===BEGIN PRIVATE DOMAINS===".freeze
+      space_re = /\p{Space}/
       section = nil # 1 == ICANN, 2 == PRIVATE
 
       new do |list|
@@ -90,7 +91,8 @@ module PublicSuffix
             next
 
           else
-            list.add(Rule.factory(line, private: section == 2))
+            rule = line.split(space_re).first
+            list.add(rule, private: section == 2)
 
           end
         end
@@ -103,41 +105,23 @@ module PublicSuffix
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     def initialize
-      @rules = {}
+      @rules = Rules.new
+      add('*', private: false)
       yield(self) if block_given?
     end
-
-
-    # Checks whether two lists are equal.
-    #
-    # List <tt>one</tt> is equal to <tt>two</tt>, if <tt>two</tt> is an instance of
-    # {PublicSuffix::List} and each +PublicSuffix::Rule::*+
-    # in list <tt>one</tt> is available in list <tt>two</tt>, in the same order.
-    #
-    # @param  other [PublicSuffix::List] the List to compare
-    # @return [Boolean]
-    def ==(other)
-      return false unless other.is_a?(List)
-      equal?(other) || @rules == other.rules
-    end
-    alias eql? ==
-
-    # Iterates each rule in the list.
-    def each(&block)
-      Enumerator.new do |y|
-        @rules.each do |key, node|
-          y << entry_to_rule(node, key)
-        end
-      end.each(&block)
-    end
-
 
     # Adds the given object to the list and optionally refreshes the rule index.
     #
     # @param  rule [PublicSuffix::Rule::*] the rule to add to the list
     # @return [self]
-    def add(rule)
-      @rules[rule.value] = rule_to_entry(rule)
+    def add(rule, private: false)
+      exception = false
+      if rule[0] == BANG
+        exception = true
+        rule = rule[1..-1]
+      end
+      lbls = rule.split(DOT).reverse
+      @rules.add(lbls, exception, private)
       self
     end
     alias << add
@@ -160,7 +144,7 @@ module PublicSuffix
     #
     # @return [self]
     def clear
-      @rules.clear
+      @rules = Rules.new
       self
     end
 
@@ -169,52 +153,11 @@ module PublicSuffix
     # @param  name [#to_s] the hostname
     # @param  default [PublicSuffix::Rule::*] the default rule to return in case no rule matches
     # @return [PublicSuffix::Rule::*]
-    def find(name, default: default_rule, **options)
-      rule = select(name, **options).inject do |l, r|
-        return r if r.class == Rule::Exception
-        l.length > r.length ? l : r
-      end
-      rule || default
+    def find(name, ignore_private: false)
+      lbls = name.split(DOT).reverse
+      r = @rules.get_regdom(lbls, !ignore_private)
+      r.reverse[1..-1].join(DOT)
     end
-
-    # Selects all the rules matching given hostame.
-    #
-    # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as
-    # private domain. Note that the rules will still be part of the loop.
-    # If you frequently need to access lists ignoring the private domains,
-    # you should create a list that doesn't include these domains setting the
-    # `private_domains: false` option when calling {.parse}.
-    #
-    # Note that this method is currently private, as you should not rely on it. Instead,
-    # the public interface is {#find}. The current internal algorithm allows to return all
-    # matching rules, but different data structures may not be able to do it, and instead would
-    # return only the match. For this reason, you should rely on {#find}.
-    #
-    # @param  name [#to_s] the hostname
-    # @param  ignore_private [Boolean]
-    # @return [Array<PublicSuffix::Rule::*>]
-    def select(name, ignore_private: false)
-      name = name.to_s
-
-      parts = name.split(DOT).reverse!
-      index = 0
-      query = parts[index]
-      rules = []
-
-      loop do
-        match = @rules[query]
-        if !match.nil? && (ignore_private == false || match.private == false)
-          rules << entry_to_rule(match, query)
-        end
-
-        index += 1
-        break if index >= parts.size
-        query = parts[index] + DOT + query
-      end
-
-      rules
-    end
-    private :select
 
     # Gets the default rule.
     #
@@ -222,24 +165,7 @@ module PublicSuffix
     #
     # @return [PublicSuffix::Rule::*]
     def default_rule
-      PublicSuffix::Rule.default
+      '*'
     end
-
-
-    protected
-
-    attr_reader :rules
-
-
-    private
-
-    def entry_to_rule(entry, value)
-      entry.type.new(value: value, length: entry.length, private: entry.private)
-    end
-
-    def rule_to_entry(rule)
-      Rule::Entry.new(rule.class, rule.length, rule.private)
-    end
-
   end
 end
