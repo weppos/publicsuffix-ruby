@@ -1,6 +1,13 @@
 # Changelog
 
-#### master
+
+#### Release 3.0.0
+
+This new version includes a major redesign of the library internals, with the goal to drastically
+improve the lookup time while reducing storage space.
+
+For this reason, several public methods that are no longer applicable have been deprecated
+and/or removed. You can find more information at GH-133.
 
 - CHANGED: Updated definitions.
 - CHANGED: Dropped support for Ruby < 2.1
@@ -8,6 +15,8 @@
 - CHANGED: Removed `PublicSuffix::List.clear`, it was an unnecessary accessor method. Use `PublicSuffix::List.default = nil` if you **really** need to reset the default list. You shouldn't.
 - CHANGED: `PublicSuffix::List#select` is now private. You should not use it, instead use `PublicSuffix::List#find`.
 - CHANGED: `PublicSuffix::List` no longer implements Enumerable. Instead, use `#each` to loop over, or get an Enumerator.
+- CHANGED: Redesigned internal list storage and lookup algorithm to achieve O(1) lookup time (see GH-133).
+
 
 #### Release 2.0.5
 

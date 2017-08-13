@@ -19,3 +19,14 @@ Style/ClassAndModuleChildren:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
+# Dear Rubocop, I don't want to use String#strip_heredoc
+Layout/IndentHeredoc:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+  MinSize: 3
+
+Style/SymbolArray:
+  Enabled: false
+  MinSize: 3
