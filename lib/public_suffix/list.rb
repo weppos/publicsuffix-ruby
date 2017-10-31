@@ -51,9 +51,7 @@ module PublicSuffix
 
     # Sets the default rule list to +value+.
     #
-    # @param [PublicSuffix::List] value
-    #   The new rule list.
-    #
+    # @param  value [PublicSuffix::List] the new list
     # @return [PublicSuffix::List]
     def self.default=(value)
       @default = value
@@ -63,9 +61,9 @@ module PublicSuffix
     #
     # See http://publicsuffix.org/format/ for more details about input format.
     #
-    # @param  string [#each_line] The list to parse.
-    # @param  private_domains [Boolean] whether to ignore the private domains section.
-    # @return [Array<PublicSuffix::Rule::*>]
+    # @param  string [#each_line] the list to parse
+    # @param  private_domains [Boolean] whether to ignore the private domains section
+    # @return [PublicSuffix::List]
     def self.parse(input, private_domains: true)
       comment_token = "//".freeze
       private_token = "===BEGIN PRIVATE DOMAINS===".freeze
