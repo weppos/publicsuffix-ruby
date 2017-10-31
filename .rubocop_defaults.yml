@@ -6,6 +6,9 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
 
+Lint/RescueWithoutErrorClass:
+  Enabled: false
+
 # [codesmell]
 Metrics/AbcSize:
   Enabled: false

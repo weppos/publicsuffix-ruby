@@ -156,7 +156,7 @@ class PublicSuffixTest < Minitest::Test
         nil,
         "",
         " ",
-    ].each do |input, _|
+    ].each do |input|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error
       assert_equal "Name is blank", error.message
@@ -166,7 +166,7 @@ class PublicSuffixTest < Minitest::Test
   def test_normalize_scheme
     [
         "https://google.com",
-    ].each do |input, _|
+    ].each do |input|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error
       assert_match(/scheme/, error.message)
@@ -176,7 +176,7 @@ class PublicSuffixTest < Minitest::Test
   def test_normalize_leading_dot
     [
         ".google.com",
-    ].each do |input, _|
+    ].each do |input|
       error = PublicSuffix.normalize(input)
       assert_instance_of PublicSuffix::DomainInvalid, error
       assert_match "Name starts with a dot", error.message

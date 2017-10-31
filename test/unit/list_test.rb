@@ -28,10 +28,10 @@ class PublicSuffix::ListTest < Minitest::Test
   end
 
   def test_each_without_block
-    list = PublicSuffix::List.parse(<<EOS)
+    list = PublicSuffix::List.parse(<<LIST)
 alpha
 beta
-EOS
+LIST
 
     assert_kind_of Enumerator, list.each
     assert_equal 2, list.each.count
@@ -39,10 +39,10 @@ EOS
   end
 
   def test_each_with_block
-    list = PublicSuffix::List.parse(<<EOS)
+    list = PublicSuffix::List.parse(<<LIST)
 alpha
 beta
-EOS
+LIST
 
     entries = []
     list.each { |r| entries << r }
@@ -90,7 +90,7 @@ EOS
 
 
   def test_find
-    list = PublicSuffix::List.parse(<<EOS)
+    list = PublicSuffix::List.parse(<<LIST)
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -116,7 +116,7 @@ io
 blogspot.com
 
 // ===END PRIVATE DOMAINS===
-EOS
+LIST
 
     # match IANA
     assert_equal PublicSuffix::Rule.factory("com"), list.find("example.com")
@@ -186,7 +186,7 @@ EOS
   end
 
   def test_self_parse
-    list = PublicSuffix::List.parse(<<EOS)
+    list = PublicSuffix::List.parse(<<LIST)
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -207,7 +207,7 @@ com
 blogspot.com
 
 // ===END PRIVATE DOMAINS===
-EOS
+LIST
 
     assert_instance_of PublicSuffix::List, list
     assert_equal 4, list.size
@@ -224,7 +224,7 @@ EOS
   private
 
   def list
-    @_list ||= PublicSuffix::List.parse(<<EOS)
+    @_list ||= PublicSuffix::List.parse(<<LIST)
 // com : http://en.wikipedia.org/wiki/.com
 com
 
@@ -233,7 +233,7 @@ com
 *.sch.uk
 !bl.uk
 !british-library.uk
-EOS
+LIST
   end
 
 end
