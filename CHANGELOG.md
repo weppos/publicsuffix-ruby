@@ -4,6 +4,7 @@
 #### master
 
 - CHANGED: Updated definitions.
+- CHANGED: Improve performance and avoid allocation (GH-146). [Thanks @robholland]
 
 
 #### Release 3.0.0
