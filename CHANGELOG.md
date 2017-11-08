@@ -1,7 +1,7 @@
 # Changelog
 
 
-#### master
+#### Release 3.0.1
 
 - CHANGED: Updated definitions.
 - CHANGED: Improve performance and avoid allocation (GH-146). [Thanks @robholland]
