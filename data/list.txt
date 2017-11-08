@@ -399,24 +399,34 @@ tv.bo
 // br : http://registro.br/dominio/categoria.html
 // Submitted by registry <fneves@registro.br>
 br
+abc.br
 adm.br
 adv.br
 agr.br
+aju.br
 am.br
+aparecida.br
 arq.br
 art.br
 ato.br
 b.br
 belem.br
+bhz.br
 bio.br
 blog.br
 bmd.br
+boavista.br
+bsb.br
+campinas.br
+caxias.br
 cim.br
 cng.br
 cnt.br
 com.br
+contagem.br
 coop.br
 cri.br
+cuiaba.br
 def.br
 ecn.br
 eco.br
@@ -427,14 +437,17 @@ esp.br
 etc.br
 eti.br
 far.br
+feira.br
 flog.br
 floripa.br
 fm.br
 fnd.br
+fortal.br
 fot.br
 fst.br
 g12.br
 ggf.br
+goiania.br
 gov.br
 // gov.br 26 states + df https://en.wikipedia.org/wiki/States_of_Brazil
 ac.gov.br
@@ -464,42 +477,65 @@ sc.gov.br
 se.gov.br
 sp.gov.br
 to.gov.br
+gru.br
 imb.br
 ind.br
 inf.br
+jab.br
 jampa.br
+jdf.br
+joinville.br
 jor.br
 jus.br
 leg.br
 lel.br
+londrina.br
+macapa.br
+maceio.br
 mat.br
 med.br
 mil.br
+morena.br
 mp.br
 mus.br
+natal.br
 net.br
+niteroi.br
 *.nom.br
 not.br
 ntr.br
 odo.br
 org.br
+osasco.br
+palmas.br
 poa.br
 ppg.br
 pro.br
 psc.br
 psi.br
+pvh.br
 qsl.br
 radio.br
 rec.br
 recife.br
+ribeirao.br
+rio.br
+riobranco.br
+salvador.br
+sampa.br
+sjc.br
 slg.br
+slz.br
+sorocaba.br
 srv.br
 taxi.br
 teo.br
+the.br
 tmp.br
 trd.br
 tur.br
 tv.br
+udi.br
 vet.br
 vix.br
 vlog.br
@@ -6472,6 +6508,17 @@ lib.wy.us
 pvt.k12.ma.us
 chtr.k12.ma.us
 paroch.k12.ma.us
+// Merit Network, Inc. maintains the registry for =~ /(k12|cc|lib).mi.us/ and the following
+//    see also: http://domreg.merit.edu
+//    see also: whois -h whois.domreg.merit.edu help
+ann-arbor.mi.us
+cog.mi.us
+dst.mi.us
+eaton.mi.us
+gen.mi.us
+mus.mi.us
+tec.mi.us
+washtenaw.mi.us
 
 // uy : http://www.nic.org.uy/
 uy
@@ -7473,9 +7520,6 @@ cheap
 // chintai : 2015-06-11 CHINTAI Corporation
 chintai
 
-// chloe : 2014-10-16 Richemont DNS Inc.
-chloe
-
 // christmas : 2013-11-21 Uniregistry, Corp.
 christmas
 
@@ -8346,9 +8390,6 @@ how
 // hsbc : 2014-10-24 HSBC Holdings PLC
 hsbc
 
-// htc : 2015-04-02 HTC corporation
-htc
-
 // hughes : 2015-07-30 Hughes Satellite Systems Corporation
 hughes
 
@@ -8802,12 +8843,6 @@ mattel
 // mba : 2015-04-02 Lone Hollow, LLC
 mba
 
-// mcd : 2015-07-30 McDonald’s Corporation
-mcd
-
-// mcdonalds : 2015-07-30 McDonald’s Corporation
-mcdonalds
-
 // mckinsey : 2015-07-31 McKinsey Holdings, Inc.
 mckinsey
 
@@ -8897,9 +8932,6 @@ money
 
 // monster : 2015-09-11 Monster Worldwide, Inc.
 monster
-
-// montblanc : 2014-06-23 Richemont DNS Inc.
-montblanc
 
 // mopar : 2015-07-30 FCA US LLC.
 mopar
@@ -9131,9 +9163,6 @@ ovh
 
 // page : 2014-12-04 Charleston Road Registry Inc.
 page
-
-// pamperedchef : 2015-02-05 The Pampered Chef, Ltd.
-pamperedchef
 
 // panasonic : 2015-07-30 Panasonic Corporation
 panasonic
@@ -10582,8 +10611,23 @@ us-east-1.amazonaws.com
 
 // Amazon Elastic Beanstalk : https://aws.amazon.com/elasticbeanstalk/
 // Submitted by Luke Wells <psl-maintainers@amazon.com>
-elasticbeanstalk.cn-north-1.amazonaws.com.cn
-*.elasticbeanstalk.com
+cn-north-1.eb.amazonaws.com.cn
+elasticbeanstalk.com
+ap-northeast-1.elasticbeanstalk.com
+ap-northeast-2.elasticbeanstalk.com
+ap-south-1.elasticbeanstalk.com
+ap-southeast-1.elasticbeanstalk.com
+ap-southeast-2.elasticbeanstalk.com
+ca-central-1.elasticbeanstalk.com
+eu-central-1.elasticbeanstalk.com
+eu-west-1.elasticbeanstalk.com
+eu-west-2.elasticbeanstalk.com
+sa-east-1.elasticbeanstalk.com
+us-east-1.elasticbeanstalk.com
+us-east-2.elasticbeanstalk.com
+us-gov-west-1.elasticbeanstalk.com
+us-west-1.elasticbeanstalk.com
+us-west-2.elasticbeanstalk.com
 
 // Amazon Elastic Load Balancing : https://aws.amazon.com/elasticloadbalancing/
 // Submitted by Luke Wells <psl-maintainers@amazon.com>
@@ -10870,6 +10914,10 @@ co.dk
 firm.dk
 reg.dk
 store.dk
+
+// Debian : https://www.debian.org/
+// Submitted by Peter Palfrader / Debian Sysadmin Team <dsa-publicsuffixlist@debian.org>
+debian.net
 
 // deSEC : https://desec.io/
 // Submitted by Peter Thomassen <peter@desec.io>
@@ -11398,6 +11446,10 @@ vladikavkaz.su
 vladimir.su
 vologda.su
 
+// Fancy Bits, LLC : http://getchannels.com
+// Submitted by Aman Gupta <aman@getchannels.com>
+channelsdvr.net
+
 // Fastly Inc. : http://www.fastly.com/
 // Submitted by Fastly Security <security@fastly.com>
 fastlylb.net
@@ -11448,6 +11500,7 @@ myfusion.cloud
 
 // Futureweb OG : http://www.futureweb.at
 // Submitted by Andreas Schnederle-Wagner <schnederle@futureweb.at>
+*.futurecms.at
 futurehosting.at
 futuremailing.at
 *.ex.ortsinfo.at
@@ -11629,6 +11682,10 @@ sc.leg.br
 se.leg.br
 sp.leg.br
 to.leg.br
+
+// intermetrics GmbH : https://pixolino.com/
+// Submitted by Wolfgang Schwarz <admin@intermetrics.de>
+pixolino.com
 
 // IPiFony Systems, Inc. : https://www.ipifony.com/
 // Submitted by Matthew Hardeman <mhardeman@ipifony.com>
@@ -11953,6 +12010,7 @@ protonet.io
 // Publication Presse Communication SARL : https://ppcom.fr
 // Submitted by Yaacov Akiba Slama <admin@chirurgiens-dentistes-en-france.fr>
 chirurgiens-dentistes-en-france.fr
+byen.site
 
 // QA2
 // Submitted by Daniel Dent (https://www.danieldent.com/)
@@ -12180,10 +12238,15 @@ lib.de.us
 // Submitted by Simon Kissel <hostmaster@viprinet.com>
 router.management
 
+// Virtual-Info : https://www.virtual-info.info/
+// Submitted by Adnan RIHAN <hostmaster@v-info.info>
+v-info.info
+
 // WeDeploy by Liferay, Inc. : https://www.wedeploy.com
 // Submitted by Henrique Vicente <security@wedeploy.com>
 wedeploy.io
 wedeploy.me
+wedeploy.sh
 
 // Western Digital Technologies, Inc : https://www.wdc.com
 // Submitted by Jung Jin <jungseok.jin@wdc.com>

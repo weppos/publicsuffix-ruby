@@ -1,6 +1,11 @@
 # Changelog
 
 
+#### master
+
+- CHANGED: Updated definitions.
+
+
 #### Release 3.0.0
 
 This new version includes a major redesign of the library internals, with the goal to drastically
