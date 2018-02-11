@@ -6,7 +6,7 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
 
-Lint/RescueWithoutErrorClass:
+Style/RescueStandardError:
   Enabled: false
 
 # [codesmell]
