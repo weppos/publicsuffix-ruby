@@ -87,8 +87,8 @@ class PublicSuffixTest < Minitest::Test
   end
 
   def test_self_parse_with_unallowed_domain
-    error = assert_raises(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.ke") }
-    assert_match(/example\.ke/, error.message)
+    error = assert_raises(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.bd") }
+    assert_match(/example\.bd/, error.message)
   end
 
   def test_self_parse_with_uri
@@ -128,7 +128,7 @@ class PublicSuffixTest < Minitest::Test
   end
 
   def test_self_domain_with_unallowed_name
-    assert_nil PublicSuffix.domain("example.ke")
+    assert_nil PublicSuffix.domain("example.bd")
   end
 
   def test_self_domain_with_blank_sld

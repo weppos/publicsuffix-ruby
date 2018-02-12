@@ -32,7 +32,7 @@ class AcceptanceTest < Minitest::Test
 
 
   INVALID_CASES = [
-      ["nic.ke",                  PublicSuffix::DomainNotAllowed],
+      ["nic.bd",                  PublicSuffix::DomainNotAllowed],
       [nil,                       PublicSuffix::DomainInvalid],
       ["",                        PublicSuffix::DomainInvalid],
       ["  ",                      PublicSuffix::DomainInvalid],
