@@ -24,7 +24,7 @@ class PslTest < Minitest::Test
       [input, output]
     end
   end
-  # rubocop:enable
+  # rubocop:enable Security/Eval
 
 
   def test_valid
