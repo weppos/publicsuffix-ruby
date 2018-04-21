@@ -4,11 +4,8 @@
 #
 # Copyright (c) 2009-2018 Simone Carletti <weppos@weppos.net>
 
-require_relative "public_suffix/domain"
 require_relative "public_suffix/version"
 require_relative "public_suffix/errors"
-require_relative "public_suffix/rule"
-require_relative "public_suffix/list"
 
 # PublicSuffix is a Ruby domain name parser based on the Public Suffix List.
 #
@@ -19,6 +16,9 @@ require_relative "public_suffix/list"
 # but is maintained as a community resource. It is available for use in any software,
 # but was originally created to meet the needs of browser manufacturers.
 module PublicSuffix
+  autoload :Domain, "public_suffix/domain"
+  autoload :Rule,   "public_suffix/rule"
+  autoload :List,   "public_suffix/list"
 
   DOT   = ".".freeze
   BANG  = "!".freeze
