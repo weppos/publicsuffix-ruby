@@ -173,8 +173,6 @@ module PublicSuffix
     # This method doesn't actually validate the domain.
     # It only checks whether the instance contains
     # a value for the {#tld} and {#sld} attributes.
-    # If you also want to validate the domain,
-    # use {#valid_domain?} instead.
     #
     # @example
     #
