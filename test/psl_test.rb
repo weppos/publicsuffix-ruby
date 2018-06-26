@@ -5,7 +5,7 @@ require "public_suffix"
 # the definitions satisfies the test suite.
 class PslTest < Minitest::Test
 
-  ROOT = File.expand_path("../../", __FILE__)
+  ROOT = File.expand_path("..", __dir__)
 
   # rubocop:disable Security/Eval
   def self.tests

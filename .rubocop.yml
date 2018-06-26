@@ -14,6 +14,10 @@ AllCops:
     - 'test/benchmarks/**/*'
     - 'test/profilers/**/*'
 
+# I often use @_variable to avoid clashing.
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Exclude:
     - 'spec/**/*_spec.rb'
