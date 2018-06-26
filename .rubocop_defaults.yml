@@ -168,7 +168,9 @@ Style/StringLiterals:
 
 # It's nice to be consistent. The trailing comma also allows easy reordering,
 # and doesn't cause a diff in Git when you add a line to the bottom.
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
 Style/TrivialAccessors:
