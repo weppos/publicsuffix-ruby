@@ -9,6 +9,9 @@
 
 // ===BEGIN ICANN DOMAINS===
 
+// Synaptic additions
+net.gh
+
 // ac : https://en.wikipedia.org/wiki/.ac
 ac
 com.ac
