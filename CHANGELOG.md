@@ -1,6 +1,11 @@
 # Changelog
 
 
+#### Release 3.0.3
+
+- CHANGED: Updated definitions.
+
+
 #### Release 3.0.2
 
 - CHANGED: Updated definitions.
