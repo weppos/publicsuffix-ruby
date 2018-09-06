@@ -12,6 +12,8 @@
 // Synaptic additions
 net.gh
 exchange
+b2w.digital
+1password.com
 
 // ac : https://en.wikipedia.org/wiki/.ac
 ac
