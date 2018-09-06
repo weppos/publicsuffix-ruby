@@ -13,7 +13,6 @@
 net.gh
 exchange
 b2w.digital
-1password.com
 
 // ac : https://en.wikipedia.org/wiki/.ac
 ac
@@ -10648,7 +10647,6 @@ ltd.ua
 // AgileBits Inc : https://agilebits.com
 // Submitted by Roustem Karimov <roustem@agilebits.com>
 1password.ca
-1password.com
 1password.eu
 
 // Agnat sp. z o.o. : https://domena.pl
