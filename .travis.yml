@@ -10,7 +10,7 @@ rvm:
   - ruby-head
 
 env:
-  - COVERALL=1
+  - COVERAGE=1
 
 cache:
   - bundler
