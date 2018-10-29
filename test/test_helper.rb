@@ -1,6 +1,9 @@
-if ENV["COVERALL"]
-  require "coveralls"
-  Coveralls.wear!
+if ENV["COVERAGE"]
+  require 'simplecov'
+  SimpleCov.start
+
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
 require "minitest/autorun"

@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "coveralls", require: false
+gem "codecov", require: false
 gem "minitest"
 gem "minitest-reporters"
 gem "rubocop", require: false
