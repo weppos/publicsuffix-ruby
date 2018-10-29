@@ -77,6 +77,7 @@ module PublicSuffix
     if rule.decompose(what).last.nil?
       raise DomainNotAllowed, "`#{what}` is not allowed according to Registry policy"
     end
+
     # rubocop:enable Style/IfUnlessModifier
 
     decompose(what, rule)
@@ -169,6 +170,7 @@ module PublicSuffix
     return DomainInvalid.new("Name is blank") if name.empty?
     return DomainInvalid.new("Name starts with a dot") if name.start_with?(DOT)
     return DomainInvalid.new("%s is not expected to contain a scheme" % name) if name.include?("://")
+
     name
   end
 

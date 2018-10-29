@@ -13,6 +13,7 @@ class PslTest < Minitest::Test
       line = line.strip
       next if line.empty?
       next if line.start_with?("//")
+
       input, output = line.split(", ")
 
       # handle the case of eval("null"), it must be eval("nil")
