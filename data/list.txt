@@ -12,7 +12,6 @@
 // Synaptic additions
 net.gh
 exchange
-b2w.digital
 
 // ac : https://en.wikipedia.org/wiki/.ac
 ac
