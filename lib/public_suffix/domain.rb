@@ -85,7 +85,7 @@ module PublicSuffix
     #   # => [nil, "google", "com"]
     #
     def to_a
-      [@trd, @sld, @tld]
+      @to_a ||= [@trd, @sld, @tld]
     end
 
     # Returns the full domain name.
@@ -101,7 +101,7 @@ module PublicSuffix
     #   # => "www.google.com"
     #
     def name
-      [@trd, @sld, @tld].compact.join(DOT)
+      @name ||= to_a.compact.join(DOT)
     end
 
     # Returns a domain-like representation of this object
@@ -133,7 +133,9 @@ module PublicSuffix
     #
     # @return [String]
     def domain
-      [@sld, @tld].join(DOT) if domain?
+      return unless domain?
+
+      @domain ||= [@sld, @tld].join(DOT)
     end
 
     # Returns a subdomain-like representation of this object
@@ -165,7 +167,9 @@ module PublicSuffix
     #
     # @return [String]
     def subdomain
-      [@trd, @sld, @tld].join(DOT) if subdomain?
+      return unless subdomain?
+
+      @subdomain ||= to_a.join(DOT)
     end
 
     # Checks whether <tt>self</tt> looks like a domain.
