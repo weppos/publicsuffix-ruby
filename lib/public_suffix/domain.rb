@@ -43,7 +43,7 @@ module PublicSuffix
     #   Initializes with a +tld+, +sld+ and +trd+.
     #   @param [String] tld The TLD (extension)
     #   @param [String] sld The SLD (domain)
-    #   @param [String] tld The TRD (subdomain)
+    #   @param [String] trd The TRD (subdomain)
     #
     # @yield [self] Yields on self.
     # @yieldparam [PublicSuffix::Domain] self The newly creates instance
