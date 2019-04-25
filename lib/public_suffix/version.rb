@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+#
 # = Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
