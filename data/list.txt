@@ -12373,6 +12373,11 @@ vaporcloud.io
 rackmaze.com
 rackmaze.net
 
+// Rancher Labs, Inc : https://rancher.com
+// Submitted by Vincent Fiduccia <domains@rancher.com>
+*.on-rancher.cloud
+*.on-rio.io
+
 // Red Hat, Inc. OpenShift : https://openshift.redhat.com/
 // Submitted by Tim Kramer <tkramer@rhcloud.com>
 rhcloud.com
