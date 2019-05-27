@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
@@ -20,9 +22,9 @@ require_relative "public_suffix/list"
 # but was originally created to meet the needs of browser manufacturers.
 module PublicSuffix
 
-  DOT   = ".".freeze
-  BANG  = "!".freeze
-  STAR  = "*".freeze
+  DOT   = "."
+  BANG  = "!"
+  STAR  = "*"
 
   # Parses +name+ and returns the {PublicSuffix::Domain} instance.
   #

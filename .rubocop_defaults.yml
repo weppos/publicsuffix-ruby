@@ -63,11 +63,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Enabled: false
 
-# [codesmell]
-# I don't really get the point of this cop.
-Performance/RedundantMerge:
-  Enabled: false
-
 # Do not use "and" or "or" in conditionals, but for readability we can use it
 # to chain executions. Just beware of operator order.
 Style/AndOr:
@@ -123,12 +118,12 @@ Style/RescueStandardError:
 
 # Array indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   IndentationWidth: 4
 
 # Hash indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   IndentationWidth: 4
 
 # Multi-line differs from standard indentation, they are indented twice.

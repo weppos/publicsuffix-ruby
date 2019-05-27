@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
@@ -65,8 +67,8 @@ module PublicSuffix
     # @param  private_domains [Boolean] whether to ignore the private domains section
     # @return [PublicSuffix::List]
     def self.parse(input, private_domains: true)
-      comment_token = "//".freeze
-      private_token = "===BEGIN PRIVATE DOMAINS===".freeze
+      comment_token = "//"
+      private_token = "===BEGIN PRIVATE DOMAINS==="
       section = nil # 1 == ICANN, 2 == PRIVATE
 
       new do |list|
