@@ -5,9 +5,9 @@
 #
 # Domain name parser based on the Public Suffix List.
 #
-# Copyright (c) 2009-2018 Simone Carletti <weppos@weppos.net>
+# Copyright (c) 2009-2019 Simone Carletti <weppos@weppos.net>
 
 module PublicSuffix
   # The current library version.
-  VERSION = "3.0.3"
+  VERSION = "3.1.0"
 end
