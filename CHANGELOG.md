@@ -1,7 +1,7 @@
 # Changelog
 
 
-#### master
+#### Release 4.0.0
 
 - CHANGED: Minimum Ruby version is 2.3
 
