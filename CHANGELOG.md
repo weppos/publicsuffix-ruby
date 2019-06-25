@@ -1,10 +1,17 @@
 # Changelog
 
 
+#### master
+
+- CHANGED: Minimum Ruby version is 2.3
+
+
 #### Release 3.1.1
 
 - CHANGED: Updated definitions.
 - CHANGED: Rolled back support for Ruby 2.3 (GH-161, GH-162)
+
+IMPORTANT: 3.x is the latest version compatible with Ruby 2.1 and Ruby 2.2.
 
 
 #### Release 3.1.0
