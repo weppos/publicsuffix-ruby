@@ -1,9 +1,10 @@
 # Changelog
 
 
-#### master
+#### Release 3.1.1
 
 - CHANGED: Updated definitions.
+- CHANGED: Rolled back support for Ruby 2.3 (GH-161, GH-162)
 
 
 #### Release 3.1.0
