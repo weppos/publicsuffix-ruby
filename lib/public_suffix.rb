@@ -20,6 +20,29 @@ require_relative "public_suffix/list"
 # but was originally created to meet the needs of browser manufacturers.
 module PublicSuffix
 
+  class << self
+    attr_accessor :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.reset
+    @configuration = Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+
+  class Configuration
+    attr_accessor :db_as_source
+    def initialize
+      @db_as_source = false
+    end
+  end
+
   DOT   = ".".freeze
   BANG  = "!".freeze
   STAR  = "*".freeze
