@@ -24,9 +24,6 @@ module PublicSuffix
       def generate_rake
         copy_file "populate_domain_suffix.rake", "lib/tasks/populate_#{table_name}.rake"
       end
-      def generate_configuration
-        copy_file "config.rb","config/initializers/public_suffix.rb"
-      end
-	end
+	  end
   end
 end
