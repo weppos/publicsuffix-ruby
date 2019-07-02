@@ -33,7 +33,7 @@ If you are upgrading to 2.0, see [2.0-Upgrade.md](2.0-Upgrade.md).
 For changing the datasource to db:
 ```ruby
 PublicSuffix.configure do |config|
-	config.db_as_source = true
+  config.db_as_source = true
 end
 ```
 
