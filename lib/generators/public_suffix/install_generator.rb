@@ -24,6 +24,6 @@ module PublicSuffix
       def generate_rake
         copy_file "populate_domain_suffix.rake", "lib/tasks/populate_#{table_name}.rake"
       end
-	  end
+    end
   end
 end

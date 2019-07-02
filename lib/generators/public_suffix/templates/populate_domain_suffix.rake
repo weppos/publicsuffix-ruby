@@ -8,16 +8,15 @@ task insert_into_db: :environment do
     # line = line.force_encoding('iso-8859-1').encode('utf-8')
     line.strip!
     case # rubocop:disable Style/EmptyCaseConditio
-
-      # skip blank lines
+            
+    # skip blank lines
     when line.empty?
       next
 
-      # include private domains or stop scanner
     when line.include?(private_token)
       section = 2
 
-      # skip comments
+    # skip comments
     when line.start_with?(comment_token)
       next
 
