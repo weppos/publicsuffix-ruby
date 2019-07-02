@@ -9,6 +9,6 @@ class Create<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_ve
       t.timestamps null: false
     end
 
-    add_index :domain_suffixes, :name,                unique: true
+    add_index :<%= table_name %>, :name, unique: true
   end
 end
