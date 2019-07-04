@@ -1,4 +1,3 @@
-
 # = Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
