@@ -7983,8 +7983,6 @@ events
 // everbank : 2014-05-15 EverBank
 everbank
 
-// exchange : 2014-03-06 Spring Falls, LLC
-exchange
 
 // expert : 2013-11-21 Magic Pass, LLC
 expert

@@ -65,31 +65,43 @@ module PublicSuffix
     # @param  private_domains [Boolean] whether to ignore the private domains section
     # @return [PublicSuffix::List]
     def self.parse(input, private_domains: true)
-      comment_token = "//".freeze
-      private_token = "===BEGIN PRIVATE DOMAINS===".freeze
-      section = nil # 1 == ICANN, 2 == PRIVATE
+      if PublicSuffix.configuration.db_as_source
+        sql = "SELECT * from domain_suffixes"
+        domains  =  ActiveRecord::Base.connection.execute(sql)
+        new do |list|
+          domains.each do |x|
+            # 1 - name column number in db, 2 - private column number in db
+            if x[2] && !private_domains
+              break
+            end
+            list.add(Rule.factory(x[1], private: x[2]))
+          end
+        end
+      else
+        comment_token = "//".freeze
+        private_token = "===BEGIN PRIVATE DOMAINS===".freeze
+        section = nil # 1 == ICANN, 2 == PRIVATE
+        new do |list|
+          input.each_line do |line|
+            line.strip!
+            case # rubocop:disable Style/EmptyCaseCondition
 
-      new do |list|
-        input.each_line do |line|
-          line.strip!
-          case # rubocop:disable Style/EmptyCaseCondition
+            # skip blank lines
+            when line.empty?
+              next
 
-          # skip blank lines
-          when line.empty?
-            next
+            # include private domains or stop scanner
+            when line.include?(private_token)
+              break if !private_domains
+              section = 2
 
-          # include private domains or stop scanner
-          when line.include?(private_token)
-            break if !private_domains
-            section = 2
+            # skip comments
+            when line.start_with?(comment_token)
+              next
 
-          # skip comments
-          when line.start_with?(comment_token)
-            next
-
-          else
-            list.add(Rule.factory(line, private: section == 2))
-
+            else
+              list.add(Rule.factory(line, private: section == 2))
+            end
           end
         end
       end
