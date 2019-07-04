@@ -1,3 +1,4 @@
+
 # = Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
@@ -66,20 +67,21 @@ module PublicSuffix
     # @return [PublicSuffix::List]
     def self.parse(input, private_domains: true)
       if PublicSuffix.configuration.db_as_source
-        domains  = DomainSuffix.all
+        sql = "SELECT * from domain_suffixes"
+        domains  =  ActiveRecord::Base.connection.execute(sql)
         new do |list|
           domains.each do |x|
-            if x.private && !private_domains
+            # 1 - name column number in db, 2 - private column number in db
+            if x[2] && !private_domains
               break
             end
-            list.add(Rule.factory(x.name, private: x.private))
+            list.add(Rule.factory(x[1], private: x[2]))
           end
         end
       else
         comment_token = "//".freeze
         private_token = "===BEGIN PRIVATE DOMAINS===".freeze
         section = nil # 1 == ICANN, 2 == PRIVATE
-
         new do |list|
           input.each_line do |line|
             line.strip!
@@ -100,7 +102,6 @@ module PublicSuffix
 
             else
               list.add(Rule.factory(line, private: section == 2))
-
             end
           end
         end

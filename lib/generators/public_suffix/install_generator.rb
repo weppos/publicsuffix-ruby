@@ -4,14 +4,11 @@ require 'rails/generators/base'
 
 module PublicSuffix
   module Generators
-    class InstallGenerator <Rails::Generators::NamedBase
+    class InstallGenerator <Rails::Generators::Base
       include ActiveRecord::Generators::Migration
       source_root File.expand_path('templates',__dir__)
       def generate_migration
-        migration_template "migration.erb", "db/migrate/create_#{table_name}.rb", migration_version: migration_version
-      end
-      def generate_model
-        invoke "active_record:model",["#{table_name}"],migration: false
+        migration_template "migration.erb", "db/migrate/create_domain_suffixes.rb", migration_version: migration_version
       end
       def migration_version
         if rails5_and_up?
@@ -22,7 +19,7 @@ module PublicSuffix
         Rails::VERSION::MAJOR >= 5
       end
       def generate_rake
-        copy_file "populate_domain_suffix.rake", "lib/tasks/populate_#{table_name}.rake"
+        copy_file "populate_domain_suffix.rake", "lib/tasks/populate_domain_suffix.rake"
       end
     end
   end
