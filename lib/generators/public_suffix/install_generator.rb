@@ -15,7 +15,7 @@ module PublicSuffix
       end
       def migration_version
         if rails5_and_up?
-	      "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
+          "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
         end
       end
       def rails5_and_up?
