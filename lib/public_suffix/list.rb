@@ -65,19 +65,7 @@ module PublicSuffix
     # @param  private_domains [Boolean] whether to ignore the private domains section
     # @return [PublicSuffix::List]
     def self.parse(input, private_domains: true)
-      if PublicSuffix.configuration.db_as_source
-        sql = "SELECT * from domain_suffixes"
-        domains  =  ActiveRecord::Base.connection.execute(sql)
-        new do |list|
-          domains.each do |x|
-            # 1 - name column number in db, 2 - private column number in db
-            if x[2] && !private_domains
-              break
-            end
-            list.add(Rule.factory(x[1], private: x[2]))
-          end
-        end
-      else
+      if !PublicSuffix.configuration.db_as_source
         comment_token = "//".freeze
         private_token = "===BEGIN PRIVATE DOMAINS===".freeze
         section = nil # 1 == ICANN, 2 == PRIVATE
@@ -104,6 +92,8 @@ module PublicSuffix
             end
           end
         end
+      else
+        PublicSuffix::List.new.add(PublicSuffix::Rule.default)
       end
     end
 
@@ -210,18 +200,30 @@ module PublicSuffix
       index = 0
       query = parts[index]
       rules = []
-
-      loop do
-        match = @rules[query]
-        if !match.nil? && (ignore_private == false || match.private == false)
-          rules << entry_to_rule(match, query)
+      
+      if PublicSuffix.configuration.db_as_source
+        sql = "SELECT * FROM domain_suffixes WHERE name='%s'"
+        loop do
+          result = ActiveRecord::Base.connection.execute(sql%[query])
+          if !result.nil? && !result.first.nil? && (ignore_private == false || result.first[2] == false)
+            rules << Rule.factory(result.first[1], private: result.first[2])
+          end
+          index += 1
+          break if index >= parts.size
+          query = parts[index] + DOT + query
         end
+      else
+        loop do
+          match = @rules[query]
+          if !match.nil? && (ignore_private == false || match.private == false)
+            rules << entry_to_rule(match, query)
+          end
 
-        index += 1
-        break if index >= parts.size
-        query = parts[index] + DOT + query
-      end
-
+          index += 1
+          break if index >= parts.size
+          query = parts[index] + DOT + query
+        end
+      end        
       rules
     end
     private :select # rubocop:disable Style/AccessModifierDeclarations
