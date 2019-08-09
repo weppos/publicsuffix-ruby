@@ -1,6 +1,11 @@
 # Changelog
 
 
+#### Release 4.0.1
+
+- CHANGED: Updated definitions.
+
+
 #### Release 4.0.0
 
 - CHANGED: Minimum Ruby version is 2.3
