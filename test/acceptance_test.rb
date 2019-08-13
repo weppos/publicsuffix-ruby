@@ -38,6 +38,8 @@ class AcceptanceTest < Minitest::Test
       [nil,                       PublicSuffix::DomainInvalid],
       ["",                        PublicSuffix::DomainInvalid],
       ["  ",                      PublicSuffix::DomainInvalid],
+      ["greenmush@beemail.com",   PublicSuffix::DomainInvalid],
+      ["bish@bosh.co.uk",         PublicSuffix::DomainInvalid],
   ].freeze
 
   def test_invalid
