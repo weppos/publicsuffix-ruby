@@ -1,5 +1,7 @@
 # Changelog
 
+This project uses [Semantic Versioning 2.0.0](https://semver.org/).
+
 
 #### Release 4.0.1
 
