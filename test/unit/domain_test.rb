@@ -84,6 +84,12 @@ class PublicSuffix::DomainTest < Minitest::Test
     assert_equal "google.tldnotlisted", @klass.new("tldnotlisted", "google", "www").domain
   end
 
+  def test_company_domain
+    assert_equal "apps.facebook.com/office-book", @klass.new("com/office-book", "facebook", "apps").company_domain
+    assert_equal "apps.facebook.com/office-book", @klass.new("com/office-book", "facebook", "www.apps").company_domain
+    assert_equal "google.com/about-us", @klass.new("com/about-us", "google", "www").company_domain
+  end
+
   def test_subdomain
     assert_nil @klass.new("com").subdomain
     assert_nil @klass.new("tldnotlisted").subdomain

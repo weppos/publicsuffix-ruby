@@ -9,6 +9,8 @@ module PublicSuffix
   # Domain represents a domain name, composed by a TLD, SLD and TRD.
   class Domain
 
+    WEBHOSTING_DOMAINS = %w[facebook.com twitter.com linkedin.com instagram.com sourceforge.net pypi.org github.com unbouncepages.com bit.ly capterra.com doubleclick.net goo.gl hubs.ly slack.com weebly.com].freeze
+
     # Splits a string into the labels, that is the dot-separated parts.
     #
     # The input is not validated, but it is assumed to be a valid domain name.
@@ -134,6 +136,31 @@ module PublicSuffix
     # @return [String]
     def domain
       [@sld, @tld].join(DOT) if domain?
+    end
+
+    # Returns a domain-like representation of this object
+    #
+    #   PublicSuffix::Domain.new("com/about-us", "google", "www").company_domain
+    #   # => "google.com/about-us"
+    #   PublicSuffix::Domain.new('com/pg/HPDoctorsonDemand', 'facebook', 'www.apps').company_domain
+    #   # => "apps.facebook.com/pg/HPDoctorsonDemand"
+    #   PublicSuffix::Domain.new('com/pg/HPDoctorsonDemand', 'facebook', 'www.apps').domain
+    #   # => "facebook.com/pg/HPDoctorsonDemand"
+    # Look test cases for examples
+    #
+    # This method doesn't validate the input. It handles the domain
+    # as a valid domain name and simply applies the necessary transformations.
+    #
+    # @see #domain
+    #
+    # @return [String]
+    def company_domain
+      if WEBHOSTING_DOMAINS.any? { |x| name.include?(x) }
+        if subdomain?
+          return (subdomain.start_with? 'www.') ? subdomain[4..-1] : subdomain
+        end
+      end
+      domain
     end
 
     # Returns a subdomain-like representation of this object
