@@ -155,12 +155,11 @@ module PublicSuffix
     #
     # @return [String]
     def company_domain
-      if WEBHOSTING_DOMAINS.any? { |x| name.include?(x) }
-        if subdomain?
-          return (subdomain.start_with? 'www.') ? subdomain[4..-1] : subdomain
-        end
+      if (WEBHOSTING_DOMAINS.any? { |x| name.include?(x) }) && subdomain?
+        (subdomain.start_with? 'www.') ? subdomain[4..-1] : subdomain
+      else
+        domain
       end
-      domain
     end
 
     # Returns a subdomain-like representation of this object
