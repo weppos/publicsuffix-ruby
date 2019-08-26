@@ -87,7 +87,9 @@ module PublicSuffix
   #   If domain is not a valid domain.
   # @raise [PublicSuffix::DomainNotAllowed]
   #   If a rule for +domain+ is found, but the rule doesn't allow +domain+.
-  def self.parse(name, list: List.default, default_rule: list.default_rule, ignore_private: false)
+  def self.parse(name, list: List.default, default_rule: list.default_rule, ignore_private: false, handle_webhosting_domains: false)
+    name = name.split('/').first if handle_webhosting_domains && (Domain::WEBHOSTING_DOMAINS.none? { |x| name.include?(x) })
+
     what = normalize(name)
     raise what if what.is_a?(DomainInvalid)
 
@@ -161,6 +163,12 @@ module PublicSuffix
   # @return [String]
   def self.domain(name, **options)
     parse(name, **options).domain
+  rescue PublicSuffix::Error
+    nil
+  end
+
+  def self.company_domain(name, **options)
+    parse(name, handle_webhosting_domains: true, **(options.merge(handle_webhosting_domain: true))).company_domain
   rescue PublicSuffix::Error
     nil
   end
