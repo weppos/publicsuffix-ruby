@@ -168,7 +168,7 @@ module PublicSuffix
   end
 
   def self.company_domain(name, **options)
-    parse(name, handle_webhosting_domains: true, **(options.merge(handle_webhosting_domain: true))).company_domain
+    parse(name, **(options.merge(handle_webhosting_domains: true))).company_domain
   rescue PublicSuffix::Error
     nil
   end
