@@ -188,7 +188,7 @@ class PublicSuffixTest < Minitest::Test
     assert_equal 'google.com', company_domain
     company_domain = PublicSuffix.parse('www.google.com/about-us', handle_webhosting_domains: false).company_domain
     assert_equal 'google.com/about-us', company_domain
-    company_domain = PublicSuffix.company_domain('www.facebook.com/pg/HPDoctorsonDemand', handle_webhosting_domains: false)
+    company_domain = PublicSuffix.company_domain('www.facebook.com/pg/HPDoctorsonDemand')
     assert_equal 'facebook.com/pg/hpdoctorsondemand', company_domain
   end
 
