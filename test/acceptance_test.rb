@@ -55,8 +55,8 @@ class AcceptanceTest < Minitest::Test
 
 
   REJECTED_CASES = [
-    ["foo.co..uk",          true],
-    ["goo,gle.com",         true],
+      ["foo.co..uk", true],
+      ["goo,gle.com", true],
   ].freeze
 
   def test_rejected
