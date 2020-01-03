@@ -48,7 +48,7 @@ module PublicSuffix
     #
     # @return [PublicSuffix::List]
     def self.default(**options)
-      @default ||= parse(File.read(DEFAULT_LIST_PATH), options)
+      @default ||= parse(File.read(DEFAULT_LIST_PATH), **options)
     end
 
     # Sets the default rule list to +value+.
