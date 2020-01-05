@@ -3,6 +3,13 @@
 This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
 
+## master
+
+### Fixed
+
+- Fixed 2.7 deprecations and warnings (GH-167). [Thanks @BrianHawley]
+
+
 ## 4.0.2
 
 ### Changed
