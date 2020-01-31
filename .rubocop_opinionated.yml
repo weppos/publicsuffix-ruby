@@ -14,21 +14,6 @@ Layout/LineLength:
     - 'test/**/*_test.rb'
   Max: 100
 
-# Array indentation should be considered like MultilineMethodCallIndentation indentation
-# and use 4 spaces instead of 2.
-Layout/FirstArrayElementIndentation:
-  IndentationWidth: 4
-
-# Hash indentation should be considered like MultilineMethodCallIndentation indentation
-# and use 4 spaces instead of 2.
-Layout/FirstHashElementIndentation:
-  IndentationWidth: 4
-
-# Multi-line differs from standard indentation, they are indented twice.
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-  IndentationWidth: 4
-
 # [codesmell]
 Metrics/AbcSize:
   Enabled: false
@@ -120,17 +105,6 @@ Style/FormatString:
 Style/FormatStringToken:
   Enabled: false
 
-# Prefer the latest Hash syntax
-Style/HashSyntax:
-  Exclude:
-    # But Rakefiles generally have some definition like
-    #   :default => :test
-    # that looks nicer with the old rocket syntax.
-    - 'Rakefile'
-
-Style/RescueStandardError:
-  Enabled: false
-
 # unless is not always cool.
 Style/NegatedIf:
   Enabled: false
@@ -144,6 +118,9 @@ Style/PercentLiteralDelimiters:
 # or rely on the developer judgement on a case-by-case basis.
 Style/RescueModifier:
   Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
 
 # Sorry, but using trailing spaces helps readability.
 #

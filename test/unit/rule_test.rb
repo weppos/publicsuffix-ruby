@@ -70,36 +70,36 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
 
   def test_match
     [
-        # standard match
-        [PublicSuffix::Rule.factory("uk"), "uk", true],
-        [PublicSuffix::Rule.factory("uk"), "example.uk", true],
-        [PublicSuffix::Rule.factory("uk"), "example.co.uk", true],
-        [PublicSuffix::Rule.factory("co.uk"), "example.co.uk", true],
+      # standard match
+      [PublicSuffix::Rule.factory("uk"), "uk", true],
+      [PublicSuffix::Rule.factory("uk"), "example.uk", true],
+      [PublicSuffix::Rule.factory("uk"), "example.co.uk", true],
+      [PublicSuffix::Rule.factory("co.uk"), "example.co.uk", true],
 
-        # FIXME
-        # [PublicSuffix::Rule.factory("*.com"), "com", false],
-        [PublicSuffix::Rule.factory("*.com"), "example.com", true],
-        [PublicSuffix::Rule.factory("*.com"), "foo.example.com", true],
-        [PublicSuffix::Rule.factory("!example.com"), "com", false],
-        [PublicSuffix::Rule.factory("!example.com"), "example.com", true],
-        [PublicSuffix::Rule.factory("!example.com"), "foo.example.com", true],
+      # FIXME
+      # [PublicSuffix::Rule.factory("*.com"), "com", false],
+      [PublicSuffix::Rule.factory("*.com"), "example.com", true],
+      [PublicSuffix::Rule.factory("*.com"), "foo.example.com", true],
+      [PublicSuffix::Rule.factory("!example.com"), "com", false],
+      [PublicSuffix::Rule.factory("!example.com"), "example.com", true],
+      [PublicSuffix::Rule.factory("!example.com"), "foo.example.com", true],
 
-        # TLD mismatch
-        [PublicSuffix::Rule.factory("gk"), "example.uk", false],
-        [PublicSuffix::Rule.factory("gk"), "example.co.uk", false],
-        [PublicSuffix::Rule.factory("co.uk"), "uk", false],
+      # TLD mismatch
+      [PublicSuffix::Rule.factory("gk"), "example.uk", false],
+      [PublicSuffix::Rule.factory("gk"), "example.co.uk", false],
+      [PublicSuffix::Rule.factory("co.uk"), "uk", false],
 
-        # general mismatch
-        [PublicSuffix::Rule.factory("uk.co"), "example.co.uk", false],
-        [PublicSuffix::Rule.factory("go.uk"), "example.co.uk", false],
-        [PublicSuffix::Rule.factory("co.uk"), "uk", false],
+      # general mismatch
+      [PublicSuffix::Rule.factory("uk.co"), "example.co.uk", false],
+      [PublicSuffix::Rule.factory("go.uk"), "example.co.uk", false],
+      [PublicSuffix::Rule.factory("co.uk"), "uk", false],
 
-        # partial matches/mismatches
-        [PublicSuffix::Rule.factory("co"), "example.co.uk", false],
-        [PublicSuffix::Rule.factory("example"), "example.uk", false],
-        [PublicSuffix::Rule.factory("le.it"), "example.it", false],
-        [PublicSuffix::Rule.factory("le.it"), "le.it", true],
-        [PublicSuffix::Rule.factory("le.it"), "foo.le.it", true],
+      # partial matches/mismatches
+      [PublicSuffix::Rule.factory("co"), "example.co.uk", false],
+      [PublicSuffix::Rule.factory("example"), "example.uk", false],
+      [PublicSuffix::Rule.factory("le.it"), "example.it", false],
+      [PublicSuffix::Rule.factory("le.it"), "le.it", true],
+      [PublicSuffix::Rule.factory("le.it"), "foo.le.it", true],
 
     ].each do |rule, input, expected|
       assert_equal expected, rule.match?(input)
