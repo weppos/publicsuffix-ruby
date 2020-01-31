@@ -1,11 +1,8 @@
 # Bundler
-.bundle
-Gemfile.lock
-pkg/*
-
-# Rubinius
-*.rbc
+/.bundle
+/Gemfile.lock
+/pkg/*
 
 # YARD
-.yardoc
-yardoc/
+/.yardoc
+/yardoc/
