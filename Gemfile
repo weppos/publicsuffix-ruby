@@ -11,5 +11,5 @@ gem "memory_profiler", require: false
 gem "minitest"
 gem "minitest-reporters"
 gem "mocha"
-gem "rubocop", "0.80.1", require: false
+gem "rubocop", "0.81.0", require: false
 gem "yard"

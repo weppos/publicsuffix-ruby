@@ -216,7 +216,7 @@ module PublicSuffix
 
       rules
     end
-    private :select # rubocop:disable Style/AccessModifierDeclarations
+    private :select
 
     # Gets the default rule.
     #
