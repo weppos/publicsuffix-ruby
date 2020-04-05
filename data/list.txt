@@ -79,7 +79,6 @@ exchange.aero
 express.aero
 federation.aero
 flight.aero
-freight.aero
 fuel.aero
 gliding.aero
 government.aero
@@ -719,11 +718,13 @@ gouv.ci
 *.ck
 !www.ck
 
-// cl : https://en.wikipedia.org/wiki/.cl
+// cl : https://www.nic.cl
+// Confirmed by .CL registry <hsalgado@nic.cl>
 cl
-gov.cl
-gob.cl
+aprendemas.cl
 co.cl
+gob.cl
+gov.cl
 mil.cl
 
 // cm : https://en.wikipedia.org/wiki/.cm plus bug 981927
@@ -982,8 +983,19 @@ fi
 // TODO: Check for updates (expected to be phased out around Q1/2009)
 aland.fi
 
-// fj : https://en.wikipedia.org/wiki/.fj
-*.fj
+// fj : http://domains.fj/
+// Submitted by registry <garth.miller@cocca.org.nz> 2020-02-11
+fj
+ac.fj
+biz.fj
+com.fj
+gov.fj
+info.fj
+mil.fj
+name.fj
+net.fj
+org.fj
+pro.fj
 
 // fk : https://en.wikipedia.org/wiki/.fk
 *.fk
@@ -6508,7 +6520,7 @@ k12.ok.us
 k12.or.us
 k12.pa.us
 k12.pr.us
-k12.ri.us
+// k12.ri.us  Removed at request of Kim Cournoyer <netsupport@staff.ri.net>
 k12.sc.us
 // k12.sd.us  Bug 934131 - Removed at request of James Booze <James.Booze@k12.sd.us>
 k12.tn.us
@@ -6795,7 +6807,12 @@ yt
 مصر
 
 // xn--e1a4c ("eu", Cyrillic) : EU
+// https://eurid.eu
 ею
+
+// xn--qxa6a ("eu", Greek) : EU
+// https://eurid.eu
+ευ
 
 // xn--mgbah1a3hjkrd ("Mauritania", Arabic) : MR
 موريتانيا
@@ -7074,7 +7091,7 @@ org.zw
 
 // newGTLDs
 
-// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2020-01-06T17:33:31Z
+// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2020-04-02T18:20:31Z
 // This list is auto-generated, don't edit it manually.
 // aaa : 2015-02-26 American Automobile Association, Inc.
 aaa
@@ -7196,7 +7213,7 @@ alsace
 // alstom : 2015-07-30 ALSTOM
 alstom
 
-// amazon : 2019-12-19 Amazon EU S.à r.l.
+// amazon : 2019-12-19 Amazon Registry Services, Inc.
 amazon
 
 // americanexpress : 2015-07-31 American Express Travel Related Services Company, Inc.
@@ -7376,7 +7393,7 @@ bcn
 // beats : 2015-05-14 Beats Electronics, LLC
 beats
 
-// beauty : 2015-12-03 L'Oréal
+// beauty : 2015-12-03 XYZ.COM LLC
 beauty
 
 // beer : 2014-01-09 Minds + Machines Group Limited
@@ -7832,7 +7849,7 @@ cuisinella
 // cymru : 2014-05-08 Nominet UK
 cymru
 
-// cyou : 2015-01-22 Beijing Gamease Age Digital Technology Co., Ltd.
+// cyou : 2015-01-22 ShortDot SA
 cyou
 
 // dabur : 2014-02-06 Dabur India Limited
@@ -8399,7 +8416,7 @@ guitars
 // guru : 2013-08-27 Binky Moon, LLC
 guru
 
-// hair : 2015-12-03 L'Oréal
+// hair : 2015-12-03 XYZ.COM LLC
 hair
 
 // hamburg : 2014-02-20 Hamburg Top-Level-Domain GmbH
@@ -8918,7 +8935,7 @@ maif
 // maison : 2013-12-05 Binky Moon, LLC
 maison
 
-// makeup : 2015-01-15 L'Oréal
+// makeup : 2015-01-15 XYZ.COM LLC
 makeup
 
 // man : 2014-12-04 MAN SE
@@ -9076,9 +9093,6 @@ mutual
 
 // nab : 2015-08-20 National Australia Bank Limited
 nab
-
-// nadex : 2014-12-11 Nadex Domains, Inc.
-nadex
 
 // nagoya : 2013-10-24 GMO Registry, Inc.
 nagoya
@@ -9761,7 +9775,7 @@ site
 // ski : 2015-04-09 Afilias Limited
 ski
 
-// skin : 2015-01-15 L'Oréal
+// skin : 2015-01-15 XYZ.COM LLC
 skin
 
 // sky : 2014-06-19 Sky International AG
@@ -10049,7 +10063,7 @@ trading
 // training : 2013-11-07 Binky Moon, LLC
 training
 
-// travel :  Dog Beach, LLC
+// travel : 2015-10-09 Dog Beach, LLC
 travel
 
 // travelchannel : 2015-07-02 Lifestyle Domain Holdings, Inc.
@@ -10156,9 +10170,6 @@ visa
 
 // vision : 2013-12-05 Binky Moon, LLC
 vision
-
-// vistaprint : 2014-09-18 Vistaprint Limited
-vistaprint
 
 // viva : 2014-11-07 Saudi Telecom Company
 viva
@@ -10337,7 +10348,7 @@ xin
 // xn--45q11c : 2013-11-21 Zodiac Gemini Ltd
 八卦
 
-// xn--4gbrim : 2013-10-04 Suhub Electronic Establishment
+// xn--4gbrim : 2013-10-04 Fans TLD Limited
 موقع
 
 // xn--55qw42g : 2013-11-08 China Organizational Name Administration Center
@@ -10397,7 +10408,7 @@ xin
 // xn--cck2b3b : 2015-02-26 Amazon Registry Services, Inc.
 ストア
 
-// xn--cckwcxetd : 2019-12-19 Amazon EU S.à r.l.
+// xn--cckwcxetd : 2019-12-19 Amazon Registry Services, Inc.
 アマゾン
 
 // xn--cg4bki : 2013-09-27 SAMSUNG SDS CO., LTD
@@ -10420,9 +10431,6 @@ xin
 
 // xn--efvy88h : 2014-08-22 Guangzhou YU Wei Information Technology Co., Ltd.
 新闻
-
-// xn--estv75g : 2015-02-19 Industrial and Commercial Bank of China Limited
-工行
 
 // xn--fct429k : 2015-04-09 Amazon Registry Services, Inc.
 家電
@@ -10469,7 +10477,7 @@ xin
 // xn--j1aef : 2015-01-15 VeriSign Sarl
 ком
 
-// xn--jlq480n2rg : 2019-12-19 Amazon EU S.à r.l.
+// xn--jlq480n2rg : 2019-12-19 Amazon Registry Services, Inc.
 亚马逊
 
 // xn--jlq61u9w7b : 2015-01-08 Nokia Corporation
@@ -10532,7 +10540,7 @@ xin
 // xn--nyqy26a : 2014-11-07 Stable Tone Limited
 健康
 
-// xn--otu796d : 2017-08-06 Internet DotTrademark Organisation Limited
+// xn--otu796d : 2017-08-06 Jiang Yu Liang Cai Technology Company Limited
 招聘
 
 // xn--p1acf : 2013-12-12 Rusnames Limited
@@ -11705,6 +11713,10 @@ global.ssl.fastly.net
 // Submitted by Likhachev Vasiliy <lihachev@fastvps.ru>
 fastpanel.direct
 fastvps-server.com
+myfast.space
+myfast.host
+fastvps.site
+fastvps.host
 
 // Featherhead : https://featherhead.xyz/
 // Submitted by Simon Menke <simon@featherhead.xyz>
@@ -11717,6 +11729,13 @@ fedorapeople.org
 cloud.fedoraproject.org
 app.os.fedoraproject.org
 app.os.stg.fedoraproject.org
+
+// FearWorks Media Ltd. : https://fearworksmedia.co.uk
+// submitted by Keith Fairley <domains@fearworksmedia.co.uk>
+conn.uk
+copro.uk
+couk.me
+ukco.me
 
 // Fermax : https://fermax.com/
 // submitted by Koen Van Isterdael <k.vanisterdael@fermax.be>
@@ -11738,7 +11757,6 @@ firebaseapp.com
 
 // Flynn : https://flynn.io
 // Submitted by Jonathan Rudenberg <jonathan@flynn.io>
-flynnhub.com
 flynnhosting.net
 
 // Frederik Braun https://frederik-braun.com
@@ -11909,6 +11927,10 @@ pagespeedmobilizer.com
 publishproxy.com
 withgoogle.com
 withyoutube.com
+
+// Aaron Marais' Gitlab pages: https://lab.aaronleem.co.za
+// Submitted by Aaron Marais <its_me@aaronleem.co.za>
+graphox.us
 
 // Group 53, LLC : https://www.group53.com
 // Submitted by Tyler Todd <noc@nova53.net>
@@ -12227,8 +12249,8 @@ eu.meteorapp.com
 co.pl
 
 // Microsoft Corporation : http://microsoft.com
-// Submitted by Justin Luk <juluk@microsoft.com>
-azurecontainer.io
+// Submitted by Mostafa Elzeiny <moelzein@microsoft.com>
+*.azurecontainer.io
 azurewebsites.net
 azure-mobile.net
 cloudapp.net
@@ -12431,12 +12453,13 @@ pcloud.host
 nyc.mn
 
 // NymNom : https://nymnom.com/
-// Submitted by Dave McCormack <dave.mccormack@nymnom.com>
+// Submitted by NymNom <psl@nymnom.com>
 nom.ae
 nom.af
 nom.ai
 nom.al
 nym.by
+nom.bz
 nym.bz
 nom.cl
 nym.ec
@@ -12458,6 +12481,7 @@ nom.li
 nym.li
 nym.lt
 nym.lu
+nom.lv
 nym.me
 nom.mk
 nym.mn
@@ -12564,6 +12588,12 @@ on-web.fr
 // Submitted by Nikola Kotur <nikola@platform.sh>
 *.platform.sh
 *.platformsh.site
+
+// Platter: https://platter.dev
+// Submitted by Patrick Flor <patrick@platter.dev>
+platter-app.com
+platter-app.dev
+platterp.us
 
 // Port53 : https://port53.io/
 // Submitted by Maximilian Schieder <maxi@zeug.co>
@@ -12778,6 +12808,10 @@ static.land
 dev.static.land
 sites.static.land
 
+// Sony Interactive Entertainment LLC : https://sie.com/
+// Submitted by David Coles <david.coles@sony.com>
+playstation-cloud.com
+
 // SourceLair PC : https://www.sourcelair.com
 // Submitted by Antonis Kalipetis <akalipetis@sourcelair.com>
 apps.lair.io
@@ -12952,6 +12986,11 @@ inc.hk
 virtualuser.de
 virtual-user.de
 
+// urown.net : https://urown.net
+// Submitted by Hostmaster <hostmaster@urown.net>
+urown.cloud
+dnsupdate.info
+
 // .US
 // Submitted by Ed Moore <Ed.Moore@lib.de.us>
 lib.de.us
@@ -12995,8 +13034,10 @@ wedeploy.sh
 remotewd.com
 
 // Wikimedia Labs : https://wikitech.wikimedia.org
-// Submitted by Yuvi Panda <yuvipanda@wikimedia.org>
+// Submitted by Arturo Borrero Gonzalez <aborrero@wikimedia.org>
 wmflabs.org
+toolforge.org
+wmcloud.org
 
 // WoltLab GmbH : https://www.woltlab.com
 // Submitted by Tim Düsterhus <security@woltlab.cloud>
@@ -13068,7 +13109,6 @@ bss.design
 // Submitted by Emil Stahl <esp@zitcom.dk>
 basicserver.io
 virtualserver.io
-site.builder.nu
 enterprisecloud.nu
 
 // ===END PRIVATE DOMAINS===
