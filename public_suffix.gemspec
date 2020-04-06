@@ -12,6 +12,8 @@ Gem::Specification.new do |s|
   s.description = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
   s.licenses    = ["MIT"]
 
+  s.metadata["changelog_uri"] = "https://github.com/weppos/publicsuffix-ruby/blob/master/CHANGELOG.md"
+
   s.required_ruby_version = ">= 2.3"
 
   s.require_paths    = ["lib"]
