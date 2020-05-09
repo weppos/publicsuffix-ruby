@@ -9,5 +9,5 @@
 
 module PublicSuffix
   # The current library version.
-  VERSION = "4.0.4"
+  VERSION = "4.0.5"
 end
