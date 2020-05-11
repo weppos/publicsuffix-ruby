@@ -24,7 +24,7 @@ Style/ClassAndModuleChildren:
     - 'test/**/*_test.rb'
 
 # Dear Rubocop, I don't want to use String#strip_heredoc
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 
 Style/WordArray:

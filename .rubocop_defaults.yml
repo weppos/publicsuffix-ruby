@@ -118,12 +118,12 @@ Style/RescueStandardError:
 
 # Array indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   IndentationWidth: 4
 
 # Hash indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   IndentationWidth: 4
 
 # Multi-line differs from standard indentation, they are indented twice.
