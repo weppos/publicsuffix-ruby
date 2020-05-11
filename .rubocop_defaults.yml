@@ -32,7 +32,7 @@ Metrics/ClassLength:
     - 'test/**/*_test.rb'
 
 # [codesmell]
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
   Exclude:
     - 'spec/**/*_spec.rb'
