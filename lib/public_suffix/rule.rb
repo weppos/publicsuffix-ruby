@@ -22,7 +22,7 @@ module PublicSuffix
   module Rule
 
     # @api internal
-    Entry = Struct.new(:type, :length, :private)
+    Entry = Struct.new(:type, :entry_length, :private)
 
     # = Abstract rule class
     #
