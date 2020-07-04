@@ -34,16 +34,16 @@ class AcceptanceTest < Minitest::Test
 
 
   INVALID_CASES = [
-      ["nic.bd",                  PublicSuffix::DomainNotAllowed],
-      [nil,                       PublicSuffix::DomainInvalid],
-      ["",                        PublicSuffix::DomainInvalid],
-      ["  ",                      PublicSuffix::DomainInvalid],
-      ["google@bosh.co.uk",       PublicSuffix::DomainInvalid],
-      ["www. .com",               PublicSuffix::DomainInvalid],
-      ["-google.com",             PublicSuffix::DomainInvalid],
-      ["google-.com",             PublicSuffix::DomainInvalid],
-      ["http://google.com",       PublicSuffix::DomainInvalid],
-      [".google.com",             PublicSuffix::DomainInvalid],
+    ["nic.bd",                  PublicSuffix::DomainNotAllowed],
+    [nil,                       PublicSuffix::DomainInvalid],
+    ["",                        PublicSuffix::DomainInvalid],
+    ["  ",                      PublicSuffix::DomainInvalid],
+    ["google@bosh.co.uk",       PublicSuffix::DomainInvalid],
+    ["www. .com",               PublicSuffix::DomainInvalid],
+    ["-google.com",             PublicSuffix::DomainInvalid],
+    ["google-.com",             PublicSuffix::DomainInvalid],
+    ["http://google.com",       PublicSuffix::DomainInvalid],
+    [".google.com",             PublicSuffix::DomainInvalid],
   ].freeze
 
   def test_invalid
@@ -55,8 +55,8 @@ class AcceptanceTest < Minitest::Test
 
 
   REJECTED_CASES = [
-      ["foo.co..uk", true],
-      ["goo,gle.com", true],
+    ["foo.co..uk", true],
+    ["goo,gle.com", true],
   ].freeze
 
   def test_rejected
