@@ -2,8 +2,6 @@
 coverage:
   precision: 1
   round: down
-
-coverage:
   status:
     project:
       default: false
