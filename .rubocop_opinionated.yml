@@ -5,6 +5,7 @@ AllCops:
     # Exclude vendored folders
     - 'tmp/**/*'
     - 'vendor/**/*'
+  NewCops: enable
 
 # [codesmell]
 Layout/LineLength:
@@ -154,21 +155,3 @@ Style/TrivialAccessors:
   #    end
   #
   IgnoreClassMethods: true
-
-# New cops
-# See https://docs.rubocop.org/en/latest/versioning/
-
-Lint/RaiseException:
-  Enabled: true
-
-Lint/StructNewOverride:
-  Enabled: true
-
-Style/HashEachMethods:
-  Enabled: true
-
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
-  Enabled: true
