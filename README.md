@@ -205,3 +205,13 @@ See the [CHANGELOG.md](CHANGELOG.md) file for details.
 Copyright (c) 2009-2020 Simone Carletti. This is Free Software distributed under the MIT license.
 
 The [Public Suffix List source](https://publicsuffix.org/list/) is subject to the terms of the Mozilla Public License, v. 2.0.
+
+## Definitions
+
+tld = Top level domain, this is in reference to the last segment of a domain, sometimes the part that is directly after the "dot" symbol. For example, `mozilla.org`, the `.org` portion is the tld.
+
+sld = Second level domain, a domain that is directly below a top-level domain. For example, in `https://www.mozilla.org/en-US/`, `mozilla` is the second-level domain of the .org tld.
+
+trd = Transit routing domain, or known as a subdomain. This is the part of the domain that is before the sld or root domain. For example, in `https://www.mozilla.org/en-US/`, `www` is the trd.
+
+FQDN = Fully Qualified Domain Names, are domain names that are written with the hostname and the domain name, and include the top-level domain, the format looks like `[hostname].[domain].[tld].` for ex. `[www].[mozilla].[org]`. 
