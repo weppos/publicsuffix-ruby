@@ -15,6 +15,11 @@ Layout/LineLength:
     - 'test/**/*_test.rb'
   Max: 100
 
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
 # [codesmell]
 Metrics/AbcSize:
   Enabled: false
