@@ -17,6 +17,7 @@ Layout/LineLength:
 
 Lint/ConstantDefinitionInBlock:
   Exclude:
+    - 'Rakefile'
     - 'spec/**/*'
     - 'test/**/*'
 
