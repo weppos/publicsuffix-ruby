@@ -173,7 +173,7 @@ module PublicSuffix
     # @return [PublicSuffix::Rule::*]
     def find(name, default: default_rule, **options)
       rule = select(name, **options).inject do |l, r|
-        return r if r.class == Rule::Exception
+        return r if r.instance_of?(Rule::Exception)
 
         l.length > r.length ? l : r
       end
