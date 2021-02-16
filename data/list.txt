@@ -878,6 +878,7 @@ cz
 // Confirmed by registry <ops@denic.de> (with technical
 // reservations) 2008-07-01
 de
+com.de
 
 // dj : https://en.wikipedia.org/wiki/.dj
 dj
