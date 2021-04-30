@@ -8,9 +8,6 @@ rvm:
   - 2.7
   - ruby-head
 
-env:
-  - COVERAGE=1
-
 cache:
   - bundler
 

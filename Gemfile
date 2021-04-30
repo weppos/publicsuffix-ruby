@@ -6,7 +6,6 @@ gemspec
 
 gem "rake"
 
-gem "codecov", require: false
 gem "memory_profiler", require: false
 gem "minitest"
 gem "minitest-reporters"
