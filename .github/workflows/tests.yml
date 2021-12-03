@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   build:
     strategy:
       matrix:
@@ -15,19 +14,14 @@ jobs:
           - "2.7"
           - "3.0"
         platform: [ubuntu-latest]
-
     runs-on: ${{ matrix.platform }}
     steps:
-
-    - uses: actions/checkout@v2
-
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-
-    - name: Install dependencies
-      run: bundle install
-
-    - name: Run tests
-      run: bundle exec rake
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: Install dependencies
+        run: bundle install
+      - name: Run tests
+        run: bundle exec rake
