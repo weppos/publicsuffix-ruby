@@ -2,7 +2,7 @@
 
 <tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](https://publicsuffix.org/).
 
-[![Build Status](https://travis-ci.com/weppos/publicsuffix-ruby.svg?branch=master)](https://travis-ci.com/weppos/publicsuffix-ruby)
+[![Build Status](https://github.com/weppos/publicsuffix-ruby/actions/workflows/tests.yml/badge.svg)](https://github.com/weppos/publicsuffix-ruby/actions/workflows/tests.yml)
 [![Tidelift dependencies](https://tidelift.com/badges/package/rubygems/public_suffix)](https://tidelift.com/subscription/pkg/rubygems-public-suffix?utm_source=rubygems-public-suffix&utm_medium=referral&utm_campaign=enterprise)
 
 
