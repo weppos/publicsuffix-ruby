@@ -63,7 +63,7 @@ module PublicSuffix
     #
     # See http://publicsuffix.org/format/ for more details about input format.
     #
-    # @param  string [#each_line] the list to parse
+    # @param  input [#each_line] the list to parse
     # @param  private_domains [Boolean] whether to ignore the private domains section
     # @return [PublicSuffix::List]
     def self.parse(input, private_domains: true)
