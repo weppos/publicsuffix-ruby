@@ -9,6 +9,10 @@ This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
 - Fixed YARD rake task (GH-179)
 
+### Changed
+
+- Updated definitions.
+
 
 ## 4.0.6
 
