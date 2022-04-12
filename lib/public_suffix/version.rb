@@ -8,6 +8,8 @@
 # Copyright (c) 2009-2022 Simone Carletti <weppos@weppos.net>
 
 module PublicSuffix
-  # The current library version.
-  VERSION = "4.0.6"
+
+  # @return [String] The current library version.
+  VERSION = "4.0.7"
+
 end
