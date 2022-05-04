@@ -202,9 +202,9 @@ module PublicSuffix
       rules = []
       
       if PublicSuffix.configuration.db_as_source
-        sql = "SELECT * FROM domain_suffixes WHERE name='%s'"
+        sql = "SELECT * FROM domain_suffixes WHERE name= ? "
         loop do
-          result = ActiveRecord::Base.connection.execute(sql%[query])
+          result = ActiveRecord::Base.connection.execute(ActiveRecord::Base.send(:sanitize_sql, [sql, query]))
           if !result.nil? && !result.first.nil? && (ignore_private == false || result.first[2] == false)
             rules << Rule.factory(result.first[1], private: result.first[2])
           end
