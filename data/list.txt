@@ -11582,7 +11582,6 @@ service.gov.uk
 
 // GitHub, Inc.
 // Submitted by Patrick Toomey <security@github.com>
-github.io
 githubusercontent.com
 
 // GitLab, Inc.
