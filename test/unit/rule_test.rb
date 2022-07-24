@@ -29,8 +29,8 @@ class PublicSuffix::RuleTest < Minitest::Test
   def test_default_returns_default_wildcard
     default = PublicSuffix::Rule.default
     assert_equal PublicSuffix::Rule::Wildcard.build("*"), default
-    assert_equal %w[example tldnotlisted], default.decompose("example.tldnotlisted")
-    assert_equal %w[www.example tldnotlisted], default.decompose("www.example.tldnotlisted")
+    assert_equal %w( example tldnotlisted ), default.decompose("example.tldnotlisted")
+    assert_equal %w( www.example tldnotlisted ), default.decompose("www.example.tldnotlisted")
   end
 
 end
@@ -140,15 +140,15 @@ class PublicSuffix::RuleNormalTest < Minitest::Test
   end
 
   def test_parts
-    assert_equal %w[com], @klass.build("com").parts
-    assert_equal %w[co com], @klass.build("co.com").parts
-    assert_equal %w[mx co com], @klass.build("mx.co.com").parts
+    assert_equal %w(com), @klass.build("com").parts
+    assert_equal %w(co com), @klass.build("co.com").parts
+    assert_equal %w(mx co com), @klass.build("mx.co.com").parts
   end
 
   def test_decompose
     assert_equal [nil, nil], @klass.build("com").decompose("com")
-    assert_equal %w[example com], @klass.build("com").decompose("example.com")
-    assert_equal %w[foo.example com], @klass.build("com").decompose("foo.example.com")
+    assert_equal %w( example com ), @klass.build("com").decompose("example.com")
+    assert_equal %w( foo.example com ), @klass.build("com").decompose("foo.example.com")
   end
 
 end
@@ -175,14 +175,14 @@ class PublicSuffix::RuleExceptionTest < Minitest::Test
   end
 
   def test_parts
-    assert_equal %w[uk], @klass.build("!british-library.uk").parts
-    assert_equal %w[tokyo jp], @klass.build("!metro.tokyo.jp").parts
+    assert_equal %w( uk ), @klass.build("!british-library.uk").parts
+    assert_equal %w( tokyo jp ), @klass.build("!metro.tokyo.jp").parts
   end
 
   def test_decompose
     assert_equal [nil, nil], @klass.build("!british-library.uk").decompose("uk")
-    assert_equal %w[british-library uk], @klass.build("!british-library.uk").decompose("british-library.uk")
-    assert_equal %w[foo.british-library uk], @klass.build("!british-library.uk").decompose("foo.british-library.uk")
+    assert_equal %w( british-library uk ), @klass.build("!british-library.uk").decompose("british-library.uk")
+    assert_equal %w( foo.british-library uk ), @klass.build("!british-library.uk").decompose("foo.british-library.uk")
   end
 
 end
@@ -209,14 +209,14 @@ class PublicSuffix::RuleWildcardTest < Minitest::Test
   end
 
   def test_parts
-    assert_equal %w[uk], @klass.build("*.uk").parts
-    assert_equal %w[co uk], @klass.build("*.co.uk").parts
+    assert_equal %w( uk ), @klass.build("*.uk").parts
+    assert_equal %w( co uk ), @klass.build("*.co.uk").parts
   end
 
   def test_decompose
     assert_equal [nil, nil], @klass.build("*.do").decompose("nic.do")
-    assert_equal %w[google co.uk], @klass.build("*.uk").decompose("google.co.uk")
-    assert_equal %w[foo.google co.uk], @klass.build("*.uk").decompose("foo.google.co.uk")
+    assert_equal %w( google co.uk ), @klass.build("*.uk").decompose("google.co.uk")
+    assert_equal %w( foo.google co.uk ), @klass.build("*.uk").decompose("foo.google.co.uk")
   end
 
 end

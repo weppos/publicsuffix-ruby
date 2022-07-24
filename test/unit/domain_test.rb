@@ -10,15 +10,15 @@ class PublicSuffix::DomainTest < Minitest::Test
 
   # Tokenizes given input into labels.
   def test_self_name_to_labels
-    assert_equal  %w[someone spaces live com],
+    assert_equal  %w( someone spaces live com ),
                   PublicSuffix::Domain.name_to_labels("someone.spaces.live.com")
-    assert_equal  %w[leontina23samiko wiki zoho com],
+    assert_equal  %w( leontina23samiko wiki zoho com ),
                   PublicSuffix::Domain.name_to_labels("leontina23samiko.wiki.zoho.com")
   end
 
   # Converts input into String.
   def test_self_name_to_labels_converts_input_to_string
-    assert_equal  %w[someone spaces live com],
+    assert_equal  %w( someone spaces live com ),
                   PublicSuffix::Domain.name_to_labels(:"someone.spaces.live.com")
   end
 

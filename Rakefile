@@ -9,7 +9,7 @@ task default: [:test, :rubocop]
 require "rake/testtask"
 
 Rake::TestTask.new do |t|
-  t.libs = %w[lib test]
+  t.libs = %w( lib test )
   t.pattern = "test/**/*_test.rb"
   t.verbose = !ENV["VERBOSE"].nil?
   t.warning = !ENV["WARNING"].nil?
@@ -42,10 +42,10 @@ desc "Downloads the Public Suffix List file from the repository and stores it lo
 task :"update-list" do
   require "net/http"
 
-  definition_url = "https://raw.githubusercontent.com/publicsuffix/list/master/public_suffix_list.dat"
+  DEFINITION_URL = "https://raw.githubusercontent.com/publicsuffix/list/master/public_suffix_list.dat"
 
   File.open("data/list.txt", "w+") do |f|
-    response = Net::HTTP.get_response(URI.parse(definition_url))
+    response = Net::HTTP.get_response(URI.parse(DEFINITION_URL))
     response.body
     f.write(response.body)
   end
