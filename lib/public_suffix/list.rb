@@ -87,7 +87,7 @@ module PublicSuffix
             section = 2
 
           # skip comments
-          when line.start_with?(comment_token)
+          when line.start_with?(comment_token) # rubocop:disable Lint/DuplicateBranch
             next
 
           else

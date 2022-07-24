@@ -125,7 +125,7 @@ module PublicSuffix
       # @param  private [Boolean]
       def initialize(value:, length: nil, private: false)
         @value    = value.to_s
-        @length   = length || @value.count(DOT) + 1
+        @length   = length || (@value.count(DOT) + 1)
         @private  = private
       end
 
@@ -161,7 +161,7 @@ module PublicSuffix
       # @param  name [String] the domain name to check
       # @return [Boolean]
       def match?(name)
-        # Note: it works because of the assumption there are no
+        # NOTE: it works because of the assumption there are no
         # rules like foo.*.com. If the assumption is incorrect,
         # we need to properly walk the input and skip parts according
         # to wildcard component.
