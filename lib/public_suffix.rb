@@ -68,7 +68,7 @@ module PublicSuffix
     what = normalize(name)
     raise what if what.is_a?(DomainInvalid)
 
-    rule = list.find(what, default: default_rule, ignore_private: ignore_private)
+    rule = list.find(what, default: default_rule, ignore_private:)
 
     # rubocop:disable Style/IfUnlessModifier
     if rule.nil?
@@ -124,7 +124,7 @@ module PublicSuffix
     what = normalize(name)
     return false if what.is_a?(DomainInvalid)
 
-    rule = list.find(what, default: default_rule, ignore_private: ignore_private)
+    rule = list.find(what, default: default_rule, ignore_private:)
 
     !rule.nil? && !rule.decompose(what).last.nil?
   end
@@ -169,7 +169,7 @@ module PublicSuffix
 
     return DomainInvalid.new("Name is blank") if name.empty?
     return DomainInvalid.new("Name starts with a dot") if name.start_with?(DOT)
-    return DomainInvalid.new("%s is not expected to contain a scheme" % name) if name.include?("://")
+    return DomainInvalid.new(format("%s is not expected to contain a scheme", name)) if name.include?("://")
 
     name
   end

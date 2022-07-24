@@ -116,7 +116,7 @@ module PublicSuffix
       # @param  content [String] the content of the rule
       # @param  private [Boolean]
       def self.build(content, private: false)
-        new(value: content, private: private)
+        new(value: content, private:)
       end
 
       # Initializes a new rule.
@@ -125,7 +125,7 @@ module PublicSuffix
       # @param  private [Boolean]
       def initialize(value:, length: nil, private: false)
         @value    = value.to_s
-        @length   = length || @value.count(DOT) + 1
+        @length   = length || (@value.count(DOT) + 1)
         @private  = private
       end
 
@@ -161,7 +161,7 @@ module PublicSuffix
       # @param  name [String] the domain name to check
       # @return [Boolean]
       def match?(name)
-        # Note: it works because of the assumption there are no
+        # NOTE: it works because of the assumption there are no
         # rules like foo.*.com. If the assumption is incorrect,
         # we need to properly walk the input and skip parts according
         # to wildcard component.
@@ -221,7 +221,7 @@ module PublicSuffix
       # @param  content [String] the content of the rule
       # @param  private [Boolean]
       def self.build(content, private: false)
-        new(value: content.to_s[2..-1], private: private)
+        new(value: content.to_s[2..], private:)
       end
 
       # Initializes a new rule.
@@ -230,7 +230,7 @@ module PublicSuffix
       # @param  length [Integer]
       # @param  private [Boolean]
       def initialize(value:, length: nil, private: false)
-        super(value: value, length: length, private: private)
+        super(value:, length:, private:)
         length or @length += 1 # * counts as 1
       end
 
@@ -269,7 +269,7 @@ module PublicSuffix
       # @param  content [#to_s] the content of the rule
       # @param  private [Boolean]
       def self.build(content, private: false)
-        new(value: content.to_s[1..-1], private: private)
+        new(value: content.to_s[1..], private:)
       end
 
       # Gets the original rule definition.
@@ -299,7 +299,7 @@ module PublicSuffix
       #
       # @return [Array<String>]
       def parts
-        @value.split(DOT)[1..-1]
+        @value.split(DOT)[1..]
       end
 
     end
@@ -331,7 +331,7 @@ module PublicSuffix
         Exception
       else
         Normal
-      end.build(content, private: private)
+      end.build(content, private:)
     end
 
     # The default rule to use if no rule match.

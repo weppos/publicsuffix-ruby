@@ -87,7 +87,7 @@ module PublicSuffix
             section = 2
 
           # skip comments
-          when line.start_with?(comment_token)
+          when line.start_with?(comment_token) # rubocop:disable Lint/DuplicateBranch
             next
 
           else
@@ -125,12 +125,12 @@ module PublicSuffix
     alias eql? ==
 
     # Iterates each rule in the list.
-    def each(&block)
+    def each(&)
       Enumerator.new do |y|
         @rules.each do |key, node|
           y << entry_to_rule(node, key)
         end
-      end.each(&block)
+      end.each(&)
     end
 
 
@@ -236,7 +236,7 @@ module PublicSuffix
     private
 
     def entry_to_rule(entry, value)
-      entry.type.new(value: value, length: entry.length, private: entry.private)
+      entry.type.new(value:, length: entry.length, private: entry.private)
     end
 
     def rule_to_entry(rule)
