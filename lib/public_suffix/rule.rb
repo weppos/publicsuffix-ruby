@@ -221,7 +221,7 @@ module PublicSuffix
       # @param  content [String] the content of the rule
       # @param  private [Boolean]
       def self.build(content, private: false)
-        new(value: content.to_s[2..-1], private: private)
+        new(value: content.to_s[2..], private: private)
       end
 
       # Initializes a new rule.
@@ -269,7 +269,7 @@ module PublicSuffix
       # @param  content [#to_s] the content of the rule
       # @param  private [Boolean]
       def self.build(content, private: false)
-        new(value: content.to_s[1..-1], private: private)
+        new(value: content.to_s[1..], private: private)
       end
 
       # Gets the original rule definition.
@@ -299,7 +299,7 @@ module PublicSuffix
       #
       # @return [Array<String>]
       def parts
-        @value.split(DOT)[1..-1]
+        @value.split(DOT)[1..]
       end
 
     end

@@ -16,7 +16,7 @@
 
 ## Requirements
 
-<tt>PublicSuffix</tt> requires **Ruby >= 2.3**. For an older versions of Ruby use a previous release.
+<tt>PublicSuffix</tt> requires **Ruby >= 2.6**. For an older versions of Ruby use a previous release.
 
 
 ## Installation

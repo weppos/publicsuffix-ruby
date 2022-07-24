@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     "source_code_uri" => "https://github.com/weppos/publicsuffix-ruby/tree/v#{s.version}",
   }
 
-  s.required_ruby_version = ">= 2.3"
+  s.required_ruby_version = ">= 2.6"
 
   s.require_paths    = ["lib"]
   s.files            = `git ls-files`.split("\n")

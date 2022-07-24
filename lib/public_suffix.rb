@@ -169,7 +169,7 @@ module PublicSuffix
 
     return DomainInvalid.new("Name is blank") if name.empty?
     return DomainInvalid.new("Name starts with a dot") if name.start_with?(DOT)
-    return DomainInvalid.new("%s is not expected to contain a scheme" % name) if name.include?("://")
+    return DomainInvalid.new(format("%s is not expected to contain a scheme", name)) if name.include?("://")
 
     name
   end

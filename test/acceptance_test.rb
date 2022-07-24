@@ -64,7 +64,7 @@ class AcceptanceTest < Minitest::Test
   def test_rejected
     REJECTED_CASES.each do |name, expected|
       assert_equal expected, PublicSuffix.valid?(name),
-                   "Expected %s to be %s" % [name.inspect, expected.inspect]
+                   format("Expected %s to be %s", name.inspect, expected.inspect)
       assert !valid_domain?(name),
              "#{name} expected to be invalid"
     end
@@ -72,9 +72,9 @@ class AcceptanceTest < Minitest::Test
 
 
   CASE_CASES = [
-    ["Www.google.com", %w( www google com )],
-    ["www.Google.com", %w( www google com )],
-    ["www.google.Com", %w( www google com )],
+    ["Www.google.com", %w[www google com]],
+    ["www.Google.com", %w[www google com]],
+    ["www.google.Com", %w[www google com]],
   ].freeze
 
   def test_ignore_case
