@@ -21,6 +21,10 @@ jobs:
       - name: Update PSL
         run: bundle exec rake update-list
 
+      - name: Setup Pull Request
+        run: |
+          echo "vendor" >> .gitignore
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
