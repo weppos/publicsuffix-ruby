@@ -23,7 +23,9 @@ jobs:
 
       - name: Setup Pull Request
         run: |
-          echo "vendor" >> .gitignore
+          touch ~/.gitignore_global
+          echo "vendor" >> .gitignore_global
+          git config --global core.excludesfile ~/.gitignore_global
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
