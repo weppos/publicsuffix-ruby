@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-#
 # = Public Suffix
 #
 # Domain name parser based on the Public Suffix List.
@@ -10,6 +9,6 @@
 module PublicSuffix
 
   # @return [String] The current library version.
-  VERSION = "5.0.1"
+  VERSION = "5.0.2"
 
 end
