@@ -56,7 +56,7 @@ LIST
 
   def test_add
     assert_equal @list, @list.add(PublicSuffix::Rule.factory("foo"))
-    assert_equal @list, @list <<  PublicSuffix::Rule.factory("bar")
+    assert_equal @list, @list << PublicSuffix::Rule.factory("bar")
     assert_equal 2, @list.size
   end
 
