@@ -1,16 +1,18 @@
-# -*- encoding: utf-8 -*-
-$LOAD_PATH.push File.expand_path("../lib", __FILE__)
-require "public_suffix/version"
+# frozen_string_literal: true
+
+require_relative "lib/public_suffix/version"
 
 Gem::Specification.new do |s|
-  s.name        = "public_suffix"
-  s.version     = PublicSuffix::VERSION
-  s.authors     = ["Simone Carletti"]
-  s.email       = ["weppos@weppos.net"]
-  s.homepage    = "https://simonecarletti.com/code/publicsuffix-ruby"
-  s.summary     = "Domain name parser based on the Public Suffix List."
+  s.name = "public_suffix"
+  s.version = PublicSuffix::VERSION
+  s.authors = ["Simone Carletti"]
+  s.email = ["weppos@weppos.net"]
+
+  s.summary = "Domain name parser based on the Public Suffix List."
   s.description = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
-  s.licenses    = ["MIT"]
+  s.homepage = "https://simonecarletti.com/code/publicsuffix-ruby"
+  s.licenses = ["MIT"]
+  s.required_ruby_version = ">= 2.6"
 
   s.metadata = {
     "bug_tracker_uri" => "https://github.com/weppos/publicsuffix-ruby/issues",
@@ -20,9 +22,12 @@ Gem::Specification.new do |s|
     "source_code_uri" => "https://github.com/weppos/publicsuffix-ruby/tree/v#{s.version}",
   }
 
-  s.required_ruby_version = ">= 2.6"
-
-  s.require_paths    = ["lib"]
-  s.files            = `git ls-files -z`.split("\x0").reject { |f| (File.expand_path(f) == __FILE__) || f.start_with?(*%w[bin/ test/ .git .rubocop Gemfile Rakefile]) }
+  s.files = Dir.chdir(__dir__) do
+    `git ls-files -z`.split("\x0").reject do |f|
+      (File.expand_path(f) == __FILE__) ||
+        f.start_with?(*%w[bin/ test/ .git .rubocop Gemfile Rakefile])
+    end
+  end
+  s.require_paths = ["lib"]
   s.extra_rdoc_files = %w( LICENSE.txt )
 end
