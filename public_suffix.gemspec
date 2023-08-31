@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.6"
 
   s.require_paths    = ["lib"]
-  s.files            = `git ls-files`.split("\n")
-  s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files            = `git ls-files -z`.split("\x0").reject { |f| (File.expand_path(f) == __FILE__) || f.start_with?(*%w[bin/ test/ .git .rubocop Gemfile Rakefile]) }
   s.extra_rdoc_files = %w( LICENSE.txt )
 end
