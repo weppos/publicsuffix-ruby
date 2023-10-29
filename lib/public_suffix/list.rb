@@ -209,14 +209,12 @@ module PublicSuffix
 
       limit = [parts.size, @max_rule_size].min
 
-      loop do
+      while index < limit
         match = @rules[query]
         rules << entry_to_rule(match, query) if !match.nil? && (ignore_private == false || match.private == false)
 
         index += 1
-        break if index >= limit
-
-        query = parts[index] + DOT + query
+        query = parts[index] + DOT + query if index < limit
       end
 
       rules
