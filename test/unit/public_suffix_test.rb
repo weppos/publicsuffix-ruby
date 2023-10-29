@@ -7,6 +7,9 @@ class PublicSuffixTest < Minitest::Test
   def test_private_domains_enabled_by_default
     domain = PublicSuffix.parse("www.example.blogspot.com")
     assert_equal "blogspot.com", domain.tld
+
+    domain = PublicSuffix.parse("example.s3.cn-north-1.amazonaws.com.cn")
+    assert_equal "s3.cn-north-1.amazonaws.com.cn", domain.tld
   end
 
   def test_private_domains_disable
