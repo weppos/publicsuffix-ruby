@@ -9,6 +9,6 @@
 module PublicSuffix
 
   # @return [String] the current library version
-  VERSION = "5.0.3"
+  VERSION = "5.0.4"
 
 end
