@@ -6,7 +6,7 @@ This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
 ### Changed
 
-- Reduced .gem file size (GH-259). [Thanks @ybiquitous]
+- Reduced .gem file size (GH-258). [Thanks @ybiquitous]
 - Updated definitions.
 
 ## 5.0.3
