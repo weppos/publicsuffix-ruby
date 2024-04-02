@@ -4,7 +4,7 @@
 #
 # Domain name parser based on the Public Suffix List.
 #
-# Copyright (c) 2009-2023 Simone Carletti <weppos@weppos.net>
+# Copyright (c) 2009-2024 Simone Carletti <weppos@weppos.net>
 
 module PublicSuffix
 
