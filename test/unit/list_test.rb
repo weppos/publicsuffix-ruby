@@ -46,8 +46,7 @@ alpha
 beta
 LIST
 
-    entries = []
-    list.each { |r| entries << r }
+    entries = list.map { |r| r }
 
     assert_equal 2, entries.count
     assert_equal PublicSuffix::Rule.factory("alpha"), entries.first
