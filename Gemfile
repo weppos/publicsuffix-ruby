@@ -9,6 +9,6 @@ gem "rake"
 gem "memory_profiler", require: false
 gem "minitest"
 gem "minitest-reporters"
-gem "mocha", "~> 2.1.0"
+gem "mocha", "~> 2.2.0"
 gem "rubocop", require: false
 gem "yard"
