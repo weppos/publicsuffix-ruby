@@ -46,7 +46,8 @@ alpha
 beta
 LIST
 
-    entries = list.map { |r| r }
+    entries = []
+    list.each { |r| entries << r } # rubocop:disable Style/MapIntoArray
 
     assert_equal 2, entries.count
     assert_equal PublicSuffix::Rule.factory("alpha"), entries.first
