@@ -16,7 +16,7 @@
 
 ## Requirements
 
-<tt>PublicSuffix</tt> requires **Ruby >= 2.6**. For an older versions of Ruby use a previous release.
+<tt>PublicSuffix</tt> requires **Ruby >= 3.0**. For an older versions of Ruby use a previous release.
 
 
 ## Installation
@@ -32,8 +32,6 @@ Or use Bundler and define it as a dependency in your `Gemfile`:
 ```ruby
 gem 'public_suffix'
 ```
-
-If you are upgrading to 2.0, see [2.0-Upgrade.md](2.0-Upgrade.md).
 
 ## Usage
 
