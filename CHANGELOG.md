@@ -2,7 +2,8 @@
 
 This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
-## main
+
+## 5.1.0
 
 ### Changed
 
@@ -16,6 +17,7 @@ This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
 - Updated definitions.
 
+
 ## 5.0.4
 
 ### Changed
@@ -23,17 +25,20 @@ This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 - Reduced .gem file size (GH-258). [Thanks @ybiquitous]
 - Updated definitions.
 
+
 ## 5.0.3
 
 ### Fixed
 
 - Fixed automated release workflow.
 
+
 ## 5.0.2
 
 ### Changed
 
 - Updated definitions.
+
 
 ## 5.0.1
 
