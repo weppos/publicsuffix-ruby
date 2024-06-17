@@ -2,6 +2,11 @@
 
 This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
+## 5.1.1
+
+No significant changes. Releasing a mini version to address 5.1.0 release with major ruby requirement change (GH-315).
+
+
 ## 5.0.5
 
 ### Changed

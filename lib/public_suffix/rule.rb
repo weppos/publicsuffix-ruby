@@ -230,7 +230,7 @@ module PublicSuffix
       # @param  length [Integer]
       # @param  private [Boolean]
       def initialize(value:, length: nil, private: false)
-        super(value: value, length: length, private: private)
+        super
         length or @length += 1 # * counts as 1
       end
 
