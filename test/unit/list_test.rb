@@ -47,7 +47,7 @@ beta
 LIST
 
     entries = []
-    list.each { |r| entries << r }
+    list.each { |r| entries << r } # rubocop:disable Style/MapIntoArray
 
     assert_equal 2, entries.count
     assert_equal PublicSuffix::Rule.factory("alpha"), entries.first

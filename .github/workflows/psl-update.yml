@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Update PSL
@@ -28,6 +28,7 @@ jobs:
           title: PSL auto-update
           commit-message: Updated list from source
           reviewers: weppos
+          labels: psl
           add-paths: |
             data/list.txt
 
