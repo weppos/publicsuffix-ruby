@@ -3,6 +3,21 @@
 This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
 
+## 6.0.0
+
+Same as 5.1.0. Re-releasing as a major version change due to a major ruby version requirement change.
+
+### Changed
+
+- Updated definitions.
+- Minimum Ruby version is 3.0
+
+
+## 5.1.1
+
+No significant changes. Releasing a mini version to address 5.1.0 release with major ruby requirement change (GH-315).
+
+
 ## 5.1.0
 
 ### Changed
