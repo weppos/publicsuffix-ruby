@@ -3,6 +3,13 @@
 This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
 
+## 6.0.1
+
+### Changed
+
+- Updated definitions.
+
+
 ## 6.0.0
 
 Same as 5.1.0. Re-releasing as a major version change due to a major ruby version requirement change.
