@@ -863,10 +863,12 @@ sa.cr
 cu
 com.cu
 edu.cu
-org.cu
-net.cu
+gob.cu
 gov.cu
 inf.cu
+nat.cu
+net.cu
+org.cu
 
 // cv : https://www.iana.org/domains/root/db/cv.html
 // cv : http://www.dns.cv/tldcv_portal/do?com=DS;5446457100;111;+PAGE(4000018)+K-CAT-CODIGO(RDOM)+RCNT(100); <- registration rules
@@ -12548,11 +12550,6 @@ localhost.daplie.me
 // Submitted by Abel Boldu / DAppNode Team <community@dappnode.io>
 dyndns.dappnode.io
 
-// dapps.earth : https://dapps.earth/
-// Submitted by Daniil Burdakov <icqkill@gmail.com>
-*.dapps.earth
-*.bzz.dapps.earth
-
 // Dark, Inc. : https://darklang.com
 // Submitted by Paul Biggar <ops@darklang.com>
 builtwithdark.com
@@ -13091,7 +13088,6 @@ kr.eu.org
 lt.eu.org
 lu.eu.org
 lv.eu.org
-mc.eu.org
 me.eu.org
 mk.eu.org
 mt.eu.org
