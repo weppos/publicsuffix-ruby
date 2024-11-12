@@ -698,6 +698,7 @@ of.by
 // bz : https://www.iana.org/domains/root/db/bz.html
 // http://www.belizenic.bz/
 bz
+co.bz
 com.bz
 net.bz
 org.bz
@@ -13383,11 +13384,10 @@ gentlentapis.com
 lab.ms
 cdn-edges.net
 
-// Getlocalcert: https://www.getlocalcert.net
-// Submitted by Robert Alexander <support@getlocalcert.net>
+// GetLocalCert : https://getlocalcert.net
+// Submitted by William Harrison <psl@getlocalcert.net>
 localcert.net
 localhostcert.net
-corpnet.work
 
 // GignoSystemJapan: http://gsj.bz
 // Submitted by GignoSystemJapan <kakutou-ec@gsj.bz>
