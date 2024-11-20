@@ -287,19 +287,20 @@ com.aw
 ax
 
 // az : https://www.iana.org/domains/root/db/az.html
+// https://whois.az/?page_id=10
 az
+biz.az
 com.az
-net.az
-int.az
-gov.az
-org.az
 edu.az
+gov.az
 info.az
-pp.az
+int.az
 mil.az
 name.az
+net.az
+org.az
+pp.az
 pro.az
-biz.az
 
 // ba : http://nic.ba/users_data/files/pravilnik_o_registraciji.pdf
 ba
@@ -832,21 +833,17 @@ mo.cn
 tw.cn
 
 // co : https://www.iana.org/domains/root/db/co.html
-// Submitted by registry <tecnico@uniandes.edu.co>
+// https://www.cointernet.com.co/registra
+// https://www.cointernet.com.co/como-funciona-un-dominio-restringido
+// Confirmed by registry <gonzalo@cointernet.com.co> 2024-11-18
 co
-arts.co
 com.co
 edu.co
-firm.co
 gov.co
-info.co
-int.co
 mil.co
 net.co
 nom.co
 org.co
-rec.co
-web.co
 
 // com : https://www.iana.org/domains/root/db/com.html
 com
@@ -1890,16 +1887,23 @@ org.je
 // jm : http://www.com.jm/register.html
 *.jm
 
-// jo : http://www.dns.jo/Registration_policy.aspx
+// jo : https://www.dns.jo/JoFamily.aspx
+// Confirmed by registry <DNS@modee.gov.jo> 2024-11-17
 jo
+agri.jo
+ai.jo
 com.jo
-org.jo
-net.jo
 edu.jo
-sch.jo
+eng.jo
+fm.jo
 gov.jo
 mil.jo
-name.jo
+net.jo
+org.jo
+per.jo
+phd.jo
+sch.jo
+tv.jo
 
 // jobs : https://www.iana.org/domains/root/db/jobs.html
 jobs
@@ -5102,15 +5106,15 @@ net.pk
 org.pk
 web.pk
 
-// pl http://www.dns.pl/english/index.html
-// Submitted by registry
+// pl : https://www.dns.pl/en/
+// Confirmed by registry <info@dns.pl> 2024-11-18
 pl
 com.pl
 net.pl
 org.pl
-// pl functional domains (http://www.dns.pl/english/index.html)
-aid.pl
+// pl functional domains : https://www.dns.pl/en/list_of_functional_domain_names
 agro.pl
+aid.pl
 atm.pl
 auto.pl
 biz.pl
@@ -5119,8 +5123,8 @@ gmina.pl
 gsm.pl
 info.pl
 mail.pl
-miasta.pl
 media.pl
+miasta.pl
 mil.pl
 nieruchomosci.pl
 nom.pl
@@ -5139,7 +5143,8 @@ tm.pl
 tourism.pl
 travel.pl
 turystyka.pl
-// Government domains
+// Government domains : https://www.dns.pl/informacje_o_rejestracji_domen_gov_pl
+// In accordance with the .gov.pl Domain Name Regulations : https://www.dns.pl/regulamin_gov_pl
 gov.pl
 ap.gov.pl
 griw.gov.pl
@@ -5196,7 +5201,7 @@ wuoz.gov.pl
 wzmiuw.gov.pl
 zp.gov.pl
 zpisdn.gov.pl
-// pl regional domains (http://www.dns.pl/english/index.html)
+// pl regional domains : https://www.dns.pl/en/list_of_regional_domain_names
 augustow.pl
 babia-gora.pl
 bedzin.pl
@@ -5223,11 +5228,11 @@ jaworzno.pl
 jelenia-gora.pl
 jgora.pl
 kalisz.pl
-kazimierz-dolny.pl
 karpacz.pl
 kartuzy.pl
 kaszuby.pl
 katowice.pl
+kazimierz-dolny.pl
 kepno.pl
 ketrzyn.pl
 klodzko.pl
@@ -5270,8 +5275,8 @@ pisz.pl
 podhale.pl
 podlasie.pl
 polkowice.pl
-pomorze.pl
 pomorskie.pl
+pomorze.pl
 prochowice.pl
 pruszkow.pl
 przeworsk.pl
@@ -5282,11 +5287,11 @@ rybnik.pl
 rzeszow.pl
 sanok.pl
 sejny.pl
+skoczow.pl
 slask.pl
 slupsk.pl
 sosnowiec.pl
 stalowa-wola.pl
-skoczow.pl
 starachowice.pl
 stargard.pl
 suwalki.pl
@@ -5415,10 +5420,11 @@ org.qa
 sch.qa
 
 // re : https://www.afnic.fr/wp-media/uploads/2022/12/afnic-naming-policy-2023-01-01.pdf
+// Confirmed by registry <support@afnic.fr> 2024-11-18
 re
+// Closed for registration on 2013-03-15 but domains are still maintained
 asso.re
 com.re
-nom.re
 
 // ro : http://www.rotld.ro/
 ro
@@ -5540,14 +5546,14 @@ x.se
 y.se
 z.se
 
-// sg : http://www.nic.net.sg/page/registration-policies-procedures-and-guidelines
+// sg : https://www.sgnic.sg/domain-registration/sg-categories-rules
+// Confirmed by registry <dnq@sgnic.sg> 2024-11-19
 sg
 com.sg
 net.sg
 org.sg
 gov.sg
 edu.sg
-per.sg
 
 // sh : http://nic.sh/rules.htm
 sh
@@ -5714,16 +5720,17 @@ tk
 tl
 gov.tl
 
-// tm : http://www.nic.tm/local.html
+// tm : https://www.nic.tm/local.html
+// Confirmed by registry <admin@nic.TM> - 2024-11-19
 tm
-com.tm
 co.tm
-org.tm
-net.tm
-nom.tm
+com.tm
+edu.tm
 gov.tm
 mil.tm
-edu.tm
+net.tm
+nom.tm
+org.tm
 
 // tn : http://www.registre.tn/fr/
 // https://whois.ati.tn/
@@ -5782,25 +5789,20 @@ nc.tr
 // Used by government agencies of Northern Cyprus
 gov.nc.tr
 
-// tt : http://www.nic.tt/
+// tt : https://www.nic.tt/
+// Confirmed by registry <admin@nic.tt> - 2024-11-19
 tt
+biz.tt
 co.tt
 com.tt
-org.tt
-net.tt
-biz.tt
-info.tt
-pro.tt
-int.tt
-coop.tt
-jobs.tt
-mobi.tt
-travel.tt
-museum.tt
-aero.tt
-name.tt
-gov.tt
 edu.tt
+gov.tt
+info.tt
+mil.tt
+name.tt
+net.tt
+org.tt
+pro.tt
 
 // tv : https://www.iana.org/domains/root/db/tv.html
 // Not listing any 2LDs as reserved since none seem to exist in practice,
@@ -12218,10 +12220,6 @@ beagleboard.io
 // Besties : https://besties.house
 // Submitted by Hazel Cora <hazy@besties.house>
 pages.gay
-
-// BetaInABox
-// Submitted by Adrian <adrian@betainabox.com>
-betainabox.com
 
 // BinaryLane : http://www.binarylane.com
 // Submitted by Nathan O'Sullivan <nathan@mammoth.com.au>
