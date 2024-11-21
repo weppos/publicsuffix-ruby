@@ -132,13 +132,13 @@ union.aero
 workinggroup.aero
 works.aero
 
-// af : http://www.nic.af/help.jsp
+// af : https://www.nic.af/domain-price
 af
-gov.af
 com.af
-org.af
-net.af
 edu.af
+gov.af
+net.af
+org.af
 
 // ag : http://www.nic.ag/prices.htm
 ag
@@ -436,15 +436,16 @@ gov.bn
 net.bn
 org.bn
 
-// bo : https://nic.bo/delegacion2015.php#h-1.10
+// bo : https://nic.bo
+// Confirmed by registry <soporte@nic.bo> 2024-11-19
 bo
 com.bo
 edu.bo
 gob.bo
 int.bo
-org.bo
-net.bo
 mil.bo
+net.bo
+org.bo
 tv.bo
 web.bo
 // Social Domains
@@ -470,9 +471,9 @@ natural.bo
 nombre.bo
 noticias.bo
 patria.bo
+plurinacional.bo
 politica.bo
 profesional.bo
-plurinacional.bo
 pueblo.bo
 revista.bo
 salud.bo
@@ -880,8 +881,8 @@ int.cv
 nome.cv
 org.cv
 
-// cw : http://www.una.cw/cw_registry/
-// Confirmed by registry <registry@una.net> 2013-03-26
+// cw : https://www.uoc.cw/cw-registry
+// Confirmed by registry <registry@uoc.cw> 2024-11-19
 cw
 com.cw
 edu.cw
@@ -926,12 +927,15 @@ dj
 dk
 
 // dm : https://www.iana.org/domains/root/db/dm.html
+// https://nic.dm/policies/pdf/DMRulesandGuidelines2024v1.pdf
+// Confirmed by registry <admin@dotdm.dm> 2024-11-19
 dm
+co.dm
 com.dm
-net.dm
-org.dm
 edu.dm
 gov.dm
+net.dm
+org.dm
 
 // do : https://www.iana.org/domains/root/db/do.html
 do
@@ -3980,17 +3984,16 @@ gov.me
 its.me
 priv.me
 
-// mg : http://nic.mg/nicmg/?page_id=39
+// mg : https://nic.mg
 mg
-org.mg
-nom.mg
-gov.mg
-prd.mg
-tm.mg
-edu.mg
-mil.mg
-com.mg
 co.mg
+com.mg
+edu.mg
+gov.mg
+mil.mg
+nom.mg
+org.mg
+prd.mg
 
 // mh : https://www.iana.org/domains/root/db/mh.html
 mh
