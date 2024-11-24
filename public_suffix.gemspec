@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     "documentation_uri" => "https://rubydoc.info/gems/#{s.name}/#{s.version}",
     "homepage_uri" => s.homepage,
     "source_code_uri" => "https://github.com/weppos/publicsuffix-ruby/tree/v#{s.version}",
+    "funding_uri" => "https://github.com/sponsors/weppos",
   }
 
   s.files = Dir.chdir(__dir__) do
