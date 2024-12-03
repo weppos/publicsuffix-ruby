@@ -14350,6 +14350,7 @@ ui.nabu.casa
 // Net at Work Gmbh : https://www.netatwork.de
 // Submitted by Jan Jaeschke <jan.jaeschke@netatwork.de>
 cloud.nospamproxy.com
+o365.cloud.nospamproxy.com
 
 // Netfy Domains : https://netfy.domains
 // Submitted by Suranga Ranasinghe <security@mavicsoft.com>
@@ -15547,10 +15548,6 @@ rs.ba
 // University of Bielsko-Biala regional domain: http://dns.bielsko.pl/
 // Submitted by Marcin <dns@ath.bielsko.pl>
 bielsko.pl
-
-// Upli : https://upli.io
-// Submitted by Lenny Bakkalian <lenny.bakkalian@gmail.com>
-upli.io
 
 // urown.net : https://urown.net
 // Submitted by Hostmaster <hostmaster@urown.net>
