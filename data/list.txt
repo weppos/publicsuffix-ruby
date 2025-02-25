@@ -6268,6 +6268,7 @@ co.ve
 com.ve
 e12.ve
 edu.ve
+emprende.ve
 firm.ve
 gob.ve
 gov.ve
@@ -12282,6 +12283,10 @@ blackbaudcdn.net
 // Blatech : http://www.blatech.net
 // Submitted by Luke Bratch <luke@bratch.co.uk>
 of.je
+
+// Block, Inc. : https://block.xyz
+// Submitted by Jonathan Boice <security@block.xyz>
+square.site
 
 // Blue Bite, LLC : https://bluebite.com
 // Submitted by Joshua Weiss <admin.engineering@bluebite.com>
