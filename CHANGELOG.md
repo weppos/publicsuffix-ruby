@@ -3,6 +3,13 @@
 This project uses [Semantic Versioning 2.0.0](https://semver.org/).
 
 
+## 6.0.2
+
+### Changed
+
+- Updated definitions.
+
+
 ## 6.0.1
 
 ### Changed
