@@ -35,7 +35,6 @@ task :benchmarks do
     sh "ruby #{file}"
   end
 end
-task default: [:benchmarks] if ENV["BENCHMARKS"] == "1"
 
 
 desc "Downloads the Public Suffix List file from the repository and stores it locally."

@@ -11,4 +11,5 @@ gem "minitest"
 gem "minitest-reporters"
 gem "mocha", "~> 2.7.0"
 gem "rubocop", "~> 1.75.4", require: false
+gem "rubocop-rake", require: false
 gem "yard"
