@@ -6,28 +6,34 @@ class PublicSuffix::RuleTest < Minitest::Test
 
   def test_factory_should_return_rule_normal
     rule = PublicSuffix::Rule.factory("com")
+
     assert_instance_of PublicSuffix::Rule::Normal, rule
 
     rule = PublicSuffix::Rule.factory("verona.it")
+
     assert_instance_of PublicSuffix::Rule::Normal, rule
   end
 
   def test_factory_should_return_rule_exception
     rule = PublicSuffix::Rule.factory("!british-library.uk")
+
     assert_instance_of PublicSuffix::Rule::Exception, rule
   end
 
   def test_factory_should_return_rule_wildcard
     rule = PublicSuffix::Rule.factory("*.do")
+
     assert_instance_of PublicSuffix::Rule::Wildcard, rule
 
     rule = PublicSuffix::Rule.factory("*.sch.uk")
+
     assert_instance_of PublicSuffix::Rule::Wildcard, rule
   end
 
 
   def test_default_returns_default_wildcard
     default = PublicSuffix::Rule.default
+
     assert_equal PublicSuffix::Rule::Wildcard.build("*"), default
     assert_equal %w[example tldnotlisted], default.decompose("example.tldnotlisted")
     assert_equal %w[www.example tldnotlisted], default.decompose("www.example.tldnotlisted")
@@ -48,6 +54,7 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
 
   def test_initialize
     rule = @klass.new(value: "verona.it")
+
     assert_instance_of @klass,  rule
     assert_equal "verona.it",   rule.value
   end
@@ -55,6 +62,7 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
 
   def test_equality_with_self
     rule = PublicSuffix::Rule::Base.new(value: "foo")
+
     assert_equal rule, rule
   end
 
@@ -127,6 +135,7 @@ class PublicSuffix::RuleNormalTest < Minitest::Test
 
   def test_build
     rule = @klass.build("verona.it")
+
     assert_instance_of @klass,              rule
     assert_equal "verona.it",               rule.value
     assert_equal "verona.it",               rule.rule
@@ -163,6 +172,7 @@ class PublicSuffix::RuleExceptionTest < Minitest::Test
 
   def test_initialize
     rule = @klass.build("!british-library.uk")
+
     assert_instance_of @klass, rule
     assert_equal "british-library.uk", rule.value
     assert_equal "!british-library.uk", rule.rule
@@ -197,6 +207,7 @@ class PublicSuffix::RuleWildcardTest < Minitest::Test
 
   def test_initialize
     rule = @klass.build("*.aichi.jp")
+
     assert_instance_of @klass, rule
     assert_equal "aichi.jp", rule.value
     assert_equal "*.aichi.jp", rule.rule

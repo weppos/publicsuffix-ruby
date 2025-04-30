@@ -6,6 +6,7 @@ class PublicSuffixTest < Minitest::Test
 
   def test_private_domains_enabled_by_default
     domain = PublicSuffix.parse("www.example.blogspot.com")
+
     assert_equal "blogspot.com", domain.tld
   end
 
@@ -13,6 +14,7 @@ class PublicSuffixTest < Minitest::Test
     data = File.read(PublicSuffix::List::DEFAULT_LIST_PATH)
     PublicSuffix::List.default = PublicSuffix::List.parse(data, private_domains: false)
     domain = PublicSuffix.parse("www.example.blogspot.com")
+
     assert_equal "com", domain.tld
   ensure
     PublicSuffix::List.default = nil
@@ -21,12 +23,14 @@ class PublicSuffixTest < Minitest::Test
 
   def test_self_parse_a_domain_with_tld_and_sld
     domain = PublicSuffix.parse("example.com")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "com",     domain.tld
     assert_equal "example", domain.sld
     assert_nil              domain.trd
 
     domain = PublicSuffix.parse("example.co.uk")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "co.uk",   domain.tld
     assert_equal "example", domain.sld
@@ -35,12 +39,14 @@ class PublicSuffixTest < Minitest::Test
 
   def test_self_parse_a_domain_with_tld_and_sld_and_trd
     domain = PublicSuffix.parse("alpha.example.com")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "com",     domain.tld
     assert_equal "example", domain.sld
     assert_equal "alpha",   domain.trd
 
     domain = PublicSuffix.parse("alpha.example.co.uk")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "co.uk",   domain.tld
     assert_equal "example", domain.sld
@@ -49,12 +55,14 @@ class PublicSuffixTest < Minitest::Test
 
   def test_self_parse_a_domain_with_tld_and_sld_and_4rd
     domain = PublicSuffix.parse("one.two.example.com")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "com",     domain.tld
     assert_equal "example", domain.sld
     assert_equal "one.two", domain.trd
 
     domain = PublicSuffix.parse("one.two.example.co.uk")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "co.uk",   domain.tld
     assert_equal "example", domain.sld
@@ -63,6 +71,7 @@ class PublicSuffixTest < Minitest::Test
 
   def test_self_parse_name_fqdn
     domain = PublicSuffix.parse("www.example.com.")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "com",     domain.tld
     assert_equal "example", domain.sld
@@ -74,6 +83,7 @@ class PublicSuffixTest < Minitest::Test
     list << PublicSuffix::Rule.factory("test")
 
     domain = PublicSuffix.parse("www.example.test", list: list)
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "test",    domain.tld
     assert_equal "example", domain.sld
@@ -82,6 +92,7 @@ class PublicSuffixTest < Minitest::Test
 
   def test_self_parse_with_notlisted_name
     domain = PublicSuffix.parse("example.tldnotlisted")
+
     assert_instance_of PublicSuffix::Domain, domain
     assert_equal "tldnotlisted",    domain.tld
     assert_equal "example",         domain.sld
@@ -160,6 +171,7 @@ class PublicSuffixTest < Minitest::Test
       " ",
     ].each do |input|
       error = PublicSuffix.normalize(input)
+
       assert_instance_of PublicSuffix::DomainInvalid, error
       assert_equal "Name is blank", error.message
     end
@@ -170,6 +182,7 @@ class PublicSuffixTest < Minitest::Test
       "https://google.com",
     ].each do |input|
       error = PublicSuffix.normalize(input)
+
       assert_instance_of PublicSuffix::DomainInvalid, error
       assert_match(/scheme/, error.message)
     end
@@ -180,6 +193,7 @@ class PublicSuffixTest < Minitest::Test
       ".google.com",
     ].each do |input|
       error = PublicSuffix.normalize(input)
+
       assert_instance_of PublicSuffix::DomainInvalid, error
       assert_match "Name starts with a dot", error.message
     end

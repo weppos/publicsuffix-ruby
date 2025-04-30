@@ -21,11 +21,13 @@ class PublicSuffix::ListTest < Minitest::Test
 
   def test_equality_with_self
     list = PublicSuffix::List.new
+
     assert_equal list, list
   end
 
   def test_equality_with_internals
     rule = PublicSuffix::Rule.factory("com")
+
     assert_equal PublicSuffix::List.new.add(rule), PublicSuffix::List.new.add(rule)
   end
 
@@ -62,17 +64,20 @@ LIST
 
   def test_add_should_recreate_index
     @list = PublicSuffix::List.parse("com")
+
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
     assert_equal @list.default_rule, @list.find("google.net")
 
     @list << PublicSuffix::Rule.factory("net")
+
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
     assert_equal PublicSuffix::Rule.factory("net"), @list.find("google.net")
   end
 
   def test_empty?
-    assert @list.empty?
+    assert_empty @list
     @list.add(PublicSuffix::Rule.factory(""))
+
     assert !@list.empty?
   end
 
@@ -149,9 +154,9 @@ LIST
   end
 
   def test_select_name_blank
-    assert_equal [], list.send(:select, nil)
-    assert_equal [], list.send(:select, "")
-    assert_equal [], list.send(:select, " ")
+    assert_empty list.send(:select, nil)
+    assert_empty list.send(:select, "")
+    assert_empty list.send(:select, " ")
   end
 
   def test_select_ignore_private
@@ -175,15 +180,19 @@ LIST
 
   def test_self_default_getter
     PublicSuffix::List.default = nil
+
     assert_nil(PublicSuffix::List.class_eval { @default })
     PublicSuffix::List.default
+
     refute_nil(PublicSuffix::List.class_eval { @default })
   end
 
   def test_self_default_setter
     PublicSuffix::List.default
+
     refute_nil(PublicSuffix::List.class_eval { @default })
     PublicSuffix::List.default = nil
+
     assert_nil(PublicSuffix::List.class_eval { @default })
   end
 
@@ -215,6 +224,7 @@ LIST
     assert_equal 4, list.size
 
     rules = %w[com *.uk !british-library.uk blogspot.com].map { |name| PublicSuffix::Rule.factory(name) }
+
     assert_equal rules, list.each.to_a
 
     # private domains

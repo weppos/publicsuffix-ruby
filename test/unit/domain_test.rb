@@ -25,6 +25,7 @@ class PublicSuffix::DomainTest < Minitest::Test
 
   def test_initialize_with_tld
     domain = @klass.new("com")
+
     assert_equal "com", domain.tld
     assert_nil domain.sld
     assert_nil domain.trd
@@ -32,6 +33,7 @@ class PublicSuffix::DomainTest < Minitest::Test
 
   def test_initialize_with_tld_and_sld
     domain = @klass.new("com", "google")
+
     assert_equal "com", domain.tld
     assert_equal "google", domain.sld
     assert_nil domain.trd
@@ -39,6 +41,7 @@ class PublicSuffix::DomainTest < Minitest::Test
 
   def test_initialize_with_tld_and_sld_and_trd
     domain = @klass.new("com", "google", "www")
+
     assert_equal "com", domain.tld
     assert_equal "google", domain.sld
     assert_equal "www", domain.trd
@@ -98,9 +101,9 @@ class PublicSuffix::DomainTest < Minitest::Test
 
   def test_domain_question
     assert !@klass.new("com").domain?
-    assert  @klass.new("com", "example").domain?
-    assert  @klass.new("com", "example", "www").domain?
-    assert  @klass.new("tldnotlisted", "example").domain?
+    assert_predicate  @klass.new("com", "example"), :domain?
+    assert_predicate  @klass.new("com", "example", "www"), :domain?
+    assert_predicate  @klass.new("tldnotlisted", "example"), :domain?
   end
 
 end

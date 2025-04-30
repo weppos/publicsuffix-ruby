@@ -19,6 +19,7 @@ class AcceptanceTest < Minitest::Test
     VALID_CASES.each do |input, domain, results|
       parsed = PublicSuffix.parse(input)
       trd, sld, tld = results
+
       assert_equal tld, parsed.tld, "Invalid tld for `#{name}`"
       assert_equal sld, parsed.sld, "Invalid sld for `#{name}`"
       if trd.nil?
@@ -81,6 +82,7 @@ class AcceptanceTest < Minitest::Test
     CASE_CASES.each do |name, results|
       domain = PublicSuffix.parse(name)
       trd, sld, tld = results
+
       assert_equal tld, domain.tld, "Invalid tld for `#{name}'"
       assert_equal sld, domain.sld, "Invalid sld for `#{name}'"
       assert_equal trd, domain.trd, "Invalid trd for `#{name}'"

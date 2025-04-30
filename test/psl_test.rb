@@ -46,6 +46,7 @@ class PslTest < Minitest::Test
 
     message = "The following #{failures.size} tests fail:\n"
     failures.each { |i, o, d| message += format("Expected %s to be %s, got %s\n", i.inspect, o.inspect, d.inspect) }
+
     assert_equal 0, failures.size, message
   end
 
