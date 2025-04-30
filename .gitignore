@@ -6,3 +6,6 @@
 # YARD
 /.yardoc
 /yardoc/
+
+# Local setup
+.tool-versions
