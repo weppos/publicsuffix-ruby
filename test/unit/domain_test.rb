@@ -100,10 +100,10 @@ class PublicSuffix::DomainTest < Minitest::Test
 
 
   def test_domain_question
-    assert !@klass.new("com").domain?
-    assert_predicate  @klass.new("com", "example"), :domain?
-    assert_predicate  @klass.new("com", "example", "www"), :domain?
-    assert_predicate  @klass.new("tldnotlisted", "example"), :domain?
+    refute_predicate @klass.new("com"), :domain?
+    assert_predicate @klass.new("com", "example"), :domain?
+    assert_predicate @klass.new("com", "example", "www"), :domain?
+    assert_predicate @klass.new("tldnotlisted", "example"), :domain?
   end
 
 end

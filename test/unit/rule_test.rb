@@ -63,7 +63,7 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
   def test_equality_with_self
     rule = PublicSuffix::Rule::Base.new(value: "foo")
 
-    assert_equal rule, rule
+    assert rule.eql?(rule)
   end
 
   # rubocop:disable Style/SingleLineMethods

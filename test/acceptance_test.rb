@@ -44,7 +44,7 @@ class AcceptanceTest < Minitest::Test
   def test_invalid
     INVALID_CASES.each do |(name, error)|
       assert_raises(error) { PublicSuffix.parse(name) }
-      assert !PublicSuffix.valid?(name)
+      refute PublicSuffix.valid?(name)
     end
   end
 
@@ -64,10 +64,8 @@ class AcceptanceTest < Minitest::Test
 
   def test_rejected
     REJECTED_CASES.each do |name, expected|
-      assert_equal expected, PublicSuffix.valid?(name),
-                   format("Expected %s to be %s", name.inspect, expected.inspect)
-      assert !valid_domain?(name),
-             "#{name} expected to be invalid"
+      assert_equal expected, PublicSuffix.valid?(name), format("Expected %s to be %s", name.inspect, expected.inspect)
+      refute valid_domain?(name), "#{name} expected to be invalid"
     end
   end
 

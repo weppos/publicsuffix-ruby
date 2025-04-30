@@ -22,7 +22,7 @@ class PublicSuffix::ListTest < Minitest::Test
   def test_equality_with_self
     list = PublicSuffix::List.new
 
-    assert_equal list, list
+    assert list.eql?(list)
   end
 
   def test_equality_with_internals
@@ -78,7 +78,7 @@ LIST
     assert_empty @list
     @list.add(PublicSuffix::Rule.factory(""))
 
-    assert !@list.empty?
+    refute_empty @list
   end
 
   def test_size
@@ -228,8 +228,8 @@ LIST
     assert_equal rules, list.each.to_a
 
     # private domains
-    assert_equal false, list.find("com").private
-    assert_equal true,  list.find("blogspot.com").private
+    refute list.find("com").private
+    assert list.find("blogspot.com").private
   end
 
 
