@@ -13,7 +13,7 @@ AllCops:
     # Other
     - 'test/benchmarks/**/*'
     - 'test/profilers/**/*'
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.0
 
 # I often use @_variable to avoid clashing.
 Naming/MemoizedInstanceVariableName:
