@@ -1,7 +1,9 @@
 require:
+  - rubocop-minitest
   - rubocop-rake
 
 inherit_from:
+  - .rubocop_todo.yml
   - .rubocop_opinionated.yml
 
 AllCops:
