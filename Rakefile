@@ -30,6 +30,7 @@ end
 CLOBBER.include "yardoc"
 
 
+desc "Run all benchmarks in the benchmarks directory"
 task :benchmarks do
   Dir["benchmarks/bm_*.rb"].each do |file|
     sh "ruby #{file}"

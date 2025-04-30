@@ -9,9 +9,3 @@
 # Offense count: 19
 Minitest/MultipleAssertions:
   Max: 12
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Rake/Desc:
-  Exclude:
-    - 'Rakefile'
