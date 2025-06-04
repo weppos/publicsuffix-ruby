@@ -14232,6 +14232,10 @@ barsy.uk
 barsy.co.uk
 barsyonline.co.uk
 
+// Lutra : https://lutra.ai
+// Submitted by Joshua Newman <public-suffix-list@lutra.ai>
+*.lutrausercontent.com
+
 // Luyani Inc. : https://luyani.com/
 // Submitted by Umut Gumeli <public-suffix-list@luyani.com>
 luyani.app
@@ -15635,11 +15639,12 @@ val.run
 web.val.run
 
 // Vercel, Inc : https://vercel.com/
-// Submitted by Max Leiter <security@vercel.com>
+// Submitted by Laurens Duijvesteijn <security@vercel.com>
 vercel.app
 v0.build
 vercel.dev
 vusercontent.net
+vercel.run
 now.sh
 
 // VeryPositive SIA : http://very.lv
