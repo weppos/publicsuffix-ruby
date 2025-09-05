@@ -6207,7 +6207,6 @@ lib.mn.us
 cc.mo.us
 lib.mo.us
 cc.ms.us
-lib.ms.us
 cc.mt.us
 lib.mt.us
 cc.nc.us
@@ -12420,6 +12419,7 @@ brave.io
 
 // Brendly : https://brendly.rs
 // Submitted by Dusan Radovanovic <administracija@brendly.rs>
+shop.brendly.ba
 shop.brendly.hr
 shop.brendly.rs
 
@@ -13750,6 +13750,10 @@ grayjayleagues.com
 // Submitted by Furkan Akkoc <info@hendelzon.de>
 günstigbestellen.de
 günstigliefern.de
+
+// Hackclub Nest : https://hackclub.app
+// Submitted by Cyteon <admins@hackclub.app>
+hackclub.app
 
 // Häkkinen.fi : https://www.häkkinen.fi/
 // Submitted by Eero Häkkinen <Eero+psl@Häkkinen.fi>
