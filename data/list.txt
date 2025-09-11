@@ -12829,10 +12829,6 @@ dreamhosters.com
 // Submitted by Infra Team <infra@durumis.com>
 durumis.com
 
-// Drobo : http://www.drobo.com/
-// Submitted by Ricardo Padilha <rpadilha@drobo.com>
-mydrobo.com
-
 // DuckDNS : http://www.duckdns.org/
 // Submitted by Richard Harper <richard@duckdns.org>
 duckdns.org
@@ -14250,10 +14246,6 @@ loginline.site
 // Lõhmus Family, The : https://lohmus.me/
 // Submitted by Heiki Lõhmus <hostmaster@lohmus.me>
 lohmus.me
-
-// Lokalized : https://lokalized.nl
-// Submitted by Noah Taheij <noah@lokalized.nl>
-servers.run
 
 // Lovable : https://lovable.dev
 // Submitted by Fabian Hedin <security@lovable.dev>
