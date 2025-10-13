@@ -12446,6 +12446,8 @@ cafjs.com
 canva-apps.cn
 my.canvasite.cn
 canva-apps.com
+canva-hosted-embed.com
+canvacode.com
 rice-labs.com
 canva.run
 my.canva.site
@@ -12771,6 +12773,7 @@ icp1.io
 *.raw.icp1.io
 *.icp.net
 caffeine.site
+caffeine.xyz
 
 // dhosting.pl Sp. z o.o. : https://dhosting.pl/
 // Submitted by Michal Kokoszkiewicz <bok@dhosting.pl>
