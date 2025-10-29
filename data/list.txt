@@ -6326,6 +6326,7 @@ net.vc
 org.vc
 
 // ve : https://registro.nic.ve/
+// https://nic.ve/site/user-agreement -> under "III. Clasificación de Nombres de Dominio"
 // Submitted by registry nic@nic.ve and nicve@conatel.gob.ve
 ve
 arts.ve
@@ -6338,6 +6339,7 @@ emprende.ve
 firm.ve
 gob.ve
 gov.ve
+ia.ve
 info.ve
 int.ve
 mil.ve
@@ -12593,6 +12595,7 @@ cloudbeesusercontent.io
 
 // Cloudflare, Inc. : https://www.cloudflare.com/
 // Submitted by Cloudflare Team <publicsuffixlist@cloudflare.com>
+cloudflare.app
 cf-ipfs.com
 cloudflare-ipfs.com
 trycloudflare.com
@@ -13567,6 +13570,10 @@ cdn-edges.net
 // GignoSystemJapan : http://gsj.bz
 // Submitted by GignoSystemJapan <kakutou-ec@gsj.bz>
 gsj.bz
+
+// GitBook Inc. : https://www.gitbook.com/
+// Submitted by Samy Pesse <devs@gitbook.com>
+gitbook.io
 
 // GitHub, Inc.
 // Submitted by Patrick Toomey <security@github.com>
@@ -15491,6 +15498,10 @@ novecore.site
 // Submitted by Jacob Lee <jacob@stdlib.com>
 api.stdlib.com
 
+// statichost.eu : https://www.statichost.eu
+// Submitted by Eric Selin <admin@statichost.eu>
+statichost.page
+
 // stereosense GmbH : https://www.involve.me
 // Submitted by Florian Burmann <publicsuffix@involve.me>
 feedback.ac
@@ -15624,8 +15635,9 @@ p.tawkto.email
 tche.br
 
 // team.blue : https://team.blue
-// Submitted by Cedric Dubois <cedric.dubois@team.blue>
+// Submitted by Cedric Dubois <psl-sh@team.blue>
 site.tb-hosting.com
+directwp.eu
 
 // Teckids e.V. : https://www.teckids.org
 // Submitted by Dominik George <dominik.george@teckids.org>
