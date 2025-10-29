@@ -100,8 +100,8 @@ class PublicSuffixTest < Minitest::Test
   end
 
   def test_self_parse_with_unallowed_domain
-    error = assert_raises(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.bd") }
-    assert_match(/example\.bd/, error.message)
+    error = assert_raises(PublicSuffix::DomainNotAllowed) { PublicSuffix.parse("example.er") }
+    assert_match(/example\.er/, error.message)
   end
 
   def test_self_parse_with_uri
@@ -122,12 +122,6 @@ class PublicSuffixTest < Minitest::Test
     assert  PublicSuffix.valid?("www.google.tldnotlisted")
   end
 
-  # def test_self_valid_with_fully_qualified_domain_name
-  #   assert  PublicSuffix.valid?("google.com.")
-  #   assert  PublicSuffix.valid?("google.co.uk.")
-  #   assert !PublicSuffix.valid?("google.tldnotlisted.")
-  # end
-
 
   def test_self_domain
     assert_equal "google.com",    PublicSuffix.domain("google.com")
@@ -141,7 +135,7 @@ class PublicSuffixTest < Minitest::Test
   end
 
   def test_self_domain_with_unallowed_name
-    assert_nil PublicSuffix.domain("example.bd")
+    assert_nil PublicSuffix.domain("example.er")
   end
 
   def test_self_domain_with_blank_sld

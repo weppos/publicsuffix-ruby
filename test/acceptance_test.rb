@@ -35,10 +35,10 @@ class AcceptanceTest < Minitest::Test
 
 
   INVALID_CASES = [
-    ["nic.bd", PublicSuffix::DomainNotAllowed],
-    [nil,                       PublicSuffix::DomainInvalid],
-    ["",                        PublicSuffix::DomainInvalid],
-    ["  ",                      PublicSuffix::DomainInvalid],
+    ["nic.er", PublicSuffix::DomainNotAllowed],
+    [nil, PublicSuffix::DomainInvalid],
+    ["", PublicSuffix::DomainInvalid],
+    ["  ", PublicSuffix::DomainInvalid],
   ].freeze
 
   def test_invalid
@@ -51,15 +51,15 @@ class AcceptanceTest < Minitest::Test
 
   REJECTED_CASES = [
     ["www. .com", true],
-    ["foo.co..uk",          true],
-    ["goo,gle.com",         true],
-    ["-google.com",         true],
-    ["google-.com",         true],
+    ["foo.co..uk", true],
+    ["goo,gle.com", true],
+    ["-google.com", true],
+    ["google-.com", true],
 
     # This case was covered in GH-15.
     # I decided to cover this case because it's not easily reproducible with URI.parse
     # and can lead to several false positives.
-    ["http://google.com",   false],
+    ["http://google.com", false],
   ].freeze
 
   def test_rejected

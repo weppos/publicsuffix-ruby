@@ -4,7 +4,7 @@ require_relative "../../lib/public_suffix"
 NAME_SHORT  = "example.de"
 NAME_MEDIUM = "www.subdomain.example.de"
 NAME_LONG   = "one.two.three.four.five.example.de"
-NAME_WILD   = "one.two.three.four.five.example.bd"
+NAME_WILD   = "one.two.three.four.five.example.er"
 NAME_EXCP   = "one.two.three.four.five.www.ck"
 
 IAAA = "www.example.ac"
