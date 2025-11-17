@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
   s.homepage = "https://simonecarletti.com/code/publicsuffix-ruby"
   s.licenses = ["MIT"]
-  s.required_ruby_version = ">= 3.0"
+  s.required_ruby_version = ">= 3.2"
 
   s.metadata = {
     "bug_tracker_uri" => "https://github.com/weppos/publicsuffix-ruby/issues",
