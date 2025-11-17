@@ -1,6 +1,6 @@
-# Public Suffix <small>for Ruby</small>
+# PublicSuffix for Ruby
 
-<tt>PublicSuffix</tt> is a Ruby domain name parser based on the [Public Suffix List](https://publicsuffix.org/).
+`PublicSuffix` is a Ruby domain name parser based on the [Public Suffix List](https://publicsuffix.org/).
 
 [![Build Status](https://github.com/weppos/publicsuffix-ruby/actions/workflows/tests.yml/badge.svg)](https://github.com/weppos/publicsuffix-ruby/actions/workflows/tests.yml)
 [![Tidelift dependencies](https://tidelift.com/badges/package/rubygems/public_suffix)](https://tidelift.com/subscription/pkg/rubygems-public-suffix?utm_source=rubygems-public-suffix&utm_medium=referral&utm_campaign=enterprise)
@@ -16,7 +16,7 @@
 
 ## Requirements
 
-<tt>PublicSuffix</tt> requires **Ruby >= 3.2**. For an older versions of Ruby use a previous release.
+`PublicSuffix` requires **Ruby >= 3.2**. For older versions of Ruby, use a previous release.
 
 
 ## Installation
@@ -106,9 +106,9 @@ PublicSuffix.valid?("example.tldnotlisted", default_rule: nil)
 ```
 
 
-## Fully Qualified Domain Names
+## Fully qualified domain names
 
-This library automatically recognizes Fully Qualified Domain Names. A FQDN is a domain name that end with a trailing dot.
+This library automatically recognizes Fully Qualified Domain Names. A FQDN is a domain name that ends with a trailing dot.
 
 ```ruby
 # Parse a standard domain name
@@ -122,7 +122,7 @@ PublicSuffix.domain("www.google.com.")
 
 ## Private domains
 
-This library has support for switching off support for private (non-ICANN).
+This library supports toggling private (non-ICANN) domain handling.
 
 ```ruby
 # Extract a domain including private domains (by default)
@@ -148,15 +148,15 @@ PublicSuffix.domain("something.blogspot.com")
 # => "blogspot.com"
 ```
 
-## Add domain to list
+## Adding custom domains
 
-If you want to manually add a domain to the list just run:
+To manually add a domain to the list:
 
 ```ruby
 PublicSuffix::List.default << PublicSuffix::Rule.factory('onmicrosoft.com')
 ```
 
-## What is the Public Suffix List?
+## What is the public suffix list?
 
 The [Public Suffix List](https://publicsuffix.org) is a cross-vendor initiative to provide an accurate list of domain name suffixes.
 
@@ -165,7 +165,7 @@ The Public Suffix List is an initiative of the Mozilla Project, but is maintaine
 A "public suffix" is one under which Internet users can directly register names. Some examples of public suffixes are ".com", ".co.uk" and "pvt.k12.wy.us". The Public Suffix List is a list of all known public suffixes.
 
 
-## Why the Public Suffix List is better than any available Regular Expression parser?
+## Why use the public suffix list instead of regular expressions?
 
 Previously, browsers used an algorithm which basically only denied setting wide-ranging cookies for top-level domains with no dots (e.g. com or org). However, this did not work for top-level domains where only third-level registrations are allowed (e.g. co.uk). In these cases, websites could set a cookie for co.uk which will be passed onto every website registered under co.uk.
 
@@ -180,40 +180,48 @@ Source: https://wiki.mozilla.org/Public_Suffix_List
 Not convinced yet? Check out [this real world example](https://stackoverflow.com/q/288810/123527).
 
 
-## Does <tt>PublicSuffix</tt> make requests to Public Suffix List website?
+## Does PublicSuffix make network requests?
 
-No. <tt>PublicSuffix</tt> comes with a bundled list. It does not make any HTTP requests to parse or validate a domain.
-
-
-## Definitions
-
-tld = Top level domain, this is in reference to the last segment of a domain, sometimes the part that is directly after the "dot" symbol. For example, `mozilla.org`, the `.org` portion is the tld.
-
-sld = Second level domain, a domain that is directly below a top-level domain. For example, in `https://www.mozilla.org/en-US/`, `mozilla` is the second-level domain of the .org tld.
-
-trd = Transit routing domain, or known as a subdomain. This is the part of the domain that is before the sld or root domain. For example, in `https://www.mozilla.org/en-US/`, `www` is the trd.
-
-FQDN = Fully Qualified Domain Names, are domain names that are written with the hostname and the domain name, and include the top-level domain, the format looks like `[hostname].[domain].[tld].` for ex. `[www].[mozilla].[org]`.
+No. `PublicSuffix` comes with a bundled list. It does not make any HTTP requests to parse or validate a domain.
 
 
-## Support
+## Terminology
 
-Library documentation is auto-generated from the [README](https://github.com/weppos/publicsuffix-ruby/blob/master/README.md) and the source code, and it's available at https://rubydoc.info/gems/public_suffix.
+- **TLD** (Top-Level Domain): The last segment of a domain name. For example, in `mozilla.org`, the `.org` portion is the TLD.
 
-- The PublicSuffix bug tracker is here: https://github.com/weppos/publicsuffix-ruby/issues
-- The PublicSuffix code repository is here: https://github.com/weppos/publicsuffix-ruby. Contributions are welcome! Please include tests and/or feature coverage for every patch, and create a topic branch for every separate change you make.
+- **SLD** (Second-Level Domain): A domain directly below a top-level domain. For example, in `https://www.mozilla.org/en-US/`, `mozilla` is the second-level domain of the `.org` TLD.
 
-[Consider subscribing to Tidelift which provides Enterprise support for this project](https://tidelift.com/subscription/pkg/rubygems-public-suffix?utm_source=rubygems-public-suffix&utm_medium=referral&utm_campaign=readme) as part of the Tidelift Subscription. Tidelift subscriptions also help the maintainers by funding the project, which in turn allows us to ship releases, bugfixes, and security updates more often.
+- **TRD** (Third-Level Domain): Also known as a subdomain, this is the part of the domain before the SLD or root domain. For example, in `https://www.mozilla.org/en-US/`, `www` is the TRD.
+
+- **FQDN** (Fully Qualified Domain Name): A complete domain name that includes the hostname, domain, and top-level domain, ending with a trailing dot. The format is `[hostname].[domain].[tld].` (e.g., `www.mozilla.org.`).
 
 
-## Security and Vulnerability Reporting
+## Documentation and support
 
-Full information and description of our security policy please visit [`SECURITY.md`](SECURITY.md)
+### Documentation
+
+Library documentation is auto-generated from the [README](https://github.com/weppos/publicsuffix-ruby/blob/master/README.md) and source code, and is available at https://rubydoc.info/gems/public_suffix.
+
+### Bug reports and contributions
+
+- **Bug Tracker**: https://github.com/weppos/publicsuffix-ruby/issues
+- **Code Repository**: https://github.com/weppos/publicsuffix-ruby
+
+Contributions are welcome! Please include tests and/or feature coverage for every patch, and create a topic branch for every separate change you make.
+
+### Enterprise support
+
+[Consider subscribing to Tidelift](https://tidelift.com/subscription/pkg/rubygems-public-suffix?utm_source=rubygems-public-suffix&utm_medium=referral&utm_campaign=readme), which provides enterprise support for this project as part of the Tidelift Subscription. Tidelift subscriptions help fund the project, allowing us to ship releases, bugfixes, and security updates more frequently.
+
+
+## Security and vulnerability reporting
+
+For full information and details about our security policy, please visit [`SECURITY.md`](SECURITY.md).
 
 
 ## Changelog
 
-See the [CHANGELOG.md](CHANGELOG.md) file for details.
+See [CHANGELOG.md](CHANGELOG.md) for details.
 
 
 ## License
