@@ -12725,8 +12725,9 @@ co.no
 *.devinapps.com
 
 // Combell.com : https://www.combell.com
-// Submitted by Thomas Wouters <thomas.wouters@combellgroup.com>
+// Submitted by Combell Team <support@combell.com>
 webhosting.be
+prvw.eu
 hosting-cluster.nl
 
 // Contentful GmbH : https://www.contentful.com
@@ -16013,8 +16014,6 @@ wmflabs.org
 
 // William Harrison : https://wharrison.com.au
 // Submitted by William Harrison <security@hrsn.net>
-wdh.app
-hrsn.au
 vps.hrsn.au
 hrsn.dev
 is-a.dev
