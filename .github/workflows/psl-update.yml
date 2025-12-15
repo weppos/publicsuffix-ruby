@@ -19,7 +19,7 @@ jobs:
       - name: Update PSL
         run: bundle exec rake update-list
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7.0.11
+        uses: peter-evans/create-pull-request@v8.0.0
         with:
           title: PSL auto-update
           commit-message: Updated list from source
