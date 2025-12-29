@@ -105,6 +105,7 @@ module PublicSuffix
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     def initialize
       @rules = {}
+      @trie = PublicSuffix::Trie.new
       yield(self) if block_given?
     end
 
@@ -139,7 +140,9 @@ module PublicSuffix
     # @param  rule [PublicSuffix::Rule::*] the rule to add to the list
     # @return [self]
     def add(rule)
-      @rules[rule.value] = rule_to_entry(rule)
+      entry = rule_to_entry(rule)
+      @rules[rule.value] = entry
+      @trie.insert(rule.value, type: entry.type, private: entry.private)
       self
     end
     alias << add
@@ -172,6 +175,14 @@ module PublicSuffix
     # @param  default [PublicSuffix::Rule::*] the default rule to return in case no rule matches
     # @return [PublicSuffix::Rule::*]
     def find(name, default: default_rule, **options)
+      if ENV["WHAT"] == "hash"
+        find_hash(name, default: default, **options)
+      else
+        find_trie(name, default: default, **options)
+      end
+    end
+
+    def find_hash(name, default: default_rule, **options)
       rule = select(name, **options).inject do |l, r|
         return r if r.instance_of?(Rule::Exception)
 
@@ -180,7 +191,11 @@ module PublicSuffix
       rule || default
     end
 
-    # Selects all the rules matching given hostame.
+    def find_trie(name, default: default_rule, ignore_private: false)
+      @trie.longest_prefix(name, ignore_private: ignore_private) || default
+    end
+
+    # Selects all the rules matching given hostname.
     #
     # If `ignore_private` is set to true, the algorithm will skip the rules that are flagged as
     # private domain. Note that the rules will still be part of the loop.
