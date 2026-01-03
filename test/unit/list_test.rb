@@ -96,8 +96,47 @@ LIST
   end
 
 
-  def test_find
-    list = PublicSuffix::List.parse(<<LIST)
+  def test_find_iana
+    list = build_test_list
+
+    assert_equal PublicSuffix::Rule.factory("com"), list.find("example.com")
+    assert_equal PublicSuffix::Rule.factory("com"), list.find("foo.example.com")
+  end
+
+  def test_find_wildcard
+    list = build_test_list
+
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.co.uk")
+    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("foo.example.co.uk")
+  end
+
+  def test_find_exception
+    list = build_test_list
+
+    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("british-library.uk")
+    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("foo.british-library.uk")
+  end
+
+  def test_find_default
+    list = build_test_list
+
+    assert_equal PublicSuffix::Rule.factory("*"), list.find("test")
+    assert_equal PublicSuffix::Rule.factory("*"), list.find("example.test")
+    assert_equal PublicSuffix::Rule.factory("*"), list.find("foo.example.test")
+  end
+
+  def test_find_private
+    list = build_test_list
+
+    assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("blogspot.com")
+    assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("foo.blogspot.com")
+  end
+
+  private
+
+  def build_test_list
+    PublicSuffix::List.parse(<<LIST)
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -124,28 +163,6 @@ blogspot.com
 
 // ===END PRIVATE DOMAINS===
 LIST
-
-    # match IANA
-    assert_equal PublicSuffix::Rule.factory("com"), list.find("example.com")
-    assert_equal PublicSuffix::Rule.factory("com"), list.find("foo.example.com")
-
-    # match wildcard
-    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.co.uk")
-    assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("foo.example.co.uk")
-
-    # match exception
-    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("british-library.uk")
-    assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("foo.british-library.uk")
-
-    # match default rule
-    assert_equal PublicSuffix::Rule.factory("*"), list.find("test")
-    assert_equal PublicSuffix::Rule.factory("*"), list.find("example.test")
-    assert_equal PublicSuffix::Rule.factory("*"), list.find("foo.example.test")
-
-    # match private
-    assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("blogspot.com")
-    assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("foo.blogspot.com")
   end
 
 

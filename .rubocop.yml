@@ -20,6 +20,13 @@ AllCops:
     - 'test/profilers/**/*'
   TargetRubyVersion: 3.0
 
+# Dear Rubocop, I don't want to use String#strip_heredoc
+Layout/HeredocIndentation:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Max: 10
+
 # I often use @_variable to avoid clashing.
 Naming/MemoizedInstanceVariableName:
   Enabled: false
@@ -29,14 +36,10 @@ Style/ClassAndModuleChildren:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
-# Dear Rubocop, I don't want to use String#strip_heredoc
-Layout/HeredocIndentation:
-  Enabled: false
-
-Style/WordArray:
+Style/SymbolArray:
   Enabled: false
   MinSize: 3
 
-Style/SymbolArray:
+Style/WordArray:
   Enabled: false
   MinSize: 3

@@ -76,14 +76,19 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
   end
   # rubocop:enable Style/SingleLineMethods
 
-  def test_match
+  def test_match_standard
     [
-      # standard match
       [PublicSuffix::Rule.factory("uk"), "uk", true],
       [PublicSuffix::Rule.factory("uk"), "example.uk", true],
       [PublicSuffix::Rule.factory("uk"), "example.co.uk", true],
       [PublicSuffix::Rule.factory("co.uk"), "example.co.uk", true],
+    ].each do |rule, input, expected|
+      assert_equal expected, rule.match?(input)
+    end
+  end
 
+  def test_match_wildcard_and_exception
+    [
       # FIXME
       # [PublicSuffix::Rule.factory("*.com"), "com", false],
       [PublicSuffix::Rule.factory("*.com"), "example.com", true],
@@ -91,24 +96,38 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
       [PublicSuffix::Rule.factory("!example.com"), "com", false],
       [PublicSuffix::Rule.factory("!example.com"), "example.com", true],
       [PublicSuffix::Rule.factory("!example.com"), "foo.example.com", true],
+    ].each do |rule, input, expected|
+      assert_equal expected, rule.match?(input)
+    end
+  end
 
-      # TLD mismatch
+  def test_match_tld_mismatch
+    [
       [PublicSuffix::Rule.factory("gk"), "example.uk", false],
       [PublicSuffix::Rule.factory("gk"), "example.co.uk", false],
       [PublicSuffix::Rule.factory("co.uk"), "uk", false],
+    ].each do |rule, input, expected|
+      assert_equal expected, rule.match?(input)
+    end
+  end
 
-      # general mismatch
+  def test_match_general_mismatch
+    [
       [PublicSuffix::Rule.factory("uk.co"), "example.co.uk", false],
       [PublicSuffix::Rule.factory("go.uk"), "example.co.uk", false],
       [PublicSuffix::Rule.factory("co.uk"), "uk", false],
+    ].each do |rule, input, expected|
+      assert_equal expected, rule.match?(input)
+    end
+  end
 
-      # partial matches/mismatches
+  def test_match_partial
+    [
       [PublicSuffix::Rule.factory("co"), "example.co.uk", false],
       [PublicSuffix::Rule.factory("example"), "example.uk", false],
       [PublicSuffix::Rule.factory("le.it"), "example.it", false],
       [PublicSuffix::Rule.factory("le.it"), "le.it", true],
       [PublicSuffix::Rule.factory("le.it"), "foo.le.it", true],
-
     ].each do |rule, input, expected|
       assert_equal expected, rule.match?(input)
     end
