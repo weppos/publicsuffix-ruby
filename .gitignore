@@ -7,5 +7,6 @@
 /.yardoc
 /yardoc/
 
-# Local setup
+# Local
+.claude
 .tool-versions
