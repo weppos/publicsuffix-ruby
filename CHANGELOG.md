@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 7.0.1 - 2026-01-03
+
+### Changed
+
+- Updated definitions.
+
+
 ## 7.0.0 - 2024-11-17
 
 ### Changed
