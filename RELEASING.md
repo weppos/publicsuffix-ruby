@@ -60,8 +60,7 @@ This document describes the steps to release a new version of PublicSuffix.
 6. **Commit the new version**
 
    ```shell
-   git add lib/public_suffix/version.rb CHANGELOG.md Gemfile.lock
-   git commit -m "Release $VERSION"
+   git commit -am "Release $VERSION"
    ```
 
 7. **Create a signed tag**

@@ -226,6 +226,6 @@ See [CHANGELOG.md](CHANGELOG.md) for details.
 
 ## License
 
-Copyright (c) 2009-2025 Simone Carletti. This is Free Software distributed under the MIT license.
+Copyright (c) 2009-2026 Simone Carletti. [MIT License](LICENSE.txt).
 
 The [Public Suffix List source](https://publicsuffix.org/list/) is subject to the terms of the Mozilla Public License, v. 2.0.
