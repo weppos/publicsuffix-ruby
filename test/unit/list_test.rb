@@ -133,39 +133,6 @@ LIST
     assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("foo.blogspot.com")
   end
 
-  private
-
-  def build_test_list
-    PublicSuffix::List.parse(<<LIST)
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-// ===BEGIN ICANN DOMAINS===
-
-// com
-com
-
-// uk
-*.uk
-*.sch.uk
-!bl.uk
-!british-library.uk
-
-// io
-io
-
-// ===END ICANN DOMAINS===
-// ===BEGIN PRIVATE DOMAINS===
-
-// Google, Inc.
-blogspot.com
-
-// ===END PRIVATE DOMAINS===
-LIST
-  end
-
-
   def test_select
     assert_equal 2, list.send(:select, "british-library.uk").size
   end
@@ -193,7 +160,6 @@ LIST
     assert_equal list.send(:select, "example.io", ignore_private: true), [r1]
     assert_equal list.send(:select, "foo.example.io", ignore_private: true), [r1]
   end
-
 
   def test_self_default_getter
     PublicSuffix::List.default = nil
@@ -249,8 +215,37 @@ LIST
     assert list.find("blogspot.com").private
   end
 
-
   private
+
+  def build_test_list
+    PublicSuffix::List.parse(<<LIST)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+// ===BEGIN ICANN DOMAINS===
+
+// com
+com
+
+// uk
+*.uk
+*.sch.uk
+!bl.uk
+!british-library.uk
+
+// io
+io
+
+// ===END ICANN DOMAINS===
+// ===BEGIN PRIVATE DOMAINS===
+
+// Google, Inc.
+blogspot.com
+
+// ===END PRIVATE DOMAINS===
+LIST
+  end
 
   def list
     @_list ||= PublicSuffix::List.parse(<<LIST)
