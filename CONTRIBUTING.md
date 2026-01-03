@@ -53,13 +53,13 @@ Use lowercase for `<type>`. Capitalize the first letter of `<subject>` (sentence
 ### Examples
 
 ```bash
-feat(parser): add support for wildcard exceptions
+feat(parser): Add support for wildcard exceptions
 
-fix(domain): handle FQDN trailing dots correctly
+fix(domain): Handle FQDN trailing dots correctly
 
-docs: update usage examples in README
+docs: Update usage examples in README
 
-refactor(list): simplify rule lookup logic
+refactor(list): Simplify rule lookup logic
 ```
 
 ### Breaking Changes
@@ -67,7 +67,7 @@ refactor(list): simplify rule lookup logic
 Add `BREAKING CHANGE:` in the footer:
 
 ```
-feat(domain): change parse return type
+feat(domain): Change parse return type
 
 BREAKING CHANGE: Domain#parse now returns nil for invalid domains instead of raising.
 Update code to check for nil returns.
