@@ -16,6 +16,8 @@ Thank you for your interest in contributing to PublicSuffix for Ruby!
 
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages.
 
+We follow the [Common Changelog](https://common-changelog.org/) format for changelog entries.
+
 ### Format
 
 ```
