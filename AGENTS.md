@@ -7,7 +7,7 @@ Instructions for AI coding agents when working on this project.
 When creating agent instruction files:
 
 - The main file should always be named `AGENTS.md`
-- Create a `CLAUDE.md` symlink pointing to `AGENTS.md` for compatibility with Claude Code
+- Create a `CLAUDE.md` file containing `@AGENTS.md` for compatibility with Claude Code
 
 ## Project Overview
 
