@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Changed
+
+- Excluded symlinks and unnecessary files from gem packaging. On Windows symlinks cannot be created without Administrator privileges or with developer mode enabled #496.
+
+
 ## 7.0.1 - 2026-01-03
 
 ### Changed

@@ -26,7 +26,18 @@ Gem::Specification.new do |s|
   s.files = Dir.chdir(__dir__) do
     `git ls-files -z`.split("\x0").reject do |f|
       (File.expand_path(f) == __FILE__) ||
-        f.start_with?(*%w[bin/ test/ .git .rubocop Gemfile Rakefile])
+        f.start_with?(*%w[
+          bin/
+          test/
+          .git
+          .rubocop
+          Gemfile
+          Rakefile
+          AGENTS.md
+          CLAUDE.md
+          RELEASING.md
+          CONTRIBUTING.md
+      ])
     end
   end
   s.require_paths = ["lib"]
