@@ -16,8 +16,6 @@ Thank you for your interest in contributing to PublicSuffix for Ruby!
 
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages.
 
-We follow the [Common Changelog](https://common-changelog.org/) format for changelog entries.
-
 ### Format
 
 ```
@@ -72,6 +70,10 @@ feat(domain): Change parse return type
 BREAKING CHANGE: Domain#parse now returns nil for invalid domains instead of raising.
 Update code to check for nil returns.
 ```
+
+## Changelog
+
+We follow the [Common Changelog](https://common-changelog.org/) format for changelog entries.
 
 ## Testing
 
