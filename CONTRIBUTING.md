@@ -14,19 +14,17 @@ Thank you for your interest in contributing to PublicSuffix for Ruby!
 
 ## Commit Message Guidelines
 
-We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages.
+We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages, with a capitalized description. Use the project-specific conventions below.
 
 ### Format
 
+```text
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
 ```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-Use lowercase for `<type>`. Capitalize the first letter of `<subject>` (sentence-style). See examples below.
 
 ### Type
 
