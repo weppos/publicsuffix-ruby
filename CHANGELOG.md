@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Changed
+
+- Updated definitions.
+
 
 ## 7.0.2 - 2026-01-04
 
