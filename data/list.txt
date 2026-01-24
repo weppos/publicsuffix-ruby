@@ -12619,7 +12619,8 @@ com.se
 cx.ua
 
 // Civilized Discourse Construction Kit, Inc. : https://www.discourse.org/
-// Submitted by Rishabh Nambiar & Michael Brown <team@discourse.org>
+// Submitted by Rishabh Nambiar, Michael Brown, Rafael dos Santos Silva <team@discourse.org>
+discourse.diy
 discourse.group
 discourse.team
 
@@ -12775,6 +12776,10 @@ edu.ru
 gov.ru
 int.ru
 mil.ru
+
+// CoreSpeed, Inc. : https://corespeed.io
+// Submitted by CoreSpeed Team <ops@corespeed.io>
+corespeed.app
 
 // COSIMO GmbH : http://www.cosimo.de
 // Submitted by Rene Marticke <rmarticke@cosimo.de>
@@ -14336,6 +14341,8 @@ co.de
 
 // Laravel Holdings, Inc. : https://laravel.com
 // Submitted by André Valentin & James Brooks <security@laravel.com>
+shiptoday.app
+shiptoday.build
 laravel.cloud
 on-forge.com
 on-vapor.com
@@ -14621,6 +14628,11 @@ same-preview.com
 // minion.systems : http://minion.systems
 // Submitted by Robert Böttinger <r@minion.systems>
 csx.cc
+
+// Miren, Inc. : https://miren.dev
+// Submitted by Miren Product Team <team-product@miren.dev>
+miren.app
+miren.systems
 
 // Mittwald CM Service GmbH & Co. KG : https://mittwald.de
 // Submitted by Marco Rieger <security@mittwald.de>
