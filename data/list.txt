@@ -6814,7 +6814,7 @@ org.zw
 
 // newGTLDs
 
-// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2026-01-08T15:25:34Z
+// List of new gTLDs imported from https://www.icann.org/resources/registries/gtlds/v2/gtlds.json on 2026-01-29T15:35:06Z
 // This list is auto-generated, don't edit it manually.
 // aaa : American Automobile Association, Inc.
 // https://www.iana.org/domains/root/db/aaa.html
@@ -9752,7 +9752,7 @@ quest
 // https://www.iana.org/domains/root/db/racing.html
 racing
 
-// radio : European Broadcasting Union (EBU)
+// radio : Digity, LLC
 // https://www.iana.org/domains/root/db/radio.html
 radio
 
@@ -10704,7 +10704,7 @@ watch
 // https://www.iana.org/domains/root/db/watches.html
 watches
 
-// weather : International Business Machines Corporation
+// weather : The Weather Company, LLC
 // https://www.iana.org/domains/root/db/weather.html
 weather
 
@@ -14304,6 +14304,13 @@ kapsi.fi
 ezproxy.kuleuven.be
 kuleuven.cloud
 
+// Keenetic : https://keenetic.com
+// Submitted by Alexey Nikitin <cloud@keenetic.net>
+keenetic.io
+keenetic.link
+keenetic.name
+keenetic.pro
+
 // Kevin Service : https://kevsrv.me
 // Submitted by Kevin Service Team <cs@kevsrv.me>
 ae.kg
@@ -15413,7 +15420,20 @@ sakura.tv
 *.dev-builder.code.com
 *.stg-builder.code.com
 *.001.test.code-builder-stg.platform.salesforce.com
+*.aa.crm.dev
+*.ab.crm.dev
+*.ac.crm.dev
+*.ad.crm.dev
+*.ae.crm.dev
+*.af.crm.dev
+*.ci.crm.dev
 *.d.crm.dev
+*.pa.crm.dev
+*.pb.crm.dev
+*.pc.crm.dev
+*.pd.crm.dev
+*.pe.crm.dev
+*.pf.crm.dev
 *.w.crm.dev
 *.wa.crm.dev
 *.wb.crm.dev
@@ -15620,6 +15640,10 @@ try-snowplow.com
 // Software Consulting Michal Zalewski : https://www.mafelo.com
 // Submitted by Michal Zalewski <security@mafelo.com>
 mafelo.net
+
+// Solana Name Service :  https://sns.id
+// Submitted by Solana Name Service <contact@sns.id>
+sol.site
 
 // Sony Interactive Entertainment LLC : https://sie.com/
 // Submitted by David Coles <david.coles@sony.com>
