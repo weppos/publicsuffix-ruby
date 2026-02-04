@@ -14277,7 +14277,6 @@ jouwweb.site
 
 // Joyent : https://www.joyent.com/
 // Submitted by Brian Bennett <brian.bennett@joyent.com>
-*.cns.joyent.com
 *.triton.zone
 
 // JS.ORG : http://dns.js.org
@@ -14612,10 +14611,10 @@ westus2.azurestaticapps.net
 azurewebsites.net
 cloudapp.net
 trafficmanager.net
-servicebus.usgovcloudapi.net
 blob.core.usgovcloudapi.net
 file.core.usgovcloudapi.net
 web.core.usgovcloudapi.net
+servicebus.usgovcloudapi.net
 usgovcloudapp.net
 usgovtrafficmanager.net
 blob.core.windows.net
