@@ -6418,6 +6418,7 @@ hanoi.vn
 hatinh.vn
 haugiang.vn
 hoabinh.vn
+hue.vn
 hungyen.vn
 khanhhoa.vn
 kiengiang.vn
@@ -12874,6 +12875,7 @@ definima.net
 deno.dev
 deno-staging.dev
 deno.net
+sandbox.deno.net
 
 // deSEC : https://desec.io/
 // Submitted by Peter Thomassen <peter@desec.io>
