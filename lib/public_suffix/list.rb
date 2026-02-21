@@ -105,6 +105,7 @@ module PublicSuffix
     # @yieldparam [PublicSuffix::List] self The newly created instance.
     def initialize
       @rules = {}
+      @max_rule_size = 0
       yield(self) if block_given?
     end
 
@@ -140,6 +141,7 @@ module PublicSuffix
     # @return [self]
     def add(rule)
       @rules[rule.value] = rule_to_entry(rule)
+      @max_rule_size = [@max_rule_size, (rule.value.count DOT) + 1].max
       self
     end
     alias << add
@@ -163,6 +165,7 @@ module PublicSuffix
     # @return [self]
     def clear
       @rules.clear
+      @max_rule_size = 0
       self
     end
 
@@ -204,14 +207,14 @@ module PublicSuffix
       query = parts[index]
       rules = []
 
-      loop do
+      limit = [parts.size, @max_rule_size].min
+
+      while index < limit
         match = @rules[query]
         rules << entry_to_rule(match, query) if !match.nil? && (ignore_private == false || match.private == false)
 
         index += 1
-        break if index >= parts.size
-
-        query = parts[index] + DOT + query
+        query = parts[index] + DOT + query if index < limit
       end
 
       rules
