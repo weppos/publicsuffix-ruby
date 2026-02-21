@@ -39,6 +39,13 @@ class PublicSuffix::RuleTest < Minitest::Test
     assert_equal %w[www.example tldnotlisted], default.decompose("www.example.tldnotlisted")
   end
 
+  def test_self_default_setter
+    default_rule_was = PublicSuffix::Rule.default
+    assert_not_equal nil, PublicSuffix::Rule.default
+    PublicSuffix::Rule.default = nil
+    assert_equal nil, PublicSuffix::Rule.default
+    PublicSuffix::Rule.default = default_rule_was
+  end
 end
 
 
