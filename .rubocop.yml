@@ -36,6 +36,10 @@ Style/ClassAndModuleChildren:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
+Style/OneClassPerFile:
+  Exclude:
+    - 'test/**/*_test.rb'
+
 Style/SymbolArray:
   Enabled: false
   MinSize: 3
