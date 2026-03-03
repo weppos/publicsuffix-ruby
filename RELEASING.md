@@ -78,19 +78,11 @@ This document describes the steps to release a new version of PublicSuffix.
    git push origin v$VERSION
    ```
 
-9. **Build and publish the gem**
-
-   ```shell
-   bundle exec rake release
-   ```
-
-   This will:
-   - Build the gem
-   - Push it to RubyGems
-   - Create a GitHub release
+   Pushing the tag will trigger CI to automatically build and publish the gem to RubyGems.
 
 ## Post-release
 
+- Verify the CI release workflow completed successfully
 - Verify the new version appears on [RubyGems](https://rubygems.org/gems/public_suffix)
 - Verify the GitHub release was created
 - Announce the release if necessary
