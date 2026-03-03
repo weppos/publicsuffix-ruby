@@ -1,6 +1,13 @@
 # Changelog
 
 
+## main
+
+### Fixed
+
+- Read default list data as UTF-8 to avoid `Encoding::CompatibilityError` when locale is not set to UTF-8 (#118).
+
+
 ## 7.0.5 - 2026-03-03
 
 ### Fixed
