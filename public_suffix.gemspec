@@ -31,7 +31,6 @@ Gem::Specification.new do |s|
           test/
           .git
           .rubocop
-          Gemfile
           Rakefile
           AGENTS.md
           CLAUDE.md
