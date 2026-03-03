@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Changed
+
+- Optimized rule lookup by bounding suffix matching to the longest rule in the list #268. (Thanks @elliotwutingfeng)
+
+
 ## 7.0.5 - 2026-03-03
 
 ### Fixed
