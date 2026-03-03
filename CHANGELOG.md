@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 7.0.5 - 2026-03-03
+
+### Fixed
+
+- Fix release crash caused by unconditional rubocop/yard requires in Rakefile.
+
+
 ## 7.0.4 - 2026-03-03
 
 ### Fixed

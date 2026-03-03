@@ -15,19 +15,26 @@ Rake::TestTask.new do |t|
   t.warning = !ENV["WARNING"].nil?
 end
 
-require "rubocop/rake_task"
-
-RuboCop::RakeTask.new
-
-
-require "yard"
-require "yard/rake/yardoc_task"
-
-YARD::Rake::YardocTask.new(:yardoc) do |y|
-  y.options = ["--output-dir", "yardoc"]
+begin
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new
+rescue LoadError
+  # rubocop not available in release environment
 end
 
-CLOBBER.include "yardoc"
+
+begin
+  require "yard"
+  require "yard/rake/yardoc_task"
+
+  YARD::Rake::YardocTask.new(:yardoc) do |y|
+    y.options = ["--output-dir", "yardoc"]
+  end
+
+  CLOBBER.include "yardoc"
+rescue LoadError
+  # yard not available in release environment
+end
 
 
 desc "Run all benchmarks in the benchmarks directory"
