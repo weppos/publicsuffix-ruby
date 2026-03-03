@@ -174,6 +174,7 @@ LIST
     # Ensure the default list loads even when the locale is not UTF-8.
     # See https://github.com/weppos/publicsuffix-ruby/issues/118
     output = `LANG= LANGUAGE= LC_ALL= LC_CTYPE= ruby -I lib -e "require 'public_suffix'; PublicSuffix::List.default; puts 'OK'" 2>&1`
+
     assert_equal "OK", output.strip
   end
 
