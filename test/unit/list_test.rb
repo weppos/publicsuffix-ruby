@@ -21,11 +21,13 @@ class PublicSuffix::ListTest < Minitest::Test
 
   def test_equality_with_self
     list = PublicSuffix::List.new
-    assert_equal list, list
+
+    assert list.eql?(list)
   end
 
   def test_equality_with_internals
     rule = PublicSuffix::Rule.factory("com")
+
     assert_equal PublicSuffix::List.new.add(rule), PublicSuffix::List.new.add(rule)
   end
 
@@ -47,7 +49,7 @@ beta
 LIST
 
     entries = []
-    list.each { |r| entries << r }
+    list.each { |r| entries << r } # rubocop:disable Style/MapIntoArray
 
     assert_equal 2, entries.count
     assert_equal PublicSuffix::Rule.factory("alpha"), entries.first
@@ -62,18 +64,21 @@ LIST
 
   def test_add_should_recreate_index
     @list = PublicSuffix::List.parse("com")
+
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
     assert_equal @list.default_rule, @list.find("google.net")
 
     @list << PublicSuffix::Rule.factory("net")
+
     assert_equal PublicSuffix::Rule.factory("com"), @list.find("google.com")
     assert_equal PublicSuffix::Rule.factory("net"), @list.find("google.net")
   end
 
   def test_empty?
-    assert @list.empty?
+    assert_empty @list
     @list.add(PublicSuffix::Rule.factory(""))
-    assert !@list.empty?
+
+    refute_empty @list
   end
 
   def test_size
@@ -91,67 +96,51 @@ LIST
   end
 
 
-  def test_find
-    list = PublicSuffix::List.parse(<<LIST)
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  def test_find_iana
+    list = build_test_list
 
-// ===BEGIN ICANN DOMAINS===
-
-// com
-com
-
-// uk
-*.uk
-*.sch.uk
-!bl.uk
-!british-library.uk
-
-// io
-io
-
-// ===END ICANN DOMAINS===
-// ===BEGIN PRIVATE DOMAINS===
-
-// Google, Inc.
-blogspot.com
-
-// ===END PRIVATE DOMAINS===
-LIST
-
-    # match IANA
     assert_equal PublicSuffix::Rule.factory("com"), list.find("example.com")
     assert_equal PublicSuffix::Rule.factory("com"), list.find("foo.example.com")
+  end
 
-    # match wildcard
+  def test_find_wildcard
+    list = build_test_list
+
     assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.uk")
     assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("example.co.uk")
     assert_equal PublicSuffix::Rule.factory("*.uk"), list.find("foo.example.co.uk")
+  end
 
-    # match exception
+  def test_find_exception
+    list = build_test_list
+
     assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("british-library.uk")
     assert_equal PublicSuffix::Rule.factory("!british-library.uk"), list.find("foo.british-library.uk")
+  end
 
-    # match default rule
+  def test_find_default
+    list = build_test_list
+
     assert_equal PublicSuffix::Rule.factory("*"), list.find("test")
     assert_equal PublicSuffix::Rule.factory("*"), list.find("example.test")
     assert_equal PublicSuffix::Rule.factory("*"), list.find("foo.example.test")
+  end
 
-    # match private
+  def test_find_private
+    list = build_test_list
+
     assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("blogspot.com")
     assert_equal PublicSuffix::Rule.factory("blogspot.com", private: true), list.find("foo.blogspot.com")
   end
-
 
   def test_select
     assert_equal 2, list.send(:select, "british-library.uk").size
   end
 
   def test_select_name_blank
-    assert_equal [], list.send(:select, nil)
-    assert_equal [], list.send(:select, "")
-    assert_equal [], list.send(:select, " ")
+    assert_empty list.send(:select, nil)
+    assert_empty list.send(:select, "")
+    assert_empty list.send(:select, " ")
   end
 
   def test_select_ignore_private
@@ -172,18 +161,21 @@ LIST
     assert_equal list.send(:select, "foo.example.io", ignore_private: true), [r1]
   end
 
-
   def test_self_default_getter
     PublicSuffix::List.default = nil
+
     assert_nil(PublicSuffix::List.class_eval { @default })
     PublicSuffix::List.default
+
     refute_nil(PublicSuffix::List.class_eval { @default })
   end
 
   def test_self_default_setter
     PublicSuffix::List.default
+
     refute_nil(PublicSuffix::List.class_eval { @default })
     PublicSuffix::List.default = nil
+
     assert_nil(PublicSuffix::List.class_eval { @default })
   end
 
@@ -215,15 +207,45 @@ LIST
     assert_equal 4, list.size
 
     rules = %w[com *.uk !british-library.uk blogspot.com].map { |name| PublicSuffix::Rule.factory(name) }
+
     assert_equal rules, list.each.to_a
 
     # private domains
-    assert_equal false, list.find("com").private
-    assert_equal true,  list.find("blogspot.com").private
+    refute list.find("com").private
+    assert list.find("blogspot.com").private
   end
 
-
   private
+
+  def build_test_list
+    PublicSuffix::List.parse(<<LIST)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+// ===BEGIN ICANN DOMAINS===
+
+// com
+com
+
+// uk
+*.uk
+*.sch.uk
+!bl.uk
+!british-library.uk
+
+// io
+io
+
+// ===END ICANN DOMAINS===
+// ===BEGIN PRIVATE DOMAINS===
+
+// Google, Inc.
+blogspot.com
+
+// ===END PRIVATE DOMAINS===
+LIST
+  end
 
   def list
     @_list ||= PublicSuffix::List.parse(<<LIST)

@@ -6,3 +6,7 @@
 # YARD
 /.yardoc
 /yardoc/
+
+# Local configs
+.claude
+.tool-versions

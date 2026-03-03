@@ -15,58 +15,66 @@ class AcceptanceTest < Minitest::Test
     ["foo.parliament.uk",       "parliament.uk",      ["foo", "parliament", "uk"]],
   ].freeze
 
-  def test_valid
-    VALID_CASES.each do |input, domain, results|
+  def test_valid_parsing
+    VALID_CASES.each do |input, _domain, results|
       parsed = PublicSuffix.parse(input)
       trd, sld, tld = results
-      assert_equal tld, parsed.tld, "Invalid tld for `#{name}`"
-      assert_equal sld, parsed.sld, "Invalid sld for `#{name}`"
-      if trd.nil?
-        assert_nil parsed.trd, "Invalid trd for `#{name}`"
-      else
-        assert_equal trd, parsed.trd, "Invalid trd for `#{name}`"
-      end
 
+      assert_equal tld, parsed.tld, "Invalid tld for `#{input}`"
+      assert_equal sld, parsed.sld, "Invalid sld for `#{input}`"
+      if trd.nil?
+        assert_nil parsed.trd, "Invalid trd for `#{input}`"
+      else
+        assert_equal trd, parsed.trd, "Invalid trd for `#{input}`"
+      end
+    end
+  end
+
+  def test_valid_domain
+    VALID_CASES.each do |input, domain, _results|
       assert_equal domain, PublicSuffix.domain(input)
+    end
+  end
+
+  def test_valid_validation
+    VALID_CASES.each do |input, _domain, _results|
       assert PublicSuffix.valid?(input)
     end
   end
 
 
   INVALID_CASES = [
-    ["nic.bd", PublicSuffix::DomainNotAllowed],
-    [nil,                       PublicSuffix::DomainInvalid],
-    ["",                        PublicSuffix::DomainInvalid],
-    ["  ",                      PublicSuffix::DomainInvalid],
+    ["nic.er", PublicSuffix::DomainNotAllowed],
+    [nil, PublicSuffix::DomainInvalid],
+    ["", PublicSuffix::DomainInvalid],
+    ["  ", PublicSuffix::DomainInvalid],
   ].freeze
 
   def test_invalid
     INVALID_CASES.each do |(name, error)|
       assert_raises(error) { PublicSuffix.parse(name) }
-      assert !PublicSuffix.valid?(name)
+      refute PublicSuffix.valid?(name)
     end
   end
 
 
   REJECTED_CASES = [
     ["www. .com", true],
-    ["foo.co..uk",          true],
-    ["goo,gle.com",         true],
-    ["-google.com",         true],
-    ["google-.com",         true],
+    ["foo.co..uk", true],
+    ["goo,gle.com", true],
+    ["-google.com", true],
+    ["google-.com", true],
 
     # This case was covered in GH-15.
     # I decided to cover this case because it's not easily reproducible with URI.parse
     # and can lead to several false positives.
-    ["http://google.com",   false],
+    ["http://google.com", false],
   ].freeze
 
   def test_rejected
     REJECTED_CASES.each do |name, expected|
-      assert_equal expected, PublicSuffix.valid?(name),
-                   format("Expected %s to be %s", name.inspect, expected.inspect)
-      assert !valid_domain?(name),
-             "#{name} expected to be invalid"
+      assert_equal expected, PublicSuffix.valid?(name), format("Expected %s to be %s", name.inspect, expected.inspect)
+      refute valid_domain?(name), "#{name} expected to be invalid"
     end
   end
 
@@ -81,6 +89,7 @@ class AcceptanceTest < Minitest::Test
     CASE_CASES.each do |name, results|
       domain = PublicSuffix.parse(name)
       trd, sld, tld = results
+
       assert_equal tld, domain.tld, "Invalid tld for `#{name}'"
       assert_equal sld, domain.sld, "Invalid sld for `#{name}'"
       assert_equal trd, domain.trd, "Invalid trd for `#{name}'"

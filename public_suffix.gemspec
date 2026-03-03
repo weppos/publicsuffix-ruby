@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "PublicSuffix can parse and decompose a domain name into top level domain, domain and subdomains."
   s.homepage = "https://simonecarletti.com/code/publicsuffix-ruby"
   s.licenses = ["MIT"]
-  s.required_ruby_version = ">= 2.6"
+  s.required_ruby_version = ">= 3.2"
 
   s.metadata = {
     "bug_tracker_uri" => "https://github.com/weppos/publicsuffix-ruby/issues",
@@ -20,12 +20,23 @@ Gem::Specification.new do |s|
     "documentation_uri" => "https://rubydoc.info/gems/#{s.name}/#{s.version}",
     "homepage_uri" => s.homepage,
     "source_code_uri" => "https://github.com/weppos/publicsuffix-ruby/tree/v#{s.version}",
+    "funding_uri" => "https://github.com/sponsors/weppos",
   }
 
   s.files = Dir.chdir(__dir__) do
     `git ls-files -z`.split("\x0").reject do |f|
       (File.expand_path(f) == __FILE__) ||
-        f.start_with?(*%w[bin/ test/ .git .rubocop Gemfile Rakefile])
+        f.start_with?(*%w[
+          bin/
+          test/
+          .git
+          .rubocop
+          Rakefile
+          AGENTS.md
+          CLAUDE.md
+          RELEASING.md
+          CONTRIBUTING.md
+      ])
     end
   end
   s.require_paths = ["lib"]

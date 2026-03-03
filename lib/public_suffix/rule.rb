@@ -4,7 +4,7 @@
 #
 # Domain name parser based on the Public Suffix List.
 #
-# Copyright (c) 2009-2023 Simone Carletti <weppos@weppos.net>
+# Copyright (c) 2009-2026 Simone Carletti <weppos@weppos.net>
 
 module PublicSuffix
 
@@ -230,7 +230,7 @@ module PublicSuffix
       # @param  length [Integer]
       # @param  private [Boolean]
       def initialize(value:, length: nil, private: false)
-        super(value: value, length: length, private: private)
+        super
         length or @length += 1 # * counts as 1
       end
 
