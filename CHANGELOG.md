@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 7.0.4 - 2026-03-03
+
+### Fixed
+
+- Fix release workflow.
+
+
 ## 7.0.3 - 2026-03-03
 
 ### Changed
