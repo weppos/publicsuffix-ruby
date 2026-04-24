@@ -200,7 +200,7 @@ No. `PublicSuffix` comes with a bundled list. It does not make any HTTP requests
 
 ### Documentation
 
-Library documentation is auto-generated from the [README](https://github.com/weppos/publicsuffix-ruby/blob/master/README.md) and source code, and is available at https://rubydoc.info/gems/public_suffix.
+Library documentation is auto-generated from the [README](https://github.com/weppos/publicsuffix-ruby/blob/main/README.md) and source code, and is available at https://rubydoc.info/gems/public_suffix.
 
 ### Bug reports and contributions
 
