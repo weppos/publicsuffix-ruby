@@ -43,7 +43,7 @@
 - Updated definitions.
 
 
-## 7.0.0 - 2024-11-17
+## 7.0.0 - 2025-11-17
 
 ### Changed
 
@@ -51,7 +51,7 @@
 - Minimum Ruby version is 3.2
 
 
-## 6.0.2 - 2024-04-30
+## 6.0.2 - 2025-04-30
 
 ### Changed
 
