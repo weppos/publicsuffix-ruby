@@ -1628,7 +1628,6 @@ trentin-sudtirol.it
 trentin-südtirol.it
 trentin-sued-tirol.it
 trentin-suedtirol.it
-trentino.it
 trentino-a-adige.it
 trentino-aadige.it
 trentino-alto-adige.it
@@ -1649,7 +1648,6 @@ trentinos-tirol.it
 trentinostirol.it
 trentinosud-tirol.it
 trentinosüd-tirol.it
-trentinosudtirol.it
 trentinosüdtirol.it
 trentinosued-tirol.it
 trentinosuedtirol.it
@@ -1665,7 +1663,6 @@ umbria.it
 val-d-aosta.it
 val-daosta.it
 vald-aosta.it
-valdaosta.it
 valle-aosta.it
 valle-d-aosta.it
 valle-daosta.it
@@ -1702,7 +1699,6 @@ aosta.it
 aoste.it
 ap.it
 aq.it
-aquila.it
 ar.it
 arezzo.it
 ascoli-piceno.it
@@ -1926,6 +1922,9 @@ sondrio.it
 sp.it
 sr.it
 ss.it
+su.it
+sud-sardegna.it
+sudsardegna.it
 südtirol.it
 suedtirol.it
 sv.it
@@ -1946,6 +1945,7 @@ trani-barletta-andria.it
 traniandriabarletta.it
 tranibarlettaandria.it
 trapani.it
+trentino.it
 trento.it
 treviso.it
 trieste.it
@@ -1964,6 +1964,7 @@ ve.it
 venezia.it
 venice.it
 verbania.it
+verbano-cusio-ossola.it
 vercelli.it
 verona.it
 vi.it
@@ -12573,12 +12574,6 @@ bubbleapps.io
 // Submitted by Klara Mall <dns@bwcloud-os.de>
 *.bwcloud-os-instance.de
 
-// Bytemark Hosting : https://www.bytemark.co.uk
-// Submitted by Paul Cammish <paul.cammish@bytemark.co.uk>
-uk0.bigv.io
-dh.bytemark.co.uk
-vm.bytemark.co.uk
-
 // Caf.js Labs LLC : https://www.cafjs.com
 // Submitted by Antonio Lain <antlai@cafjs.com>
 cafjs.com
@@ -12837,10 +12832,6 @@ craft.me
 // Craynic, s.r.o. : http://www.craynic.com/
 // Submitted by Ales Krajnik <ales.krajnik@craynic.com>
 realm.cz
-
-// Cryptonomic : https://cryptonomic.net/
-// Submitted by Andrew Cady <public-suffix-list@cryptonomic.net>
-*.cryptonomic.net
 
 // cyber_Folks S.A. : https://cyberfolks.pl
 // Submitted by Bartlomiej Kida <security@cyberfolks.pl>
@@ -15264,10 +15255,6 @@ vki.kr
 // Submitted by yumenewa <admin@project-study.com>
 dev.project-study.com
 
-// Protonet GmbH : http://protonet.io
-// Submitted by Martin Meier <admin@protonet.io>
-protonet.io
-
 // PSL Sandbox : https://github.com/groundcat/PSL-Sandbox
 // Submitted by groundcat <psl-sandbox@alumni.upenn.edu>
 platter-app.dev
@@ -15448,10 +15435,6 @@ repl.run
 // Submitted by Tim Perry <tim@resin.io>
 resindevice.io
 devices.resinstaging.io
-
-// RethinkDB : https://www.rethinkdb.com/
-// Submitted by Chris Kastorff <info@rethinkdb.com>
-hzc.io
 
 // Rico Developments Limited : https://adimo.co
 // Submitted by Colin Brown <hello@adimo.co>
@@ -15875,10 +15858,6 @@ indevs.in
 musician.io
 novecore.site
 
-// Standard Library : https://stdlib.com
-// Submitted by Jacob Lee <jacob@stdlib.com>
-api.stdlib.com
-
 // statichost.eu : https://www.statichost.eu
 // Submitted by Eric Selin <admin@statichost.eu>
 statichost.page
@@ -15904,10 +15883,6 @@ ipfs.w3s.link
 // Storebase : https://www.storebase.io
 // Submitted by Tony Schirmer <tony@storebase.io>
 storebase.store
-
-// Storj Labs Inc. : https://storj.io/
-// Submitted by Philip Hutchins <hostmaster@storj.io>
-storj.farm
 
 // Strapi : https://strapi.io/
 // Submitted by Florent Baldino <security@strapi.io>
