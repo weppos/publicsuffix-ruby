@@ -165,6 +165,8 @@ module PublicSuffix
         # rules like foo.*.com. If the assumption is incorrect,
         # we need to properly walk the input and skip parts according
         # to wildcard component.
+        return false unless name.end_with?(value)
+
         diff = name.chomp(value)
         diff.empty? || diff.end_with?(DOT)
       end
