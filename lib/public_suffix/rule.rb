@@ -139,6 +139,13 @@ module PublicSuffix
       end
       alias eql? ==
 
+      # Returns a hash consistent with rule equality.
+      #
+      # @return [Integer]
+      def hash
+        [self.class, value].hash
+      end
+
       # Checks if this rule matches +name+.
       #
       # A domain name is said to match a rule if and only if

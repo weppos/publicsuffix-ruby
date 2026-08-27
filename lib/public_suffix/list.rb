@@ -125,6 +125,13 @@ module PublicSuffix
     end
     alias eql? ==
 
+    # Returns a hash consistent with list equality.
+    #
+    # @return [Integer]
+    def hash
+      @rules.hash
+    end
+
     # Iterates each rule in the list.
     def each(&block)
       Enumerator.new do |y|
