@@ -73,7 +73,7 @@ module PublicSuffix
 
       new do |list|
         input.each_line do |line|
-          line.strip!
+          line = line.strip
           case # rubocop:disable Style/EmptyCaseCondition
 
           # skip blank lines
