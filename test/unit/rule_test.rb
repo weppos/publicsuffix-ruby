@@ -106,6 +106,9 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
       [PublicSuffix::Rule.factory("gk"), "example.uk", false],
       [PublicSuffix::Rule.factory("gk"), "example.co.uk", false],
       [PublicSuffix::Rule.factory("co.uk"), "uk", false],
+      [PublicSuffix::Rule.factory("com"), "example.net.", false],
+      [PublicSuffix::Rule.factory("*.com"), "example.net.", false],
+      [PublicSuffix::Rule.factory("!example.com"), "example.net.", false],
     ].each do |rule, input, expected|
       assert_equal expected, rule.match?(input)
     end
