@@ -187,6 +187,19 @@ LIST
     assert_nil(PublicSuffix::List.class_eval { @default })
   end
 
+  def test_self_parse_preserves_input_lines
+    mutable_line = "  com\n"
+    frozen_line = "  net\n".freeze
+    lines = [mutable_line, frozen_line]
+    input = Object.new
+    input.define_singleton_method(:each_line) { |&block| lines.each(&block) }
+
+    list = PublicSuffix::List.parse(input)
+
+    assert_equal ["com", "net"], list.each.map(&:value)
+    assert_equal "  com\n", mutable_line
+  end
+
   def test_self_parse
     list = PublicSuffix::List.parse(<<LIST)
 // This Source Code Form is subject to the terms of the Mozilla Public
