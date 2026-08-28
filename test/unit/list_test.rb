@@ -188,8 +188,8 @@ LIST
   end
 
   def test_self_parse_preserves_input_lines
-    mutable_line = "  com\n"
-    frozen_line = "  net\n".freeze
+    mutable_line = +"  com\n"
+    frozen_line = "  net\n"
     lines = [mutable_line, frozen_line]
     input = Object.new
     input.define_singleton_method(:each_line) { |&block| lines.each(&block) }
