@@ -31,6 +31,14 @@ class PublicSuffix::ListTest < Minitest::Test
     assert_equal PublicSuffix::List.new.add(rule), PublicSuffix::List.new.add(rule)
   end
 
+  def test_hash_is_consistent_with_equality
+    list = PublicSuffix::List.new.add(PublicSuffix::Rule.factory("com"))
+    equal_list = PublicSuffix::List.new.add(PublicSuffix::Rule.factory("com"))
+
+    assert_equal list.hash, equal_list.hash
+    assert_equal :value, { list => :value }[equal_list]
+  end
+
   def test_each_without_block
     list = PublicSuffix::List.parse(<<LIST)
 alpha
