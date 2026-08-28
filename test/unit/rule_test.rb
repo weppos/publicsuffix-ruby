@@ -76,6 +76,14 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
   end
   # rubocop:enable Style/SingleLineMethods
 
+  def test_hash_is_consistent_with_equality
+    rule = @klass.new(value: "foo")
+    equal_rule = @klass.new(value: "foo")
+
+    assert_equal rule.hash, equal_rule.hash
+    assert_equal :value, { rule => :value }[equal_rule]
+  end
+
   def test_match_standard
     [
       [PublicSuffix::Rule.factory("uk"), "uk", true],
