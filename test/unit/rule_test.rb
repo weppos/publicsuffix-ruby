@@ -89,10 +89,11 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
 
   def test_match_wildcard_and_exception
     [
-      # FIXME
-      # [PublicSuffix::Rule.factory("*.com"), "com", false],
+      [PublicSuffix::Rule.factory("*.com"), "com", false],
       [PublicSuffix::Rule.factory("*.com"), "example.com", true],
       [PublicSuffix::Rule.factory("*.com"), "foo.example.com", true],
+      [PublicSuffix::Rule.factory("*.co.uk"), "co.uk", false],
+      [PublicSuffix::Rule.factory("*.co.uk"), "example.co.uk", true],
       [PublicSuffix::Rule.factory("!example.com"), "com", false],
       [PublicSuffix::Rule.factory("!example.com"), "example.com", true],
       [PublicSuffix::Rule.factory("!example.com"), "foo.example.com", true],
@@ -241,6 +242,18 @@ class PublicSuffix::RuleWildcardTest < Minitest::Test
   def test_parts
     assert_equal %w[uk], @klass.build("*.uk").parts
     assert_equal %w[co uk], @klass.build("*.co.uk").parts
+  end
+
+  def test_match
+    # the wildcard label requires an extra leading label in the input,
+    # so the rule's own value alone must not match
+    [
+      ["uk", false],
+      ["google.uk", true],
+      ["foo.google.uk", true],
+    ].each do |input, expected|
+      assert_equal expected, @klass.build("*.uk").match?(input)
+    end
   end
 
   def test_decompose
