@@ -105,7 +105,7 @@ class AcceptanceTest < Minitest::Test
     ["subdomain.blogspot.com", false, "subdomain.blogspot.com"],
   ].freeze
 
-  # rubocop:disable Style/CombinableLoops
+  # rubocop:disable-next Style/CombinableLoops
   def test_ignore_private
     # test domain and parse
     INCLUDE_PRIVATE_CASES.each do |given, ignore_private, expected|
@@ -120,7 +120,6 @@ class AcceptanceTest < Minitest::Test
       assert_equal !expected.nil?, PublicSuffix.valid?(given, ignore_private: ignore_private)
     end
   end
-  # rubocop:enable Style/CombinableLoops
 
 
   def valid_uri?(name)

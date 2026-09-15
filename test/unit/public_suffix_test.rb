@@ -115,15 +115,15 @@ class PublicSuffixTest < Minitest::Test
 
 
   def test_self_valid
-    assert  PublicSuffix.valid?("google.com")
-    assert  PublicSuffix.valid?("www.google.com")
-    assert  PublicSuffix.valid?("google.co.uk")
-    assert  PublicSuffix.valid?("www.google.co.uk")
+    assert PublicSuffix.valid?("google.com")
+    assert PublicSuffix.valid?("www.google.com")
+    assert PublicSuffix.valid?("google.co.uk")
+    assert PublicSuffix.valid?("www.google.co.uk")
   end
 
   def test_self_valid_with_notlisted_name
-    assert  PublicSuffix.valid?("google.tldnotlisted")
-    assert  PublicSuffix.valid?("www.google.tldnotlisted")
+    assert PublicSuffix.valid?("google.tldnotlisted")
+    assert PublicSuffix.valid?("www.google.tldnotlisted")
   end
 
 

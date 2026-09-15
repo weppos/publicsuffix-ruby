@@ -9,7 +9,7 @@ class PslTest < Minitest::Test
 
   ROOT = File.expand_path("..", __dir__)
 
-  # rubocop:disable Security/Eval
+  # rubocop:disable-next Security/Eval
   def self.tests
     File.readlines(File.join(ROOT, "test/tests.txt")).map do |line|
       line = line.strip
@@ -27,7 +27,6 @@ class PslTest < Minitest::Test
       [input, output]
     end
   end
-  # rubocop:enable Security/Eval
 
 
   def test_valid
