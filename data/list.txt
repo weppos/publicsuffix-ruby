@@ -12766,8 +12766,10 @@ co.no
 // Combell.com : https://www.combell.com
 // Submitted by Combell Team <support@combell.com>
 webhosting.be
+site.webhosting.be
 prvw.eu
 hosting-cluster.nl
+site.hosting-cluster.nl
 
 // Contentful GmbH : https://www.contentful.com
 // Submitted by Contentful Developer Experience Team <prd-ecosystem-dx@contentful.com>
@@ -14232,6 +14234,10 @@ ipifony.net
 home64.de
 ipv64.de
 ipv64.net
+
+// IQHost / IQ Group : https://iqhost.pl/
+// Submitted by Adam Buhl <admin@iqhost.pl>
+iqhs.pl
 
 // ir.md : https://nic.ir.md
 // Submitted by Ali Soizi <info@nic.ir.md>
