@@ -241,6 +241,21 @@ module PublicSuffix
         value == "" ? STAR : STAR + DOT + value
       end
 
+      # Checks if this rule matches +name+.
+      #
+      # Unlike {Base#match?}, an exact match against +value+ is not enough,
+      # because the wildcard label requires an additional leading label
+      # to be present in +name+. For example, "*.com" doesn't match "com",
+      # only names with at least one label before it (e.g. "example.com").
+      #
+      # @param  name [String] the domain name to check
+      # @return [Boolean]
+      def match?(name)
+        return super if value == ""
+
+        name.chomp(value).end_with?(DOT)
+      end
+
       # Decomposes the domain name according to rule properties.
       #
       # @param  domain [#to_s] The domain name to decompose
