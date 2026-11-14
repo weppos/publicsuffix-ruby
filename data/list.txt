@@ -11272,6 +11272,10 @@ ltd.ua
 a2hosted.com
 cpserver.com
 
+// abyme : https://abyme.studio
+// Submitted by Richard Mathieson <psl@abyme.studio>
+abyme.dev
+
 // ActiveTrail : https://www.activetrail.biz/
 // Submitted by Ofer Kalaora <postmaster@activetrail.com>
 activetrail.biz
@@ -12376,6 +12380,13 @@ eero-stage.online
 
 // concludes Amazon
 
+// Amba : https://amba.dev
+// Submitted by Amba Abuse Desk <abuse@amba.dev>
+app.amba.host
+cdn.amba.host
+fn.amba.host
+go.amba.host
+
 // Anomaly : https://opencode.ai
 // Submitted by Dax Raad <security@anoma.ly>
 opentunnel.xyz
@@ -12535,6 +12546,10 @@ bnr.la
 // Submitted by Andy Ortlieb <aortlieb@atlassian.com>
 bitbucket.io
 
+// Bitgate, Inc. : https://ship.page
+// Submitted by Bitgate, Inc. <abuse@bitgate.com>
+ship.place
+
 // Blackbaud, Inc. : https://www.blackbaud.com
 // Submitted by Paul Crowder <paul.crowder@blackbaud.com>
 blackbaudcdn.net
@@ -12542,6 +12557,10 @@ blackbaudcdn.net
 // Blatech : http://www.blatech.net
 // Submitted by Luke Bratch <luke@bratch.co.uk>
 of.je
+
+// BlitzWorks : https://blitz.cloud
+// Submitted by BlitzWorks <hallo@blitzworks.io>
+prod.page
 
 // Block, Inc. : https://block.xyz
 // Submitted by Jonathan Boice <security@block.xyz>
@@ -12775,6 +12794,10 @@ objects.rma.cloudscale.ch
 lpg.objectstorage.ch
 rma.objectstorage.ch
 
+// Cloudzyro Ltd : https://cloudzyro.com
+// Submitted by Kofi Agyem <psl@cloudzyro.com>
+cloudzyro.app
+
 // Clovyr : https://clovyr.io
 // Submitted by Patrick Nielsen <patrick@clovyr.io>
 wnext.app
@@ -12875,6 +12898,10 @@ craft.me
 // Craynic, s.r.o. : http://www.craynic.com/
 // Submitted by Ales Krajnik <ales.krajnik@craynic.com>
 realm.cz
+
+// Curia : https://curiabots.com
+// Submitted by Curia <psl@crbts.app>
+crbts.app
 
 // cyber_Folks S.A. : https://cyberfolks.pl
 // Submitted by Bartlomiej Kida <security@cyberfolks.pl>
@@ -14009,6 +14036,10 @@ goupile.fr
 // Submitted by Richard Baker <richard.baker@digital.cabinet-office.gov.uk>
 pymnt.uk
 
+// Government of Germany : https://dachmarke.gov.de/
+// Submitted by Digitale Dachmarke <support@dachmarke.gov.de>
+gov.de
+
 // Government of the Netherlands : https://www.government.nl
 // Submitted by <domeinnaam@minaz.nl>
 gov.nl
@@ -14706,6 +14737,7 @@ hra.health
 // MedusaJS, Inc : https://medusajs.com/
 // Submitted by Stevche Radevski <engineering@medusajs.com>
 medusajs.app
+medusajs.site
 
 // Memset hosting : https://www.memset.com
 // Submitted by Tom Whitwell <domains@memset.com>
@@ -14886,6 +14918,12 @@ mkm.fan
 mocha.app
 mochausercontent.com
 mocha-sandbox.dev
+
+// Modelence : https://modelence.com/
+// Submitted by Modelence Security <security@modelence.com>
+modelence.app
+cloud.modelence.app
+sandbox.modelence.app
 
 // MODX Systems LLC : https://modx.com
 // Submitted by Elizabeth Southwell <elizabeth@modx.com>
@@ -15552,6 +15590,10 @@ ravpage.co.il
 // Submitted by David Fischer <team@readthedocs.org>
 readthedocs-hosted.com
 readthedocs.io
+
+// ReadWriteExecute, Inc : https://www.rwx.com
+// Submitted by Dan Manges <security@rwx.com>
+rwx.run
 
 // Red Hat, Inc. OpenShift : https://openshift.redhat.com/
 // Submitted by Tim Kramer <tkramer@rhcloud.com>
@@ -16366,6 +16408,10 @@ now.sh
 // VeryPositive SIA : http://very.lv
 // Submitted by Danko Aleksejevs <danko@very.lv>
 2038.io
+
+// VibeKit : https://vibekit.bot/
+// Submitted by Brian Boisjoli <info@vibekit.bot>
+vibekit.page
 
 // Virtual-Info : https://www.virtual-info.info/
 // Submitted by Adnan RIHAN <hostmaster@v-info.info>
