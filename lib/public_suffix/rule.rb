@@ -199,7 +199,7 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
-        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches = domain.to_s.match(/\A(.*)\.(#{suffix})\z/)
         matches ? matches[1..2] : [nil, nil]
       end
 
@@ -247,7 +247,7 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = ([".*?"] + parts).join('\.')
-        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches = domain.to_s.match(/\A(.*)\.(#{suffix})\z/)
         matches ? matches[1..2] : [nil, nil]
       end
 
@@ -285,7 +285,7 @@ module PublicSuffix
       # @return [Array<String>] The array with [trd + sld, tld].
       def decompose(domain)
         suffix = parts.join('\.')
-        matches = domain.to_s.match(/^(.*)\.(#{suffix})$/)
+        matches = domain.to_s.match(/\A(.*)\.(#{suffix})\z/)
         matches ? matches[1..2] : [nil, nil]
       end
 
