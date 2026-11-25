@@ -174,11 +174,22 @@ module PublicSuffix
         raise NotImplementedError
       end
 
-      # @abstract
+      # Decomposes the domain name according to rule properties.
+      #
       # @param  domain [#to_s] The domain name to decompose
-      # @return [Array<String, nil>]
-      def decompose(*)
-        raise NotImplementedError
+      # @return [Array<String, nil>] The array with [trd + sld, tld].
+      def decompose(domain)
+        matches = domain.to_s.match(/\A(.*)\.(#{suffix_pattern})\z/)
+        matches ? matches[1..2] : [nil, nil]
+      end
+
+      private
+
+      # The rule parts as a pattern that matches the suffix of a name.
+      #
+      # @return [String]
+      def suffix_pattern
+        parts.join('\.')
       end
 
     end
@@ -191,16 +202,6 @@ module PublicSuffix
       # @return [String] The rule definition.
       def rule
         value
-      end
-
-      # Decomposes the domain name according to rule properties.
-      #
-      # @param  domain [#to_s] The domain name to decompose
-      # @return [Array<String>] The array with [trd + sld, tld].
-      def decompose(domain)
-        suffix = parts.join('\.')
-        matches = domain.to_s.match(/\A(.*)\.(#{suffix})\z/)
-        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
@@ -241,22 +242,21 @@ module PublicSuffix
         value == "" ? STAR : STAR + DOT + value
       end
 
-      # Decomposes the domain name according to rule properties.
-      #
-      # @param  domain [#to_s] The domain name to decompose
-      # @return [Array<String>] The array with [trd + sld, tld].
-      def decompose(domain)
-        suffix = ([".*?"] + parts).join('\.')
-        matches = domain.to_s.match(/\A(.*)\.(#{suffix})\z/)
-        matches ? matches[1..2] : [nil, nil]
-      end
-
       # dot-split rule value and returns all rule parts
       # in the order they appear in the value.
       #
       # @return [Array<String>]
       def parts
         @value.split(DOT)
+      end
+
+      private
+
+      # The wildcard label matches one label of the name.
+      #
+      # @return [String]
+      def suffix_pattern
+        ([".*?"] + parts).join('\.')
       end
 
     end
@@ -277,16 +277,6 @@ module PublicSuffix
       # @return [String] The rule definition.
       def rule
         BANG + value
-      end
-
-      # Decomposes the domain name according to rule properties.
-      #
-      # @param  domain [#to_s] The domain name to decompose
-      # @return [Array<String>] The array with [trd + sld, tld].
-      def decompose(domain)
-        suffix = parts.join('\.')
-        matches = domain.to_s.match(/\A(.*)\.(#{suffix})\z/)
-        matches ? matches[1..2] : [nil, nil]
       end
 
       # dot-split rule value and returns all rule parts
