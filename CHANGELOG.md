@@ -6,6 +6,8 @@
 ### Fixed
 
 - Read default list data as UTF-8 to avoid `Encoding::CompatibilityError` when locale is not set to UTF-8 (#118).
+- `PublicSuffix.parse`, `.valid?` and `.domain` convert the name to UTF-8 before the rule lookup. A name that carried another encoding matched the ASCII-only rules alone, and the library returned a public suffix as the registrable domain (#593).
+- `PublicSuffix.domain` no longer raises `Encoding::CompatibilityError`. A name that does not hold valid UTF-8 is invalid (#593).
 
 
 ## 7.0.5 - 2026-03-03
