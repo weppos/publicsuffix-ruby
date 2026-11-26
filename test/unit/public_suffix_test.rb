@@ -149,15 +149,23 @@ class PublicSuffixTest < Minitest::Test
 
 
   def test_self_valid_with_a_byte_string
-    assert PublicSuffix.valid?("evil.公司.cn".b)
-    refute PublicSuffix.valid?("公司.cn".b)
+    assert PublicSuffix.valid?("evil.\u516C\u53F8.cn".b)
+    refute PublicSuffix.valid?("\u516C\u53F8.cn".b)
   end
 
   def test_self_domain_with_a_byte_string
-    name = "evil.公司.cn"
+    name = "evil.\u516C\u53F8.cn"
 
     assert_equal name, PublicSuffix.domain(name.b)
     assert_equal "google.co.uk", PublicSuffix.domain("www.google.co.uk".b)
+  end
+
+  def test_self_domain_with_a_list_parsed_from_a_byte_string
+    list = PublicSuffix::List.parse("\u516C\u53F8.cn".b)
+    name = "evil.\u516C\u53F8.cn"
+
+    assert_equal name, PublicSuffix.domain(name, list: list)
+    assert_equal name, PublicSuffix.domain(name.b, list: list)
   end
 
   def test_self_domain_with_another_encoding
@@ -226,7 +234,7 @@ class PublicSuffixTest < Minitest::Test
   end
 
   def test_normalize_with_a_byte_string
-    name = "evil.公司.cn"
+    name = "evil.\u516C\u53F8.cn"
     normalized = PublicSuffix.normalize(name.b)
 
     assert_equal name, normalized
@@ -235,11 +243,11 @@ class PublicSuffixTest < Minitest::Test
 
   def test_normalize_with_another_encoding
     [
-      "example.com".encode("UTF-16LE"),
-      "example.com".encode("US-ASCII"),
-      "example.com".encode("ISO-8859-1"),
-    ].each do |input|
-      assert_equal "example.com", PublicSuffix.normalize(input)
+      ["example.com".encode("UTF-16LE"), "example.com"],
+      ["example.com".encode("US-ASCII"), "example.com"],
+      ["caf\u00E9.example.com".encode("ISO-8859-1"), "caf\u00E9.example.com"],
+    ].each do |input, output|
+      assert_equal output, PublicSuffix.normalize(input)
     end
   end
 

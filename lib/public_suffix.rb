@@ -176,11 +176,10 @@ module PublicSuffix
     name
   end
 
-  # The list rules are UTF-8, and Ruby does not match two non-ASCII strings
-  # that have different encodings. A byte string holds UTF-8 bytes already,
-  # so it gets a new encoding and not a conversion.
+  # Ruby does not match two non-ASCII strings that have different encodings, so
+  # the name and the rule values must share one. A byte string needs
+  # force_encoding, because encode raises for a byte above 0x7F.
   #
-  # @param  name [String] the name to convert
   # @return [String, nil] the name as mutable UTF-8, or nil if it does not hold valid UTF-8
   def self.encode_utf8(name)
     name = if name.encoding == Encoding::BINARY
@@ -189,7 +188,7 @@ module PublicSuffix
              name.encode(Encoding::UTF_8)
            end
 
-    name.valid_encoding? ? name : nil
+    name if name.valid_encoding?
   rescue EncodingError
     nil
   end
