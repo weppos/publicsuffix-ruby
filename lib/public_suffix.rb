@@ -162,7 +162,9 @@ module PublicSuffix
 
   # Pretend we know how to deal with user input.
   def self.normalize(name)
-    name = name.to_s.dup
+    name = encode_utf8(name.to_s)
+    return DomainInvalid.new("Name is not valid UTF-8") if name.nil?
+
     name.strip!
     name.chomp!(DOT)
     name.downcase!
@@ -172,6 +174,23 @@ module PublicSuffix
     return DomainInvalid.new(format("%s is not expected to contain a scheme", name)) if name.include?("://")
 
     name
+  end
+
+  # Ruby does not match two non-ASCII strings that have different encodings, so
+  # the name and the rule values must share one. A byte string needs
+  # force_encoding, because encode raises for a byte above 0x7F.
+  #
+  # @return [String, nil] the name as mutable UTF-8, or nil if it does not hold valid UTF-8
+  def self.encode_utf8(name)
+    name = if name.encoding == Encoding::BINARY
+             name.dup.force_encoding(Encoding::UTF_8)
+           else
+             name.encode(Encoding::UTF_8)
+           end
+
+    name if name.valid_encoding?
+  rescue EncodingError
+    nil
   end
 
 end

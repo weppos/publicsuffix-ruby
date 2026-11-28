@@ -148,6 +148,42 @@ class PublicSuffixTest < Minitest::Test
   end
 
 
+  def test_self_valid_with_a_byte_string
+    assert PublicSuffix.valid?("evil.\u516C\u53F8.cn".b)
+    refute PublicSuffix.valid?("\u516C\u53F8.cn".b)
+  end
+
+  def test_self_domain_with_a_byte_string
+    name = "evil.\u516C\u53F8.cn"
+
+    assert_equal name, PublicSuffix.domain(name.b)
+    assert_equal "google.co.uk", PublicSuffix.domain("www.google.co.uk".b)
+  end
+
+  def test_self_domain_with_a_list_parsed_from_a_byte_string
+    list = PublicSuffix::List.parse("\u516C\u53F8.cn".b)
+    name = "evil.\u516C\u53F8.cn"
+
+    assert_equal name, PublicSuffix.domain(name, list: list)
+    assert_equal name, PublicSuffix.domain(name.b, list: list)
+  end
+
+  def test_self_domain_with_another_encoding
+    assert_equal "google.co.uk", PublicSuffix.domain("www.google.co.uk".encode("UTF-16LE"))
+  end
+
+  def test_self_domain_with_an_invalid_encoding
+    assert_nil PublicSuffix.domain("www.google.co.uk\xFF".dup.force_encoding("UTF-8"))
+  end
+
+  def test_self_parse_with_an_invalid_encoding
+    error = assert_raises(PublicSuffix::DomainInvalid) do
+      PublicSuffix.parse("www.google.co.uk\xFF".dup.force_encoding("UTF-8"))
+    end
+
+    assert_match(/UTF-8/, error.message)
+  end
+
   def test_self_normalize
     [
       ["com", "com"],
@@ -194,6 +230,36 @@ class PublicSuffixTest < Minitest::Test
 
       assert_instance_of PublicSuffix::DomainInvalid, error
       assert_match "Name starts with a dot", error.message
+    end
+  end
+
+  def test_normalize_with_a_byte_string
+    name = "evil.\u516C\u53F8.cn"
+    normalized = PublicSuffix.normalize(name.b)
+
+    assert_equal name, normalized
+    assert_equal Encoding::UTF_8, normalized.encoding
+  end
+
+  def test_normalize_with_another_encoding
+    [
+      ["example.com".encode("UTF-16LE"), "example.com"],
+      ["example.com".encode("US-ASCII"), "example.com"],
+      ["caf\u00E9.example.com".encode("ISO-8859-1"), "caf\u00E9.example.com"],
+    ].each do |input, output|
+      assert_equal output, PublicSuffix.normalize(input)
+    end
+  end
+
+  def test_normalize_with_an_invalid_encoding
+    [
+      "example.com\xFF".dup.force_encoding("UTF-8"),
+      "example.com\xFF".dup.force_encoding("BINARY"),
+    ].each do |input|
+      error = PublicSuffix.normalize(input)
+
+      assert_instance_of PublicSuffix::DomainInvalid, error
+      assert_equal "Name is not valid UTF-8", error.message
     end
   end
 

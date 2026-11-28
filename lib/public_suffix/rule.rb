@@ -124,7 +124,9 @@ module PublicSuffix
       # @param  value [String]
       # @param  private [Boolean]
       def initialize(value:, length: nil, private: false)
-        @value    = value.to_s
+        value     = value.to_s
+        value     = PublicSuffix.encode_utf8(value) || value unless value.encoding == Encoding::UTF_8
+        @value    = value
         @length   = length || (@value.count(DOT) + 1)
         @private  = private
       end

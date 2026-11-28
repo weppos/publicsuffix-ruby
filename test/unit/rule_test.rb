@@ -60,6 +60,14 @@ class PublicSuffix::RuleBaseTest < Minitest::Test
   end
 
 
+  def test_initialize_with_a_byte_string
+    rule = @klass.new(value: "\u516C\u53F8.cn".b)
+
+    assert_equal "\u516C\u53F8.cn", rule.value
+    assert_equal Encoding::UTF_8, rule.value.encoding
+  end
+
+
   def test_equality_with_self
     rule = PublicSuffix::Rule::Base.new(value: "foo")
 
