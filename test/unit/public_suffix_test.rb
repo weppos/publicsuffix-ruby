@@ -126,6 +126,11 @@ class PublicSuffixTest < Minitest::Test
     assert PublicSuffix.valid?("www.google.tldnotlisted")
   end
 
+  def test_self_valid_with_interior_newline
+    refute PublicSuffix.valid?("example.com\nfoo.com")
+    refute PublicSuffix.valid?("example.co.uk\nfoo.co.uk")
+  end
+
 
   def test_self_domain
     assert_equal "google.com",    PublicSuffix.domain("google.com")
@@ -145,6 +150,11 @@ class PublicSuffixTest < Minitest::Test
   def test_self_domain_with_blank_sld
     assert_nil PublicSuffix.domain("com")
     assert_nil PublicSuffix.domain(".com")
+  end
+
+  def test_self_domain_with_interior_newline
+    assert_nil PublicSuffix.domain("example.com\nfoo.com")
+    assert_nil PublicSuffix.domain("example.co.uk\nfoo.co.uk")
   end
 
 
